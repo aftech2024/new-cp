@@ -27,6 +27,10 @@ import fieldCabinet02 from "@/assets/images/meikarta/field/cabinet-testing-02.jp
 import fieldNetCabinet01 from "@/assets/images/meikarta/field/network-cabinet-01.jpg";
 import fieldNetCabinet02 from "@/assets/images/meikarta/field/network-cabinet-02.jpg";
 import fieldSiteTeam from "@/assets/images/meikarta/field/site-team-meikarta.jpg";
+import dcRackRow from "@/assets/images/datacenter/rack-row.jpg";
+import dcOverheadServices from "@/assets/images/datacenter/overhead-services.jpg";
+import dcCabinetStaging from "@/assets/images/datacenter/cabinet-staging.jpg";
+import dcCabinetFitout from "@/assets/images/datacenter/cabinet-fitout.jpg";
 
 /**
  * FEWS Adipala field documentation — auto-loaded from
@@ -200,8 +204,13 @@ export const projects: Project[] = [
     status: "completed",
     description: "Migration of legacy infrastructure to a modern cloud and network architecture.",
     scope: ["Cloud", "Network", "System Integration"],
-    coverImage: "technology",
-    gallery: [{ image: "technology" }, { image: "technology" }],
+    coverImage: dcRackRow,
+    gallery: [
+      { image: dcRackRow, caption: "Rack row — busway and cable containment overhead" },
+      { image: dcOverheadServices, caption: "Overhead services above the rack rows" },
+      { image: dcCabinetStaging, caption: "Cabinets staged for positioning" },
+      { image: dcCabinetFitout, caption: "Cabinet fit-out — rails and panels" },
+    ],
     featured: false,
   },
 ];
