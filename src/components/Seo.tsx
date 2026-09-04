@@ -7,7 +7,12 @@ interface SeoProps {
   type?: "website" | "article";
 }
 
-const SITE_URL = import.meta.env.VITE_SITE_URL || "https://www.aftech.co.id";
+/**
+ * Canonical host is the bare domain. Normalising here means a stray "www." in
+ * VITE_SITE_URL cannot emit canonicals pointing at the host that .htaccess
+ * redirects away from.
+ */
+const SITE_URL = (import.meta.env.VITE_SITE_URL || "https://aftech.co.id").replace("://www.", "://");
 const SITE_NAME = import.meta.env.VITE_SITE_NAME || "PT Aftech Daya Solusindo";
 
 export default function Seo({ title, description, path = "/", type = "website" }: SeoProps) {

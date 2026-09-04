@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && npm run seo",
+    "seo": "vite build --ssr scripts/prerender.ts --outDir .prerender --emptyOutDir --logLevel warn && node .prerender/prerender.js && rm -rf .prerender",
     "preview": "vite preview",
     "lint": "eslint .",
     "typecheck": "tsc -b",

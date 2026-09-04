@@ -2,10 +2,24 @@ RewriteEngine On
 
 RewriteBase /
 
+# One canonical host. www and the bare domain both resolve, and serving the
+# same pages on both splits ranking signals between them.
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
 RewriteRule ^index\.html$ - [L]
 
 # Other applications sharing this public_html. Never hand their URLs to the SPA
 # router — let each app's own rules or PHP front controller handle them.
+RewriteCond %{REQUEST_URI} !^/(adminklinik|budget|eptms|erp|klinik|mk|smart)(/|$)
+RewriteCond %{REQUEST_URI} !^/api/
+
+# Prerendered pages: /about is served from about.html, which carries that page's
+# own title, description, canonical and structured data. Falls through when no
+# such file exists, so this cannot shadow the sibling apps.
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+?)/?$ /$1.html [L]
+
 RewriteCond %{REQUEST_URI} !^/(adminklinik|budget|eptms|erp|klinik|mk|smart)(/|$)
 RewriteCond %{REQUEST_URI} !^/api/
 

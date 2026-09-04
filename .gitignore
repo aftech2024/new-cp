@@ -7,3 +7,4 @@ dist
 deploy.config
 deploy.zip
 backup-server-*
+.prerender
