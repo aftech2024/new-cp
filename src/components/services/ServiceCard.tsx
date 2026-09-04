@@ -26,7 +26,13 @@ export default function ServiceCard({ service }: { service: Service }) {
           <p className="text-muted max-w-xl">{service.shortStatement}</p>
         </div>
         <div className="hidden md:block w-32">
-          <ImageReveal motif={motifBySlug[service.slug]} ratio="square" className="rounded-full" />
+          <ImageReveal
+            motif={motifBySlug[service.slug]}
+            src={service.image}
+            alt={service.imageAlt}
+            ratio="square"
+            className="rounded-full"
+          />
         </div>
         <ArrowUpRight className="hidden md:block h-6 w-6 text-muted transition-all duration-300 ease-premium group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-aftech-teal" />
       </Link>

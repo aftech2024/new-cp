@@ -1,4 +1,5 @@
 import type { Service } from "@/types";
+import technologyPhoto from "@/assets/images/datacenter/overhead-services.jpg";
 
 export const services: Service[] = [
   {
@@ -6,6 +7,8 @@ export const services: Service[] = [
     number: "01",
     title: "Technology",
     shortStatement: "Digital solutions that help organizations operate smarter, connect better and scale with confidence.",
+    image: technologyPhoto,
+    imageAlt: "Overhead services and cable containment above a data hall rack row",
     intro:
       "We design and deliver digital solutions that help organizations operate smarter, connect better and scale with confidence — from software to infrastructure to cybersecurity. Drone photogrammetry is a flagship product: we turn aerial survey data into terrain models and volume reports project teams can act on the same day.",
     capabilities: [

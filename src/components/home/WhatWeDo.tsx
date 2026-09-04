@@ -52,6 +52,8 @@ export default function WhatWeDo() {
               >
                 <ImageReveal
                   motif={service.slug === "technology" ? "technology" : "me"}
+                  src={service.image}
+                  alt={service.imageAlt}
                   ratio="service"
                   label={service.title}
                 />

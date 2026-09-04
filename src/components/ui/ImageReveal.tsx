@@ -14,6 +14,8 @@ interface ImageRevealProps {
   src?: string;
   ratio?: "hero" | "wide" | "project" | "service" | "square";
   label?: string;
+  /** Alt text for a real photograph. Falls back to `label` when omitted. */
+  alt?: string;
   className?: string;
   brand?: "aftech" | "halora" | "auto";
 }
@@ -49,7 +51,7 @@ const motifCompany: Record<Motif, { name: string; halora: boolean }> = {
   abstract: { name: "AFTECH", halora: false },
 };
 
-export default function ImageReveal({ motif = "abstract", src, ratio = "wide", label, className = "" }: ImageRevealProps) {
+export default function ImageReveal({ motif = "abstract", src, ratio = "wide", label, alt, className = "" }: ImageRevealProps) {
   const company = motifCompany[motif];
 
   if (src) {
@@ -63,7 +65,7 @@ export default function ImageReveal({ motif = "abstract", src, ratio = "wide", l
       >
         <img
           src={src}
-          alt={label ?? ""}
+          alt={alt ?? label ?? ""}
           className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-premium group-hover:scale-[1.03]"
           loading="lazy"
         />

@@ -30,6 +30,9 @@ export interface Service {
   faq: { question: string; answer: string }[];
   highlights?: string[];
   videoUrl?: string;
+  /** Real field photography for the service cards. Falls back to the motif when absent. */
+  image?: string;
+  imageAlt?: string;
 }
 
 export interface Insight {
