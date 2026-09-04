@@ -189,13 +189,6 @@ export default function Navbar() {
 
             {/* CTA cluster */}
             <div className="hidden items-center gap-4 lg:flex">
-              <a
-                href={`tel:${company.phone.replace(/[^+\d]/g, "")}`}
-                className="hidden font-mono text-[12px] font-medium tracking-wide text-white/55 transition-colors hover:text-white xl:block"
-              >
-                {company.phone}
-              </a>
-              <span className="hidden h-5 w-px bg-white/10 xl:block" aria-hidden="true" />
               <Button to="/contact" variant="primary" className="!px-5 !py-2.5">
                 Start a Project
               </Button>
