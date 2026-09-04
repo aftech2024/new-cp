@@ -186,8 +186,8 @@ export const projects: Project[] = [
     slug: "photogrammetry",
     title: "Photogrammetry",
     category: "technology",
-    client: "[CLIENT NAME]",
-    location: "[LOCATION]",
+    client: "Kementerian Pertahanan",
+    location: "Jakarta, Indonesia",
     description:
       "We fly the site and turn overlapping aerial photos into terrain models, maps, and volume reports the project team can act on the same day.",
     scope: [
