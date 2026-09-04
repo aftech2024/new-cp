@@ -145,7 +145,7 @@ export const projects: Project[] = [
     slug: "cctv-access-door-installation",
     title: "CCTV & Access Door Installation",
     category: "technology",
-    client: "[CLIENT NAME]",
+    client: "PT Mahkota Sentosa Utama",
     location: "Meikarta District 2",
     status: "completed",
     description: "Installation of CCTV surveillance and access door control systems across a residential district.",
