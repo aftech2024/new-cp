@@ -1,0 +1,89 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One deploy at a time; a newer push waits rather than racing.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        env:
+          VITE_SITE_URL: ${{ vars.VITE_SITE_URL }}
+          VITE_SITE_NAME: ${{ vars.VITE_SITE_NAME }}
+          VITE_GA_ID: ${{ vars.VITE_GA_ID }}
+          VITE_CONTACT_ENDPOINT: ${{ vars.VITE_CONTACT_ENDPOINT }}
+        run: npm run build
+
+      - name: Sanity-check the build
+        run: |
+          test -f dist/index.html || { echo "::error::dist/index.html missing"; exit 1; }
+          test -f dist/.htaccess  || { echo "::error::dist/.htaccess missing — SPA routes would 404"; exit 1; }
+          test -f dist/api/contact.php || echo "::warning::dist/api/contact.php missing"
+          if grep -rqs "example\.com" dist/sitemap.xml dist/robots.txt; then
+            echo "::error::dist still contains example.com placeholders"; exit 1
+          fi
+
+      - name: Set up SSH
+        env:
+          SSH_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
+          SSH_HOST: ${{ secrets.HOSTINGER_HOST }}
+          SSH_PORT: ${{ secrets.HOSTINGER_PORT }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Upload dist/ to public_html
+        env:
+          SSH_HOST: ${{ secrets.HOSTINGER_HOST }}
+          SSH_PORT: ${{ secrets.HOSTINGER_PORT }}
+          SSH_USER: ${{ secrets.HOSTINGER_USER }}
+          REMOTE_DIR: ${{ secrets.HOSTINGER_REMOTE_DIR }}
+        run: |
+          # No --delete: public_html is shared with other apps (erp, klinik, ...).
+          # Stale assets are pruned separately with `npm run clean:assets`.
+          rsync -az --human-readable --itemize-changes \
+            --exclude='.DS_Store' --exclude='*.map' \
+            -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=yes" \
+            dist/ "$SSH_USER@$SSH_HOST:$REMOTE_DIR/"
+
+      - name: Smoke-test the live site
+        run: |
+          fail=0
+          for path in / /about /contact /robots.txt; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 30 "https://aftech.co.id$path")
+            echo "$path -> $code"
+            [ "$code" = "200" ] || fail=1
+          done
+          # The sibling apps must survive every deploy.
+          for path in /erp/ /klinik/ /budget/ /adminklinik/ /eptms/ /mk/ /smart/; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 30 "https://aftech.co.id$path")
+            echo "$path -> $code"
+            [ "$code" = "200" ] || fail=1
+          done
+          exit $fail
+
+      - name: Remove the key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
