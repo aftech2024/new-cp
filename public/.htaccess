@@ -1,0 +1,15 @@
+RewriteEngine On
+
+RewriteBase /
+
+RewriteRule ^index\.html$ - [L]
+
+# Other applications sharing this public_html. Never hand their URLs to the SPA
+# router — let each app's own rules or PHP front controller handle them.
+RewriteCond %{REQUEST_URI} !^/(adminklinik|budget|eptms|erp|klinik|mk|smart)(/|$)
+RewriteCond %{REQUEST_URI} !^/api/
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule . /index.html [L]

@@ -1,0 +1,27 @@
+# Copy to `deploy.config` and fill in. `deploy.config` is gitignored — never commit it.
+#
+# Where to find these values in Hostinger hPanel:
+#   SSH  -> Advanced -> SSH Access  (host, port, username; password or SSH key)
+#   FTP  -> Files -> FTP Accounts   (host, username, password)
+
+# Transfer mode: "ssh" (rsync, faster, recommended) or "ftp" (lftp, works on every plan)
+DEPLOY_MODE=ssh
+
+# --- SSH mode ---
+SSH_HOST=
+SSH_PORT=65002
+SSH_USER=
+
+# --- FTP mode ---
+FTP_HOST=
+FTP_USER=
+FTP_PASS=
+
+# Absolute path of the web root on the server.
+# Primary domain:  /home/<user>/public_html
+# Addon domain:    /home/<user>/domains/aftech.co.id/public_html
+REMOTE_DIR=
+
+# Files/dirs already on the server that deploy must never delete.
+# Space-separated glob patterns, relative to REMOTE_DIR.
+KEEP=".well-known cgi-bin"

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.aftech.co.id/</loc><priority>1.0</priority></url>
+  <url><loc>https://www.aftech.co.id/about</loc><priority>0.8</priority></url>
+  <url><loc>https://www.aftech.co.id/services</loc><priority>0.8</priority></url>
+  <url><loc>https://www.aftech.co.id/services/technology</loc><priority>0.7</priority></url>
+  <url><loc>https://www.aftech.co.id/services/mechanical-electrical</loc><priority>0.7</priority></url>
+  <url><loc>https://www.aftech.co.id/services/integrated-solutions</loc><priority>0.7</priority></url>
+  <url><loc>https://www.aftech.co.id/projects</loc><priority>0.8</priority></url>
+  <url><loc>https://www.aftech.co.id/insights</loc><priority>0.6</priority></url>
+  <url><loc>https://www.aftech.co.id/contact</loc><priority>0.7</priority></url>
+</urlset>
