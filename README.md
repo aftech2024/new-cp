@@ -22,11 +22,49 @@ Build output goes to `dist/`.
 
 ## Deploy (Hostinger)
 
-1. `npm run build`
-2. Upload the contents of `dist/` to `public_html/` (including `.htaccess`, `robots.txt`, `sitemap.xml`, `api/contact.php`).
-3. Edit `public_html/api/contact.php`: set `$RECIPIENT_EMAIL` to the verified company inbox.
-4. Copy `.env.example` to `.env`, set `VITE_SITE_URL` to the live domain, and rebuild before final upload so canonical/OG URLs are correct.
-5. Verify: direct route access, page refresh on a nested route, HTTPS, and submit a real test message through the contact form (the PHP endpoint cannot be tested locally — no PHP runtime in the dev environment).
+Live at https://aftech.co.id. Two routes to production, both landing in
+`/home/u532067520/domains/aftech.co.id/public_html`.
+
+**Automatic** — every push to `main` runs `.github/workflows/deploy.yml`: build,
+sanity-check `dist/`, rsync over SSH, then smoke-test the live URLs. Credentials
+come from repo secrets (`HOSTINGER_HOST`, `_PORT`, `_USER`, `_REMOTE_DIR`,
+`_SSH_KEY`); the `VITE_*` build values come from repo variables.
+
+**Manual** — from a machine with `deploy.config` filled in (see
+`deploy.config.example`):
+
+```bash
+npm run deploy:dry    # preview the file list, upload nothing
+npm run deploy        # build, verify, upload
+```
+
+Afterwards, purge the CDN cache in hPanel (Dashboard → Cache → Hapus cache);
+that step is not automated.
+
+### The web root is shared
+
+`public_html` also hosts `adminklinik`, `budget`, `eptms`, `erp`, `klinik`, `mk`
+and `smart`. Two consequences:
+
+- Deploys never delete. `DELETE_STALE=0` in `deploy.config`, and the workflow
+  runs rsync without `--delete`, so a stray local deletion can never take a
+  sibling app down. Stale hashed assets are pruned deliberately with
+  `npm run clean:assets` (scoped to `assets/`, nothing else).
+- `public/.htaccess` excludes those paths from the SPA rewrite, so their URLs
+  reach their own front controllers instead of `index.html`.
+
+Both the workflow's smoke test and any manual check should confirm those sibling
+paths still return 200.
+
+### After a content or config change
+
+`$RECIPIENT_EMAIL` in `public/api/contact.php` is the contact-form inbox.
+`VITE_SITE_URL` in `.env` drives canonical and OG URLs — the build fails the
+sanity check if `example.com` placeholders survive into `dist/`.
+
+The PHP endpoint cannot be exercised locally (no PHP runtime in the dev
+environment), so submit a real test message after deploying and check the
+recipient's spam folder — `mail()` from shared hosting is frequently filtered.
 
 ## Content status
 
