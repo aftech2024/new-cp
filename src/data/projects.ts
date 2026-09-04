@@ -31,6 +31,7 @@ import dcRackRow from "@/assets/images/datacenter/rack-row.jpg";
 import dcOverheadServices from "@/assets/images/datacenter/overhead-services.jpg";
 import dcCabinetStaging from "@/assets/images/datacenter/cabinet-staging.jpg";
 import dcCabinetFitout from "@/assets/images/datacenter/cabinet-fitout.jpg";
+import dronePhotogrammetry from "@/assets/images/drone-photogrammetry.jpg";
 
 /**
  * FEWS Adipala field documentation — auto-loaded from
@@ -179,6 +180,27 @@ export const projects: Project[] = [
       { image: meikartaCctvTestingCrouching, caption: "Field Configuration" },
     ],
     featured: true,
+  },
+  {
+    id: "p7",
+    slug: "photogrammetry",
+    title: "Photogrammetry",
+    category: "technology",
+    client: "[CLIENT NAME]",
+    location: "[LOCATION]",
+    description:
+      "We fly the site and turn overlapping aerial photos into terrain models, maps, and volume reports the project team can act on the same day.",
+    scope: [
+      "Flight & Capture",
+      "Structure from Motion",
+      "Point Cloud 3D",
+      "Orthomosaic",
+      "DSM / DTM",
+      "Volume Report",
+    ],
+    coverImage: dronePhotogrammetry,
+    gallery: [{ image: dronePhotogrammetry, caption: "Aerial capture processed into a 3D terrain model" }],
+    featured: false,
   },
   {
     id: "p5",

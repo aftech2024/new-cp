@@ -6,6 +6,7 @@ import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Gallery from "@/components/ui/Gallery";
 import ProjectGrid from "@/components/projects/ProjectGrid";
+import PhotogrammetryShowcase from "@/components/services/PhotogrammetryShowcase";
 import CtaSection from "@/components/home/CtaSection";
 import { getProjectBySlug, projects } from "@/data/projects";
 import projectEnterpriseIt from "@/assets/images/project-enterprise-it.jpg";
@@ -75,6 +76,8 @@ export default function ProjectDetail() {
           </div>
         </Container>
       </Section>
+
+      {project.slug === "photogrammetry" && <PhotogrammetryShowcase variant="embedded" />}
 
       <Section tone="tint">
         <Container className="flex flex-col gap-10">

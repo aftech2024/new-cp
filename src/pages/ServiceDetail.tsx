@@ -6,7 +6,6 @@ import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageReveal, { type Motif } from "@/components/ui/ImageReveal";
-import PhotogrammetryShowcase from "@/components/services/PhotogrammetryShowcase";
 import thermalMounting from "@/assets/images/fews/fews-thermal-01.jpg";
 import conveyorArea from "@/assets/images/fews/fews-thermal-04.jpg";
 import atHeight from "@/assets/images/fews/fews-height-01.jpg";
@@ -182,8 +181,6 @@ export default function ServiceDetail() {
           )}
         </Container>
       </Section>
-
-      {service.slug === "technology" && <PhotogrammetryShowcase />}
 
       {relatedProjects.length > 0 && (
         <Section tone="tint">

@@ -35,39 +35,50 @@ const outputs = [
   },
 ];
 
+interface Props {
+  /**
+   * "lead" opens with its own heading and hero image — for a page that has not
+   * introduced photogrammetry yet. "embedded" drops both, for the project
+   * detail page whose PageHero already carries the title and description.
+   */
+  variant?: "lead" | "embedded";
+}
+
 /**
- * Flagship showcase — drone photogrammetry processing pipeline,
- * from flight to site intelligence the project team can act on.
+ * Drone photogrammetry processing pipeline, from flight to site intelligence
+ * the project team can act on.
  */
-export default function PhotogrammetryShowcase() {
+export default function PhotogrammetryShowcase({ variant = "lead" }: Props) {
   return (
     <Section tone="dark" className="overflow-hidden">
       <div className="pointer-events-none absolute inset-0 blueprint-dark opacity-60" aria-hidden="true" />
       <Container className="relative flex flex-col gap-12">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
-          <SectionHeading
-            index="F.01"
-            eyebrow="Flagship — Drone Photogrammetry"
-            title="From flight to site intelligence."
-            description="We fly the site and turn overlapping aerial photos into terrain models, maps, and volume reports the project team can act on the same day."
-            tone="dark"
-            brand="aftech"
-          />
-          <motion.div
-            variants={staggerItem}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            className="overflow-hidden rounded-pro border border-white/12 shadow-card"
-          >
-            <img
-              src={droneImage}
-              alt="Drone photogrammetry — from aerial capture to 3D terrain model"
-              className="aspect-[16/10] w-full object-cover"
-              loading="lazy"
+        {variant === "lead" && (
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
+            <SectionHeading
+              index="F.01"
+              eyebrow="Flagship — Drone Photogrammetry"
+              title="From flight to site intelligence."
+              description="We fly the site and turn overlapping aerial photos into terrain models, maps, and volume reports the project team can act on the same day."
+              tone="dark"
+              brand="aftech"
             />
-          </motion.div>
-        </div>
+            <motion.div
+              variants={staggerItem}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              className="overflow-hidden rounded-pro border border-white/12 shadow-card"
+            >
+              <img
+                src={droneImage}
+                alt="Drone photogrammetry — from aerial capture to 3D terrain model"
+                className="aspect-[16/10] w-full object-cover"
+                loading="lazy"
+              />
+            </motion.div>
+          </div>
+        )}
 
         {/* processing pipeline */}
         <motion.ol
