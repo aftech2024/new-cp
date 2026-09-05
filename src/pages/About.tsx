@@ -9,6 +9,7 @@ import CtaSection from "@/components/home/CtaSection";
 import HaloraTeaser from "@/components/home/HaloraTeaser";
 import { values } from "@/data/company";
 import { projects } from "@/data/projects";
+import aboutHero from "@/assets/images/datacenter/cabinet-fitout.jpg";
 
 const valueStatements: Record<string, string> = {
   Innovation: "The right tool for the job — from proven systems to applied AI.",
@@ -50,6 +51,7 @@ export default function About() {
         title="We Create Your Idea Into Reality"
         description="We are a technology-first company that also delivers mechanical & electrical capability — built to help organizations operate across both the digital and physical world."
         breadcrumb={[{ label: "Home", to: "/" }, { label: "About" }]}
+        backgroundImage={aboutHero}
       />
 
       <Section>
