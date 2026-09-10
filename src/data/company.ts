@@ -9,7 +9,7 @@ export const company = {
   positioning: "We build the digital and physical world.",
   email: "aftech.daya@gmail.com",
   phone: "0822-3183-4977",
-  whatsapp: "0822-3183-4977",
+  whatsapp: "0822-1111-2295",
   social: {
     instagram: "https://instagram.com/aftechds",
     tiktok: "https://www.tiktok.com/@aftechds",
