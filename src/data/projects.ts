@@ -32,6 +32,11 @@ import dcOverheadServices from "@/assets/images/datacenter/overhead-services.jpg
 import dcCabinetStaging from "@/assets/images/datacenter/cabinet-staging.jpg";
 import dcCabinetFitout from "@/assets/images/datacenter/cabinet-fitout.jpg";
 import dronePhotogrammetry from "@/assets/images/drone-photogrammetry.jpg";
+import photoOrthomosaic from "@/assets/images/photogrammetry/orthomosaic.jpg";
+import photoAerialParking from "@/assets/images/photogrammetry/aerial-parking.jpg";
+import photoAerialField from "@/assets/images/photogrammetry/aerial-field.jpg";
+import photoAerialTrailPond from "@/assets/images/photogrammetry/aerial-trail-pond.jpg";
+import photoAerialPondPlayground from "@/assets/images/photogrammetry/aerial-pond-playground.jpg";
 
 /**
  * FEWS Adipala field documentation — auto-loaded from
@@ -272,7 +277,14 @@ export const projects: Project[] = [
       "Volume Report",
     ],
     coverImage: dronePhotogrammetry,
-    gallery: [{ image: dronePhotogrammetry, caption: "Aerial capture processed into a 3D terrain model" }],
+    gallery: [
+      { image: dronePhotogrammetry, caption: "Aerial capture processed into a 3D terrain model" },
+      { image: photoOrthomosaic, caption: "Orthomosaic — full-site aerial map" },
+      { image: photoAerialParking, caption: "Parking & access — high-resolution detail" },
+      { image: photoAerialField, caption: "Field & forest canopy — survey detail" },
+      { image: photoAerialTrailPond, caption: "Trail & pond — terrain detail" },
+      { image: photoAerialPondPlayground, caption: "Pond & recreation area — aerial detail" },
+    ],
     featured: false,
   },
   {
