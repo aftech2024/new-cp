@@ -117,6 +117,79 @@ const fewsGallery = FEWS_ORDER.filter((f) => fewsByFile[f]).map((f) => ({
 }));
 
 /**
+ * Integrated Solutions documentation — auto-loaded from
+ * src/assets/images/integrated/{ai-farm,eptms,mk}/.
+ * 3 projects, 17 photos total:
+ * - ai-farm (6): AI Autonomous Farm, client Kementerian Pertanian
+ * - eptms (5): EPTMS enterprise project & portfolio management
+ * - mk (6): MK Management Construction / Project Controls
+ */
+const integratedModules = import.meta.glob<string>("../assets/images/integrated/**/*.jpg", {
+  eager: true,
+  import: "default",
+});
+
+const integratedByFile: Record<string, string> = {};
+for (const [path, src] of Object.entries(integratedModules)) {
+  const file = path.split("/").pop();
+  if (file && typeof src === "string") integratedByFile[file] = src;
+}
+
+const AI_FARM_ORDER = [
+  "ai-farm-01.jpg",
+  "ai-farm-02.jpg",
+  "ai-farm-03.jpg",
+  "ai-farm-04.jpg",
+  "ai-farm-05.jpg",
+  "ai-farm-06.jpg",
+];
+
+const AI_FARM_CAPTIONS: Record<string, string> = {
+  "ai-farm-01.jpg": "Farm Command Center — zone-level intelligence across Indonesia",
+  "ai-farm-02.jpg": "Farms registry — 24 connected farms across Indonesia",
+  "ai-farm-03.jpg": "AI Farm Brain — health scoring & risk classification pipeline",
+  "ai-farm-04.jpg": "Prescriptions — treatments awaiting validation & execution",
+  "ai-farm-05.jpg": "Mission M-021 — drone survey flight path, Jember",
+  "ai-farm-06.jpg": "Analytics — input efficiency, early detection & coverage",
+};
+
+const EPTMS_ORDER = ["eptms-01.jpg", "eptms-02.jpg", "eptms-03.jpg", "eptms-04.jpg", "eptms-05.jpg"];
+
+const EPTMS_CAPTIONS: Record<string, string> = {
+  "eptms-01.jpg": "Executive Dashboard — portfolio command view",
+  "eptms-02.jpg": "Portfolio & Projects Hub — PLN Indonesia Power & Kementerian Pertahanan",
+  "eptms-03.jpg": "Timeline & Gantt — Photogrammetry for Defense Platform",
+  "eptms-04.jpg": "Planning & WBS — dynamic bobot 100%",
+  "eptms-05.jpg": "Analytics & Kurva S — plan vs actual",
+};
+
+const MK_ORDER = ["mk-01.jpg", "mk-02.jpg", "mk-03.jpg", "mk-04.jpg", "mk-05.jpg", "mk-06.jpg"];
+
+const MK_CAPTIONS: Record<string, string> = {
+  "mk-01.jpg": "MK Login — Management Construction Project Controls",
+  "mk-02.jpg": "Portfolio Dashboard — contract, RAP & forecast summary",
+  "mk-03.jpg": "Cost Dashboard — Gedung Perkantoran BSD, RAP vs Earned Value",
+  "mk-04.jpg": "Bill of Quantity — 219 item BOQ baseline",
+  "mk-05.jpg": "WBS & Cost Code — 27 WBS, 100% weight",
+  "mk-06.jpg": "RAP — Rencana Anggaran Pelaksanaan approval",
+};
+
+const aiFarmGallery = AI_FARM_ORDER.filter((f) => integratedByFile[f]).map((f) => ({
+  image: integratedByFile[f],
+  caption: AI_FARM_CAPTIONS[f] ?? "AI Autonomous Farm",
+}));
+
+const eptmsGallery = EPTMS_ORDER.filter((f) => integratedByFile[f]).map((f) => ({
+  image: integratedByFile[f],
+  caption: EPTMS_CAPTIONS[f] ?? "EPTMS",
+}));
+
+const mkGallery = MK_ORDER.filter((f) => integratedByFile[f]).map((f) => ({
+  image: integratedByFile[f],
+  caption: MK_CAPTIONS[f] ?? "Management Construction",
+}));
+
+/**
  * Placeholder project data. No client names, values, or counts are invented —
  * bracketed fields must be replaced with verified information before publish.
  */
@@ -204,16 +277,47 @@ export const projects: Project[] = [
   },
   {
     id: "p5",
-    slug: "integrated-smart-office",
-    title: "Integrated Smart Office Program",
+    slug: "ai-autonomous-farm-kementan",
+    title: "AI Autonomous Farm — Kementerian Pertanian",
     category: "integrated",
-    client: "[CLIENT NAME]",
-    location: "[LOCATION]",
+    client: "Kementerian Pertanian",
+    location: "Indonesia — 24 Farms",
     status: "ongoing",
-    description: "Cross-discipline delivery combining IT infrastructure, network, security and interior fit-out.",
-    scope: ["IT Infrastructure", "Network", "Security", "Interior Fit-Out"],
-    coverImage: "integrated",
-    gallery: [{ image: "integrated" }, { image: "integrated" }],
+    description:
+      "Integrated smart-farming platform combining IoT sensing, drone imagery, AI health scoring and drone mission execution — Farm Command Center, AI Farm Brain, prescriptions and verification in one program.",
+    scope: ["IoT Sensing", "Drone Survey", "AI Analytics", "System Integration"],
+    coverImage: integratedByFile["ai-farm-01.jpg"] ?? "",
+    gallery: aiFarmGallery,
+    featured: true,
+  },
+  {
+    id: "p8",
+    slug: "eptms-enterprise-project-management",
+    title: "EPTMS — Enterprise Project Management System",
+    category: "integrated",
+    client: "PLN Indonesia Power / Kementerian Pertahanan",
+    location: "Indonesia",
+    status: "ongoing",
+    description:
+      "Enterprise portfolio command system — executive dashboard, project hub, timeline & Gantt, Planning & WBS with dynamic bobot, and automatic Kurva-S analytics from timeline to progress. Live at eptms.aftech.co.id.",
+    scope: ["Portfolio Dashboard", "Timeline & Gantt", "Planning & WBS", "Analytics & Kurva-S"],
+    coverImage: integratedByFile["eptms-01.jpg"] ?? "",
+    gallery: eptmsGallery,
+    featured: true,
+  },
+  {
+    id: "p9",
+    slug: "mk-management-construction",
+    title: "MK — Management Construction Project Controls",
+    category: "integrated",
+    client: "Gedung Perkantoran BSD & Construction Portfolio",
+    location: "BSD, Tangerang",
+    status: "ongoing",
+    description:
+      "Management-construction controls combining contract, BOQ, WBS & cost code, RAP, progress and actual cost into one golden thread — portfolio dashboard, cost dashboard, BOQ baseline and RAP approval. Live at mk.aftech.co.id.",
+    scope: ["Contract & BOQ", "WBS & Cost Control", "RAP", "Progress & Cost Dashboard"],
+    coverImage: integratedByFile["mk-02.jpg"] ?? "",
+    gallery: mkGallery,
     featured: true,
   },
   {

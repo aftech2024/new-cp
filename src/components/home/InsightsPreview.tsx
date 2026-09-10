@@ -6,16 +6,19 @@ import LinkArrow from "@/components/ui/LinkArrow";
 import InsightCard from "@/components/insights/InsightCard";
 import { insights } from "@/data/insights";
 import { staggerContainer, viewportOnce } from "@/lib/motion";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { localizeInsights } from "@/i18n/localize";
 
 export default function InsightsPreview() {
-  const latest = insights.slice(0, 3);
+  const { t } = useLanguage();
+  const latest = localizeInsights(insights, t).slice(0, 3);
 
   return (
     <Section>
       <Container className="flex flex-col gap-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <SectionHeading eyebrow="Insights" title="Aftech Insights" />
-          <LinkArrow to="/insights">All Insights</LinkArrow>
+          <SectionHeading eyebrow={t("ins.eyebrow")} title={t("ins.title")} />
+          <LinkArrow to="/insights">{t("ins.all")}</LinkArrow>
         </div>
         <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportOnce}>
           {latest.map((insight) => (

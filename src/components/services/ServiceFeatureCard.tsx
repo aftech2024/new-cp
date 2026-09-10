@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { fadeUp, staggerContainer, staggerItem, viewportOnce } from "@/lib/motion";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { localizeService } from "@/i18n/localize";
 import type { Service } from "@/types";
 
 const cornerTick = "absolute h-3 w-3 border-white/20";
@@ -21,7 +23,9 @@ function withAutoplay(url: string): string {
   return `${url}?${params.toString()}`;
 }
 
-export default function ServiceFeatureCard({ service }: { service: Service }) {
+export default function ServiceFeatureCard({ service: raw }: { service: Service }) {
+  const { t } = useLanguage();
+  const service = localizeService(raw, t);
   if (!service.videoUrl) return null;
 
   return (
@@ -46,7 +50,7 @@ export default function ServiceFeatureCard({ service }: { service: Service }) {
 
           {service.highlights && service.highlights.length > 0 && (
             <div className="flex flex-col gap-3">
-              <h5 className="text-sm font-semibold text-white">What you can do:</h5>
+              <h5 className="text-sm font-semibold text-white">{t("svcCard.doTitle")}</h5>
               <motion.ul variants={staggerContainer} className="flex flex-col gap-2.5">
                 {service.highlights.map((item) => (
                   <motion.li key={item} variants={staggerItem} className="flex items-start gap-2.5 text-sm text-white/70">
@@ -68,7 +72,7 @@ export default function ServiceFeatureCard({ service }: { service: Service }) {
             to={`/services/${service.slug}`}
             className="group inline-flex items-center gap-2 self-start rounded-lg border border-aftech-teal px-5 py-2.5 text-sm font-semibold text-aftech-teal hover:bg-aftech-teal hover:text-white transition-colors"
           >
-            Learn more
+            {t("svcCard.learn")}
             <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-premium group-hover:translate-x-1" />
           </Link>
         </div>

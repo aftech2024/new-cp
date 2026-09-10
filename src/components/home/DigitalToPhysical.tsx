@@ -4,6 +4,7 @@ import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { staggerContainer, staggerItem, viewportOnce } from "@/lib/motion";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface Node {
   code: string;
@@ -15,13 +16,14 @@ interface Node {
 
 // Ontology model: Aftech owns digital + engineering layers;
 // Halora executes the built-space layer. One handoff edge.
-const nodes: Node[] = [
-  { code: "D.01", label: "AI", owner: "aftech", edgeToNext: "models" },
-  { code: "D.02", label: "SOFTWARE", owner: "aftech", edgeToNext: "runs on" },
-  { code: "D.03", label: "DATA", owner: "aftech", edgeToNext: "carries" },
-  { code: "D.04", label: "NETWORK", owner: "aftech", edgeToNext: "controls" },
-  { code: "E.01", label: "BUILDING SYSTEM", owner: "aftech", edgeToNext: "verified by" },
-  { code: "E.02", label: "ENGINEERING", owner: "aftech", edgeToNext: "hand off", handoff: true },
+const edgeKeys = ["models", "runsOn", "carries", "controls", "verifiedBy", "handoff"] as const;
+const nodeCodes: Node[] = [
+  { code: "D.01", label: "AI", owner: "aftech" },
+  { code: "D.02", label: "SOFTWARE", owner: "aftech" },
+  { code: "D.03", label: "DATA", owner: "aftech" },
+  { code: "D.04", label: "NETWORK", owner: "aftech" },
+  { code: "E.01", label: "BUILDING SYSTEM", owner: "aftech" },
+  { code: "E.02", label: "ENGINEERING", owner: "aftech", handoff: true },
   { code: "P.01", label: "SPACE", owner: "halora" },
 ];
 
@@ -74,6 +76,11 @@ function Edge({ label, handoff, delay }: { label: string; handoff?: boolean; del
 }
 
 export default function DigitalToPhysical() {
+  const { t } = useLanguage();
+  const nodes: Node[] = nodeCodes.map((node, i) => ({
+    ...node,
+    edgeToNext: i < edgeKeys.length ? t(`d2p.e.${edgeKeys[i]}`) : undefined,
+  }));
   return (
     <Section tone="light" className="overflow-hidden">
       <div className="pointer-events-none absolute inset-0 blueprint-light" aria-hidden="true" />
@@ -81,9 +88,9 @@ export default function DigitalToPhysical() {
         <SectionHeading
           align="center"
           index="02"
-          eyebrow="Delivery ontology — one graph"
-          title="From digital intelligence to physical infrastructure."
-          description="Every layer mapped as one connected graph. Aftech owns digital and engineering; Halora executes built space — a single handoff, no gaps."
+          eyebrow={t("d2p.eyebrow")}
+          title={t("d2p.title")}
+          description={t("d2p.desc")}
           brand="aftech"
         />
         <p className="-mt-6 font-mono text-[10px] tracking-[0.2em] text-muted" aria-hidden="true">
@@ -120,7 +127,7 @@ export default function DigitalToPhysical() {
               <motion.li key={s.code} variants={staggerItem} className="flex flex-col items-center gap-1.5">
                 {s.handoff && (
                   <span className="flex items-center gap-1.5 rounded-full border border-halora-bronze/40 bg-halora-linen px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-halora-bronze">
-                    <ArrowLeftRight className="h-3 w-3" /> Handoff to Halora
+                    <ArrowLeftRight className="h-3 w-3" /> {t("d2p.handoff")}
                   </span>
                 )}
                 <span className={`flex w-full items-center justify-between rounded-pro border px-4 py-3 ${warm ? "border-halora-bronze/35 bg-halora-linen text-ink" : "border-aftech/25 bg-white text-ink"}`}>
@@ -134,8 +141,8 @@ export default function DigitalToPhysical() {
         </motion.ol>
 
         <div className="flex flex-wrap items-center justify-center gap-4 font-mono text-[10px] tracking-[0.16em] text-muted">
-          <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-sm bg-aftech" /> AFTECH · DIGITAL + ENGINEERING</span>
-          <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-sm bg-halora-bronze" /> HALORA · BUILT SPACE</span>
+          <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-sm bg-aftech" /> {t("d2p.legendAftech")}</span>
+          <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-sm bg-halora-bronze" /> {t("d2p.legendHalora")}</span>
         </div>
       </Container>
     </Section>

@@ -1,5 +1,6 @@
 import type { Service } from "@/types";
 import technologyPhoto from "@/assets/images/datacenter/overhead-services.jpg";
+import integratedPhoto from "@/assets/images/integrated/ai-farm/ai-farm-01.jpg";
 
 export const services: Service[] = [
   {
@@ -86,6 +87,8 @@ export const services: Service[] = [
     number: "03",
     title: "Integrated Solutions",
     shortStatement: "One program, two companies — technology and physical infrastructure working together.",
+    image: integratedPhoto,
+    imageAlt: "AI Autonomous Farm command center — integrated smart-farming program with Kementerian Pertanian",
     intro:
       "For projects that span digital and physical infrastructure, Aftech coordinates technology and engineering directly, and partners with our second company Halora for civil construction and interior work — one accountable program.",
     capabilities: [

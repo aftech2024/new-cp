@@ -3,20 +3,22 @@ import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Marquee from "@/components/ui/Marquee";
 import { partnerLogos } from "@/data/partners";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export default function Clients() {
+  const { t } = useLanguage();
   return (
     <Section tone="tint" className="overflow-hidden border-t border-aftech/10">
       <Container className="relative flex flex-col gap-10">
         <SectionHeading
           align="center"
-          eyebrow="Clients & Partners"
-          title="Trusted by organizations that build and move forward."
+          eyebrow={t("cli.eyebrow")}
+          title={t("cli.title")}
           brand="aftech"
         />
         {partnerLogos.length === 0 ? (
           <p className="mx-auto max-w-md text-center text-sm leading-relaxed text-muted">
-            Client logos will appear here once approved for public display.
+            {t("cli.empty")}
             <span className="mt-1 block font-mono text-[11px] text-muted/70">
               Taruh file logo di src/assets/images/partner/
             </span>

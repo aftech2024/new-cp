@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 import ImageReveal, { isMotif, type Motif } from "./ImageReveal";
 import { staggerContainer, staggerItem } from "@/lib/motion";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface GalleryItem {
   image: string;
@@ -39,6 +40,7 @@ function Tile({ item, title, index, className }: { item: GalleryItem; title: str
 const VISIBLE_COUNT = 5;
 
 export default function Gallery({ items, title }: { items: GalleryItem[]; title: string }) {
+  const { t, lang } = useLanguage();
   const [expanded, setExpanded] = useState(false);
 
   const [hero, ...rest] = items;
@@ -83,12 +85,12 @@ export default function Gallery({ items, title }: { items: GalleryItem[]; title:
           {expanded ? (
             <>
               <Minus className="h-4 w-4" />
-              Show fewer photos
+              {t("gal.fewer")}
             </>
           ) : (
             <>
               <Plus className="h-4 w-4" />
-              Load {overflow.length} more photo{overflow.length > 1 ? "s" : ""}
+              {t("gal.load")} {overflow.length} {lang === "id" ? t("gal.photoMany") : overflow.length > 1 ? t("gal.photoMany") : t("gal.photoOne")}
             </>
           )}
         </button>

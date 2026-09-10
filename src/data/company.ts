@@ -7,7 +7,7 @@ export const company = {
   shortName: "Aftech",
   tagline: "We Create Your Idea Into Reality",
   positioning: "We build the digital and physical world.",
-  email: "support@aftech.co.id",
+  email: "aftech.daya@gmail.com",
   phone: "0822-3183-4977",
   whatsapp: "0822-3183-4977",
   social: {

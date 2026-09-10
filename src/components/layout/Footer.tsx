@@ -2,20 +2,28 @@ import { Link } from "react-router-dom";
 import { Phone, Mail, Instagram, ArrowUpRight } from "lucide-react";
 import Container from "@/components/ui/Container";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
+import LanguageToggle from "@/components/ui/LanguageToggle";
 import { AftechMark, HaloraMark } from "@/components/ui/CompanyMark";
 import { company, locations, navItems, HALORA_URL } from "@/data/company";
+import { useLanguage } from "@/i18n/LanguageContext";
 import logo from "@/assets/images/logo-aftech.png";
 
-const exploreLinks = [
-  { label: "About", to: "/about" },
-  { label: "Projects", to: "/projects" },
-  { label: "Insights", to: "/insights" },
-  { label: "Contact", to: "/contact" },
+const exploreKeys = [
+  { key: "nav.about", to: "/about" },
+  { key: "nav.projects", to: "/projects" },
+  { key: "nav.insights", to: "/insights" },
+  { key: "nav.contact", to: "/contact" },
 ];
 
-const serviceLinks = navItems.find((item) => item.label === "Services")?.children ?? [];
+const serviceChildLabelKey: Record<string, string> = {
+  "/services/technology": "svcData.technology.title",
+  "/services/mechanical-electrical": "svcData.mechanical-electrical.title",
+  "/services/integrated-solutions": "svcData.integrated-solutions.title",
+};
 
 export default function Footer() {
+  const { t } = useLanguage();
+  const serviceLinks = navItems.find((item) => item.label === "Services")?.children ?? [];
   return (
     <footer className="bg-deep-navy text-white/70">
       {/* dual-company strip */}
@@ -25,7 +33,7 @@ export default function Footer() {
             <AftechMark className="h-10 w-auto" />
             <div>
               <p className="font-display text-sm font-extrabold tracking-[0.14em] text-white">AFTECH DAYA SOLUSINDO</p>
-              <p className="font-mono text-[10px] tracking-[0.2em] text-aftech-bright">TECHNOLOGY · MECHANICAL & ELECTRICAL</p>
+              <p className="font-mono text-[10px] tracking-[0.2em] text-aftech-bright">{t("foot.techTag")}</p>
             </div>
           </div>
           <a href={HALORA_URL} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 py-5 md:pl-8 md:border-l border-white/10">
@@ -35,7 +43,7 @@ export default function Footer() {
                 HALORA GALONA ADIKARA
                 <ArrowUpRight className="h-3.5 w-3.5 text-halora-bronze transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </p>
-              <p className="font-mono text-[10px] tracking-[0.2em] text-white/55">SECOND COMPANY · CIVIL + INTERIOR</p>
+              <p className="font-mono text-[10px] tracking-[0.2em] text-white/55">{t("foot.secondCo")}</p>
             </div>
           </a>
         </Container>
@@ -47,8 +55,7 @@ export default function Footer() {
           <div className="flex flex-col gap-3">
             <img src={logo} alt="Aftech" className="h-9 w-auto self-start" />
             <p className="text-sm max-w-sm leading-relaxed">
-              {company.positioning} Technology and engineering delivered by Aftech — civil and
-              interior work by our second company, Halora.
+              {t("foot.positioningA")} {t("foot.positioningB")}
             </p>
           </div>
 
@@ -58,7 +65,7 @@ export default function Footer() {
                 <WhatsAppIcon className="h-4 w-4" />
               </span>
               <div className="flex flex-col leading-tight">
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">WhatsApp / Mobile</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">{t("foot.whatsapp")}</span>
                 <span className="text-sm text-white">{company.whatsapp}</span>
               </div>
             </div>
@@ -67,7 +74,7 @@ export default function Footer() {
                 <Phone className="h-4 w-4" />
               </span>
               <div className="flex flex-col leading-tight">
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">Office</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">{t("foot.office")}</span>
                 <span className="text-sm text-white">{company.phone}</span>
               </div>
             </div>
@@ -76,7 +83,7 @@ export default function Footer() {
                 <Mail className="h-4 w-4" />
               </span>
               <div className="flex flex-col leading-tight">
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">Email</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">{t("foot.email")}</span>
                 <span className="text-sm text-white">{company.email}</span>
               </div>
             </div>
@@ -97,14 +104,14 @@ export default function Footer() {
 
         {/* explore */}
         <div className="flex flex-col gap-5">
-          <span className="flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-white">
+            <span className="flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-white">
             <span className="h-1.5 w-1.5 rounded-full bg-aftech-bright" />
-            Explore
+            {t("foot.explore")}
           </span>
           <nav aria-label="Footer explore" className="flex flex-col gap-3">
-            {exploreLinks.map((link) => (
-              <Link key={link.label} to={link.to} className="text-sm hover:text-white transition-colors w-fit">
-                {link.label}
+            {exploreKeys.map((link) => (
+              <Link key={link.to} to={link.to} className="text-sm hover:text-white transition-colors w-fit">
+                {t(link.key)}
               </Link>
             ))}
           </nav>
@@ -118,8 +125,8 @@ export default function Footer() {
           </span>
           <nav aria-label="Footer services" className="flex flex-col gap-3">
             {serviceLinks.map((link) => (
-              <Link key={link.label} to={link.to} className="text-sm hover:text-white transition-colors w-fit">
-                {link.label}
+              <Link key={link.to} to={link.to} className="text-sm hover:text-white transition-colors w-fit">
+                {t(serviceChildLabelKey[link.to] ?? link.label, link.label)}
               </Link>
             ))}
             <a
@@ -128,16 +135,16 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 rounded-pro border border-halora-bronze/40 bg-halora-bronze/10 px-3 py-2 text-sm font-semibold text-white hover:bg-halora-bronze hover:text-white transition-colors w-fit"
             >
-              Civil & Interior (Halora) ↗
+              {t("foot.civil")}
             </a>
           </nav>
         </div>
 
         {/* offices */}
         <div className="flex flex-col gap-5">
-          <span className="flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-white">
+            <span className="flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-white">
             <span className="h-1.5 w-1.5 rounded-full bg-halora-bronze" />
-            Offices
+            {t("foot.offices")}
           </span>
           <div className="flex flex-col gap-5">
             {locations.map((loc) => (
@@ -160,10 +167,13 @@ export default function Footer() {
 
       <div className="border-t border-white/10">
         <Container className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 py-5 text-xs text-white/40">
-          <span>© {new Date().getFullYear()} {company.legalName}. All Rights Reserved.</span>
-          <span className="flex items-center gap-2 font-mono text-[10px] tracking-[0.18em]">
-            <span className="h-1.5 w-1.5 rounded-full bg-aftech-bright" />
-            AFTECH · HALORA — ONE GROUP
+          <span>© {new Date().getFullYear()} {company.legalName}. {t("foot.rights")}</span>
+          <span className="flex flex-wrap items-center gap-4">
+            <LanguageToggle compact />
+            <span className="flex items-center gap-2 font-mono text-[10px] tracking-[0.18em]">
+              <span className="h-1.5 w-1.5 rounded-full bg-aftech-bright" />
+              {t("foot.group")}
+            </span>
           </span>
         </Container>
       </div>

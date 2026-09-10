@@ -6,20 +6,18 @@ import Section from "@/components/ui/Section";
 import ContactForm from "@/components/ContactForm";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { company, locations } from "@/data/company";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export default function Contact() {
+  const { t } = useLanguage();
   return (
     <>
-      <Seo
-        title="Contact"
-        description="Tell us what you are building. Our team will help identify the right technology, engineering or construction approach."
-        path="/contact"
-      />
+      <Seo title={t("con.seo.title")} description={t("con.seo.desc")} path="/contact" />
       <PageHero
-        eyebrow="Contact"
-        title="Have a project in mind?"
-        description="Tell us what you are building. Our team will help identify the right technology, engineering or construction approach."
-        breadcrumb={[{ label: "Home", to: "/" }, { label: "Contact" }]}
+        eyebrow={t("con.hero.eyebrow")}
+        title={t("con.hero.title")}
+        description={t("con.hero.desc")}
+        breadcrumb={[{ label: t("com.home"), to: "/" }, { label: t("com.contact") }]}
       />
       <Section>
         <Container className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-16">

@@ -4,14 +4,22 @@ import PageHero from "@/components/ui/PageHero";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import { getInsightBySlug } from "@/data/insights";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { localizeInsight } from "@/i18n/localize";
 
 export default function InsightDetail() {
   const { slug = "" } = useParams();
-  const insight = getInsightBySlug(slug);
+  const { t, lang } = useLanguage();
+  const raw = getInsightBySlug(slug);
+  const insight = raw ? localizeInsight(raw, t) : undefined;
 
   if (!insight) return <Navigate to="/insights" replace />;
 
-  const date = new Date(insight.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  const date = new Date(insight.date).toLocaleDateString(lang === "id" ? "id-ID" : "en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <>
@@ -20,7 +28,7 @@ export default function InsightDetail() {
         eyebrow={insight.category}
         title={insight.title}
         description={`${date} · ${insight.excerpt}`}
-        breadcrumb={[{ label: "Home", to: "/" }, { label: "Insights", to: "/insights" }, { label: insight.title }]}
+        breadcrumb={[{ label: t("com.home"), to: "/" }, { label: t("com.insights"), to: "/insights" }, { label: insight.title }]}
       />
       <Section>
         <Container className="max-w-3xl flex flex-col gap-6 text-lg leading-relaxed text-ink/90">

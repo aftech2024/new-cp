@@ -5,34 +5,28 @@ import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import LinkArrow from "@/components/ui/LinkArrow";
 import { staggerContainer, staggerItem, viewportOnce } from "@/lib/motion";
-
-const capabilities = [
-  { title: "Software Development", desc: "Web platforms, internal tools, integrations." },
-  { title: "AI & Data", desc: "Applied AI, analytics, drone photogrammetry." },
-  { title: "IT Infrastructure", desc: "Server rooms, workstations, lifecycle." },
-  { title: "Cloud & Server", desc: "Migration, hosting, backup architecture." },
-  { title: "Network", desc: "LAN/WAN, Wi-Fi, structured cabling." },
-  { title: "Cybersecurity", desc: "Hardening, access control, monitoring." },
-  { title: "System Integration", desc: "One stack across vendors and devices." },
-  { title: "Digital Transformation", desc: "Workflow digitization, automation." },
-  { title: "Automation", desc: "Monitoring, alerting, task automation." },
-];
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export default function TechnologyCore() {
+  const { t } = useLanguage();
+  const capabilities = Array.from({ length: 9 }, (_, i) => ({
+    title: t(`tech.c${i}.t`),
+    desc: t(`tech.c${i}.d`),
+  }));
   return (
     <Section tone="dark">
       <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         <div className="lg:sticky lg:top-32 lg:self-start">
           <SectionHeading
             index="01"
-            eyebrow="Core Identity — Aftech IT"
-            title="Technology is our core."
-            description="We design and deliver digital solutions that help organizations operate smarter, connect better and scale with confidence."
+            eyebrow={t("tech.eyebrow")}
+            title={t("tech.title")}
+            description={t("tech.desc")}
             tone="dark"
             brand="aftech"
           />
           <LinkArrow to="/services/technology" className="mt-7 text-white">
-            Explore Technology
+            {t("tech.explore")}
           </LinkArrow>
         </div>
 

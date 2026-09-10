@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import Button from "@/components/ui/Button";
-import { projectTypes } from "@/data/company";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface FormState {
   fullName: string;
@@ -33,10 +33,18 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT || "/api/contact.php";
 
 export default function ContactForm() {
+  const { t } = useLanguage();
   const [form, setForm] = useState<FormState>(initialState);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState("");
+
+  const projectTypeOptions = [
+    { value: "Technology", label: t("form.type.technology") },
+    { value: "Mechanical & Electrical", label: t("form.type.me") },
+    { value: "Integrated Solution", label: t("form.type.integrated") },
+    { value: "Other", label: t("form.type.other") },
+  ];
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -44,10 +52,10 @@ export default function ContactForm() {
 
   function validate(): boolean {
     const next: Partial<Record<keyof FormState, string>> = {};
-    if (!form.fullName.trim()) next.fullName = "Full name is required.";
-    if (!form.email.trim() || !EMAIL_RE.test(form.email)) next.email = "Enter a valid email address.";
-    if (!form.projectType) next.projectType = "Select a project type.";
-    if (form.message.trim().length < 10) next.message = "Message must be at least 10 characters.";
+    if (!form.fullName.trim()) next.fullName = t("form.errName");
+    if (!form.email.trim() || !EMAIL_RE.test(form.email)) next.email = t("form.errEmail");
+    if (!form.projectType) next.projectType = t("form.errType");
+    if (form.message.trim().length < 10) next.message = t("form.errMsg");
     setErrors(next);
     return Object.keys(next).length === 0;
   }
@@ -67,16 +75,16 @@ export default function ContactForm() {
 
       if (!res.ok || !data?.ok) {
         setStatus("error");
-        setStatusMessage(data?.error ?? "Something went wrong. Please try again.");
+        setStatusMessage(data?.error ?? t("form.errGeneric"));
         return;
       }
 
       setStatus("success");
-      setStatusMessage("Thanks — your inquiry has been sent. Our team will be in touch soon.");
+      setStatusMessage(t("form.success"));
       setForm(initialState);
     } catch {
       setStatus("error");
-      setStatusMessage("Could not reach the server. Please try again later.");
+      setStatusMessage(t("form.errNetwork"));
     }
   }
 
@@ -111,7 +119,7 @@ export default function ContactForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="flex flex-col gap-2">
           <label htmlFor="fullName" className={labelClass}>
-            Full Name *
+            {t("form.fullName")}
           </label>
           <input
             id="fullName"
@@ -130,14 +138,14 @@ export default function ContactForm() {
 
         <div className="flex flex-col gap-2">
           <label htmlFor="company" className={labelClass}>
-            Company
+            {t("form.company")}
           </label>
           <input id="company" className={inputClass} value={form.company} onChange={(e) => update("company", e.target.value)} />
         </div>
 
         <div className="flex flex-col gap-2">
           <label htmlFor="email" className={labelClass}>
-            Email *
+            {t("form.email")}
           </label>
           <input
             id="email"
@@ -157,14 +165,14 @@ export default function ContactForm() {
 
         <div className="flex flex-col gap-2">
           <label htmlFor="phone" className={labelClass}>
-            Phone / WhatsApp
+            {t("form.phone")}
           </label>
           <input id="phone" className={inputClass} value={form.phone} onChange={(e) => update("phone", e.target.value)} />
         </div>
 
         <div className="flex flex-col gap-2">
           <label htmlFor="projectType" className={labelClass}>
-            Project Type *
+            {t("form.projectType")}
           </label>
           <select
             id="projectType"
@@ -174,10 +182,10 @@ export default function ContactForm() {
             aria-invalid={Boolean(errors.projectType)}
             aria-describedby={errors.projectType ? "projectType-error" : undefined}
           >
-            <option value="">Select project type</option>
-            {projectTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
+            <option value="">{t("form.selectType")}</option>
+            {projectTypeOptions.map((type) => (
+              <option key={type.value} value={type.value}>
+                {type.label}
               </option>
             ))}
           </select>
@@ -190,30 +198,30 @@ export default function ContactForm() {
 
         <div className="flex flex-col gap-2">
           <label htmlFor="budgetRange" className={labelClass}>
-            Budget Range
+            {t("form.budget")}
           </label>
           <input id="budgetRange" className={inputClass} value={form.budgetRange} onChange={(e) => update("budgetRange", e.target.value)} />
         </div>
 
         <div className="flex flex-col gap-2">
           <label htmlFor="location" className={labelClass}>
-            Location
+            {t("form.location")}
           </label>
           <input id="location" className={inputClass} value={form.location} onChange={(e) => update("location", e.target.value)} />
         </div>
 
         <div className="flex flex-col gap-2">
           <label htmlFor="timeline" className={labelClass}>
-            Project Timeline
+            {t("form.timeline")}
           </label>
           <input id="timeline" className={inputClass} value={form.timeline} onChange={(e) => update("timeline", e.target.value)} />
         </div>
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="message" className={labelClass}>
-          Message *
-        </label>
+          <label htmlFor="message" className={labelClass}>
+            {t("form.message")}
+          </label>
         <textarea
           id="message"
           rows={5}
@@ -240,10 +248,10 @@ export default function ContactForm() {
       <Button type="submit" disabled={status === "submitting"} className="self-start">
         {status === "submitting" ? (
           <>
-            <Loader2 className="h-4 w-4 animate-spin" /> Sending…
+            <Loader2 className="h-4 w-4 animate-spin" /> {t("form.sending")}
           </>
         ) : (
-          "Submit Inquiry"
+          t("form.submit")
         )}
       </Button>
     </form>

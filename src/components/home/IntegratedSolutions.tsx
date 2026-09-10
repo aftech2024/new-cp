@@ -5,38 +5,22 @@ import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import LinkArrow from "@/components/ui/LinkArrow";
 import { staggerContainer, staggerItem, viewportOnce } from "@/lib/motion";
+import { useLanguage } from "@/i18n/LanguageContext";
 
-const solutions = [
-  {
-    no: "S.01",
-    icon: Building2,
-    title: "Smart Building",
-    problem: "IT, security and building systems procured separately.",
-    parts: ["IT", "Network", "Security", "Electrical", "BMS"],
-    owner: "Aftech lead · Halora support",
-    warm: false,
-  },
-  {
-    no: "S.02",
-    icon: DraftingCompass,
-    title: "Digital Construction",
-    problem: "Site progress invisible to management.",
-    parts: ["Drone Survey", "Data", "PM", "Engineering", "Civil"],
-    owner: "Aftech + Halora joint",
-    warm: true,
-  },
-  {
-    no: "S.03",
-    icon: ServerCog,
-    title: "Enterprise Infrastructure",
-    problem: "Fragmented servers, network and security.",
-    parts: ["Server", "Network", "Cloud", "Security", "Monitoring"],
-    owner: "Aftech lead",
-    warm: false,
-  },
-];
+const solutionKeys = [
+  { no: "S.01", icon: Building2, titleKey: "svcData.integrated-solutions.cap.0", problemKey: "int.s1.problem", ownerKey: "int.s1.owner", parts: ["IT", "Network", "Security", "Electrical", "BMS"], warm: false },
+  { no: "S.02", icon: DraftingCompass, titleKey: "svcData.integrated-solutions.cap.1", problemKey: "int.s2.problem", ownerKey: "int.s2.owner", parts: ["Drone Survey", "Data", "PM", "Engineering", "Civil"], warm: true },
+  { no: "S.03", icon: ServerCog, titleKey: "svcData.integrated-solutions.cap.2", problemKey: "int.s3.problem", ownerKey: "int.s3.owner", parts: ["Server", "Network", "Cloud", "Security", "Monitoring"], warm: false },
+] as const;
 
 export default function IntegratedSolutions() {
+  const { t } = useLanguage();
+  const solutions = solutionKeys.map((s) => ({
+    ...s,
+    title: t(s.titleKey),
+    problem: t(s.problemKey),
+    owner: t(s.ownerKey),
+  }));
   return (
     <Section tone="tint" className="overflow-hidden">
       <div className="pointer-events-none absolute inset-0 blueprint-light opacity-60" aria-hidden="true" />
@@ -44,12 +28,12 @@ export default function IntegratedSolutions() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <SectionHeading
             index="04"
-            eyebrow="Integrated solutions"
-            title="One partner. Multiple capabilities."
-            description="Programs that combine Aftech technology with Halora construction — scoped once, managed once, handed over once."
+            eyebrow={t("int.eyebrow")}
+            title={t("int.title")}
+            description={t("int.desc")}
             brand="aftech"
           />
-          <LinkArrow to="/services/integrated-solutions">See Integrated Solutions</LinkArrow>
+          <LinkArrow to="/services/integrated-solutions">{t("int.link")}</LinkArrow>
         </div>
         <motion.div
           variants={staggerContainer}

@@ -8,11 +8,17 @@ import ImageReveal from "@/components/ui/ImageReveal";
 import { AftechMark, HaloraMark } from "@/components/ui/CompanyMark";
 import { services } from "@/data/services";
 import { HALORA_URL } from "@/data/company";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { localizeServices } from "@/i18n/localize";
 import { staggerContainer, staggerItem, viewportOnce } from "@/lib/motion";
 import haloraBg from "@/assets/images/halora-bg.jpg";
 
+const haloraTagKeys = ["terms.civil", "terms.warehouse", "terms.fitout", "terms.furniture"];
+
 export default function WhatWeDo() {
-  const coreServices = services.filter((s) => s.slug !== "integrated-solutions");
+  const { t } = useLanguage();
+  const localized = localizeServices(services, t);
+  const coreServices = localized.filter((s) => s.slug !== "integrated-solutions");
 
   return (
     <Section tone="dark" className="overflow-hidden">
@@ -21,9 +27,9 @@ export default function WhatWeDo() {
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHeading
             index="03"
-            eyebrow="What we do — two companies"
-            title="Two companies. One accountable partner."
-            description="Aftech delivers technology and engineering directly. Civil construction and interior work are delivered by our second company, Halora."
+            eyebrow={t("wwd.eyebrow")}
+            title={t("wwd.title")}
+            description={t("wwd.desc")}
             tone="dark"
             brand="aftech"
           />
@@ -73,7 +79,7 @@ export default function WhatWeDo() {
                       </span>
                     ))}
                     <span className="rounded border border-aftech/30 bg-aftech/10 px-2 py-1 font-mono text-[10px] tracking-wide text-aftech-bright">
-                      +{service.capabilities.length - 3} more
+                      +{service.capabilities.length - 3} {t("wwd.more")}
                     </span>
                   </div>
                 </div>
@@ -89,7 +95,7 @@ export default function WhatWeDo() {
               rel="noopener noreferrer"
               className="group flex h-full flex-col overflow-hidden rounded-pro border border-halora-bronze/40 bg-halora-linen text-ink transition-all hover:shadow-[0_16px_48px_-16px_rgba(183,121,31,0.5)]"
             >
-              <ImageReveal src={haloraBg} ratio="service" label="Halora — Civil & Interior" />
+              <ImageReveal src={haloraBg} ratio="service" label={t("wwd.haloraAlt")} />
               <div className="relative flex flex-1 flex-col gap-3 p-6">
                 <div className="halora-hatch pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
                 <div className="relative flex items-center justify-between">
@@ -97,19 +103,19 @@ export default function WhatWeDo() {
                     <HaloraMark className="h-5 w-5" />
                     <span className="spec-label text-halora-bronze">HALORA / 03</span>
                     <span className="rounded-full bg-halora-bronze px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-white">
-                      Second company
+                      {t("wwd.secondCompany")}
                     </span>
                   </span>
                   <ArrowUpRight className="h-4 w-4 text-halora-bronze transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
-                <h3 className="relative font-display text-xl font-extrabold">Civil & Interior</h3>
+                <h3 className="relative font-display text-xl font-extrabold">{t("wwd.haloraTitle")}</h3>
                 <p className="relative text-sm leading-relaxed text-ink/70">
-                  Building construction, renovation, office and commercial interiors — everything outside IT, delivered by Halora.
+                  {t("wwd.haloraDesc")}
                 </p>
                 <div className="relative mt-auto flex flex-wrap gap-1.5 pt-2">
-                  {["Civil", "Warehouse", "Fit-Out", "Furniture"].map((c) => (
-                    <span key={c} className="rounded border border-halora-bronze/30 bg-white px-2 py-1 font-mono text-[10px] tracking-wide text-ink/70">
-                      {c}
+                  {haloraTagKeys.map((key) => (
+                    <span key={key} className="rounded border border-halora-bronze/30 bg-white px-2 py-1 font-mono text-[10px] tracking-wide text-ink/70">
+                      {t(key)}
                     </span>
                   ))}
                 </div>

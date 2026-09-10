@@ -4,8 +4,37 @@ import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { capabilityMatrix, HALORA_URL } from "@/data/company";
 import { staggerContainer, staggerItem, viewportOnce } from "@/lib/motion";
+import { useLanguage } from "@/i18n/LanguageContext";
+
+const groupKey: Record<string, string> = {
+  Technology: "cap.g.technology",
+  Engineering: "cap.g.engineering",
+  Construction: "cap.g.construction",
+  Space: "cap.g.space",
+};
+
+const itemKey: Record<string, string> = {
+  Software: "terms.software",
+  AI: "terms.ai",
+  Infrastructure: "terms.infrastructure",
+  Cloud: "terms.cloud",
+  Network: "terms.network",
+  Cybersecurity: "terms.cybersecurity",
+  Mechanical: "terms.mechanical",
+  Electrical: "terms.electrical",
+  HVAC: "terms.hvac",
+  Plumbing: "terms.plumbing",
+  "Fire Protection": "terms.fireProtection",
+  Civil: "terms.civil",
+  Warehouse: "terms.warehouse",
+  Renovation: "terms.renovation",
+  Interior: "terms.interior",
+  "Fit-Out": "terms.fitout",
+  Furniture: "terms.furniture",
+};
 
 export default function Capabilities() {
+  const { t } = useLanguage();
   return (
     <Section tone="navy" className="overflow-hidden">
       <div className="pointer-events-none absolute inset-0 blueprint-dark opacity-60" aria-hidden="true" />
@@ -13,9 +42,9 @@ export default function Capabilities() {
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHeading
             index="05"
-            eyebrow="Capability matrix"
-            title="Built around capability."
-            description="Blue columns are Aftech (technology + engineering). Bronze columns are Halora (construction + space) — our second company."
+            eyebrow={t("cap.eyebrow")}
+            title={t("cap.title")}
+            description={t("cap.desc")}
             tone="dark"
             brand="aftech"
           />
@@ -46,7 +75,7 @@ export default function Capabilities() {
                       {String(gi + 1).padStart(2, "0")}
                     </span>
                     <h3 className="font-display text-[13px] font-extrabold uppercase tracking-[0.14em] text-white">
-                      {group.group}
+                      {t(groupKey[group.group] ?? group.group, group.group)}
                     </h3>
                   </div>
                   {isHalora ? (
@@ -70,7 +99,7 @@ export default function Capabilities() {
                       key={item}
                       className={`flex items-center justify-between gap-3 border-b border-white/[0.06] px-5 py-3 text-sm last:border-0 ${isHalora ? "text-white/70" : "text-white/70"}`}
                     >
-                      {item}
+                      {t(itemKey[item] ?? item, item)}
                       <span className={`font-mono text-[10px] ${isHalora ? "text-white/40" : "text-white/25"}`}>
                         {String(ii + 1).padStart(2, "0")}
                       </span>

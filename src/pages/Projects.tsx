@@ -7,28 +7,27 @@ import ProjectFilter from "@/components/projects/ProjectFilter";
 import ProjectGrid from "@/components/projects/ProjectGrid";
 import CtaSection from "@/components/home/CtaSection";
 import { projects } from "@/data/projects";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { localizeProjects } from "@/i18n/localize";
 import type { Project } from "@/types";
 import heroBg from "@/assets/images/hero-bg.jpg";
 
 export default function Projects() {
+  const { t } = useLanguage();
   const [active, setActive] = useState<Project["category"] | "all">("all");
 
-  const filtered = useMemo(
-    () => (active === "all" ? projects : projects.filter((p) => p.category === active)),
-    [active],
-  );
+  const filtered = useMemo(() => {
+    const list = active === "all" ? projects : projects.filter((p) => p.category === active);
+    return localizeProjects(list, t);
+  }, [active, t]);
 
   return (
     <>
-      <Seo
-        title="Projects"
-        description="Selected technology, mechanical & electrical and integrated projects delivered by Aftech."
-        path="/projects"
-      />
+      <Seo title={t("prj.seo.title")} description={t("prj.seo.desc")} path="/projects" />
       <PageHero
-        eyebrow="Portfolio"
-        title="Selected Works"
-        breadcrumb={[{ label: "Home", to: "/" }, { label: "Projects" }]}
+        eyebrow={t("prj.hero.eyebrow")}
+        title={t("prj.hero.title")}
+        breadcrumb={[{ label: t("com.home"), to: "/" }, { label: t("com.projects") }]}
         backgroundImage={heroBg}
       />
       <Section>

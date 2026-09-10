@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import Seo from "@/components/Seo";
 import PageHero from "@/components/ui/PageHero";
 import Container from "@/components/ui/Container";
@@ -9,72 +11,57 @@ import CtaSection from "@/components/home/CtaSection";
 import HaloraTeaser from "@/components/home/HaloraTeaser";
 import { values } from "@/data/company";
 import { projects } from "@/data/projects";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { localizeProjects } from "@/i18n/localize";
 import aboutHero from "@/assets/images/datacenter/cabinet-fitout.jpg";
 
-const valueStatements: Record<string, string> = {
-  Innovation: "The right tool for the job — from proven systems to applied AI.",
-  Integrity: "Transparent scope, honest reporting, no hidden costs.",
-  Execution: "Surveyed, documented, and handed over — not just installed.",
-  Reliability: "Systems designed to run, and monitored to stay running.",
-  Collaboration: "One team across technology, engineering, and Halora.",
-  "Continuous Improvement": "Every handover leaves documentation the next team can use.",
-};
-
-const engagementSteps = [
-  {
-    no: "01",
-    title: "Tell us what you're building",
-    desc: "A facility, a system, or an idea — our team helps define the right technology, engineering, or construction approach.",
-  },
-  {
-    no: "02",
-    title: "Survey & proposal",
-    desc: "We assess the site or system, then propose a clear scope with transparent deliverables.",
-  },
-  {
-    no: "03",
-    title: "Delivery & handover",
-    desc: "Coordinated execution across Aftech and Halora, documented and handed over ready to operate.",
-  },
+const engagementKeys = [
+  { no: "01", titleKey: "about.eng.s1.t", descKey: "about.eng.s1.d" },
+  { no: "02", titleKey: "about.eng.s2.t", descKey: "about.eng.s2.d" },
+  { no: "03", titleKey: "about.eng.s3.t", descKey: "about.eng.s3.d" },
 ];
 
 export default function About() {
+  const { t } = useLanguage();
+  const [showAllWork, setShowAllWork] = useState(false);
+  const proofProjects = localizeProjects(
+    projects.filter((p) => p.featured && !p.client?.includes("[") && !p.location?.includes("["))
+    , t,
+  );
+  const INITIAL_WORK_COUNT = 3;
+  const visibleWork = showAllWork ? proofProjects : proofProjects.slice(0, INITIAL_WORK_COUNT);
+  const engagementSteps = engagementKeys.map((step) => ({
+    no: step.no,
+    title: t(step.titleKey),
+    desc: t(step.descKey),
+  }));
+
   return (
     <>
-      <Seo
-        title="About"
-        description="PT Aftech Daya Solusindo is a technology-first company also delivering mechanical & electrical capability, with civil and interior work delivered through our second company Halora."
-        path="/about"
-      />
+      <Seo title={t("about.seo.title")} description={t("about.seo.desc")} path="/about" />
       <PageHero
-        eyebrow="About Aftech"
-        title="We Create Your Idea Into Reality"
-        description="We are a technology-first company that also delivers mechanical & electrical capability — built to help organizations operate across both the digital and physical world."
-        breadcrumb={[{ label: "Home", to: "/" }, { label: "About" }]}
+        eyebrow={t("about.hero.eyebrow")}
+        title={t("about.hero.title")}
+        description={t("about.hero.desc")}
+        breadcrumb={[{ label: t("com.home"), to: "/" }, { label: t("com.about") }]}
         backgroundImage={aboutHero}
       />
 
       <Section>
         <Container className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <SectionHeading
-            eyebrow="Company Overview"
-            title="Who we are."
-            description="PT Aftech Daya Solusindo delivers technology and engineering capability under one accountable team, positioning IT and digital solutions as our core. Civil construction and interior work are delivered through our second company, Halora."
+            eyebrow={t("about.ov.eyebrow")}
+            title={t("about.ov.title")}
+            description={t("about.ov.desc")}
           />
           <div className="flex flex-col gap-10">
             <div>
-              <h3 className="font-display font-bold text-xl mb-2">Vision</h3>
-              <p className="text-muted">
-                To be a trusted technology and engineering partner that helps organizations build both their digital and
-                physical infrastructure with confidence.
-              </p>
+              <h3 className="font-display font-bold text-xl mb-2">{t("about.ov.vision")}</h3>
+              <p className="text-muted">{t("about.ov.visionBody")}</p>
             </div>
             <div>
-              <h3 className="font-display font-bold text-xl mb-2">Mission</h3>
-              <p className="text-muted">
-                To deliver reliable, well-engineered technology and infrastructure solutions — from software and
-                networks to building systems — with the same standard of accountability across every discipline.
-              </p>
+              <h3 className="font-display font-bold text-xl mb-2">{t("about.ov.mission")}</h3>
+              <p className="text-muted">{t("about.ov.missionBody")}</p>
             </div>
           </div>
         </Container>
@@ -83,7 +70,7 @@ export default function About() {
       <Section tone="tint">
         <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <div className="lg:sticky lg:top-32 lg:self-start">
-            <SectionHeading eyebrow="Values" title="What guides how we work." />
+            <SectionHeading eyebrow={t("about.val.eyebrow")} title={t("about.val.title")} />
           </div>
           <ul className="flex flex-col">
             {values.map((value, i) => (
@@ -92,9 +79,9 @@ export default function About() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <h3 className="text-lg font-semibold text-ink">{value}</h3>
+                  <h3 className="text-lg font-semibold text-ink">{t(`about.value.${value}`, value)}</h3>
                   <p className="mt-0.5 text-sm leading-relaxed text-muted">
-                    {valueStatements[value] ?? ""}
+                    {t(`about.valueDesc.${value}`)}
                   </p>
                 </div>
               </li>
@@ -107,12 +94,12 @@ export default function About() {
         <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <div className="lg:sticky lg:top-32 lg:self-start">
             <SectionHeading
-              eyebrow="Engagement"
-              title="How we work with you."
-              description="A simple path from first conversation to documented handover."
+              eyebrow={t("about.eng.eyebrow")}
+              title={t("about.eng.title")}
+              description={t("about.eng.desc")}
             />
             <LinkArrow to="/contact" className="mt-7">
-              Start a conversation
+              {t("about.eng.start")}
             </LinkArrow>
           </div>
           <ol className="flex flex-col gap-px overflow-hidden rounded-pro border border-line bg-line">
@@ -133,17 +120,48 @@ export default function About() {
         <Container className="flex flex-col gap-10">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <SectionHeading
-              eyebrow="Proof of delivery"
-              title="Work that speaks first."
-              description="Real deployments from the field — documented scope, real locations."
+              eyebrow={t("about.proof.eyebrow")}
+              title={t("about.proof.title")}
+              description={t("about.proof.desc")}
             />
-            <LinkArrow to="/projects">View all projects</LinkArrow>
+            <LinkArrow to="/projects">{t("com.viewAllProjects")}</LinkArrow>
           </div>
-          <ProjectGrid
-            projects={projects.filter(
-              (p) => p.featured && !p.client?.includes("[") && !p.location?.includes("["),
-            )}
-          />
+          <ProjectGrid projects={visibleWork} />
+          {proofProjects.length > INITIAL_WORK_COUNT && (
+            <div className="flex flex-col items-center gap-4 border-t border-line pt-8">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+                {t("com.showing")} {visibleWork.length} {t("com.of")} {proofProjects.length} {t("com.projectsCount")}
+              </p>
+              <div
+                className="h-1 w-48 overflow-hidden rounded-full bg-line"
+                role="progressbar"
+                aria-valuenow={visibleWork.length}
+                aria-valuemin={0}
+                aria-valuemax={proofProjects.length}
+                aria-label="Projects shown"
+              >
+                <div
+                  className="h-full rounded-full bg-aftech transition-all duration-500"
+                  style={{ width: `${(visibleWork.length / proofProjects.length) * 100}%` }}
+                />
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowAllWork((v) => !v)}
+                aria-expanded={showAllWork}
+                className="group inline-flex items-center gap-2 rounded-full border border-deep-navy bg-deep-navy px-6 py-3 text-sm font-semibold text-white shadow-pro transition-all hover:-translate-y-0.5 hover:shadow-card"
+              >
+                {showAllWork
+                  ? t("com.showLess")
+                  : `${t("com.loadMore")} (${proofProjects.length - visibleWork.length} ${t("com.more")})`}
+                {showAllWork ? (
+                  <ChevronUp className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
+                ) : (
+                  <ChevronDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
+                )}
+              </button>
+            </div>
+          )}
         </Container>
       </Section>
 

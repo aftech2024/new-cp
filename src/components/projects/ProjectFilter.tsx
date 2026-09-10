@@ -1,10 +1,11 @@
 import type { Project } from "@/types";
+import { useLanguage } from "@/i18n/LanguageContext";
 
-const filters: { value: Project["category"] | "all"; label: string }[] = [
-  { value: "all", label: "All" },
-  { value: "technology", label: "Technology" },
-  { value: "me", label: "ME" },
-  { value: "integrated", label: "Integrated" },
+const filterKeys: { value: Project["category"] | "all"; key: string }[] = [
+  { value: "all", key: "prj.filter.all" },
+  { value: "technology", key: "prj.filter.technology" },
+  { value: "me", key: "prj.filter.me" },
+  { value: "integrated", key: "prj.filter.integrated" },
 ];
 
 interface ProjectFilterProps {
@@ -13,9 +14,10 @@ interface ProjectFilterProps {
 }
 
 export default function ProjectFilter({ active, onChange }: ProjectFilterProps) {
+  const { t } = useLanguage();
   return (
     <div className="flex flex-wrap gap-2" role="group" aria-label="Filter projects by category">
-      {filters.map((f) => (
+      {filterKeys.map((f) => (
         <button
           key={f.value}
           type="button"
@@ -27,7 +29,7 @@ export default function ProjectFilter({ active, onChange }: ProjectFilterProps) 
               : "bg-white text-ink border border-line hover:border-aftech-teal"
           }`}
         >
-          {f.label}
+            {t(f.key)}
         </button>
       ))}
     </div>

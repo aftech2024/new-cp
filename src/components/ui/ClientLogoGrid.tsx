@@ -1,8 +1,11 @@
+import { useLanguage } from "@/i18n/LanguageContext";
+
 export default function ClientLogoGrid({ clients }: { clients: string[] }) {
+  const { t } = useLanguage();
   if (clients.length === 0) {
     return (
       <p className="text-white/50 text-sm">
-        Client logos will appear here once approved for public display.
+        {t("cliGrid.empty")}
       </p>
     );
   }

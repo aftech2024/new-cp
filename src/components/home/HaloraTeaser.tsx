@@ -5,26 +5,22 @@ import Section from "@/components/ui/Section";
 import Button from "@/components/ui/Button";
 import { HaloraMark } from "@/components/ui/CompanyMark";
 import { HALORA_URL } from "@/data/company";
+import { useLanguage } from "@/i18n/LanguageContext";
 import { fadeUp, staggerContainer, staggerItem, viewportOnce } from "@/lib/motion";
 
-const haloraServices = [
-  {
-    icon: Building2,
-    code: "H.CIV",
-    title: "Civil Construction",
-    desc: "Buildings, warehouses, structural works and site execution — measured, documented, handed over.",
-    tags: ["Building", "Warehouse", "Renovation", "Structure"],
-  },
-  {
-    icon: Sofa,
-    code: "H.INT",
-    title: "Interior & Fit-Out",
-    desc: "Office, commercial and retail interiors — from space planning to furniture and finishing.",
-    tags: ["Office", "Commercial", "Fit-Out", "Furniture"],
-  },
+const haloraServiceKeys = [
+  { icon: Building2, code: "H.CIV", titleKey: "hal.civ.title", descKey: "hal.civ.desc", tagKeys: ["terms.building", "terms.warehouse", "terms.renovation", "terms.structure"] },
+  { icon: Sofa, code: "H.INT", titleKey: "hal.int.title", descKey: "hal.int.desc", tagKeys: ["terms.office", "terms.commercial", "terms.fitout", "terms.furniture"] },
 ];
 
 export default function HaloraTeaser() {
+  const { t } = useLanguage();
+  const haloraServices = haloraServiceKeys.map((s) => ({
+    ...s,
+    title: t(s.titleKey),
+    desc: t(s.descKey),
+    tags: s.tagKeys.map((k) => t(k)),
+  }));
   return (
     <Section tone="halora" className="overflow-hidden">
       {/* architectural drawing backdrop */}
@@ -41,29 +37,27 @@ export default function HaloraTeaser() {
           >
             <span className="flex items-center gap-3">
               <span className="h-px w-8 bg-halora-bronze" aria-hidden="true" />
-              <span className="spec-label text-halora-bronze">[06] — Second company</span>
+              <span className="spec-label text-halora-bronze">{t("hal.eyebrow")}</span>
             </span>
             <div className="flex items-center gap-3">
               <HaloraMark className="h-14 w-14" />
               <div>
                 <p className="font-display text-3xl font-extrabold tracking-tight text-ink">HALORA</p>
-                <p className="font-mono text-[10px] tracking-[0.22em] text-halora-bronze">CIVIL · INTERIOR · SPACE</p>
+                <p className="font-mono text-[10px] tracking-[0.22em] text-halora-bronze">{t("hal.tag")}</p>
               </div>
             </div>
             <h2 className="font-display font-extrabold leading-[1.04] tracking-[-0.02em] text-[clamp(30px,3.6vw,50px)] text-ink">
-              Built together. <em className="font-medium">Finished with care.</em>
+              {t("hal.titleA")}<em className="font-medium">{t("hal.titleB")}</em>
             </h2>
             <p className="max-w-md text-base md:text-lg leading-relaxed text-ink/70">
-              Aftech covers technology and engineering. Halora is our second company, handling
-              civil construction and interior work — everything outside IT, under the same
-              standard of accountability.
+              {t("hal.desc")}
             </p>
             <div className="flex flex-wrap gap-3 pt-1">
               <Button href={HALORA_URL} variant="halora">
-                Visit Halora
+                {t("hal.visit")}
               </Button>
               <Button to="/contact" variant="halora-outline">
-                Discuss Civil / Interior
+                {t("hal.discuss")}
               </Button>
             </div>
             <div className="mt-2 flex items-center gap-4 border-t border-line pt-5 font-mono text-[10px] uppercase tracking-[0.18em] text-ink/45">
@@ -108,7 +102,7 @@ export default function HaloraTeaser() {
                   ))}
                 </div>
                 <span className="relative inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-halora-bronze">
-                  Open in Halora <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  {t("hal.open")} <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>
                 {/* drawing corner */}
                 <span className="absolute bottom-3 right-3 h-3 w-3 border-b border-r border-halora-bronze/50" aria-hidden="true" />

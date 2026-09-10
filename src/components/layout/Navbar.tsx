@@ -3,24 +3,53 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, Mail, Phone, MapPin } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
+import LanguageToggle from "@/components/ui/LanguageToggle";
 import MobileMenu from "./MobileMenu";
 import { navItems, company } from "@/data/company";
 import { useScrolled } from "@/hooks/useScrolled";
+import { useLanguage } from "@/i18n/LanguageContext";
 import logo from "@/assets/images/logo-aftech.png";
 
-const serviceMeta: Record<string, string> = {
-  "/services/technology": "Software · AI · Infrastructure · Cloud",
-  "/services/mechanical-electrical": "Mechanical · Electrical · HVAC",
-  "/services/integrated-solutions": "Smart building · End-to-end delivery",
+const serviceMetaKey: Record<string, string> = {
+  "/services/technology": "nav.meta.technology",
+  "/services/mechanical-electrical": "nav.meta.me",
+  "/services/integrated-solutions": "nav.meta.integrated",
+};
+
+const navLabelKey: Record<string, string> = {
+  "/about": "nav.about",
+  "/services": "nav.services",
+  "/services/technology": "nav.services",
+  "/services/mechanical-electrical": "nav.services",
+  "/services/integrated-solutions": "nav.services",
+  "/projects": "nav.projects",
+  "/insights": "nav.insights",
+  "/contact": "nav.contact",
+};
+
+const serviceChildLabelKey: Record<string, string> = {
+  "/services/technology": "svcData.technology.title",
+  "/services/mechanical-electrical": "svcData.mechanical-electrical.title",
+  "/services/integrated-solutions": "svcData.integrated-solutions.title",
 };
 
 export default function Navbar() {
   const scrolled = useScrolled();
   const location = useLocation();
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [dropOpen, setDropOpen] = useState(false);
 
   const isServicesActive = location.pathname.startsWith("/services");
+
+  const localizedNav = navItems.map((item) => ({
+    ...item,
+    label: t(navLabelKey[item.to] ?? item.label, item.label),
+    children: item.children?.map((child) => ({
+      ...child,
+      label: t(serviceChildLabelKey[child.to] ?? child.label, child.label),
+    })),
+  }));
 
   return (
     <>
@@ -71,7 +100,7 @@ export default function Navbar() {
               to="/"
               className="group flex shrink-0 items-center gap-3"
               onClick={() => setOpen(false)}
-              aria-label="Aftech — home"
+              aria-label={t("nav.homeAria")}
             >
               <img src={logo} alt="Aftech" className="h-8 w-auto" />
               <span className="hidden flex-col leading-none sm:flex">
@@ -92,7 +121,7 @@ export default function Navbar() {
 
             {/* primary nav — underline active state */}
             <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
-              {navItems.map((item) =>
+              {localizedNav.map((item) =>
                 item.children ? (
                   <div
                     key={item.label}
@@ -124,7 +153,7 @@ export default function Navbar() {
                         <div className="w-[340px] overflow-hidden rounded-pro border border-white/10 bg-[#0A1F33] shadow-card">
                           <div className="border-b border-white/10 bg-white/[0.03] px-5 py-2.5">
                             <span className="spec-label text-aftech-bright">
-                              Capabilities
+                              {t("nav.capabilities")}
                             </span>
                           </div>
                           {item.children.map((child) => (
@@ -140,9 +169,9 @@ export default function Navbar() {
                                   →
                                 </span>
                               </span>
-                              {serviceMeta[child.to] && (
+                              {serviceMetaKey[child.to] && (
                                 <span className="font-mono text-[10.5px] tracking-wide text-white/40">
-                                  {serviceMeta[child.to]}
+                                  {t(serviceMetaKey[child.to])}
                                 </span>
                               )}
                             </Link>
@@ -189,15 +218,16 @@ export default function Navbar() {
 
             {/* CTA cluster */}
             <div className="hidden items-center gap-4 lg:flex">
+              <LanguageToggle compact />
               <Button to="/contact" variant="primary" className="!px-5 !py-2.5">
-                Start a Project
+                {t("nav.startProject")}
               </Button>
             </div>
 
             <button
               type="button"
               className="p-2 -mr-2 text-white lg:hidden"
-              aria-label={open ? "Close menu" : "Open menu"}
+              aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
             >

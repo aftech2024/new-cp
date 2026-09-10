@@ -10,15 +10,13 @@ import HaloraTeaser from "@/components/home/HaloraTeaser";
 import Clients from "@/components/home/Clients";
 import InsightsPreview from "@/components/home/InsightsPreview";
 import CtaSection from "@/components/home/CtaSection";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export default function Home() {
+  const { t } = useLanguage();
   return (
     <>
-      <Seo
-        title="PT Aftech Daya Solusindo | Technology, Engineering & Construction"
-        description="PT Aftech Daya Solusindo delivers technology, engineering and mechanical & electrical solutions — with civil construction and interior work delivered through our second company, Halora."
-        path="/"
-      />
+      <Seo title={t("home.seo.title")} description={t("home.seo.desc")} path="/" />
       <Hero />
       <TechnologyCore />
       <DigitalToPhysical />

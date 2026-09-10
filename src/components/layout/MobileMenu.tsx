@@ -2,9 +2,34 @@ import { AnimatePresence, motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import { Mail, Phone } from "lucide-react";
 import Button from "@/components/ui/Button";
+import LanguageToggle from "@/components/ui/LanguageToggle";
 import { navItems, company } from "@/data/company";
+import { useLanguage } from "@/i18n/LanguageContext";
+
+const navLabelKey: Record<string, string> = {
+  "/about": "nav.about",
+  "/services": "nav.services",
+  "/projects": "nav.projects",
+  "/insights": "nav.insights",
+  "/contact": "nav.contact",
+};
+
+const serviceChildLabelKey: Record<string, string> = {
+  "/services/technology": "svcData.technology.title",
+  "/services/mechanical-electrical": "svcData.mechanical-electrical.title",
+  "/services/integrated-solutions": "svcData.integrated-solutions.title",
+};
 
 export default function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const { t } = useLanguage();
+  const localizedNav = navItems.map((item) => ({
+    ...item,
+    label: t(navLabelKey[item.to] ?? item.label, item.label),
+    children: item.children?.map((child) => ({
+      ...child,
+      label: t(serviceChildLabelKey[child.to] ?? child.label, child.label),
+    })),
+  }));
   return (
     <AnimatePresence>
       {open && (
@@ -20,8 +45,8 @@ export default function MobileMenu({ open, onClose }: { open: boolean; onClose: 
             aria-label="Mobile"
             className="relative flex min-h-full flex-col justify-center gap-5 px-8 pt-32 pb-16"
           >
-            <span className="spec-label text-aftech-bright">AFTECH — Menu</span>
-            {navItems.map((item, i) => (
+            <span className="spec-label text-aftech-bright">{t("nav.menuLabel")}</span>
+            {localizedNav.map((item, i) => (
               <motion.div
                 key={item.label}
                 initial={{ opacity: 0, y: 16 }}
@@ -69,7 +94,7 @@ export default function MobileMenu({ open, onClose }: { open: boolean; onClose: 
               transition={{ delay: 0.25, duration: 0.4 }}
               className="mt-4 flex flex-col gap-2.5 rounded-pro border border-white/10 bg-white/[0.04] p-5"
             >
-              <span className="spec-label text-aftech-bright">Direct contact</span>
+              <span className="spec-label text-aftech-bright">{t("nav.directContact")}</span>
               <a href={`mailto:${company.email}`} className="flex items-center gap-2.5 text-sm text-white/80">
                 <Mail className="h-4 w-4 text-aftech-bright" /> {company.email}
               </a>
@@ -77,10 +102,11 @@ export default function MobileMenu({ open, onClose }: { open: boolean; onClose: 
                 <Phone className="h-4 w-4 text-aftech-bright" /> {company.phone}
               </a>
             </motion.div>
-            <div className="flex flex-wrap gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-2">
               <Button to="/contact" onClick={onClose}>
-                Start a Project
+                {t("nav.startProject")}
               </Button>
+              <LanguageToggle />
             </div>
           </nav>
         </motion.div>

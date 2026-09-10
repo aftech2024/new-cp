@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import ImageReveal from "@/components/ui/ImageReveal";
 import { staggerItem } from "@/lib/motion";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { localizeService } from "@/i18n/localize";
 import type { Service } from "@/types";
 
 const motifBySlug: Record<string, "technology" | "me" | "integrated"> = {
@@ -11,7 +13,9 @@ const motifBySlug: Record<string, "technology" | "me" | "integrated"> = {
   "integrated-solutions": "integrated",
 };
 
-export default function ServiceCard({ service }: { service: Service }) {
+export default function ServiceCard({ service: raw }: { service: Service }) {
+  const { t } = useLanguage();
+  const service = localizeService(raw, t);
   return (
     <motion.div variants={staggerItem}>
       <Link

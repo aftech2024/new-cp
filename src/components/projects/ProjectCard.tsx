@@ -2,12 +2,13 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import ImageReveal, { isMotif, type Motif } from "@/components/ui/ImageReveal";
 import { staggerItem } from "@/lib/motion";
+import { useLanguage } from "@/i18n/LanguageContext";
 import type { Project } from "@/types";
 
-const categoryLabel: Record<Project["category"], string> = {
-  technology: "Technology",
-  me: "Mechanical & Electrical",
-  integrated: "Integrated",
+const categoryKey: Record<Project["category"], string> = {
+  technology: "cat.technology",
+  me: "cat.me",
+  integrated: "cat.integrated",
 };
 
 const categoryStyle: Record<Project["category"], string> = {
@@ -17,6 +18,7 @@ const categoryStyle: Record<Project["category"], string> = {
 };
 
 export default function ProjectCard({ project, size = "regular" }: { project: Project; size?: "large" | "regular" }) {
+  const { t } = useLanguage();
   return (
     <motion.div variants={staggerItem} className={size === "large" ? "md:col-span-2" : ""}>
       <Link to={`/projects/${project.slug}`} className="group block overflow-hidden rounded-pro border border-line bg-white shadow-pro transition-all hover:-translate-y-1 hover:shadow-card">
@@ -28,7 +30,7 @@ export default function ProjectCard({ project, size = "regular" }: { project: Pr
         <div className="flex items-start justify-between gap-4 p-5">
           <div className="flex flex-col gap-2">
             <span className={`w-fit rounded border px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] ${categoryStyle[project.category]}`}>
-              {categoryLabel[project.category]}
+              {t(categoryKey[project.category])}
             </span>
             <h3 className="font-display font-bold text-lg md:text-xl leading-snug group-hover:text-aftech transition-colors">
               {project.title}
