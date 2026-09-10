@@ -12,6 +12,8 @@ export const company = {
   whatsapp: "0822-3183-4977",
   social: {
     instagram: "https://instagram.com/aftechds",
+    tiktok: "https://www.tiktok.com/@aftechds",
+    siplah: "https://siplah.tokoladang.co.id/official-store/aftech-service.53680",
   },
 };
 

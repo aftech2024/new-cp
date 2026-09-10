@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, Instagram, ArrowUpRight } from "lucide-react";
+import { Phone, Mail, Instagram, Store, ArrowUpRight } from "lucide-react";
 import Container from "@/components/ui/Container";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
+import TikTokIcon from "@/components/ui/TikTokIcon";
 import LanguageToggle from "@/components/ui/LanguageToggle";
 import { AftechMark, HaloraMark } from "@/components/ui/CompanyMark";
 import { company, locations, navItems, HALORA_URL } from "@/data/company";
@@ -94,10 +95,29 @@ export default function Footer() {
               href={company.social.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Instagram"
+              aria-label="Instagram @aftechds"
               className="flex h-9 w-9 items-center justify-center rounded-pro border border-white/15 text-white/60 hover:text-white hover:border-aftech-bright transition-colors"
             >
               <Instagram className="h-4 w-4" />
+            </a>
+            <a
+              href={company.social.tiktok}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TikTok @aftechds"
+              className="flex h-9 w-9 items-center justify-center rounded-pro border border-white/15 text-white/60 hover:text-white hover:border-aftech-bright transition-colors"
+            >
+              <TikTokIcon className="h-4 w-4" />
+            </a>
+            <a
+              href={company.social.siplah}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Siplah Tokoladang — Aftech official store"
+              title="Siplah Tokoladang — Aftech official store"
+              className="flex h-9 w-9 items-center justify-center rounded-pro border border-white/15 text-white/60 hover:text-white hover:border-aftech-bright transition-colors"
+            >
+              <Store className="h-4 w-4" />
             </a>
           </div>
         </div>

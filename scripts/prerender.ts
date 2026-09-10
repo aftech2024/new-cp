@@ -137,7 +137,7 @@ function organizationJsonLd(): string {
     description: staticRoutes[0].description,
     email: company.email,
     telephone: company.phone,
-    sameAs: [company.social.instagram],
+    sameAs: [company.social.instagram, company.social.tiktok],
     address: locations.map((l) => ({
       "@type": "PostalAddress",
       streetAddress: l.address,
