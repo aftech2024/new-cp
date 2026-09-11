@@ -40,6 +40,9 @@ import photoAerialPondPlayground from "@/assets/images/photogrammetry/aerial-pon
 import photoAerialForestRoad from "@/assets/images/photogrammetry/aerial-forest-road.jpg";
 import photoAerialCanopyRoad from "@/assets/images/photogrammetry/aerial-canopy-road.jpg";
 import photoModel3dRoad from "@/assets/images/photogrammetry/model-3d-road.jpg";
+import photoAerialResPool from "@/assets/images/photogrammetry/aerial-residential-pool.jpg";
+import photoAerialResTennis from "@/assets/images/photogrammetry/aerial-residential-tennis.jpg";
+import photoAerialResBlock from "@/assets/images/photogrammetry/aerial-residential-block.jpg";
 
 /**
  * FEWS Adipala field documentation — auto-loaded from
@@ -290,6 +293,9 @@ export const projects: Project[] = [
       { image: photoAerialForestRoad, caption: "Forest road — oblique aerial view" },
       { image: photoAerialCanopyRoad, caption: "Canopy & access road — survey frame" },
       { image: photoModel3dRoad, caption: "3D model — road corridor reconstruction" },
+      { image: photoAerialResPool, caption: "Residential rooftops & pool — nadir detail" },
+      { image: photoAerialResTennis, caption: "Housing & sports courts — aerial survey" },
+      { image: photoAerialResBlock, caption: "Residential block — high-resolution mapping" },
     ],
     featured: false,
   },
