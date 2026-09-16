@@ -11,6 +11,10 @@ header('Content-Type: application/json; charset=utf-8');
 
 // ---- config (edit before deploy) --------------------------------------
 $RECIPIENT_EMAIL = 'aftech.daya@gmail.com';
+// Envelope sender — must be on our own domain so SPF/DMARC can align.
+// (Without this, PHP mail() sends from the server hostname, SPF fails,
+// DMARC fails, and Gmail files the message as spam.)
+$ENVELOPE_FROM = 'no-reply@aftech.co.id';
 $RATE_LIMIT_WINDOW_SECONDS = 60;
 $RATE_LIMIT_MAX_REQUESTS = 5;
 $RATE_LIMIT_DIR = sys_get_temp_dir() . '/aftech_contact_rate';
@@ -108,9 +112,21 @@ $textBody = implode("\n", $lines);
 $headers = [];
 $headers[] = 'From: no-reply@' . ($_SERVER['SERVER_NAME'] ?? 'aftech.co.id');
 $headers[] = 'Reply-To: ' . $email;
+$headers[] = 'MIME-Version: 1.0';
 $headers[] = 'Content-Type: text/plain; charset=UTF-8';
+$headers[] = 'Date: ' . date(DATE_RFC2822);
+// Explicit Message-ID on our own domain — the server-generated one uses the
+// shared hostname, another spam signal for Gmail.
+$headers[] = 'Message-ID: <' . bin2hex(random_bytes(12)) . '@' . ($_SERVER['SERVER_NAME'] ?? 'aftech.co.id') . '>';
 
-$sent = @mail($RECIPIENT_EMAIL, $subject, $textBody, implode("\r\n", $headers));
+// Pass the envelope sender (-f) so the SPF check runs against OUR domain
+// (whose SPF authorizes Hostinger) instead of the shared server hostname.
+// Falls back to plain mail() if the host rejects the -f parameter.
+$envelope = '-f' . $ENVELOPE_FROM;
+$sent = @mail($RECIPIENT_EMAIL, $subject, $textBody, implode("\r\n", $headers), $envelope);
+if (!$sent) {
+    $sent = @mail($RECIPIENT_EMAIL, $subject, $textBody, implode("\r\n", $headers));
+}
 
 if (!$sent) {
     jsonResponse(500, ['ok' => false, 'error' => 'Could not send message. Please try again later.']);
