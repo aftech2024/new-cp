@@ -482,6 +482,13 @@ const en: Record<string, string> = {
   "prjData.cloud-network-modernization.scope.0": "Cloud",
   "prjData.cloud-network-modernization.scope.1": "Network",
   "prjData.cloud-network-modernization.scope.2": "System Integration",
+  "prjData.mechanical-electrical-works.title": "Mechanical & Electrical Works",
+  "prjData.mechanical-electrical-works.desc":
+    "Mechanical and electrical installation works at Meikarta District 2 — distribution panels with MCB and busbar termination, cable tray installation, conduit and fire-resistant cable routing, network panel termination and lift control panels, executed room by room through commissioning.",
+  "prjData.mechanical-electrical-works.scope.0": "Electrical Panel Installation",
+  "prjData.mechanical-electrical-works.scope.1": "Cable Tray & Conduit Routing",
+  "prjData.mechanical-electrical-works.scope.2": "Fire-Resistant Cabling",
+  "prjData.mechanical-electrical-works.scope.3": "Control Panel Fit-out",
 
   // ---------- gallery captions: FEWS ----------
   "prjData.fews-camera-installation.gal.0": "FEWS Camera — Coal Storage Area",
@@ -578,6 +585,12 @@ const en: Record<string, string> = {
   "prjData.cloud-network-modernization.gal.1": "Overhead services above the rack rows",
   "prjData.cloud-network-modernization.gal.2": "Cabinets staged for positioning",
   "prjData.cloud-network-modernization.gal.3": "Cabinet fit-out — rails and panels",
+  "prjData.mechanical-electrical-works.gal.0": "Distribution panel — MCB and busbar termination",
+  "prjData.mechanical-electrical-works.gal.1": "Network panel termination at height",
+  "prjData.mechanical-electrical-works.gal.2": "Conduit and fire-resistant cable routing",
+  "prjData.mechanical-electrical-works.gal.3": "Cable tray installation below fire pipe",
+  "prjData.mechanical-electrical-works.gal.4": "Lift control panel — network device fit-out",
+  "prjData.mechanical-electrical-works.gal.5": "Lift control panel — closed and secured",
 
   // ---------- insights ----------
   "insPage.seo.title": "Insights",
@@ -1134,6 +1147,13 @@ const id: Record<string, string> = {
   "prjData.cloud-network-modernization.scope.0": "Cloud",
   "prjData.cloud-network-modernization.scope.1": "Jaringan",
   "prjData.cloud-network-modernization.scope.2": "Integrasi Sistem",
+  "prjData.mechanical-electrical-works.title": "Pekerjaan Mekanikal & Elektrikal",
+  "prjData.mechanical-electrical-works.desc":
+    "Pekerjaan instalasi mekanikal dan elektrikal di Meikarta District 2 — panel distribusi dengan terminasi MCB dan busbar, instalasi cable tray, routing konduit dan kabel tahan api, terminasi panel jaringan serta panel kontrol lift, dikerjakan ruang per ruang hingga commissioning.",
+  "prjData.mechanical-electrical-works.scope.0": "Instalasi Panel Listrik",
+  "prjData.mechanical-electrical-works.scope.1": "Routing Cable Tray & Konduit",
+  "prjData.mechanical-electrical-works.scope.2": "Kabel Tahan Api",
+  "prjData.mechanical-electrical-works.scope.3": "Fit-out Panel Kontrol",
 
   // ---------- gallery captions: FEWS ----------
   "prjData.fews-camera-installation.gal.0": "Kamera FEWS — Area Coal Storage",
@@ -1229,6 +1249,12 @@ const id: Record<string, string> = {
   "prjData.cloud-network-modernization.gal.1": "Layanan overhead di atas deretan rak",
   "prjData.cloud-network-modernization.gal.2": "Kabinet di-staging untuk penempatan",
   "prjData.cloud-network-modernization.gal.3": "Fit-out kabinet — rel dan panel",
+  "prjData.mechanical-electrical-works.gal.0": "Panel distribusi — terminasi MCB dan busbar",
+  "prjData.mechanical-electrical-works.gal.1": "Terminasi panel jaringan di ketinggian",
+  "prjData.mechanical-electrical-works.gal.2": "Routing konduit dan kabel tahan api",
+  "prjData.mechanical-electrical-works.gal.3": "Instalasi cable tray di bawah pipa fire",
+  "prjData.mechanical-electrical-works.gal.4": "Panel kontrol lift — instalasi perangkat jaringan",
+  "prjData.mechanical-electrical-works.gal.5": "Panel kontrol lift — tertutup dan aman",
 
   // ---------- insights ----------
   "insPage.seo.title": "Wawasan",

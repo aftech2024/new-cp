@@ -14,6 +14,7 @@ import { localizeProject, localizeProjects } from "@/i18n/localize";
 import projectEnterpriseIt from "@/assets/images/project-enterprise-it.jpg";
 import meikartaBg from "@/assets/images/meikarta/meikarta-bg.jpg";
 import photoOrthomosaic from "@/assets/images/photogrammetry/orthomosaic.jpg";
+import meDistributionPanel from "@/assets/images/me/me-distribution-panel.jpg";
 
 const categoryKey: Record<string, string> = {
   technology: "cat.technology",
@@ -25,6 +26,7 @@ const heroImageBySlug: Record<string, string> = {
   "fews-camera-installation": projectEnterpriseIt,
   "cctv-access-door-installation": meikartaBg,
   photogrammetry: photoOrthomosaic,
+  "mechanical-electrical-works": meDistributionPanel,
 };
 
 export default function ProjectDetail() {

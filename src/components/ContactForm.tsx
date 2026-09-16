@@ -89,9 +89,9 @@ export default function ContactForm() {
   }
 
   const inputClass =
-    "w-full rounded-sm border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-muted/70 focus:border-aftech-teal outline-none transition-colors";
-  const labelClass = "text-sm font-semibold text-ink";
-  const errorClass = "text-xs text-red-600 mt-1";
+    "w-full rounded-md border border-gray-200 bg-white px-5 py-4 text-[15px] text-ink shadow-sm placeholder:text-muted/70 focus:border-aftech-teal outline-none transition-colors";
+  const labelClass = "text-base md:text-lg font-bold text-ink";
+  const errorClass = "text-sm text-red-600 mt-1.5";
 
   if (status === "success") {
     return (
@@ -103,7 +103,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-8">
       {/* honeypot field — hidden from real users, catches bots */}
       <input
         type="text"
@@ -116,7 +116,7 @@ export default function ContactForm() {
         aria-hidden="true"
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
         <div className="flex flex-col gap-2">
           <label htmlFor="fullName" className={labelClass}>
             {t("form.fullName")}
@@ -224,7 +224,7 @@ export default function ContactForm() {
           </label>
         <textarea
           id="message"
-          rows={5}
+          rows={8}
           className={inputClass}
           value={form.message}
           onChange={(e) => update("message", e.target.value)}
@@ -245,7 +245,12 @@ export default function ContactForm() {
         </div>
       )}
 
-      <Button type="submit" disabled={status === "submitting"} className="self-start">
+      <Button
+        type="submit"
+        disabled={status === "submitting"}
+        withArrow={status !== "submitting"}
+        className="self-start px-10 py-4 text-sm shadow-[0_16px_32px_-12px_rgba(20,121,209,0.7)]"
+      >
         {status === "submitting" ? (
           <>
             <Loader2 className="h-4 w-4 animate-spin" /> {t("form.sending")}

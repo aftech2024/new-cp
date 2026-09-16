@@ -43,6 +43,12 @@ import photoModel3dRoad from "@/assets/images/photogrammetry/model-3d-road.jpg";
 import photoAerialResPool from "@/assets/images/photogrammetry/aerial-residential-pool.jpg";
 import photoAerialResTennis from "@/assets/images/photogrammetry/aerial-residential-tennis.jpg";
 import photoAerialResBlock from "@/assets/images/photogrammetry/aerial-residential-block.jpg";
+import meDistributionPanel from "@/assets/images/me/me-distribution-panel.jpg";
+import mePanelTermination from "@/assets/images/me/me-panel-termination.jpg";
+import meConduitFireCable from "@/assets/images/me/me-conduit-fire-cable.jpg";
+import meCableTrayInstall from "@/assets/images/me/me-cable-tray-install.jpg";
+import meLiftControlOpen from "@/assets/images/me/me-lift-control-open.jpg";
+import meLiftControlClosed from "@/assets/images/me/me-lift-control-closed.jpg";
 
 /**
  * FEWS Adipala field documentation — auto-loaded from
@@ -342,6 +348,33 @@ export const projects: Project[] = [
     scope: ["Contract & BOQ", "WBS & Cost Control", "RAP", "Progress & Cost Dashboard"],
     coverImage: integratedByFile["mk-02.jpg"] ?? "",
     gallery: mkGallery,
+    featured: true,
+  },
+  {
+    id: "p10",
+    slug: "mechanical-electrical-works",
+    title: "Mechanical & Electrical Works",
+    category: "me",
+    client: "PT Altros Technology",
+    location: "Meikarta District 2",
+    status: "completed",
+    description:
+      "Mechanical and electrical installation works at Meikarta District 2 — distribution panels with MCB and busbar termination, cable tray installation, conduit and fire-resistant cable routing, network panel termination and lift control panels, executed room by room through commissioning.",
+    scope: [
+      "Electrical Panel Installation",
+      "Cable Tray & Conduit Routing",
+      "Fire-Resistant Cabling",
+      "Control Panel Fit-out",
+    ],
+    coverImage: meDistributionPanel,
+    gallery: [
+      { image: meDistributionPanel, caption: "Distribution panel — MCB and busbar termination" },
+      { image: mePanelTermination, caption: "Network panel termination at height" },
+      { image: meConduitFireCable, caption: "Conduit and fire-resistant cable routing" },
+      { image: meCableTrayInstall, caption: "Cable tray installation below fire pipe" },
+      { image: meLiftControlOpen, caption: "Lift control panel — network device fit-out" },
+      { image: meLiftControlClosed, caption: "Lift control panel — closed and secured" },
+    ],
     featured: true,
   },
   {
