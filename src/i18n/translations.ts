@@ -353,6 +353,14 @@ const en: Record<string, string> = {
   "svcData.mechanical-electrical.hl.2": "Track commissioning progress room by room",
   "svcData.mechanical-electrical.hl.3": "Catch cross-trade clashes before they cause rework",
   "svcData.mechanical-electrical.hl.4": "Keep maintenance history documented for every system",
+  "svcData.mechanical-electrical.imageAlt":
+    "Electrical distribution panel with MCBs and busbars installed by the Aftech ME team",
+  "svcData.mechanical-electrical.gal.0": "Distribution panel — MCB and busbar termination",
+  "svcData.mechanical-electrical.gal.1": "Network panel termination at height",
+  "svcData.mechanical-electrical.gal.2": "Conduit and fire-resistant cable routing",
+  "svcData.mechanical-electrical.gal.3": "Cable tray installation below fire pipe",
+  "svcData.mechanical-electrical.gal.4": "Lift control panel — network device fit-out",
+  "svcData.mechanical-electrical.gal.5": "Lift control panel — closed and secured",
   "svcData.integrated-solutions.title": "Integrated Solutions",
   "svcData.integrated-solutions.short": "One program, two companies — technology and physical infrastructure working together.",
   "svcData.integrated-solutions.imageAlt":
@@ -998,6 +1006,14 @@ const id: Record<string, string> = {
   "svcData.mechanical-electrical.hl.2": "Pantau progres commissioning ruang per ruang",
   "svcData.mechanical-electrical.hl.3": "Tangkap clash antar trade sebelum menimbulkan rework",
   "svcData.mechanical-electrical.hl.4": "Jaga riwayat maintenance terdokumentasi untuk setiap sistem",
+  "svcData.mechanical-electrical.imageAlt":
+    "Panel distribusi listrik dengan MCB dan busbar yang dipasang tim ME Aftech",
+  "svcData.mechanical-electrical.gal.0": "Panel distribusi — terminasi MCB dan busbar",
+  "svcData.mechanical-electrical.gal.1": "Terminasi panel jaringan di ketinggian",
+  "svcData.mechanical-electrical.gal.2": "Routing konduit dan kabel tahan api",
+  "svcData.mechanical-electrical.gal.3": "Instalasi cable tray di bawah pipa fire",
+  "svcData.mechanical-electrical.gal.4": "Panel kontrol lift — instalasi perangkat jaringan",
+  "svcData.mechanical-electrical.gal.5": "Panel kontrol lift — tertutup dan aman",
   "svcData.integrated-solutions.title": "Solusi Terintegrasi",
   "svcData.integrated-solutions.short": "Satu program, dua perusahaan — teknologi dan infrastruktur fisik bekerja bersama.",
   "svcData.integrated-solutions.imageAlt":

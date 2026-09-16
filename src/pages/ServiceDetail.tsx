@@ -14,6 +14,12 @@ import cameraUnit from "@/assets/images/fews/fews-unit-01.jpg";
 import aiFarmCommand from "@/assets/images/integrated/ai-farm/ai-farm-01.jpg";
 import eptmsDashboard from "@/assets/images/integrated/eptms/eptms-01.jpg";
 import mkPortfolio from "@/assets/images/integrated/mk/mk-02.jpg";
+import meDistributionPanel from "@/assets/images/me/me-distribution-panel.jpg";
+import mePanelTermination from "@/assets/images/me/me-panel-termination.jpg";
+import meConduitFireCable from "@/assets/images/me/me-conduit-fire-cable.jpg";
+import meCableTrayInstall from "@/assets/images/me/me-cable-tray-install.jpg";
+import meLiftControlOpen from "@/assets/images/me/me-lift-control-open.jpg";
+import meLiftControlClosed from "@/assets/images/me/me-lift-control-closed.jpg";
 import ProjectGrid from "@/components/projects/ProjectGrid";
 import CtaSection from "@/components/home/CtaSection";
 import { getServiceBySlug } from "@/data/services";
@@ -52,6 +58,14 @@ const heroPhotoDefs: Record<string, { src: string; captionKey: string }[]> = {
     { src: aiFarmCommand, captionKey: "prjData.ai-autonomous-farm-kementan.gal.0" },
     { src: eptmsDashboard, captionKey: "prjData.eptms-enterprise-project-management.gal.0" },
     { src: mkPortfolio, captionKey: "prjData.mk-management-construction.gal.1" },
+  ],
+  "mechanical-electrical": [
+    { src: meDistributionPanel, captionKey: "svcData.mechanical-electrical.gal.0" },
+    { src: mePanelTermination, captionKey: "svcData.mechanical-electrical.gal.1" },
+    { src: meConduitFireCable, captionKey: "svcData.mechanical-electrical.gal.2" },
+    { src: meCableTrayInstall, captionKey: "svcData.mechanical-electrical.gal.3" },
+    { src: meLiftControlOpen, captionKey: "svcData.mechanical-electrical.gal.4" },
+    { src: meLiftControlClosed, captionKey: "svcData.mechanical-electrical.gal.5" },
   ],
 };
 

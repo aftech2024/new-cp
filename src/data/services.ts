@@ -1,6 +1,7 @@
 import type { Service } from "@/types";
 import technologyPhoto from "@/assets/images/datacenter/overhead-services.jpg";
 import integratedPhoto from "@/assets/images/integrated/ai-farm/ai-farm-01.jpg";
+import mePhoto from "@/assets/images/me/me-distribution-panel.jpg";
 
 export const services: Service[] = [
   {
@@ -56,6 +57,8 @@ export const services: Service[] = [
     number: "02",
     title: "Mechanical & Electrical",
     shortStatement: "Building systems engineered for reliability — mechanical, electrical, HVAC and fire protection.",
+    image: mePhoto,
+    imageAlt: "Electrical distribution panel with MCBs and busbars installed by the Aftech ME team",
     intro:
       "Our mechanical and electrical team designs and executes building systems that keep facilities running safely and efficiently.",
     capabilities: [
