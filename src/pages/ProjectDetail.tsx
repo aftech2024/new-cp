@@ -1,4 +1,5 @@
 import { useParams, Navigate } from "react-router-dom";
+import { ArrowUpRight, Globe } from "lucide-react";
 import Seo from "@/components/Seo";
 import PageHero from "@/components/ui/PageHero";
 import Container from "@/components/ui/Container";
@@ -72,6 +73,21 @@ export default function ProjectDetail() {
             <dd className="mt-1 font-semibold">{t(categoryKey[project.category] ?? project.category)}</dd>
           </div>
         </dl>
+        {project.liveUrl && (
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center gap-2 rounded-pro bg-white px-6 py-3 font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-deep-navy transition-all duration-300 hover:bg-aftech-bright hover:text-deep-navy"
+            >
+              <Globe className="h-4 w-4" />
+              {t("pd.liveDemo")}
+              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+            <span className="font-mono text-[11px] tracking-wide text-white/50">{t("pd.liveNote")}</span>
+          </div>
+        )}
       </PageHero>
 
       <Section>
@@ -86,11 +102,32 @@ export default function ProjectDetail() {
                 </li>
               ))}
             </ul>
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group mt-4 flex items-center gap-4 rounded-pro border border-aftech/25 bg-aftech/5 p-4 transition-colors hover:border-aftech hover:bg-aftech/10"
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-pro bg-aftech text-white">
+                  <Globe className="h-5 w-5" />
+                </span>
+                <span className="flex min-w-0 flex-col">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-aftech">
+                    {t("pd.livePlatform")}
+                  </span>
+                  <span className="truncate text-sm font-semibold text-ink group-hover:text-aftech">
+                    {project.liveUrl.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                  </span>
+                </span>
+                <ArrowUpRight className="ml-auto h-4 w-4 shrink-0 text-muted transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-aftech" />
+              </a>
+            )}
           </div>
         </Container>
       </Section>
 
-      {project.slug === "photogrammetry" && <PhotogrammetryShowcase variant="embedded" />}
+      {project.slug === "photogrammetry" && <PhotogrammetryShowcase variant="embedded" liveUrl={project.liveUrl} />}
 
       <Section tone="tint">
         <Container className="flex flex-col gap-10">

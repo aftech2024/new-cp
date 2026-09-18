@@ -430,6 +430,9 @@ const en: Record<string, string> = {
   "pd.galleryTitle": "Project gallery.",
   "pd.related": "Related",
   "pd.moreIn": "More in this capability.",
+  "pd.liveDemo": "View Live Platform",
+  "pd.liveNote": "Interactive map & 3D model — opens in a new tab",
+  "pd.livePlatform": "Live Platform",
 
   // ---------- projects data ----------
   "prjData.fews-camera-installation.title": "Installation FEWS Camera",
@@ -448,7 +451,7 @@ const en: Record<string, string> = {
   "prjData.cctv-access-door-installation.scope.3": "System Integration",
   "prjData.photogrammetry.title": "Photogrammetry",
   "prjData.photogrammetry.desc":
-    "We fly the site and turn overlapping aerial photos into terrain models, maps, and volume reports the project team can act on the same day.",
+    "We fly the site and turn overlapping aerial photos into terrain models, maps, and volume reports the project team can act on the same day. Live at kemhan.aftech.co.id.",
   "prjData.photogrammetry.scope.0": "Flight & Capture",
   "prjData.photogrammetry.scope.1": "Structure from Motion",
   "prjData.photogrammetry.scope.2": "Point Cloud 3D",
@@ -1096,6 +1099,9 @@ const id: Record<string, string> = {
   "pd.galleryTitle": "Galeri proyek.",
   "pd.related": "Terkait",
   "pd.moreIn": "Lainnya dalam kapabilitas ini.",
+  "pd.liveDemo": "Buka Live Platform",
+  "pd.liveNote": "Peta interaktif & model 3D — terbuka di tab baru",
+  "pd.livePlatform": "Platform Live",
 
   // ---------- projects data ----------
   "prjData.fews-camera-installation.title": "Instalasi Kamera FEWS",
@@ -1114,7 +1120,7 @@ const id: Record<string, string> = {
   "prjData.cctv-access-door-installation.scope.3": "Integrasi Sistem",
   "prjData.photogrammetry.title": "Fotogrametri",
   "prjData.photogrammetry.desc":
-    "Kami menerbangkan lokasi dan mengubah foto udara yang tumpang tindih menjadi model terrain, peta, dan laporan volume yang bisa langsung ditindaklanjuti tim proyek di hari yang sama.",
+    "Kami menerbangkan lokasi dan mengubah foto udara yang tumpang tindih menjadi model terrain, peta, dan laporan volume yang bisa langsung ditindaklanjuti tim proyek di hari yang sama. Live di kemhan.aftech.co.id.",
   "prjData.photogrammetry.scope.0": "Penerbangan & Akuisisi",
   "prjData.photogrammetry.scope.1": "Structure from Motion",
   "prjData.photogrammetry.scope.2": "Point Cloud 3D",

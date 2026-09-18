@@ -279,7 +279,7 @@ export const projects: Project[] = [
     client: "Kementerian Pertahanan",
     location: "Jakarta, Indonesia",
     description:
-      "We fly the site and turn overlapping aerial photos into terrain models, maps, and volume reports the project team can act on the same day.",
+      "We fly the site and turn overlapping aerial photos into terrain models, maps, and volume reports the project team can act on the same day. Live at kemhan.aftech.co.id.",
     scope: [
       "Flight & Capture",
       "Structure from Motion",
@@ -289,6 +289,7 @@ export const projects: Project[] = [
       "Volume Report",
     ],
     coverImage: dronePhotogrammetry,
+    liveUrl: "https://kemhan.aftech.co.id/",
     gallery: [
       { image: dronePhotogrammetry, caption: "Aerial capture processed into a 3D terrain model" },
       { image: photoOrthomosaic, caption: "Orthomosaic — full-site aerial map" },
@@ -332,6 +333,7 @@ export const projects: Project[] = [
       "Enterprise portfolio command system — executive dashboard, project hub, timeline & Gantt, Planning & WBS with dynamic bobot, and automatic Kurva-S analytics from timeline to progress. Live at eptms.aftech.co.id.",
     scope: ["Portfolio Dashboard", "Timeline & Gantt", "Planning & WBS", "Analytics & Kurva-S"],
     coverImage: integratedByFile["eptms-01.jpg"] ?? "",
+    liveUrl: "https://eptms.aftech.co.id/",
     gallery: eptmsGallery,
     featured: true,
   },
@@ -347,6 +349,7 @@ export const projects: Project[] = [
       "Management-construction controls combining contract, BOQ, WBS & cost code, RAP, progress and actual cost into one golden thread — portfolio dashboard, cost dashboard, BOQ baseline and RAP approval. Live at mk.aftech.co.id.",
     scope: ["Contract & BOQ", "WBS & Cost Control", "RAP", "Progress & Cost Dashboard"],
     coverImage: integratedByFile["mk-02.jpg"] ?? "",
+    liveUrl: "https://mk.aftech.co.id/",
     gallery: mkGallery,
     featured: true,
   },

@@ -29,8 +29,16 @@ export default function ProjectCard({ project, size = "regular" }: { project: Pr
         )}
         <div className="flex items-start justify-between gap-4 p-5">
           <div className="flex flex-col gap-2">
-            <span className={`w-fit rounded border px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] ${categoryStyle[project.category]}`}>
-              {t(categoryKey[project.category])}
+            <span className="flex flex-wrap items-center gap-2">
+              <span className={`w-fit rounded border px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] ${categoryStyle[project.category]}`}>
+                {t(categoryKey[project.category])}
+              </span>
+              {project.liveUrl && (
+                <span className="inline-flex w-fit items-center gap-1 rounded border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-emerald-600">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+                  Live ↗
+                </span>
+              )}
             </span>
             <h3 className="font-display font-bold text-lg md:text-xl leading-snug group-hover:text-aftech transition-colors">
               {project.title}

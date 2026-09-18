@@ -19,13 +19,15 @@ interface Props {
    * detail page whose PageHero already carries the title and description.
    */
   variant?: "lead" | "embedded";
+  /** Optional live platform URL — rendered as a prominent external CTA when present. */
+  liveUrl?: string;
 }
 
 /**
  * Drone photogrammetry processing pipeline, from flight to site intelligence
  * the project team can act on.
  */
-export default function PhotogrammetryShowcase({ variant = "lead" }: Props) {
+export default function PhotogrammetryShowcase({ variant = "lead", liveUrl }: Props) {
   const { t } = useLanguage();
   const pipeline = pipelineKeys.map((key, i) => ({ icon: pipelineIcons[i], code: pipelineCodes[i], label: t(key) }));
   const outputs = [0, 1, 2, 3].map((i) => ({ title: t(`photo.out.${i}.t`), desc: t(`photo.out.${i}.d`) }));
@@ -104,9 +106,22 @@ export default function PhotogrammetryShowcase({ variant = "lead" }: Props) {
           ))}
         </motion.div>
 
-        <LinkArrow to="/contact" className="text-white">
-          {t("photo.cta")}
-        </LinkArrow>
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+          {liveUrl && (
+            <a
+              href={liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 rounded-pro bg-white px-6 py-3 font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-deep-navy transition-all duration-300 hover:bg-aftech-bright"
+            >
+              {t("pd.liveDemo")}
+              <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
+            </a>
+          )}
+          <LinkArrow to="/contact" className="text-white">
+            {t("photo.cta")}
+          </LinkArrow>
+        </div>
       </Container>
     </Section>
   );

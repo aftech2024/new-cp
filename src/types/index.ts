@@ -17,6 +17,8 @@ export interface Project {
   coverImage: string;
   gallery: { image: string; caption?: string }[];
   featured: boolean;
+  /** Optional live demo / production URL (e.g. https://kemhan.aftech.co.id/). Rendered as a prominent CTA. */
+  liveUrl?: string;
 }
 
 export interface Service {
