@@ -87,6 +87,15 @@ WhatsApp or the contact form. Limits (message length, turns per conversation,
 per-IP and global daily caps, `max_tokens`) are in the config block at the top of
 `chat.php`.
 
+Visitors can attach a photo (downscaled to 1280px in the browser, one per
+message, 10 per IP per day), dictate with the microphone and have answers read
+aloud (both via the browser's Web Speech API), copy answers, and browse past
+conversations (stored in their own browser only). Thumbs up / down ratings go
+to `public/api/chat-feedback.php`, which appends one JSON line per rating —
+question, answer, rating, no IP — to
+`/home/u532067520/domains/aftech.co.id/aftech-chat-feedback.jsonl`. Read it in
+hPanel's File Manager to see which answers need better source data.
+
 Local test with Herd's PHP (its `auto_prepend_file` must be disabled):
 
 ```bash

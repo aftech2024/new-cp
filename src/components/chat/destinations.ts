@@ -68,7 +68,6 @@ const INLINE_RE = new RegExp(String.raw`\s*\((${LINK})\)|\s+[—–-]\s+(${LINK}
 export function liftInlineLinks(text: string, destinations: Map<string, Destination>): { text: string; hrefs: string[] } {
   const hrefs: string[] = [];
   const replaced = text
-    .replace(/\*\*(.+?)\*\*/g, "$1")
     .replace(INLINE_RE, (match, inParens: string | undefined, afterDash: string | undefined, bare: string | undefined, offset: number, full: string) => {
       const raw = inParens ?? afterDash ?? bare ?? "";
       // A path glued to a word or domain ("aftech.co.id/contact") is not a site link on its own.
@@ -83,4 +82,9 @@ export function liftInlineLinks(text: string, destinations: Map<string, Destinat
     .replace(/[ \t]+([.,;:!?])/g, "$1")
     .replace(/[ \t]{2,}/g, " ");
   return { text: replaced.trim(), hrefs };
+}
+
+/** Reply text without Markdown markers — for the clipboard and read-aloud. */
+export function toPlainText(text: string): string {
+  return text.replace(/\*\*([^*]+)\*\*/g, "$1").replace(/`([^`]+)`/g, "$1");
 }
