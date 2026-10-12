@@ -811,18 +811,15 @@ export default function ChatWidget() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label={open ? t("chat.close") : t("chat.open")}
-          className={`fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-30 flex h-14 items-center rounded-full bg-aftech text-white shadow-[0_12px_32px_-10px_rgba(20,121,209,0.65)] transition hover:bg-[#0F6BBE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-aftech sm:bottom-6 sm:right-6 ${
-            open ? "w-14 justify-center" : "w-14 justify-center sm:w-auto sm:gap-2.5 sm:pl-4 sm:pr-5"
-          }`}
+          title={open ? t("chat.close") : t("chat.launcher")}
+          className="group/launch fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-30 h-14 w-14 overflow-hidden rounded-full p-[2px] shadow-[0_12px_32px_-10px_rgba(20,121,209,0.7)] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-aftech motion-reduce:hover:scale-100 sm:bottom-6 sm:right-6"
         >
-          {open ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <>
-              <AgentIcon className="h-7 w-7 sm:h-6 sm:w-6" />
-              <span className="hidden text-[14px] font-medium sm:inline">{t("chat.launcher")}</span>
-            </>
-          )}
+          {/* The same looping ring as the composer: moving while closed, still once open. */}
+          <span aria-hidden="true" className="absolute inset-0" style={{ background: GLOW_GRADIENT }} />
+          <Glow active={!open} />
+          <span className="relative flex h-full w-full items-center justify-center rounded-full bg-primary-navy text-white transition-colors group-hover/launch:bg-navy-800">
+            {open ? <X className="h-6 w-6" /> : <AgentIcon className="h-7 w-7" />}
+          </span>
         </button>
       )}
     </>
