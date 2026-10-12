@@ -14,7 +14,6 @@ export interface Destination {
   /** What kind of place this is, shown above the title ("Project", "Live platform"). */
   kind: string;
   icon: DestinationIcon;
-  image?: string;
   external: boolean;
 }
 
@@ -36,10 +35,10 @@ export function buildDestinations(t: T): Map<string, Destination> {
   add({ href: "/contact", title: t("chat.page.contact"), kind: t("chat.kind.contact"), icon: "contact" });
 
   for (const s of localizeServices(services, t)) {
-    add({ href: `/services/${s.slug}`, title: s.title, kind: t("chat.kind.service"), icon: "service", image: s.image });
+    add({ href: `/services/${s.slug}`, title: s.title, kind: t("chat.kind.service"), icon: "service" });
   }
   for (const p of localizeProjects(projects, t)) {
-    add({ href: `/projects/${p.slug}`, title: p.title, kind: t("chat.kind.project"), icon: "project", image: p.coverImage });
+    add({ href: `/projects/${p.slug}`, title: p.title, kind: t("chat.kind.project"), icon: "project" });
     if (p.liveUrl) {
       add({ href: p.liveUrl, title: p.title, kind: t("chat.kind.live"), icon: "live", external: true });
     }

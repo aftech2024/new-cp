@@ -36,9 +36,9 @@ import {
   X,
 } from "lucide-react";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
-import logo from "@/assets/images/logo-aftech.png";
 import { WHATSAPP_URL } from "@/data/company";
 import { useLanguage } from "@/i18n/LanguageContext";
+import AgentIcon from "./AgentIcon";
 import DestinationList from "./DestinationList";
 import HistoryPanel from "./HistoryPanel";
 import Markdown from "./Markdown";
@@ -466,8 +466,8 @@ export default function ChatWidget() {
             className={`fixed flex flex-col overflow-hidden bg-primary-navy text-white shadow-[0_24px_80px_-24px_rgba(0,0,0,0.75)] ${panelPosition}`}
           >
             <header className="flex shrink-0 items-center gap-3 border-b border-white/[0.07] py-2 pl-4 pr-2 pt-[max(0.5rem,env(safe-area-inset-top))] sm:pt-2">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white p-1.5">
-                <img src={logo} alt="" className="h-full w-full object-contain" />
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-aftech text-white">
+                <AgentIcon className="h-5 w-5" />
               </span>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-[15px] font-semibold leading-tight text-white">{t("chat.title")}</p>
@@ -734,16 +734,14 @@ export default function ChatWidget() {
           aria-expanded={open}
           aria-label={open ? t("chat.close") : t("chat.open")}
           className={`fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-30 flex h-14 items-center rounded-full bg-aftech text-white shadow-[0_12px_32px_-10px_rgba(20,121,209,0.65)] transition hover:bg-[#0F6BBE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-aftech sm:bottom-6 sm:right-6 ${
-            open ? "w-14 justify-center" : "gap-2.5 pl-2 pr-2 sm:pr-5"
+            open ? "w-14 justify-center" : "w-14 justify-center sm:w-auto sm:gap-2.5 sm:pl-4 sm:pr-5"
           }`}
         >
           {open ? (
             <X className="h-6 w-6" />
           ) : (
             <>
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white p-1.5">
-                <img src={logo} alt="" className="h-full w-full object-contain" />
-              </span>
+              <AgentIcon className="h-7 w-7 sm:h-6 sm:w-6" />
               <span className="hidden text-[14px] font-medium sm:inline">{t("chat.launcher")}</span>
             </>
           )}
