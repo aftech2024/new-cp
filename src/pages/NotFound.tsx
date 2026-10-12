@@ -11,7 +11,7 @@ export default function NotFound() {
       <div className="min-h-[80vh] flex items-center bg-deep-navy text-white">
         <Container className="flex flex-col items-start gap-8">
           <span className="font-display text-sm text-teal-bright tracking-[0.2em] uppercase">404</span>
-          <h1 className="font-display font-extrabold text-[clamp(40px,6vw,80px)] leading-[1.02] max-w-2xl">
+          <h1 className="font-display font-extrabold text-[clamp(36px,5vw,66px)] leading-[1.02] max-w-2xl">
             {t("nf.title")}
           </h1>
           <Button to="/">{t("nf.back")}</Button>

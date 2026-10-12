@@ -34,9 +34,25 @@ body {
   outline-offset: 3px;
 }
 
-.font-display {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  letter-spacing: -0.01em;
+/* Headings share IBM Plex Sans with the body, set a little tighter. :where()
+   keeps this at zero specificity so a tracking-* utility on a heading wins. */
+:where(.font-display) {
+  letter-spacing: -0.02em;
+}
+
+/* Wider sans letterforms leave single words stranded on the last line of a
+   heading; balance the lines instead. */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+/* Plex tops out at 700 and reads heavy at display sizes; headings written as
+   bold / extrabold settle at semibold. */
+.font-display.font-bold,
+.font-display.font-extrabold {
+  font-weight: 600;
 }
 
 /* ————— Professional enterprise surfaces ————— */
@@ -79,7 +95,7 @@ body {
 
 /* Monospace spec label */
 .spec-label {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;

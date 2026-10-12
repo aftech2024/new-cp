@@ -51,7 +51,7 @@ export default function SectionHeading({
           {align === "center" && <span className={`h-px w-8 ${brandTick[brand]}`} aria-hidden="true" />}
         </span>
       )}
-      <h2 className={`font-display font-extrabold leading-[1.04] tracking-[-0.02em] text-[clamp(30px,3.6vw,50px)] ${titleClass}`}>
+      <h2 className={`font-display font-extrabold leading-[1.04] tracking-[-0.02em] text-[clamp(28px,3.2vw,44px)] ${titleClass}`}>
         {title}
       </h2>
       {description && <p className={`text-base md:text-lg leading-relaxed ${mutedClass}`}>{description}</p>}

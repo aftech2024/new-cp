@@ -22,7 +22,7 @@ export default function Hero() {
             <span className="spec-label text-white/55">PT Aftech Daya Solusindo</span>
           </p>
 
-          <h1 className="font-display font-medium leading-[1.04] tracking-[-0.01em] text-[clamp(40px,5.2vw,76px)]">
+          <h1 className="font-display font-medium leading-[1.04] tracking-[-0.01em] text-[clamp(36px,4.5vw,64px)]">
             {t("hero.title")}
           </h1>
 

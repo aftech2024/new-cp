@@ -567,7 +567,7 @@ export default function ChatWidget() {
                     <div aria-hidden="true" className={`pointer-events-none absolute inset-x-0 top-0 h-64 ${DRAFTING_GRID}`} />
                     <div className={`relative flex flex-col gap-8 px-5 pb-6 pt-10 sm:px-6 sm:pt-9 ${column}`}>
                       <div>
-                        <h2 className="font-display text-[34px] leading-[1.05] text-white sm:text-[32px]">{t("chat.welcomeTitle")}</h2>
+                        <h2 className="font-display text-[28px] font-medium leading-[1.15] text-white">{t("chat.welcomeTitle")}</h2>
                         <p className="mt-3 max-w-[36ch] text-[14.5px] leading-relaxed text-white/60">{t("chat.welcomeBody")}</p>
                       </div>
 

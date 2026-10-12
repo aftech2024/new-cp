@@ -61,7 +61,7 @@ export default function PageHero({
               <span className={`spec-label ${accent}`}>{eyebrow}</span>
             </span>
           )}
-          <h1 className="font-display font-extrabold leading-[1.02] tracking-[-0.02em] text-[clamp(38px,5vw,68px)]">{title}</h1>
+          <h1 className="font-display font-extrabold leading-[1.02] tracking-[-0.02em] text-[clamp(34px,4.3vw,58px)]">{title}</h1>
           {description && <p className="text-base md:text-lg text-white/70 max-w-2xl leading-relaxed">{description}</p>}
         </motion.div>
         {meta && meta.length > 0 && (

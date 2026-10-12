@@ -46,7 +46,7 @@ export default function HaloraTeaser() {
                 <p className="font-mono text-[10px] tracking-[0.22em] text-halora-bronze">{t("hal.tag")}</p>
               </div>
             </div>
-            <h2 className="font-display font-extrabold leading-[1.04] tracking-[-0.02em] text-[clamp(30px,3.6vw,50px)] text-ink">
+            <h2 className="font-display font-extrabold leading-[1.04] tracking-[-0.02em] text-[clamp(28px,3.2vw,44px)] text-ink">
               {t("hal.titleA")}<em className="font-medium">{t("hal.titleB")}</em>
             </h2>
             <p className="max-w-md text-base md:text-lg leading-relaxed text-ink/70">

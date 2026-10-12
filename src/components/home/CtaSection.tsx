@@ -15,7 +15,7 @@ export default function CtaSection() {
       <Container className="relative flex flex-col items-center gap-10 text-center">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewportOnce} className="flex flex-col items-center gap-5">
           <span className="spec-label text-aftech-bright">{t("cta.eyebrow")}</span>
-          <h2 className="font-display font-extrabold leading-[1.03] tracking-[-0.02em] text-[clamp(32px,5vw,64px)] max-w-3xl">
+          <h2 className="font-display font-extrabold leading-[1.03] tracking-[-0.02em] text-[clamp(30px,4.3vw,54px)] max-w-3xl">
             {t("cta.title")}
           </h2>
           <p className="max-w-xl text-base md:text-lg text-white/60 leading-relaxed">

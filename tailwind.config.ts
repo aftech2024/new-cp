@@ -31,9 +31,9 @@ export default {
         "off-white": "#F7F9FC",
       },
       fontFamily: {
-        display: ["Cormorant Garamond", "Georgia", "serif"],
-        body: ["Inter", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+        display: ["IBM Plex Sans", "system-ui", "sans-serif"],
+        body: ["IBM Plex Sans", "system-ui", "sans-serif"],
+        mono: ["IBM Plex Mono", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
       boxShadow: {
         pro: "0 1px 2px rgba(4,17,29,0.06), 0 8px 24px -12px rgba(4,17,29,0.18)",
