@@ -47,7 +47,7 @@ $SECRET_FILE = dirname(__DIR__, 2) . '/aftech-chat-secret.php';
 $UPSTREAM_TIMEOUT_SECONDS = 30; // per provider, so the fallback still answers in reasonable time
 // Fallback: any OpenAI-compatible /chat/completions endpoint.
 $FALLBACK_BASE_URL = 'https://9router.aftech.co.id/api/v1';
-$FALLBACK_MODEL = 'cc/claude-haiku-4-5-20251001';
+$FALLBACK_MODEL = 'kr/claude-haiku-4.5';
 $FALLBACK_SECRET_FILE = dirname(__DIR__, 2) . '/aftech-chat-fallback-secret.php';
 // -------------------------------------------------------------------------
 
