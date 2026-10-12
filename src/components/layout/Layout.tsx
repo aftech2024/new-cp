@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import ChatWidget from "@/components/chat/ChatWidget";
 import { pageTransition } from "@/lib/motion";
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -18,6 +19,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         {children}
       </motion.main>
       <Footer />
+      <ChatWidget />
     </div>
   );
 }

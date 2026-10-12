@@ -21,7 +21,7 @@ import { resolve, dirname } from "node:path";
 import { services } from "../src/data/services";
 import { projects } from "../src/data/projects";
 import { insights } from "../src/data/insights";
-import { company, locations } from "../src/data/company";
+import { company, locations, capabilityMatrix, values, HALORA_URL } from "../src/data/company";
 
 // Canonical host is the bare domain; .htaccess redirects www to it. Normalise
 // so a stray "www." in the environment cannot contradict that redirect.
@@ -254,4 +254,69 @@ const sitemap = [
 ].join("\n");
 writeFileSync(resolve(DIST, "sitemap.xml"), sitemap, "utf8");
 
-console.log(`prerender: ${routes.length} routes, sitemap.xml rewritten`);
+// ---------------------------------------------------------------------------
+// Chat assistant knowledge. public/api/chat.php answers only from this file,
+// so it is generated from the same data the pages render and cannot drift.
+
+const bullet = (items: string[]) => items.map((i) => `- ${i}`).join("\n");
+
+const knowledge = [
+  "# Company",
+  `${company.legalName} (${company.shortName}). Tagline: "${company.tagline}". ${company.positioning}`,
+  staticRoutes[0].description,
+  `Values: ${values.join(", ")}.`,
+  `Halora website: ${HALORA_URL}`,
+  "",
+  "# Capabilities",
+  ...capabilityMatrix.map((c) => `- ${c.group} (${c.company}): ${c.items.join(", ")}`),
+  "",
+  "# Contact",
+  `- Email: ${company.email}`,
+  `- Office phone: ${company.phone}`,
+  `- WhatsApp: ${company.whatsapp}`,
+  `- Instagram: ${company.social.instagram}`,
+  `- TikTok: ${company.social.tiktok}`,
+  `- SIPLah store: ${company.social.siplah}`,
+  "- Contact form / start a project: /contact",
+  "",
+  "# Offices",
+  ...locations.map((l) => `- ${l.name} (${l.tag}): ${l.address}`),
+  "",
+  "# Services",
+  ...services.flatMap((s) => [
+    `## ${s.title} — /services/${s.slug}`,
+    s.intro,
+    `Capabilities: ${s.capabilities.join(", ")}.`,
+    `Process: ${s.process.join(" → ")}.`,
+    ...(s.highlights?.length ? ["Highlights:", bullet(s.highlights)] : []),
+    ...s.faq.map((f) => `Q: ${f.question}\nA: ${f.answer}`),
+    "",
+  ]),
+  "# Projects",
+  ...projects.flatMap((p) => [
+    `## ${p.title} — /projects/${p.slug}`,
+    [
+      p.client && `Client: ${p.client}`,
+      p.location && `Location: ${p.location}`,
+      p.status && `Status: ${p.status}`,
+      p.year && `Year: ${p.year}`,
+      p.liveUrl && `Live platform: ${p.liveUrl}`,
+    ]
+      .filter(Boolean)
+      .join(" · "),
+    p.description,
+    `Scope: ${p.scope.join(", ")}.`,
+    "",
+  ]),
+  "# Insights (articles)",
+  ...insights.map((i) => `- ${i.title} — /insights/${i.slug}: ${i.excerpt}`),
+  "",
+  "# Site pages",
+  bullet(staticRoutes.map((r) => `${r.path} — ${r.title}`)),
+  "",
+].join("\n");
+
+mkdirSync(resolve(DIST, "api"), { recursive: true });
+writeFileSync(resolve(DIST, "api", "chat-knowledge.txt"), knowledge, "utf8");
+
+console.log(`prerender: ${routes.length} routes, sitemap.xml rewritten, chat knowledge ${knowledge.length} chars`);

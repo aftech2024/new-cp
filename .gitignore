@@ -8,3 +8,4 @@ deploy.config
 deploy.zip
 backup-server-*
 .prerender
+aftech-chat-secret.php

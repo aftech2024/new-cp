@@ -12,6 +12,8 @@ const browserGlobals = {
   console: "readonly",
   ScrollBehavior: "readonly",
   HTMLInputElement: "readonly",
+  HTMLDivElement: "readonly",
+  HTMLTextAreaElement: "readonly",
   URLSearchParams: "readonly",
 };
 

@@ -669,6 +669,30 @@ const en: Record<string, string> = {
 
   // ---------- toggle ----------
   "toggle.label": "Switch language",
+
+  // ---------- chat assistant ----------
+  "chat.title": "Aftech Assistant",
+  "chat.subtitle": "AI · Aftech topics only",
+  "chat.open": "Open chat assistant",
+  "chat.close": "Close chat",
+  "chat.reset": "New conversation",
+  "chat.greeting":
+    "Hi! I can answer questions about Aftech's services, projects and how to start working with us. What would you like to know?",
+  "chat.suggest.services": "What services does Aftech offer?",
+  "chat.suggest.projects": "Which projects has Aftech delivered?",
+  "chat.suggest.start": "How do I start a project?",
+  "chat.placeholder": "Type your question…",
+  "chat.send": "Send",
+  "chat.typing": "Typing…",
+  "chat.disclaimer": "AI answers may be inaccurate. For quotes and schedules,",
+  "chat.contactLink": "contact our team",
+  "chat.limitReached": "This conversation has reached its limit. Continue with our team on WhatsApp, or start a new conversation.",
+  "chat.err.generic": "Sorry, the assistant could not reply. Please try again.",
+  "chat.err.rate_limited": "Too many messages. Please wait a moment and try again.",
+  "chat.err.conversation_limit": "This conversation has reached its limit.",
+  "chat.err.busy": "The assistant is busy today. Please contact us via WhatsApp or the contact form.",
+  "chat.err.unavailable": "The assistant is currently unavailable. Please contact us via WhatsApp or the contact form.",
+  "chat.err.too_long": "Message is too long. Please shorten it.",
 };
 
 const id: Record<string, string> = {
@@ -1336,6 +1360,30 @@ const id: Record<string, string> = {
 
   // ---------- toggle ----------
   "toggle.label": "Ganti bahasa",
+
+  // ---------- chat assistant ----------
+  "chat.title": "Asisten Aftech",
+  "chat.subtitle": "AI · khusus seputar Aftech",
+  "chat.open": "Buka asisten chat",
+  "chat.close": "Tutup chat",
+  "chat.reset": "Percakapan baru",
+  "chat.greeting":
+    "Halo! Saya bisa menjawab pertanyaan seputar layanan, proyek, dan cara memulai kerja sama dengan Aftech. Ada yang ingin ditanyakan?",
+  "chat.suggest.services": "Apa saja layanan Aftech?",
+  "chat.suggest.projects": "Proyek apa saja yang pernah dikerjakan?",
+  "chat.suggest.start": "Bagaimana cara memulai proyek?",
+  "chat.placeholder": "Ketik pertanyaan Anda…",
+  "chat.send": "Kirim",
+  "chat.typing": "Mengetik…",
+  "chat.disclaimer": "Jawaban AI bisa keliru. Untuk penawaran dan jadwal,",
+  "chat.contactLink": "hubungi tim kami",
+  "chat.limitReached": "Percakapan ini sudah mencapai batas. Lanjutkan dengan tim kami via WhatsApp, atau mulai percakapan baru.",
+  "chat.err.generic": "Maaf, asisten gagal menjawab. Silakan coba lagi.",
+  "chat.err.rate_limited": "Terlalu banyak pesan. Tunggu sebentar lalu coba lagi.",
+  "chat.err.conversation_limit": "Percakapan ini sudah mencapai batas.",
+  "chat.err.busy": "Asisten sedang penuh hari ini. Silakan hubungi kami via WhatsApp atau form kontak.",
+  "chat.err.unavailable": "Asisten sedang tidak tersedia. Silakan hubungi kami via WhatsApp atau form kontak.",
+  "chat.err.too_long": "Pesan terlalu panjang. Silakan persingkat.",
 };
 
 export const dictionaries: Record<Lang, Record<string, string>> = { en, id };

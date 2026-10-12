@@ -39,6 +39,8 @@ jobs:
           test -f dist/index.html || { echo "::error::dist/index.html missing"; exit 1; }
           test -f dist/.htaccess  || { echo "::error::dist/.htaccess missing — SPA routes would 404"; exit 1; }
           test -f dist/api/contact.php || echo "::warning::dist/api/contact.php missing"
+          test -f dist/api/chat.php || echo "::warning::dist/api/chat.php missing"
+          test -s dist/api/chat-knowledge.txt || { echo "::error::dist/api/chat-knowledge.txt missing — chat assistant would be unavailable"; exit 1; }
           if grep -rqs "example\.com" dist/sitemap.xml dist/robots.txt; then
             echo "::error::dist still contains example.com placeholders"; exit 1
           fi
