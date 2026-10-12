@@ -531,7 +531,7 @@ export default function ChatWidget() {
             className={`fixed flex flex-col overflow-hidden bg-primary-navy text-white shadow-[0_24px_80px_-24px_rgba(0,0,0,0.75)] ${panelPosition}`}
           >
             <header className="flex shrink-0 items-center gap-3 border-b border-white/[0.07] py-2 pl-4 pr-2 pt-[max(0.5rem,env(safe-area-inset-top))] sm:pt-2">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-aftech text-white">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-aftech/15 text-aftech-bright ring-1 ring-inset ring-aftech-bright/30">
                 <AgentIcon className="h-5 w-5" />
               </span>
               <div className="min-w-0 flex-1">
@@ -817,7 +817,7 @@ export default function ChatWidget() {
           {/* The same looping ring as the composer: moving while closed, still once open. */}
           <span aria-hidden="true" className="absolute inset-0" style={{ background: GLOW_GRADIENT }} />
           <Glow active={!open} />
-          <span className="relative flex h-full w-full items-center justify-center rounded-full bg-primary-navy text-white transition-colors group-hover/launch:bg-navy-800">
+          <span className="relative flex h-full w-full items-center justify-center rounded-full bg-primary-navy text-aftech-bright transition-colors group-hover/launch:bg-navy-800">
             {open ? <X className="h-6 w-6" /> : <AgentIcon className="h-7 w-7" />}
           </span>
         </button>
