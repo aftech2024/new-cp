@@ -812,14 +812,17 @@ export default function ChatWidget() {
           aria-expanded={open}
           aria-label={open ? t("chat.close") : t("chat.open")}
           title={open ? t("chat.close") : t("chat.launcher")}
-          className="group/launch fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-30 h-14 w-14 overflow-hidden rounded-full p-[2px] shadow-[0_12px_32px_-10px_rgba(20,121,209,0.7)] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-aftech motion-reduce:hover:scale-100 sm:bottom-6 sm:right-6"
+          className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-30 flex h-14 w-14 items-center justify-center rounded-full text-aftech-bright transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aftech-bright motion-reduce:hover:scale-100 sm:bottom-6 sm:right-6"
         >
-          {/* The same looping ring as the composer: moving while closed, still once open. */}
-          <span aria-hidden="true" className="absolute inset-0" style={{ background: GLOW_GRADIENT }} />
-          <Glow active={!open} />
-          <span className="relative flex h-full w-full items-center justify-center rounded-full bg-primary-navy text-aftech-bright transition-colors group-hover/launch:bg-navy-800">
-            {open ? <X className="h-6 w-6" /> : <AgentIcon className="h-7 w-7" />}
-          </span>
+          {/* Just the glyph — a soft drop shadow keeps it legible over photos and light sections alike. */}
+          {open ? (
+            <X className="h-8 w-8 drop-shadow-[0_2px_8px_rgba(4,17,29,0.45)]" strokeWidth={2.25} />
+          ) : (
+            // The shadow sits on a wrapper: on the masked span itself the mask would clip it away.
+            <span className="drop-shadow-[0_2px_8px_rgba(4,17,29,0.45)]">
+              <AgentIcon className="h-11 w-11" />
+            </span>
+          )}
         </button>
       )}
     </>
