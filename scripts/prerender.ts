@@ -21,7 +21,7 @@ import { resolve, dirname } from "node:path";
 import { services } from "../src/data/services";
 import { projects } from "../src/data/projects";
 import { insights } from "../src/data/insights";
-import { company, locations, capabilityMatrix, values, HALORA_URL } from "../src/data/company";
+import { company, locations, capabilityMatrix, values, HALORA_URL, WHATSAPP_URL } from "../src/data/company";
 
 // Canonical host is the bare domain; .htaccess redirects www to it. Normalise
 // so a stray "www." in the environment cannot contradict that redirect.
@@ -273,7 +273,7 @@ const knowledge = [
   "# Contact",
   `- Email: ${company.email}`,
   `- Office phone: ${company.phone}`,
-  `- WhatsApp: ${company.whatsapp}`,
+  `- WhatsApp: ${company.whatsapp} (chat link: ${WHATSAPP_URL})`,
   `- Instagram: ${company.social.instagram}`,
   `- TikTok: ${company.social.tiktok}`,
   `- SIPLah store: ${company.social.siplah}`,

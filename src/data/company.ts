@@ -17,6 +17,9 @@ export const company = {
   },
 };
 
+/** wa.me wants the international format: 0822-… → 62822… */
+export const WHATSAPP_URL = `https://wa.me/${company.whatsapp.replace(/\D/g, "").replace(/^0/, "62")}`;
+
 export const locations = [
   {
     name: "Aftech Daya Solusindo",
