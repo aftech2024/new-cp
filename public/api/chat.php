@@ -7,10 +7,14 @@
  * from chat-knowledge.txt (generated at build time from src/data/ by
  * scripts/prerender.ts) and refuses everything else.
  *
- * The API key never reaches the browser. It is read from, in order:
- *   1. the ANTHROPIC_API_KEY environment variable, or
- *   2. aftech-chat-secret.php one level ABOVE public_html, which must contain
- *      only:  <?php return 'sk-ant-...';
+ * If Anthropic fails (network error, rate limit, overload, no credit) or has no
+ * key, the same conversation goes to an OpenAI-compatible fallback (9router).
+ *
+ * API keys never reach the browser. Each is read from, in order:
+ *   1. an environment variable (ANTHROPIC_API_KEY / FALLBACK_API_KEY), or
+ *   2. a file one level ABOVE public_html — aftech-chat-secret.php and
+ *      aftech-chat-fallback-secret.php — which must contain only:
+ *      <?php return 'sk-...';
  *
  * Cost is bounded server-side regardless of what the prompt does: message
  * length, conversation length, max_tokens, per-IP rate limits and a global
@@ -40,6 +44,11 @@ $DAILY_MAX_GLOBAL = 1000;       // whole site per day — the hard cost ceiling
 $RATE_LIMIT_DIR = sys_get_temp_dir() . '/aftech_chat_rate';
 $KNOWLEDGE_FILE = __DIR__ . '/chat-knowledge.txt';
 $SECRET_FILE = dirname(__DIR__, 2) . '/aftech-chat-secret.php';
+$UPSTREAM_TIMEOUT_SECONDS = 30; // per provider, so the fallback still answers in reasonable time
+// Fallback: any OpenAI-compatible /chat/completions endpoint.
+$FALLBACK_BASE_URL = 'https://9router.aftech.co.id/api/v1';
+$FALLBACK_MODEL = 'cc/claude-haiku-4-5-20251001';
+$FALLBACK_SECRET_FILE = dirname(__DIR__, 2) . '/aftech-chat-fallback-secret.php';
 // -------------------------------------------------------------------------
 
 function jsonResponse(int $status, array $payload): void
@@ -73,9 +82,9 @@ function withCounter(string $file, callable $fn): bool
     return $allowed;
 }
 
-function loadApiKey(string $secretFile): string
+function loadApiKey(string $envName, string $secretFile): string
 {
-    $env = getenv('ANTHROPIC_API_KEY');
+    $env = getenv($envName);
     if (is_string($env) && $env !== '') {
         return trim($env);
     }
@@ -88,12 +97,59 @@ function loadApiKey(string $secretFile): string
     return '';
 }
 
+/**
+ * POST JSON and return the decoded body, or null on a network error or non-200.
+ * The upstream detail is logged server-side only; the visitor gets a generic error.
+ */
+function postJson(string $label, string $url, array $headers, array $payload, int $timeout): ?array
+{
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_POST => true,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CONNECTTIMEOUT => 10,
+        CURLOPT_TIMEOUT => $timeout,
+        CURLOPT_HTTPHEADER => array_merge(['content-type: application/json'], $headers),
+        CURLOPT_POSTFIELDS => json_encode($payload, JSON_UNESCAPED_UNICODE),
+    ]);
+    $raw = curl_exec($ch);
+    $status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlError = curl_error($ch);
+    curl_close($ch);
+
+    $data = is_string($raw) ? json_decode($raw, true) : null;
+    if ($status !== 200 || !is_array($data)) {
+        error_log("aftech chat $label error: HTTP $status $curlError " . substr((string) $raw, 0, 500));
+        return null;
+    }
+    return $data;
+}
+
+/** Anthropic-format messages to OpenAI chat format, with the system prompt first. */
+function toOpenAiMessages(string $system, array $messages): array
+{
+    $out = [['role' => 'system', 'content' => $system]];
+    foreach ($messages as $m) {
+        $content = $m['content'];
+        if (is_array($content)) {
+            $content = array_map(function (array $block): array {
+                return $block['type'] === 'image'
+                    ? ['type' => 'image_url', 'image_url' => ['url' => 'data:' . $block['source']['media_type'] . ';base64,' . $block['source']['data']]]
+                    : ['type' => 'text', 'text' => $block['text']];
+            }, $content);
+        }
+        $out[] = ['role' => $m['role'], 'content' => $content];
+    }
+    return $out;
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     jsonResponse(405, ['ok' => false, 'error' => 'method_not_allowed']);
 }
 
-$apiKey = loadApiKey($SECRET_FILE);
-if ($apiKey === '' || !is_file($KNOWLEDGE_FILE)) {
+$apiKey = loadApiKey('ANTHROPIC_API_KEY', $SECRET_FILE);
+$fallbackKey = loadApiKey('FALLBACK_API_KEY', $FALLBACK_SECRET_FILE);
+if (($apiKey === '' && $fallbackKey === '') || !is_file($KNOWLEDGE_FILE)) {
     jsonResponse(503, ['ok' => false, 'error' => 'unavailable']);
 }
 
@@ -266,36 +322,34 @@ $payload = [
 ];
 
 // --- call the API ----------------------------------------------------------
-$ch = curl_init('https://api.anthropic.com/v1/messages');
-curl_setopt_array($ch, [
-    CURLOPT_POST => true,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_CONNECTTIMEOUT => 10,
-    CURLOPT_TIMEOUT => 45,
-    CURLOPT_HTTPHEADER => [
-        'content-type: application/json',
+// Anthropic first; if it fails or returns nothing, the fallback gets the same
+// conversation. Both are normalised to the reply text plus a truncation flag.
+$reply = '';
+$truncated = false;
+if ($apiKey !== '') {
+    $data = postJson('anthropic', 'https://api.anthropic.com/v1/messages', [
         'anthropic-version: 2023-06-01',
         'x-api-key: ' . $apiKey,
-    ],
-    CURLOPT_POSTFIELDS => json_encode($payload, JSON_UNESCAPED_UNICODE),
-]);
-$raw = curl_exec($ch);
-$status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
-$curlError = curl_error($ch);
-curl_close($ch);
-
-if ($raw === false || $status !== 200) {
-    // Log the upstream detail server-side only; the visitor gets a generic error.
-    error_log('aftech chat upstream error: HTTP ' . $status . ' ' . $curlError . ' ' . substr((string) $raw, 0, 500));
-    jsonResponse(502, ['ok' => false, 'error' => 'upstream']);
-}
-
-$data = json_decode($raw, true);
-$reply = '';
-foreach (($data['content'] ?? []) as $block) {
-    if (($block['type'] ?? '') === 'text') {
-        $reply .= $block['text'];
+    ], $payload, $UPSTREAM_TIMEOUT_SECONDS);
+    foreach (($data['content'] ?? []) as $block) {
+        if (($block['type'] ?? '') === 'text') {
+            $reply .= $block['text'];
+        }
     }
+    $truncated = ($data['stop_reason'] ?? '') === 'max_tokens';
+}
+if (trim($reply) === '' && $fallbackKey !== '') {
+    $data = postJson('fallback', rtrim($FALLBACK_BASE_URL, '/') . '/chat/completions', [
+        'authorization: Bearer ' . $fallbackKey,
+    ], [
+        'model' => $FALLBACK_MODEL,
+        'max_tokens' => $MAX_OUTPUT_TOKENS,
+        'stream' => false,
+        'messages' => toOpenAiMessages($system, $messages),
+    ], $UPSTREAM_TIMEOUT_SECONDS);
+    $choice = $data['choices'][0] ?? [];
+    $reply = is_string($choice['message']['content'] ?? null) ? $choice['message']['content'] : '';
+    $truncated = ($choice['finish_reason'] ?? '') === 'length';
 }
 $reply = trim($reply);
 
@@ -357,7 +411,7 @@ foreach (explode('|', $followupsRaw) as $question) {
 // Ran out of tokens. If it happened inside the trailing lines, the answer
 // itself is complete and only the last follow-up may be cut short; otherwise
 // end the answer at its last complete line or sentence.
-if (($data['stop_reason'] ?? '') === 'max_tokens') {
+if ($truncated) {
     if ($followupsRaw !== '') {
         array_pop($followups);
     } elseif ($linksRaw === '') {

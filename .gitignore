@@ -10,3 +10,4 @@ backup-server-*
 .prerender
 aftech-chat-secret.php
 aftech-chat-feedback.jsonl
+aftech-chat-fallback-secret.php

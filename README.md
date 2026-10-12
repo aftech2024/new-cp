@@ -82,8 +82,15 @@ above the web root, at
 <?php return 'sk-ant-...';
 ```
 
-Without that file the endpoint returns 503 and the widget tells visitors to use
-WhatsApp or the contact form. Limits (message length, turns per conversation,
+If Anthropic fails (network error, rate limit, overload, out of credit) the same
+conversation goes to the OpenAI-compatible fallback set by `$FALLBACK_BASE_URL` /
+`$FALLBACK_MODEL` in `chat.php` (9router). Its key lives beside the first, at
+`/home/u532067520/domains/aftech.co.id/aftech-chat-fallback-secret.php`, in the
+same `<?php return '...';` form. Failures are logged to the PHP error log as
+`aftech chat anthropic error` / `aftech chat fallback error`.
+
+Without either key file the endpoint returns 503 and the widget tells visitors to
+use WhatsApp or the contact form. Limits (message length, turns per conversation,
 per-IP and global daily caps, `max_tokens`) are in the config block at the top of
 `chat.php`.
 
@@ -102,6 +109,9 @@ Local test with Herd's PHP (its `auto_prepend_file` must be disabled):
 npm run build
 ANTHROPIC_API_KEY=sk-ant-... php -d auto_prepend_file= -S 127.0.0.1:8080 -t dist
 ```
+
+Add `FALLBACK_API_KEY=sk-...` to exercise the fallback; set only that one to
+test it on its own.
 
 ## Content status
 
