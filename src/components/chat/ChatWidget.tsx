@@ -27,7 +27,7 @@ import {
   MessageSquareText,
   Mic,
   Minimize2,
-  Paperclip,
+  Plus,
   Square,
   SquarePen,
   ThumbsDown,
@@ -80,6 +80,69 @@ function HeaderButton({ label, onClick, children, active = false }: { label: str
       }`}
     >
       {children}
+    </button>
+  );
+}
+
+// Aftech blues travelling around a border while the composer waits for input.
+const GLOW_GRADIENT = "conic-gradient(from 0deg, #1479D1, #2EA8FF, #A5DEFF, #2EA8FF, #1479D1)";
+
+/**
+ * A rotating conic gradient, clipped by its parent's rounded overflow to read
+ * as a moving border. It spins inside a square half again as wide as the box,
+ * so the rotation never exposes a corner. Still under reduced motion.
+ */
+function Glow({ active }: { active: boolean }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[150%] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 ${
+        active ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <span className="absolute inset-0 motion-safe:animate-[spin_5s_linear_infinite]" style={{ background: GLOW_GRADIENT }} />
+    </span>
+  );
+}
+
+function RingButton({
+  label,
+  onClick,
+  children,
+  type = "button",
+  disabled = false,
+  glowing,
+  pressed,
+  alert = false,
+}: {
+  label: string;
+  onClick?: () => void;
+  children: ReactNode;
+  type?: "button" | "submit";
+  disabled?: boolean;
+  glowing: boolean;
+  pressed?: boolean;
+  alert?: boolean;
+}) {
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={label}
+      aria-pressed={pressed}
+      title={label}
+      className={`group/ring relative h-11 w-11 shrink-0 overflow-hidden rounded-full p-[1.5px] transition disabled:opacity-40 ${focusRing}`}
+    >
+      <span aria-hidden="true" className="absolute inset-0" style={{ background: GLOW_GRADIENT }} />
+      <Glow active={glowing} />
+      <span
+        className={`relative flex h-full w-full items-center justify-center rounded-full text-white transition-colors ${
+          alert ? "bg-red-500" : "bg-navy-800 group-hover/ring:bg-navy-700"
+        }`}
+      >
+        {children}
+      </span>
     </button>
   );
 }
@@ -377,6 +440,8 @@ export default function ChatWidget() {
   const formatTime = (at: number) => new Date(at).toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" });
   const nearLimit = input.length > MAX_CHARS - 100;
   const showMic = dictation.supported && (dictation.listening || (!input.trim() && !attachment));
+  // Nothing typed yet: the composer glows to invite a first question.
+  const idle = !input.trim() && !attachment && !sending && !atLimit && !dictation.listening;
   const column = wide ? "mx-auto w-full max-w-2xl" : "w-full";
   const bodyText = "text-[15px] leading-[1.65] sm:text-[14px]";
 
@@ -637,57 +702,70 @@ export default function ChatWidget() {
                     </div>
                   )}
 
-                  <div className="flex items-end gap-1 rounded-xl bg-navy-800 p-1 ring-1 ring-white/10 transition focus-within:ring-aftech-bright/60">
-                    <button
-                      type="button"
-                      onClick={() => fileRef.current?.click()}
-                      disabled={atLimit || sending}
-                      aria-label={t("chat.attach")}
-                      title={t("chat.attach")}
-                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-white/50 transition hover:bg-white/[0.06] hover:text-white disabled:opacity-30 ${focusRing}`}
-                    >
-                      <Paperclip className="h-[18px] w-[18px]" />
-                    </button>
-                    <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" onChange={handleFileChange} className="hidden" tabIndex={-1} />
-                    <textarea
-                      ref={inputRef}
-                      value={input}
-                      onChange={(e) => setInput(e.target.value.slice(0, MAX_CHARS))}
-                      onKeyDown={handleKeyDown}
-                      onPaste={handlePaste}
-                      rows={1}
-                      maxLength={MAX_CHARS}
-                      disabled={atLimit}
-                      enterKeyHint={isMobile ? "enter" : "send"}
-                      placeholder={dictation.listening ? t("chat.listening") : t("chat.placeholder")}
-                      aria-label={t("chat.placeholder")}
-                      // 16px on phones: anything smaller makes iOS zoom the page on focus.
-                      className="max-h-32 min-h-[40px] flex-1 resize-none bg-transparent px-1 py-2 text-base leading-6 text-white outline-none placeholder:text-white/35 focus-visible:outline-none disabled:cursor-not-allowed sm:text-[14px]"
+                  <div className="group relative overflow-hidden rounded-2xl p-[1.5px]">
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 bg-white/[0.12] transition-colors group-focus-within:bg-aftech-bright/50"
                     />
-                    {showMic ? (
-                      <button
-                        type="button"
-                        onClick={toggleMic}
+                    <Glow active={idle} />
+                    <div className="relative rounded-[15px] bg-navy-800 px-2.5 pb-2 pt-2">
+                      <textarea
+                        ref={inputRef}
+                        value={input}
+                        onChange={(e) => setInput(e.target.value.slice(0, MAX_CHARS))}
+                        onKeyDown={handleKeyDown}
+                        onPaste={handlePaste}
+                        rows={1}
+                        maxLength={MAX_CHARS}
                         disabled={atLimit}
-                        aria-label={dictation.listening ? t("chat.micStop") : t("chat.mic")}
-                        aria-pressed={dictation.listening}
-                        title={dictation.listening ? t("chat.micStop") : t("chat.mic")}
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition disabled:opacity-30 ${focusRing} ${
-                          dictation.listening ? "bg-red-500 text-white motion-safe:animate-pulse" : "text-white/50 hover:bg-white/[0.06] hover:text-white"
-                        }`}
-                      >
-                        {dictation.listening ? <Square className="h-3.5 w-3.5" fill="currentColor" /> : <Mic className="h-[18px] w-[18px]" />}
-                      </button>
-                    ) : (
-                      <button
-                        type="submit"
-                        disabled={sending || atLimit || (!input.trim() && !attachment)}
-                        aria-label={t("chat.send")}
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-aftech text-white transition hover:bg-[#0F6BBE] disabled:bg-white/[0.06] disabled:text-white/25 ${focusRing}`}
-                      >
-                        <ArrowUp className="h-[18px] w-[18px]" strokeWidth={2.25} />
-                      </button>
-                    )}
+                        enterKeyHint={isMobile ? "enter" : "send"}
+                        placeholder={dictation.listening ? t("chat.listening") : t("chat.placeholder")}
+                        aria-label={t("chat.placeholder")}
+                        // 16px on phones: anything smaller makes iOS zoom the page on focus.
+                        className="block max-h-32 min-h-[44px] w-full resize-none bg-transparent px-2 py-2 text-base leading-6 text-white outline-none placeholder:text-white/40 focus-visible:outline-none disabled:cursor-not-allowed sm:text-[14px]"
+                      />
+                      <div className="mt-1 flex items-center justify-between gap-2">
+                        <button
+                          type="button"
+                          onClick={() => fileRef.current?.click()}
+                          disabled={atLimit || sending}
+                          aria-label={t("chat.attach")}
+                          title={t("chat.attach")}
+                          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white/80 transition hover:bg-white/[0.06] hover:text-white disabled:opacity-30 ${focusRing}`}
+                        >
+                          <Plus className="h-5 w-5" />
+                        </button>
+                        <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" onChange={handleFileChange} className="hidden" tabIndex={-1} />
+                        <div className="flex items-center gap-2">
+                          {nearLimit && (
+                            <span className="text-[11px] tabular-nums text-white/45">
+                              {input.length}/{MAX_CHARS}
+                            </span>
+                          )}
+                          {showMic ? (
+                            <RingButton
+                              label={dictation.listening ? t("chat.micStop") : t("chat.mic")}
+                              onClick={toggleMic}
+                              disabled={atLimit}
+                              glowing={idle}
+                              pressed={dictation.listening}
+                              alert={dictation.listening}
+                            >
+                              {dictation.listening ? <Square className="h-3.5 w-3.5" fill="currentColor" /> : <Mic className="h-5 w-5" />}
+                            </RingButton>
+                          ) : (
+                            <RingButton
+                              label={t("chat.send")}
+                              type="submit"
+                              disabled={sending || atLimit || (!input.trim() && !attachment)}
+                              glowing={idle}
+                            >
+                              <ArrowUp className="h-5 w-5" strokeWidth={2.25} />
+                            </RingButton>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <p className="mt-2 flex items-center justify-center gap-2 px-1 text-center text-[11px] leading-snug text-white/35">
