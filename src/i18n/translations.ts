@@ -21,15 +21,15 @@ const en: Record<string, string> = {
   "nav.meta.integrated": "Smart building · End-to-end delivery",
 
   // ---------- hero ----------
-  "hero.title": "We build the digital and physical world.",
+  "hero.title": "Over 5 years building the digital and physical world.",
   "hero.descA":
-    "Aftech is an IT-first engineering company — software, infrastructure and building systems. Civil construction and interior work are delivered by our second company, ",
+    "Aftech is an IT-first engineering company delivering software, infrastructure and building systems for government ministries, state-owned enterprises and private companies. Civil construction and interior work are delivered by our second company, ",
   "hero.descB": ".",
   "hero.explore": "Explore Our Work",
   "hero.start": "Start a Project",
   "home.seo.title": "PT Aftech Daya Solusindo | Technology, Engineering & Construction",
   "home.seo.desc":
-    "PT Aftech Daya Solusindo delivers technology, engineering and mechanical & electrical solutions — with civil construction and interior work delivered through our second company, Halora.",
+    "PT Aftech Daya Solusindo has spent over 5 years delivering technology, engineering and mechanical & electrical solutions, with civil construction and interior work delivered through our second company, Halora.",
 
   // ---------- technology core ----------
   "tech.eyebrow": "Core Identity — Aftech IT",
@@ -762,15 +762,15 @@ const id: Record<string, string> = {
   "nav.meta.integrated": "Smart building · Serah terima menyeluruh",
 
   // ---------- hero ----------
-  "hero.title": "Kami membangun dunia digital dan fisik.",
+  "hero.title": "Lebih dari 5 tahun membangun dunia digital dan fisik.",
   "hero.descA":
-    "Aftech adalah perusahaan engineering yang berfokus pada IT — software, infrastruktur, dan sistem gedung. Pekerjaan konstruksi sipil dan interior dikerjakan oleh perusahaan kedua kami, ",
+    "Aftech adalah perusahaan engineering berbasis IT yang mengerjakan software, infrastruktur, dan sistem gedung untuk kementerian, BUMN, dan perusahaan swasta. Pekerjaan konstruksi sipil dan interior dikerjakan oleh perusahaan kedua kami, ",
   "hero.descB": ".",
   "hero.explore": "Lihat Karya Kami",
   "hero.start": "Mulai Proyek",
   "home.seo.title": "PT Aftech Daya Solusindo | Teknologi, Engineering & Konstruksi",
   "home.seo.desc":
-    "PT Aftech Daya Solusindo menghadirkan solusi teknologi, engineering, serta mekanikal & elektrikal — dengan pekerjaan konstruksi sipil dan interior yang dikerjakan melalui perusahaan kedua kami, Halora.",
+    "PT Aftech Daya Solusindo telah lebih dari 5 tahun menghadirkan solusi teknologi, engineering, serta mekanikal & elektrikal, dengan pekerjaan konstruksi sipil dan interior yang dikerjakan melalui perusahaan kedua kami, Halora.",
 
   // ---------- technology core ----------
   "tech.eyebrow": "Identitas Inti — IT Aftech",

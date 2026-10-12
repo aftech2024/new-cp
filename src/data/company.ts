@@ -7,6 +7,7 @@ export const company = {
   shortName: "Aftech",
   tagline: "We Create Your Idea Into Reality",
   positioning: "We build the digital and physical world.",
+  experience: "Over 5 years delivering software, IT infrastructure and building systems for government ministries, state-owned enterprises and private companies.",
   email: "aftech.daya@gmail.com",
   phone: "0822-3183-4977",
   whatsapp: "0822-1111-2295",

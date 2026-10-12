@@ -46,7 +46,7 @@ const staticRoutes: Route[] = [
     path: "/",
     title: `${SITE_NAME} | Technology, Engineering & Construction`,
     description:
-      "PT Aftech Daya Solusindo delivers technology, engineering and mechanical & electrical solutions — with civil construction and interior work delivered through our second company, Halora.",
+      "PT Aftech Daya Solusindo has spent over 5 years delivering technology, engineering and mechanical & electrical solutions, with civil construction and interior work delivered through our second company, Halora.",
     type: "website",
     priority: "1.0",
   },
@@ -264,6 +264,7 @@ const knowledge = [
   "# Company",
   `${company.legalName} (${company.shortName}). Tagline: "${company.tagline}". ${company.positioning}`,
   staticRoutes[0].description,
+  `Experience: ${company.experience}`,
   `Values: ${values.join(", ")}.`,
   `Halora website: ${HALORA_URL}`,
   "",
