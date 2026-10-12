@@ -806,24 +806,35 @@ export default function ChatWidget() {
 
       {/* On phones the open sheet has its own close button, so the launcher steps aside. */}
       {!(open && isMobile) && (
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-label={open ? t("chat.close") : t("chat.open")}
-          title={open ? t("chat.close") : t("chat.launcher")}
-          className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-30 flex h-14 w-14 items-center justify-center rounded-full text-aftech-bright transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aftech-bright motion-reduce:hover:scale-100 sm:bottom-6 sm:right-6"
-        >
-          {/* Just the glyph — a soft drop shadow keeps it legible over photos and light sections alike. */}
-          {open ? (
-            <X className="h-8 w-8 drop-shadow-[0_2px_8px_rgba(4,17,29,0.45)]" strokeWidth={2.25} />
-          ) : (
-            // The shadow sits on a wrapper: on the masked span itself the mask would clip it away.
-            <span className="drop-shadow-[0_2px_8px_rgba(4,17,29,0.45)]">
-              <AgentIcon className="h-11 w-11" />
+        <div className="group/launch fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-30 sm:bottom-6 sm:right-6">
+          {/* Hover / keyboard-focus hint. Kept out of the button so it does not scale with it. */}
+          {!open && (
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute right-full top-1/2 mr-2 hidden -translate-y-1/2 translate-x-1 whitespace-nowrap rounded-lg bg-navy-700 px-3.5 py-2 text-[13px] font-medium text-white opacity-0 shadow-[0_8px_24px_-8px_rgba(4,17,29,0.6)] ring-1 ring-white/15 transition duration-200 group-focus-within/launch:translate-x-0 group-focus-within/launch:opacity-100 group-hover/launch:translate-x-0 group-hover/launch:opacity-100 motion-reduce:transition-none sm:block"
+            >
+              {t("chat.launcherHint")}
+              <span className="absolute -right-1 top-1/2 h-2 w-2 -translate-y-1/2 rotate-45 bg-navy-700" />
             </span>
           )}
-        </button>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label={open ? t("chat.close") : t("chat.open")}
+            className="flex h-14 w-14 items-center justify-center rounded-full text-aftech-bright transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aftech-bright motion-reduce:hover:scale-100"
+          >
+            {/* Just the glyph — a soft drop shadow keeps it legible over photos and light sections alike. */}
+            {open ? (
+              <X className="h-8 w-8 drop-shadow-[0_2px_8px_rgba(4,17,29,0.45)]" strokeWidth={2.25} />
+            ) : (
+              // The shadow sits on a wrapper: on the masked span itself the mask would clip it away.
+              <span className="drop-shadow-[0_2px_8px_rgba(4,17,29,0.45)]">
+                <AgentIcon className="h-11 w-11" />
+              </span>
+            )}
+          </button>
+        </div>
       )}
     </>
   );
