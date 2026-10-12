@@ -15,6 +15,7 @@ const browserGlobals = {
   HTMLDivElement: "readonly",
   HTMLTextAreaElement: "readonly",
   HTMLImageElement: "readonly",
+  HTMLElement: "readonly",
   File: "readonly",
   URLSearchParams: "readonly",
 };

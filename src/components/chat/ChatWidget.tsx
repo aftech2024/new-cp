@@ -15,16 +15,19 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   AlertCircle,
   ArrowUp,
+  Briefcase,
   Check,
   ChevronRight,
   Copy,
+  History,
   ImageIcon,
-  List,
+  Layers,
+  MapPin,
   Maximize2,
+  MessageSquareText,
   Mic,
   Minimize2,
-  Plus,
-  RotateCcw,
+  Paperclip,
   Square,
   SquarePen,
   ThumbsDown,
@@ -36,13 +39,14 @@ import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import logo from "@/assets/images/logo-aftech.png";
 import { WHATSAPP_URL } from "@/data/company";
 import { useLanguage } from "@/i18n/LanguageContext";
-import DestinationCard from "./DestinationCard";
+import DestinationList from "./DestinationList";
 import HistoryPanel from "./HistoryPanel";
 import Markdown from "./Markdown";
 import { buildDestinations, liftInlineLinks, normalizeHref, toPlainText, type Destination } from "./destinations";
 import { deleteConversation, loadHistory, saveConversation } from "./history";
 import { ImageError, prepareImage, useDictation, useSpeaker } from "./media";
 import { newId, type ChatMessage, type Conversation } from "./types";
+import { useIsMobile, useSheetViewport } from "./useMobileSheet";
 
 // Mirror the limits in public/api/chat.php so the UI stops before the server refuses.
 const MAX_CHARS = 500;
@@ -51,27 +55,28 @@ const MAX_CARDS = 3;
 const ENDPOINT = import.meta.env.VITE_CHAT_ENDPOINT || "/api/chat.php";
 const FEEDBACK_ENDPOINT = "/api/chat-feedback.php";
 
-const SUGGESTIONS = ["chat.suggest.services", "chat.suggest.projects", "chat.suggest.start", "chat.suggest.offices"];
+const SUGGESTIONS = [
+  { key: "chat.suggest.services", icon: Layers },
+  { key: "chat.suggest.projects", icon: Briefcase },
+  { key: "chat.suggest.start", icon: MessageSquareText },
+  { key: "chat.suggest.offices", icon: MapPin },
+];
 
-const isSmallScreen = () => typeof window !== "undefined" && window.matchMedia("(max-width: 639px)").matches;
+// The engineering-drawing grid behind the welcome heading — the one decorative moment.
+const DRAFTING_GRID =
+  "[background-image:linear-gradient(rgba(46,168,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(46,168,255,0.08)_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_at_top_left,black,transparent_70%)]";
 
-function Avatar() {
-  return (
-    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white p-1.5 ring-1 ring-white/20">
-      <img src={logo} alt="" className="h-full w-full object-contain" />
-    </span>
-  );
-}
+const focusRing = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aftech-bright";
 
-function IconButton({ label, onClick, children, active = false }: { label: string; onClick: () => void; children: ReactNode; active?: boolean }) {
+function HeaderButton({ label, onClick, children, active = false }: { label: string; onClick: () => void; children: ReactNode; active?: boolean }) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-label={label}
       title={label}
-      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aftech-bright ${
-        active ? "bg-white/10 text-white" : "text-white/70"
+      className={`flex h-10 w-10 items-center justify-center rounded-lg transition hover:bg-white/[0.06] hover:text-white sm:h-9 sm:w-9 ${focusRing} ${
+        active ? "bg-white/[0.06] text-white" : "text-white/60"
       }`}
     >
       {children}
@@ -100,7 +105,7 @@ function ActionButton({
       aria-pressed={pressed}
       title={label}
       disabled={disabled}
-      className={`flex h-8 w-8 items-center justify-center rounded-lg transition hover:bg-white/[0.08] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aftech-bright disabled:pointer-events-none disabled:opacity-30 ${
+      className={`flex h-9 w-9 items-center justify-center rounded-md transition hover:bg-white/[0.06] hover:text-white/85 disabled:pointer-events-none disabled:opacity-25 sm:h-8 sm:w-8 ${focusRing} ${
         pressed ? "text-aftech-bright" : ""
       }`}
     >
@@ -109,31 +114,10 @@ function ActionButton({
   );
 }
 
-function QuickActions({ title, items, onPick }: { title: string; items: string[]; onPick: (text: string) => void }) {
-  return (
-    <div className="flex flex-col gap-2.5">
-      <div className="flex items-center gap-3 text-[13px] font-medium text-white/60">
-        {title}
-        <span className="h-px flex-1 bg-white/10" aria-hidden="true" />
-      </div>
-      {items.map((item) => (
-        <button
-          key={item}
-          type="button"
-          onClick={() => onPick(item)}
-          className="group flex items-center justify-between gap-3 rounded-xl bg-navy-800 px-4 py-3 text-left text-[13.5px] leading-snug text-white/90 ring-1 ring-white/[0.08] transition hover:bg-navy-700 hover:ring-aftech-bright/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aftech-bright"
-        >
-          {item}
-          <ChevronRight className="h-4 w-4 shrink-0 text-white/40 transition group-hover:translate-x-0.5 group-hover:text-aftech-bright" />
-        </button>
-      ))}
-    </div>
-  );
-}
-
 export default function ChatWidget() {
   const { t, lang } = useLanguage();
   const reduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
   const locale = lang === "id" ? "id-ID" : "en-GB";
 
   const [open, setOpen] = useState(false);
@@ -154,6 +138,7 @@ export default function ChatWidget() {
   const fileRef = useRef<HTMLInputElement>(null);
   const dictationBase = useRef("");
 
+  const sheet = useSheetViewport(open && isMobile);
   const destinations = useMemo(() => buildDestinations(t), [t]);
   const speaker = useSpeaker(lang);
   const dictation = useDictation(
@@ -165,15 +150,31 @@ export default function ChatWidget() {
   const userTurns = messages.filter((m) => m.role === "user").length;
   const atLimit = ended || userTurns >= MAX_TURNS;
   const lastAssistantId = [...messages].reverse().find((m) => m.role === "assistant")?.id;
+  const wide = expanded && !isMobile;
 
+  const messageCount = messages.length;
+  const lastRole = messages[messageCount - 1]?.role;
+  const lastQuestionId = [...messages].reverse().find((m) => m.role === "user")?.id;
+  // Keyed on the message count, not the array, so rating an answer never scrolls.
   useEffect(() => {
-    listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: reduceMotion ? "auto" : "smooth" });
-  }, [messages, sending, error, reduceMotion]);
+    const list = listRef.current;
+    if (!list) return;
+    const behavior = reduceMotion ? "auto" : "smooth";
+    if (lastRole === "assistant" && !sending && lastQuestionId) {
+      // Bring the visitor's question to the top so a long answer reads from its first line.
+      const question = list.querySelector(`[data-msg="${lastQuestionId}"]`) as HTMLElement | null;
+      if (question) {
+        list.scrollTo({ top: question.offsetTop - 16, behavior });
+        return;
+      }
+    }
+    list.scrollTo({ top: list.scrollHeight, behavior });
+  }, [messageCount, lastRole, lastQuestionId, sending, error, reduceMotion]);
 
   useEffect(() => {
     if (!open) return;
     // On phones, focusing would throw the keyboard over the welcome screen before it is read.
-    if (!isSmallScreen()) inputRef.current?.focus();
+    if (!isMobile) inputRef.current?.focus();
     const onKey = (e: globalThis.KeyboardEvent) => {
       if (e.key !== "Escape") return;
       if (historyOpen) setHistoryOpen(false);
@@ -181,7 +182,7 @@ export default function ChatWidget() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, historyOpen]);
+  }, [open, historyOpen, isMobile]);
 
   const stopSpeaking = speaker.stop;
   useEffect(() => {
@@ -193,7 +194,7 @@ export default function ChatWidget() {
     const el = inputRef.current;
     if (!el) return;
     el.style.height = "auto";
-    el.style.height = `${Math.min(el.scrollHeight, 132)}px`;
+    el.style.height = `${Math.min(el.scrollHeight, 128)}px`;
   }, [input, open, expanded]);
 
   useEffect(() => {
@@ -352,9 +353,9 @@ export default function ChatWidget() {
     }).catch(() => {});
   }
 
-  // A page opened from the chat would sit hidden behind the sheet on a phone.
+  // A page opened from the chat would sit hidden behind a full-screen or wide panel.
   function handleNavigate() {
-    if (isSmallScreen() || expanded) {
+    if (isMobile || expanded) {
       setOpen(false);
       setExpanded(false);
     }
@@ -366,7 +367,8 @@ export default function ChatWidget() {
   }
 
   function handleKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
-    if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
+    // On phones Enter inserts a newline; the send button is right there.
+    if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing && !isMobile) {
       e.preventDefault();
       void send(input);
     }
@@ -375,7 +377,8 @@ export default function ChatWidget() {
   const formatTime = (at: number) => new Date(at).toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" });
   const nearLimit = input.length > MAX_CHARS - 100;
   const showMic = dictation.supported && (dictation.listening || (!input.trim() && !attachment));
-  const column = expanded ? "mx-auto w-full max-w-2xl" : "w-full";
+  const column = wide ? "mx-auto w-full max-w-2xl" : "w-full";
+  const bodyText = "text-[15px] leading-[1.65] sm:text-[14px]";
 
   function renderAssistant(m: ChatMessage) {
     const lifted = liftInlineLinks(m.content, destinations);
@@ -391,60 +394,61 @@ export default function ChatWidget() {
     const isLatest = m.id === lastAssistantId;
 
     return (
-      <div key={m.id} className="flex gap-3">
-        <Avatar />
-        <div className="flex min-w-0 flex-1 flex-col gap-3">
-          <div className="break-words pt-1 text-[14.5px] leading-relaxed text-white/85">
-            <Markdown text={lifted.text} />
-          </div>
+      <article key={m.id} className="flex flex-col gap-3">
+        <div className={`break-words text-white/[0.88] ${bodyText}`}>
+          <Markdown text={lifted.text} />
+        </div>
 
-          {cards.length > 0 && (
-            <div className="flex flex-col gap-2">
-              {cards.slice(0, MAX_CARDS).map((dest) => (
-                <DestinationCard key={dest.href} dest={dest} onNavigate={handleNavigate} />
+        {cards.length > 0 && <DestinationList items={cards.slice(0, MAX_CARDS)} onNavigate={handleNavigate} />}
+
+        <div className="-ml-2 flex items-center text-white/40">
+          <ActionButton label={copiedId === m.id ? t("chat.copied") : t("chat.copy")} onClick={() => void copy(m)}>
+            {copiedId === m.id ? <Check className="h-[15px] w-[15px] text-emerald-400" /> : <Copy className="h-[15px] w-[15px]" />}
+          </ActionButton>
+          {speaker.supported && (
+            <ActionButton
+              label={speaking ? t("chat.speakStop") : t("chat.speak")}
+              pressed={speaking}
+              onClick={() => (speaking ? speaker.stop() : speaker.speak(m.id, toPlainText(lifted.text)))}
+            >
+              {speaking ? <Square className="h-3 w-3" fill="currentColor" /> : <Volume2 className="h-[15px] w-[15px]" />}
+            </ActionButton>
+          )}
+          <ActionButton label={t("chat.good")} pressed={m.rating === "up"} disabled={m.rating === "down"} onClick={() => rate(m, "up")}>
+            <ThumbsUp className="h-[15px] w-[15px]" fill={m.rating === "up" ? "currentColor" : "none"} />
+          </ActionButton>
+          <ActionButton label={t("chat.bad")} pressed={m.rating === "down"} disabled={m.rating === "up"} onClick={() => rate(m, "down")}>
+            <ThumbsDown className="h-[15px] w-[15px]" fill={m.rating === "down" ? "currentColor" : "none"} />
+          </ActionButton>
+          <span className="ml-1.5 text-[11px] tabular-nums text-white/30">{formatTime(m.at)}</span>
+        </div>
+
+        {isLatest && !sending && !atLimit && m.followups && m.followups.length > 0 && (
+          <div className="flex flex-col gap-2 pt-1">
+            <p className="text-xs font-medium text-white/45">{t("chat.followups")}</p>
+            <div className="flex flex-wrap gap-2">
+              {m.followups.map((q) => (
+                <button
+                  key={q}
+                  type="button"
+                  onClick={() => void send(q)}
+                  className={`rounded-full px-3.5 py-2 text-left text-[13px] leading-snug text-white/80 ring-1 ring-inset ring-white/[0.14] transition hover:bg-white/[0.05] hover:text-white hover:ring-white/25 ${focusRing}`}
+                >
+                  {q}
+                </button>
               ))}
             </div>
-          )}
-
-          <div className="-ml-1.5 flex items-center gap-0.5 text-white/45">
-            <ActionButton label={copiedId === m.id ? t("chat.copied") : t("chat.copy")} onClick={() => void copy(m)}>
-              {copiedId === m.id ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
-            </ActionButton>
-            {speaker.supported && (
-              <ActionButton
-                label={speaking ? t("chat.speakStop") : t("chat.speak")}
-                pressed={speaking}
-                onClick={() => (speaking ? speaker.stop() : speaker.speak(m.id, toPlainText(lifted.text)))}
-              >
-                {speaking ? <Square className="h-3.5 w-3.5" fill="currentColor" /> : <Volume2 className="h-4 w-4" />}
-              </ActionButton>
-            )}
-            <ActionButton
-              label={t("chat.good")}
-              pressed={m.rating === "up"}
-              disabled={m.rating === "down"}
-              onClick={() => rate(m, "up")}
-            >
-              <ThumbsUp className="h-4 w-4" fill={m.rating === "up" ? "currentColor" : "none"} />
-            </ActionButton>
-            <ActionButton
-              label={t("chat.bad")}
-              pressed={m.rating === "down"}
-              disabled={m.rating === "up"}
-              onClick={() => rate(m, "down")}
-            >
-              <ThumbsDown className="h-4 w-4" fill={m.rating === "down" ? "currentColor" : "none"} />
-            </ActionButton>
-            <span className="ml-2 text-[11px] tabular-nums text-white/35">{formatTime(m.at)}</span>
           </div>
-
-          {isLatest && !sending && !atLimit && m.followups && m.followups.length > 0 && (
-            <QuickActions title={t("chat.quickActions")} items={m.followups} onPick={(q) => void send(q)} />
-          )}
-        </div>
-      </div>
+        )}
+      </article>
     );
   }
+
+  const panelPosition = isMobile
+    ? "inset-x-0 top-0 z-[60] h-[100dvh]"
+    : wide
+      ? "bottom-24 right-6 z-[60] h-[calc(100dvh-8rem)] w-[min(760px,calc(100vw-3rem))] rounded-2xl ring-1 ring-white/10"
+      : "bottom-24 right-6 z-30 h-[min(680px,calc(100dvh-8rem))] w-[400px] rounded-2xl ring-1 ring-white/10";
 
   return (
     <>
@@ -452,85 +456,102 @@ export default function ChatWidget() {
         {open && (
           <motion.div
             role="dialog"
+            aria-modal={isMobile || undefined}
             aria-label={t("chat.title")}
-            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.98 }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            style={{ transformOrigin: "bottom right" }}
-            className={`fixed flex flex-col overflow-hidden bg-primary-navy shadow-[0_40px_100px_-30px_rgba(0,0,0,0.8)] ring-1 ring-white/10 ${
-              expanded
-                ? "inset-0 z-[60] h-[100dvh] sm:inset-auto sm:bottom-[5.5rem] sm:right-6 sm:h-[calc(100dvh-7.5rem)] sm:w-[min(860px,calc(100vw-3rem))] sm:rounded-2xl"
-                : "inset-x-3 bottom-[5.5rem] z-30 h-[min(700px,calc(100dvh-7.5rem))] rounded-2xl sm:inset-x-auto sm:right-6 sm:w-[420px]"
-            }`}
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: isMobile ? 40 : 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: isMobile ? 40 : 16 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            style={sheet ? { height: sheet.height, top: sheet.top } : undefined}
+            className={`fixed flex flex-col overflow-hidden bg-primary-navy text-white shadow-[0_24px_80px_-24px_rgba(0,0,0,0.75)] ${panelPosition}`}
           >
-            {/* Header — a faint drafting grid ties it to the engineering side of the brand. */}
-            <div className="relative shrink-0 overflow-hidden border-b border-white/[0.06] bg-deep-navy px-2.5 py-2.5">
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 opacity-60 [background-image:linear-gradient(rgba(46,168,255,0.09)_1px,transparent_1px),linear-gradient(90deg,rgba(46,168,255,0.09)_1px,transparent_1px)] [background-size:20px_20px] [mask-image:linear-gradient(to_left,black,transparent_70%)]"
-              />
-              <div className="relative flex items-center gap-1">
-                <IconButton label={t("chat.history")} onClick={() => (historyOpen ? setHistoryOpen(false) : openHistory())} active={historyOpen}>
-                  <List className="h-5 w-5" />
-                </IconButton>
-                <span className="ml-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white p-1.5">
-                  <img src={logo} alt="" className="h-full w-full object-contain" />
-                </span>
-                <div className="ml-2 flex min-w-0 flex-1 flex-col gap-0.5">
-                  <span className="truncate font-display text-[20px] leading-none text-white">{t("chat.title")}</span>
-                  <span className="flex items-center gap-1.5 truncate text-[11px] text-white/55">
-                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" aria-hidden="true" />
-                    {t("chat.subtitle")}
-                  </span>
-                </div>
-                <IconButton label={t("chat.newChat")} onClick={startNew}>
-                  <SquarePen className="h-[18px] w-[18px]" />
-                </IconButton>
-                <IconButton label={expanded ? t("chat.collapse") : t("chat.expand")} onClick={() => setExpanded((v) => !v)}>
-                  {expanded ? <Minimize2 className="h-[18px] w-[18px]" /> : <Maximize2 className="h-[18px] w-[18px]" />}
-                </IconButton>
-                <IconButton label={t("chat.close")} onClick={() => setOpen(false)}>
-                  <X className="h-5 w-5" />
-                </IconButton>
+            <header className="flex shrink-0 items-center gap-3 border-b border-white/[0.07] py-2 pl-4 pr-2 pt-[max(0.5rem,env(safe-area-inset-top))] sm:pt-2">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white p-1.5">
+                <img src={logo} alt="" className="h-full w-full object-contain" />
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-[15px] font-semibold leading-tight text-white">{t("chat.title")}</p>
+                <p className="truncate text-xs text-white/45">{t("chat.subtitle")}</p>
               </div>
-            </div>
+              <div className="flex items-center">
+                <HeaderButton label={t("chat.history")} onClick={() => (historyOpen ? setHistoryOpen(false) : openHistory())} active={historyOpen}>
+                  <History className="h-[18px] w-[18px]" />
+                </HeaderButton>
+                <HeaderButton label={t("chat.newChat")} onClick={startNew}>
+                  <SquarePen className="h-[18px] w-[18px]" />
+                </HeaderButton>
+                {!isMobile && (
+                  <HeaderButton label={expanded ? t("chat.collapse") : t("chat.expand")} onClick={() => setExpanded((v) => !v)}>
+                    {expanded ? <Minimize2 className="h-[17px] w-[17px]" /> : <Maximize2 className="h-[17px] w-[17px]" />}
+                  </HeaderButton>
+                )}
+                <HeaderButton label={t("chat.close")} onClick={() => setOpen(false)}>
+                  <X className="h-5 w-5" />
+                </HeaderButton>
+              </div>
+            </header>
 
             <div className="relative flex min-h-0 flex-1 flex-col">
               <div
                 ref={listRef}
-                className="flex-1 overflow-y-auto px-4 py-5 [scrollbar-color:rgba(255,255,255,0.15)_transparent] [scrollbar-width:thin]"
+                className="relative flex-1 overflow-y-auto overscroll-contain [scrollbar-color:rgba(255,255,255,0.15)_transparent] [scrollbar-width:thin]"
                 aria-live="polite"
               >
-                <div className={`flex flex-col gap-6 ${column}`}>
-                  {messages.length === 0 ? (
-                    <div className="flex flex-col gap-7 pt-2">
-                      <div className="flex flex-col items-start gap-4">
-                        <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white p-2.5 shadow-[0_10px_30px_-10px_rgba(46,168,255,0.6)]">
-                          <img src={logo} alt="" className="h-full w-full object-contain" />
-                        </span>
-                        <div>
-                          <h2 className="font-display text-[28px] leading-tight text-white">{t("chat.welcomeTitle")}</h2>
-                          <p className="mt-1.5 text-sm leading-relaxed text-white/60">{t("chat.welcomeBody")}</p>
-                        </div>
+                {messages.length === 0 ? (
+                  <div className="relative">
+                    <div aria-hidden="true" className={`pointer-events-none absolute inset-x-0 top-0 h-64 ${DRAFTING_GRID}`} />
+                    <div className={`relative flex flex-col gap-8 px-5 pb-6 pt-10 sm:px-6 sm:pt-9 ${column}`}>
+                      <div>
+                        <h2 className="font-display text-[34px] leading-[1.05] text-white sm:text-[32px]">{t("chat.welcomeTitle")}</h2>
+                        <p className="mt-3 max-w-[36ch] text-[14.5px] leading-relaxed text-white/60">{t("chat.welcomeBody")}</p>
                       </div>
-                      <QuickActions title={t("chat.quickActions")} items={SUGGESTIONS.map((key) => t(key))} onPick={(q) => void send(q)} />
+
+                      <div>
+                        <p className="mb-2.5 text-xs font-medium text-white/45">{t("chat.commonQuestions")}</p>
+                        <ul className="divide-y divide-white/[0.06] overflow-hidden rounded-xl bg-white/[0.02] ring-1 ring-white/[0.08]">
+                          {SUGGESTIONS.map(({ key, icon: Icon }) => (
+                            <li key={key}>
+                              <button
+                                type="button"
+                                onClick={() => void send(t(key))}
+                                className="group flex w-full items-center gap-3 px-4 py-3.5 text-left text-[14.5px] text-white/85 outline-none transition-colors hover:bg-white/[0.04] focus-visible:bg-white/[0.07] sm:py-3 sm:text-[14px]"
+                              >
+                                <Icon className="h-4 w-4 shrink-0 text-aftech-bright" strokeWidth={1.75} />
+                                <span className="flex-1">{t(key)}</span>
+                                <ChevronRight className="h-4 w-4 shrink-0 text-white/25 transition-colors group-hover:text-white/60" />
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <a
+                        href={WHATSAPP_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex items-center gap-2 self-start rounded-md text-[13px] text-white/55 transition-colors hover:text-white ${focusRing}`}
+                      >
+                        <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
+                        {t("chat.welcomeDirect")}
+                      </a>
                     </div>
-                  ) : (
-                    messages.map((m) =>
+                  </div>
+                ) : (
+                  <div className={`flex flex-col gap-7 px-4 py-6 sm:px-5 ${column}`}>
+                    {messages.map((m) =>
                       m.role === "user" ? (
-                        <div key={m.id} className="ml-auto flex max-w-[85%] flex-col items-end gap-1.5">
+                        <div key={m.id} data-msg={m.id} className="flex max-w-[85%] flex-col items-end gap-1.5 self-end">
                           {m.image && (
-                            <img src={m.image} alt={t("chat.imageAlt")} className="max-h-56 rounded-2xl object-cover ring-1 ring-white/10" />
+                            <img src={m.image} alt={t("chat.imageAlt")} className="max-h-52 rounded-xl object-cover ring-1 ring-white/10" />
                           )}
                           {!m.image && m.hadImage && (
-                            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.06] px-3 py-1 text-[11px] text-white/60">
+                            <span className="inline-flex items-center gap-1.5 text-xs text-white/45">
                               <ImageIcon className="h-3.5 w-3.5" />
                               {t("chat.imageAttached")}
                             </span>
                           )}
                           {m.content && (
-                            <div className="whitespace-pre-line break-words rounded-2xl rounded-br-md bg-navy-700 px-4 py-2.5 text-[14.5px] leading-relaxed text-white ring-1 ring-aftech/30">
+                            <div className={`whitespace-pre-line break-words rounded-2xl rounded-br-md bg-aftech px-3.5 py-2.5 text-white ${bodyText}`}>
                               {m.content}
                             </div>
                           )}
@@ -538,166 +559,150 @@ export default function ChatWidget() {
                       ) : (
                         renderAssistant(m)
                       ),
-                    )
-                  )}
+                    )}
 
-                  {sending && (
-                    <div className="flex gap-3" role="status" aria-label={t("chat.typing")}>
-                      <Avatar />
-                      <div className="flex items-center gap-1.5 pt-1">
-                        {[0, 160, 320].map((delay) => (
+                    {sending && (
+                      <div className="flex items-center gap-1.5 py-1" role="status" aria-label={t("chat.typing")}>
+                        {[0, 200, 400].map((delay) => (
                           <span
                             key={delay}
-                            className="h-2 w-2 rounded-full bg-aftech-bright/70 motion-safe:animate-bounce"
+                            className="h-1.5 w-1.5 rounded-full bg-white/50 motion-safe:animate-pulse"
                             style={{ animationDelay: `${delay}ms` }}
                           />
                         ))}
                       </div>
-                    </div>
-                  )}
+                    )}
 
-                  {error && (
-                    <div className="flex items-center gap-2.5 rounded-xl bg-red-500/10 px-3.5 py-2.5 text-[13px] leading-snug text-red-200 ring-1 ring-red-400/20">
-                      <AlertCircle className="h-4 w-4 shrink-0" />
-                      <span className="flex-1">{error}</span>
-                      {(input.trim() || attachment) && !atLimit && (
-                        <button
-                          type="button"
-                          onClick={() => void send(input)}
-                          className="shrink-0 rounded-md px-2 py-1 font-medium text-white transition hover:bg-white/10"
-                        >
-                          {t("chat.retry")}
-                        </button>
-                      )}
-                    </div>
-                  )}
-
-                  {atLimit && (
-                    <div className="flex flex-col gap-3 rounded-xl bg-navy-800 p-4 text-[13px] leading-relaxed text-white/85 ring-1 ring-white/[0.08]">
-                      <p>{t("chat.limitReached")}</p>
-                      <div className="flex flex-wrap gap-2">
-                        <a
-                          href={WHATSAPP_URL}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 rounded-lg bg-aftech px-3.5 py-2 text-xs font-medium text-white transition hover:bg-[#0F6BBE]"
-                        >
-                          <WhatsAppIcon className="h-3.5 w-3.5" /> {t("chat.whatsappCta")}
-                        </a>
-                        <button
-                          type="button"
-                          onClick={startNew}
-                          className="inline-flex items-center gap-2 rounded-lg px-3.5 py-2 text-xs font-medium text-white/85 ring-1 ring-white/15 transition hover:bg-white/[0.06]"
-                        >
-                          <RotateCcw className="h-3.5 w-3.5" /> {t("chat.newChat")}
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <form onSubmit={handleSubmit} className="shrink-0 px-3 pb-3 pt-1">
-                <div className={column}>
-                  <div
-                    className={`rounded-2xl p-px transition focus-within:bg-gradient-to-r focus-within:from-aftech focus-within:via-aftech-bright focus-within:to-aftech focus-within:shadow-[0_0_32px_-10px_rgba(46,168,255,0.6)] ${
-                      dictation.listening
-                        ? "bg-gradient-to-r from-aftech via-aftech-bright to-aftech shadow-[0_0_32px_-10px_rgba(46,168,255,0.6)]"
-                        : "bg-white/10"
-                    }`}
-                  >
-                    <div className="rounded-[15px] bg-navy-800 px-3 pb-2 pt-3">
-                      {attachment && (
-                        <div className="relative mb-2.5 ml-1 inline-block">
-                          <img src={attachment} alt={t("chat.imageAlt")} className="h-16 w-16 rounded-lg object-cover ring-1 ring-white/10" />
-                          <button
-                            type="button"
-                            onClick={() => setAttachment(null)}
-                            aria-label={t("chat.removeImage")}
-                            className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-deep-navy text-white ring-1 ring-white/20 transition hover:bg-red-500"
-                          >
-                            <X className="h-3 w-3" />
-                          </button>
-                        </div>
-                      )}
-                      <textarea
-                        ref={inputRef}
-                        value={input}
-                        onChange={(e) => setInput(e.target.value.slice(0, MAX_CHARS))}
-                        onKeyDown={handleKeyDown}
-                        onPaste={handlePaste}
-                        rows={1}
-                        maxLength={MAX_CHARS}
-                        disabled={atLimit}
-                        placeholder={dictation.listening ? t("chat.listening") : t("chat.placeholder")}
-                        aria-label={t("chat.placeholder")}
-                        className="block max-h-[132px] w-full resize-none bg-transparent px-1 text-[14.5px] leading-relaxed text-white outline-none placeholder:text-white/40 focus-visible:outline-none disabled:cursor-not-allowed"
-                      />
-                      <div className="mt-2 flex items-center justify-between gap-2">
-                        <button
-                          type="button"
-                          onClick={() => fileRef.current?.click()}
-                          disabled={atLimit || sending}
-                          aria-label={t("chat.attach")}
-                          title={t("chat.attach")}
-                          className="flex h-9 w-9 items-center justify-center rounded-full text-white/70 transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aftech-bright disabled:opacity-30"
-                        >
-                          <Plus className="h-5 w-5" />
-                        </button>
-                        <input
-                          ref={fileRef}
-                          type="file"
-                          accept="image/jpeg,image/png,image/webp"
-                          onChange={handleFileChange}
-                          className="hidden"
-                          tabIndex={-1}
-                        />
-                        <div className="flex items-center gap-2">
-                          {nearLimit && (
-                            <span className="text-[11px] tabular-nums text-white/40">
-                              {input.length}/{MAX_CHARS}
-                            </span>
-                          )}
-                          {showMic ? (
+                    {error && (
+                      <div className="flex items-start gap-2 text-[13px] leading-snug text-red-300">
+                        <AlertCircle className="mt-px h-4 w-4 shrink-0" />
+                        <p className="flex-1">
+                          {error}
+                          {(input.trim() || attachment) && !atLimit && (
                             <button
                               type="button"
-                              onClick={toggleMic}
-                              disabled={atLimit}
-                              aria-label={dictation.listening ? t("chat.micStop") : t("chat.mic")}
-                              aria-pressed={dictation.listening}
-                              title={dictation.listening ? t("chat.micStop") : t("chat.mic")}
-                              className={`rounded-full bg-gradient-to-br from-aftech-bright to-aftech p-[1.5px] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aftech-bright focus-visible:ring-offset-2 focus-visible:ring-offset-navy-800 disabled:opacity-30 ${
-                                dictation.listening ? "motion-safe:animate-pulse" : ""
-                              }`}
+                              onClick={() => void send(input)}
+                              className="ml-2 rounded font-medium text-white underline underline-offset-2 hover:no-underline"
                             >
-                              <span
-                                className={`flex h-10 w-10 items-center justify-center rounded-full text-white ${
-                                  dictation.listening ? "bg-red-500" : "bg-navy-800 hover:bg-navy-700"
-                                }`}
-                              >
-                                {dictation.listening ? <Square className="h-3.5 w-3.5" fill="currentColor" /> : <Mic className="h-[18px] w-[18px]" />}
-                              </span>
-                            </button>
-                          ) : (
-                            <button
-                              type="submit"
-                              disabled={sending || atLimit || (!input.trim() && !attachment)}
-                              aria-label={t("chat.send")}
-                              className="flex h-10 w-10 items-center justify-center rounded-full bg-aftech text-white transition hover:bg-aftech-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aftech-bright focus-visible:ring-offset-2 focus-visible:ring-offset-navy-800 disabled:bg-white/10 disabled:text-white/30"
-                            >
-                              <ArrowUp className="h-[18px] w-[18px]" strokeWidth={2.25} />
+                              {t("chat.retry")}
                             </button>
                           )}
+                        </p>
+                      </div>
+                    )}
+
+                    {atLimit && (
+                      <div className="flex flex-col gap-3 rounded-xl p-4 text-[13.5px] leading-relaxed text-white/75 ring-1 ring-white/[0.08]">
+                        <p>{t("chat.limitReached")}</p>
+                        <div className="flex flex-wrap gap-2">
+                          <a
+                            href={WHATSAPP_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`inline-flex h-9 items-center gap-2 rounded-lg bg-aftech px-3.5 text-[13px] font-medium text-white transition hover:bg-[#0F6BBE] ${focusRing}`}
+                          >
+                            <WhatsAppIcon className="h-4 w-4" /> {t("chat.whatsappCta")}
+                          </a>
+                          <button
+                            type="button"
+                            onClick={startNew}
+                            className={`inline-flex h-9 items-center gap-2 rounded-lg px-3.5 text-[13px] font-medium text-white/80 ring-1 ring-inset ring-white/15 transition hover:bg-white/[0.05] ${focusRing}`}
+                          >
+                            <SquarePen className="h-4 w-4" /> {t("chat.newChat")}
+                          </button>
                         </div>
                       </div>
-                    </div>
+                    )}
                   </div>
-                  <p className="mt-2 text-center text-[11px] leading-snug text-white/40">
-                    {t("chat.disclaimer")}{" "}
-                    <Link to="/contact" onClick={handleNavigate} className="text-aftech-bright underline-offset-2 hover:underline">
-                      {t("chat.contactLink")}
-                    </Link>
-                    .
+                )}
+              </div>
+
+              <form
+                onSubmit={handleSubmit}
+                className="shrink-0 border-t border-white/[0.07] px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 sm:px-4 sm:pb-3"
+              >
+                <div className={column}>
+                  {attachment && (
+                    <div className="mb-2 flex items-center gap-3 rounded-lg bg-white/[0.04] p-2 pr-2.5 ring-1 ring-white/[0.08]">
+                      <img src={attachment} alt={t("chat.imageAlt")} className="h-10 w-10 rounded-md object-cover" />
+                      <span className="flex-1 text-xs text-white/60">{t("chat.imageReady")}</span>
+                      <button
+                        type="button"
+                        onClick={() => setAttachment(null)}
+                        aria-label={t("chat.removeImage")}
+                        className={`flex h-8 w-8 items-center justify-center rounded-md text-white/50 transition hover:bg-white/[0.06] hover:text-white ${focusRing}`}
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                  )}
+
+                  <div className="flex items-end gap-1 rounded-xl bg-navy-800 p-1 ring-1 ring-white/10 transition focus-within:ring-aftech-bright/60">
+                    <button
+                      type="button"
+                      onClick={() => fileRef.current?.click()}
+                      disabled={atLimit || sending}
+                      aria-label={t("chat.attach")}
+                      title={t("chat.attach")}
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-white/50 transition hover:bg-white/[0.06] hover:text-white disabled:opacity-30 ${focusRing}`}
+                    >
+                      <Paperclip className="h-[18px] w-[18px]" />
+                    </button>
+                    <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" onChange={handleFileChange} className="hidden" tabIndex={-1} />
+                    <textarea
+                      ref={inputRef}
+                      value={input}
+                      onChange={(e) => setInput(e.target.value.slice(0, MAX_CHARS))}
+                      onKeyDown={handleKeyDown}
+                      onPaste={handlePaste}
+                      rows={1}
+                      maxLength={MAX_CHARS}
+                      disabled={atLimit}
+                      enterKeyHint={isMobile ? "enter" : "send"}
+                      placeholder={dictation.listening ? t("chat.listening") : t("chat.placeholder")}
+                      aria-label={t("chat.placeholder")}
+                      // 16px on phones: anything smaller makes iOS zoom the page on focus.
+                      className="max-h-32 min-h-[40px] flex-1 resize-none bg-transparent px-1 py-2 text-base leading-6 text-white outline-none placeholder:text-white/35 focus-visible:outline-none disabled:cursor-not-allowed sm:text-[14px]"
+                    />
+                    {showMic ? (
+                      <button
+                        type="button"
+                        onClick={toggleMic}
+                        disabled={atLimit}
+                        aria-label={dictation.listening ? t("chat.micStop") : t("chat.mic")}
+                        aria-pressed={dictation.listening}
+                        title={dictation.listening ? t("chat.micStop") : t("chat.mic")}
+                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition disabled:opacity-30 ${focusRing} ${
+                          dictation.listening ? "bg-red-500 text-white motion-safe:animate-pulse" : "text-white/50 hover:bg-white/[0.06] hover:text-white"
+                        }`}
+                      >
+                        {dictation.listening ? <Square className="h-3.5 w-3.5" fill="currentColor" /> : <Mic className="h-[18px] w-[18px]" />}
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        disabled={sending || atLimit || (!input.trim() && !attachment)}
+                        aria-label={t("chat.send")}
+                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-aftech text-white transition hover:bg-[#0F6BBE] disabled:bg-white/[0.06] disabled:text-white/25 ${focusRing}`}
+                      >
+                        <ArrowUp className="h-[18px] w-[18px]" strokeWidth={2.25} />
+                      </button>
+                    )}
+                  </div>
+
+                  <p className="mt-2 flex items-center justify-center gap-2 px-1 text-center text-[11px] leading-snug text-white/35">
+                    <span>
+                      {t("chat.disclaimer")}{" "}
+                      <Link to="/contact" onClick={handleNavigate} className="text-white/60 underline underline-offset-2 hover:text-white">
+                        {t("chat.contactLink")}
+                      </Link>
+                      .
+                    </span>
+                    {nearLimit && (
+                      <span className="tabular-nums text-white/50">
+                        {input.length}/{MAX_CHARS}
+                      </span>
+                    )}
                   </p>
                 </div>
               </form>
@@ -721,27 +726,29 @@ export default function ChatWidget() {
         )}
       </AnimatePresence>
 
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        aria-label={open ? t("chat.close") : t("chat.open")}
-        className={`fixed bottom-5 right-4 z-30 flex h-14 items-center rounded-full bg-deep-navy text-white shadow-[0_12px_32px_-12px_rgba(4,17,29,0.7)] ring-1 ring-white/20 transition hover:bg-navy-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-aftech-bright focus-visible:ring-offset-2 sm:right-6 ${
-          open ? "w-14 justify-center" : "gap-3 pl-2 pr-2 sm:pr-5"
-        }`}
-      >
-        {open ? (
-          <X className="h-6 w-6" />
-        ) : (
-          <>
-            <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-white p-1.5">
-              <img src={logo} alt="" className="h-full w-full object-contain" />
-              <span className="absolute -right-0.5 -top-0.5 h-3 w-3 rounded-full bg-emerald-400 ring-2 ring-deep-navy" aria-hidden="true" />
-            </span>
-            <span className="hidden text-sm font-medium sm:inline">{t("chat.launcher")}</span>
-          </>
-        )}
-      </button>
+      {/* On phones the open sheet has its own close button, so the launcher steps aside. */}
+      {!(open && isMobile) && (
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-label={open ? t("chat.close") : t("chat.open")}
+          className={`fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-30 flex h-14 items-center rounded-full bg-aftech text-white shadow-[0_12px_32px_-10px_rgba(20,121,209,0.65)] transition hover:bg-[#0F6BBE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-aftech sm:bottom-6 sm:right-6 ${
+            open ? "w-14 justify-center" : "gap-2.5 pl-2 pr-2 sm:pr-5"
+          }`}
+        >
+          {open ? (
+            <X className="h-6 w-6" />
+          ) : (
+            <>
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white p-1.5">
+                <img src={logo} alt="" className="h-full w-full object-contain" />
+              </span>
+              <span className="hidden text-[14px] font-medium sm:inline">{t("chat.launcher")}</span>
+            </>
+          )}
+        </button>
+      )}
     </>
   );
 }

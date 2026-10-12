@@ -51,7 +51,7 @@ export default function Markdown({ text }: { text: string }) {
   const flushList = () => {
     if (!list) return;
     const { ordered, items } = list;
-    const className = `flex flex-col gap-1 pl-5 marker:text-aftech-bright ${ordered ? "list-decimal" : "list-disc"}`;
+    const className = `flex flex-col gap-1.5 pl-5 marker:text-white/35 ${ordered ? "list-decimal" : "list-disc"}`;
     const children = items.map((item, i) => <li key={i}>{inline(item)}</li>);
     nodes.push(
       ordered ? (
