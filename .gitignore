@@ -11,3 +11,4 @@ backup-server-*
 aftech-chat-secret.php
 aftech-chat-feedback.jsonl
 aftech-chat-fallback-secret.php
+aftech-chat-gaps.jsonl

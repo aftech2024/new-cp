@@ -257,6 +257,8 @@ writeFileSync(resolve(DIST, "sitemap.xml"), sitemap, "utf8");
 // ---------------------------------------------------------------------------
 // Chat assistant knowledge. public/api/chat.php answers only from this file,
 // so it is generated from the same data the pages render and cannot drift.
+// src/data/assistant-knowledge.md adds what the pages don't say: how visitors
+// phrase their needs, and the FAQ that comes up in chat. It is appended as-is.
 
 const bullet = (items: string[]) => items.map((i) => `- ${i}`).join("\n");
 
@@ -314,6 +316,8 @@ const knowledge = [
   "",
   "# Site pages",
   bullet(staticRoutes.map((r) => `${r.path} — ${r.title}`)),
+  "",
+  readFileSync(resolve(process.cwd(), "src/data/assistant-knowledge.md"), "utf8").trim(),
   "",
 ].join("\n");
 
