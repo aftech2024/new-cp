@@ -16,12 +16,13 @@
  * Runs via `vite build --ssr` so it can import the app's data modules through
  * the same aliases the app uses, keeping the two from drifting apart.
  */
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { services } from "../src/data/services";
 import { projects } from "../src/data/projects";
 import { insights } from "../src/data/insights";
 import { company, locations, capabilityMatrix, values, HALORA_URL, WHATSAPP_URL } from "../src/data/company";
+import { BLOG_DATA_PATH, type BlogEdition, type BlogIndexEntry } from "../src/data/blog";
 
 // Canonical host is the bare domain; .htaccess redirects www to it. Normalise
 // so a stray "www." in the environment cannot contradict that redirect.
@@ -39,6 +40,10 @@ interface Route {
   type: "website" | "article";
   /** Sitemap priority; also the rough order of importance on the site. */
   priority: string;
+  /** Extra structured data for this page. */
+  jsonLd?: object[];
+  /** Advertise the blog's RSS feed. */
+  feed?: boolean;
 }
 
 const staticRoutes: Route[] = [
@@ -113,7 +118,57 @@ const insightRoutes: Route[] = insights.map((i) => ({
   priority: "0.5",
 }));
 
-const routes = [...staticRoutes, ...serviceRoutes, ...projectRoutes, ...insightRoutes];
+// "Kabar Teknologi" editions (src/data/blog.ts), newest first. The section only
+// exists once the first edition does.
+const BLOG_DIR = resolve(process.cwd(), "src/content/blog/editions");
+const editions: BlogEdition[] = (existsSync(BLOG_DIR) ? readdirSync(BLOG_DIR) : [])
+  .filter((f) => f.endsWith(".json"))
+  .map((f) => JSON.parse(readFileSync(resolve(BLOG_DIR, f), "utf8")) as BlogEdition)
+  .sort((a, b) => b.date.localeCompare(a.date));
+
+const BLOG_TITLE = "Kabar Teknologi";
+const BLOG_DESCRIPTION =
+  "Kabar teknologi pilihan dua kali seminggu — AI, software, cloud, keamanan siber, IoT dan drone — diringkas untuk organisasi di Indonesia.";
+
+function newsArticleJsonLd(edition: BlogEdition) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: edition.title,
+    description: edition.description,
+    datePublished: edition.meta.generatedAt,
+    dateModified: edition.meta.generatedAt,
+    inLanguage: "id-ID",
+    mainEntityOfPage: `${SITE_URL}/blog/${edition.slug}`,
+    image: [OG_IMAGE],
+    author: { "@type": "Organization", name: company.legalName, url: `${SITE_URL}/` },
+    publisher: {
+      "@type": "Organization",
+      name: company.legalName,
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/favicon.png` },
+    },
+    citation: edition.items.map((item) => item.source.url),
+  };
+}
+
+const blogRoutes: Route[] = editions.length
+  ? [
+      { path: "/blog", title: BLOG_TITLE, description: BLOG_DESCRIPTION, type: "website", priority: "0.6", feed: true },
+      ...editions.map(
+        (e): Route => ({
+          path: `/blog/${e.slug}`,
+          title: e.title,
+          description: e.description,
+          type: "article",
+          priority: "0.5",
+          feed: true,
+          jsonLd: [newsArticleJsonLd(e)],
+        }),
+      ),
+    ]
+  : [];
+
+const routes = [...staticRoutes, ...serviceRoutes, ...projectRoutes, ...insightRoutes, ...blogRoutes];
 
 function escapeHtml(value: string): string {
   return value
@@ -213,6 +268,14 @@ function headFor(route: Route): string {
   }
   const crumbs = breadcrumbJsonLd(route);
   if (crumbs) blocks.push(`<script type="application/ld+json">${crumbs}</script>`);
+  for (const data of route.jsonLd ?? []) {
+    blocks.push(`<script type="application/ld+json">${JSON.stringify(data)}</script>`);
+  }
+  if (route.feed) {
+    blocks.push(
+      `<link rel="alternate" type="application/rss+xml" title="${BLOG_TITLE} — ${escapeHtml(company.shortName)}" href="${SITE_URL}/blog/rss.xml" />`,
+    );
+  }
 
   return blocks.map((line) => `    ${line}`).join("\n");
 }
@@ -253,6 +316,56 @@ const sitemap = [
   "",
 ].join("\n");
 writeFileSync(resolve(DIST, "sitemap.xml"), sitemap, "utf8");
+
+// ---------------------------------------------------------------------------
+// Blog data. The pages fetch these instead of bundling every edition.
+// index.json is written even when empty: a missing file would fall through to
+// the SPA's index.html and fail to parse as JSON.
+
+const blogDataDir = resolve(DIST, `.${BLOG_DATA_PATH}`);
+mkdirSync(blogDataDir, { recursive: true });
+const blogIndex: BlogIndexEntry[] = editions.map((e) => ({
+  slug: e.slug,
+  date: e.date,
+  title: e.title,
+  description: e.description,
+  categories: [...new Set(e.items.map((i) => i.category))],
+  itemCount: e.items.length,
+}));
+writeFileSync(resolve(blogDataDir, "index.json"), JSON.stringify(blogIndex), "utf8");
+for (const edition of editions) {
+  writeFileSync(resolve(blogDataDir, `${edition.slug}.json`), JSON.stringify(edition), "utf8");
+}
+
+if (editions.length) {
+  const rss = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+    "<channel>",
+    `<title>${BLOG_TITLE} — ${escapeHtml(company.shortName)}</title>`,
+    `<link>${SITE_URL}/blog</link>`,
+    `<description>${escapeHtml(BLOG_DESCRIPTION)}</description>`,
+    "<language>id</language>",
+    `<atom:link href="${SITE_URL}/blog/rss.xml" rel="self" type="application/rss+xml" />`,
+    `<lastBuildDate>${new Date(editions[0].meta.generatedAt).toUTCString()}</lastBuildDate>`,
+    ...editions.slice(0, 30).map((e) =>
+      [
+        "<item>",
+        `<title>${escapeHtml(e.title)}</title>`,
+        `<link>${SITE_URL}/blog/${e.slug}</link>`,
+        `<guid isPermaLink="true">${SITE_URL}/blog/${e.slug}</guid>`,
+        `<pubDate>${new Date(e.meta.generatedAt).toUTCString()}</pubDate>`,
+        `<description>${escapeHtml(`${e.description} — ${e.items.map((i) => i.headline).join(" · ")}`)}</description>`,
+        "</item>",
+      ].join(""),
+    ),
+    "</channel>",
+    "</rss>",
+    "",
+  ].join("\n");
+  mkdirSync(resolve(DIST, "blog"), { recursive: true });
+  writeFileSync(resolve(DIST, "blog", "rss.xml"), rss, "utf8");
+}
 
 // ---------------------------------------------------------------------------
 // Chat assistant knowledge. public/api/chat.php answers only from this file,
@@ -324,4 +437,6 @@ const knowledge = [
 mkdirSync(resolve(DIST, "api"), { recursive: true });
 writeFileSync(resolve(DIST, "api", "chat-knowledge.txt"), knowledge, "utf8");
 
-console.log(`prerender: ${routes.length} routes, sitemap.xml rewritten, chat knowledge ${knowledge.length} chars`);
+console.log(
+  `prerender: ${routes.length} routes, sitemap.xml rewritten, ${editions.length} blog editions, chat knowledge ${knowledge.length} chars`,
+);

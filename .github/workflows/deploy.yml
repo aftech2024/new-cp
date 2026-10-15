@@ -43,6 +43,7 @@ jobs:
           test -f dist/api/chat-feedback.php || echo "::warning::dist/api/chat-feedback.php missing"
 
           test -s dist/api/chat-knowledge.txt || { echo "::error::dist/api/chat-knowledge.txt missing — chat assistant would be unavailable"; exit 1; }
+          test -s dist/blog-data/index.json || { echo "::error::dist/blog-data/index.json missing — the blog pages would break"; exit 1; }
           if grep -rqs "example\.com" dist/sitemap.xml dist/robots.txt; then
             echo "::error::dist still contains example.com placeholders"; exit 1
           fi

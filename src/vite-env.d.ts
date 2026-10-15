@@ -12,3 +12,6 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+/** Set in vite.config.ts: whether src/content/blog/editions holds any edition. */
+declare const __BLOG_HAS_EDITIONS__: boolean;

@@ -9,6 +9,7 @@ import Capabilities from "@/components/home/Capabilities";
 import HaloraTeaser from "@/components/home/HaloraTeaser";
 import Clients from "@/components/home/Clients";
 import InsightsPreview from "@/components/home/InsightsPreview";
+import LatestNews from "@/components/home/LatestNews";
 import CtaSection from "@/components/home/CtaSection";
 import { useLanguage } from "@/i18n/LanguageContext";
 
@@ -27,6 +28,7 @@ export default function Home() {
       <HaloraTeaser />
       <Clients />
       <InsightsPreview />
+      <LatestNews />
       <CtaSection />
     </>
   );

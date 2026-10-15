@@ -13,6 +13,7 @@ const exploreKeys = [
   { key: "nav.about", to: "/about" },
   { key: "nav.projects", to: "/projects" },
   { key: "nav.insights", to: "/insights" },
+  ...(__BLOG_HAS_EDITIONS__ ? [{ key: "nav.blog", to: "/blog" }] : []),
   { key: "nav.contact", to: "/contact" },
 ];
 

@@ -123,6 +123,45 @@ ANTHROPIC_API_KEY=sk-ant-... php -d auto_prepend_file= -S 127.0.0.1:8080 -t dist
 Add `FALLBACK_API_KEY=sk-...` to exercise the fallback; set only that one to
 test it on its own.
 
+## Tech news blog ("Kabar Teknologi")
+
+Twice a week (Monday and Thursday, 06:00 WIB) `.github/workflows/blog.yml`
+writes one edition of 3–5 stories at `/blog`. `scripts/blog/run.ts` reads the
+feeds in `src/content/blog/sources.json`, has Claude (`claude-opus-5-5`) pick
+the stories, summarise them in Indonesian with a "why it matters" line, and
+fact-check each summary against its source text, then saves
+`src/content/blog/editions/<date>.json`. Links always come from the feeds,
+never from the model. If fewer than three stories pass the checks the run
+fails instead of publishing a thin edition, and GitHub emails the failure.
+
+Setup, once:
+
+1. Repository secret `ANTHROPIC_API_KEY_BLOG` — a key of its own, with a spend
+   limit set in the Claude Console (about US$5/month at this schedule).
+2. Settings → Actions → General → enable "Allow GitHub Actions to create and
+   approve pull requests".
+3. Actions → *Blog edition* → *Run workflow* to produce the first edition.
+
+By default each edition arrives as a pull request: read it, edit the JSON in
+the PR if needed, merge to publish (the merge deploys). Set the repository
+variable `BLOG_MODE=auto` to publish without review. To pause, disable the
+workflow in the Actions tab. To take an edition down, revert its commit — and,
+because deploys never delete, also remove `blog/<slug>.html` and
+`blog-data/<slug>.json` from the server.
+
+The blog link, the home-page section and `/blog` in the sitemap appear only
+once the first edition exists (`__BLOG_HAS_EDITIONS__` in `vite.config.ts`).
+Editions are not bundled: `scripts/prerender.ts` writes them to
+`dist/blog-data/` (fetched by the pages), plus one prerendered HTML page per
+edition with `NewsArticle` structured data and `dist/blog/rss.xml`.
+
+Try the pipeline locally without spending anything:
+
+```bash
+npx tsx scripts/blog/run.ts --dry-run          # fetch feeds, list candidates
+ANTHROPIC_API_KEY=sk-ant-... npx tsx scripts/blog/run.ts
+```
+
 ## Content status
 
 Project, client, and team data in `src/data/` are placeholders (bracketed, e.g. `[CLIENT NAME]`) per the PRD's content-governance rules. Replace with verified information before publishing. Imagery is a placeholder gradient/pattern treatment (`ImageReveal` component) — swap in real photography per PRD sec 26 image strategy.

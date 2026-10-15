@@ -47,6 +47,8 @@ export const navItems: NavItem[] = [
   },
   { label: "Projects", to: "/projects" },
   { label: "Insights", to: "/insights" },
+  // Appears once the first "Kabar Teknologi" edition is published (src/data/blog.ts).
+  ...(__BLOG_HAS_EDITIONS__ ? [{ label: "Blog", to: "/blog" }] : []),
 ];
 
 export const values = [

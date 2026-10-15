@@ -18,11 +18,18 @@ const browserGlobals = {
   HTMLElement: "readonly",
   File: "readonly",
   URLSearchParams: "readonly",
+  setInterval: "readonly",
+  clearInterval: "readonly",
+  __BLOG_HAS_EDITIONS__: "readonly",
 };
 
 const nodeGlobals = {
   __dirname: "readonly",
   process: "readonly",
+  setTimeout: "readonly",
+  clearTimeout: "readonly",
+  AbortController: "readonly",
+  URL: "readonly",
 };
 
 export default [
@@ -54,7 +61,7 @@ export default [
     },
   },
   {
-    files: ["vite.config.ts", "tailwind.config.ts", "postcss.config.js"],
+    files: ["vite.config.ts", "tailwind.config.ts", "postcss.config.js", "scripts/**/*.ts"],
     languageOptions: {
       globals: { ...nodeGlobals },
     },

@@ -1,0 +1,95 @@
+name: Blog edition
+
+# "Kabar Teknologi": writes one edition twice a week (Monday and Thursday,
+# 06:00 WIB) from the feeds in src/content/blog/sources.json, via
+# scripts/blog/run.ts.
+#
+# Needs the repository secret ANTHROPIC_API_KEY_BLOG.
+# The repository variable BLOG_MODE decides how an edition is published:
+#   pr   (default) — opens a pull request; merging it publishes the edition
+#   auto           — commits to main and starts the deploy straight away
+#
+# A run fails (and GitHub emails the repo owner) when there is not enough good
+# material: the edition is skipped rather than padded.
+
+on:
+  schedule:
+    - cron: "0 23 * * 0,3" # Sunday & Wednesday 23:00 UTC = Monday & Thursday 06:00 WIB
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: blog-edition
+  cancel-in-progress: false
+
+jobs:
+  edition:
+    runs-on: ubuntu-latest
+    env:
+      BLOG_MODE: ${{ vars.BLOG_MODE || 'pr' }}
+
+    steps:
+      - name: Check the API key
+        env:
+          KEY: ${{ secrets.ANTHROPIC_API_KEY_BLOG }}
+        run: |
+          if [ -z "$KEY" ]; then
+            echo "::error::Add the repository secret ANTHROPIC_API_KEY_BLOG (Settings → Secrets and variables → Actions)."
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Write the edition
+        id: edition
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY_BLOG }}
+          BLOG_PR_BODY: ${{ runner.temp }}/blog-pr.md
+        run: npx tsx scripts/blog/run.ts
+
+      - name: Open a pull request for review
+        if: steps.edition.outputs.file != '' && env.BLOG_MODE != 'auto'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FILE: ${{ steps.edition.outputs.file }}
+          DATE: ${{ steps.edition.outputs.date }}
+          TITLE: ${{ steps.edition.outputs.title }}
+        run: |
+          branch="blog/$DATE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add "$FILE"
+          git commit -m "content(blog): $TITLE"
+          git push --force origin "$branch"
+          gh pr create --base main --head "$branch" --title "$TITLE" --body-file "$RUNNER_TEMP/blog-pr.md" || {
+            echo "::error::Could not open the pull request. Enable Settings → Actions → General → 'Allow GitHub Actions to create and approve pull requests', or open one by hand from branch $branch."
+            exit 1
+          }
+
+      - name: Publish directly
+        if: steps.edition.outputs.file != '' && env.BLOG_MODE == 'auto'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FILE: ${{ steps.edition.outputs.file }}
+          TITLE: ${{ steps.edition.outputs.title }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FILE"
+          git commit -m "content(blog): $TITLE"
+          git push origin HEAD:main
+          # A push made with GITHUB_TOKEN does not trigger other workflows, so start the deploy explicitly.
+          gh workflow run deploy.yml --ref main

@@ -12,7 +12,9 @@ RewriteRule ^index\.html$ - [L]
 # Cache policy: hashed build assets are immutable and safe to cache for a
 # year; HTML shells are revalidated every load so browsers always pick up
 # the latest asset filenames after a deploy (prevents stale shells
-# requesting JS bundles that no longer exist).
+# requesting JS bundles that no longer exist). Unhashed data — the blog's
+# JSON, its RSS feed and the sitemap — is revalidated the same way so a new
+# edition shows up as soon as it is deployed.
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType text/html "access plus 0 seconds"
@@ -22,7 +24,7 @@ RewriteRule ^index\.html$ - [L]
     Header set Cache-Control "public, max-age=31536000, immutable"
   </IfModule>
 </FilesMatch>
-<FilesMatch "\.html$">
+<FilesMatch "\.(html|json|xml)$">
   <IfModule mod_headers.c>
     Header set Cache-Control "no-cache"
   </IfModule>

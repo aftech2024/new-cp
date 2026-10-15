@@ -1,0 +1,41 @@
+{
+  "_comment": "Feeds read by scripts/blog/run.ts. weight 0.5-1.0 = how much a story from this source is favoured; category = default topic hint (null = general). Only headlines, links and short summaries are used; editions link back to the source. Remove any source whose terms disallow this.",
+  "sources": [
+    { "name": "Ars Technica", "url": "https://feeds.arstechnica.com/arstechnica/index", "category": null, "weight": 1.0 },
+    { "name": "MIT Technology Review", "url": "https://www.technologyreview.com/feed/", "category": null, "weight": 1.0 },
+    { "name": "IEEE Spectrum", "url": "https://spectrum.ieee.org/feeds/feed.rss", "category": null, "weight": 1.0 },
+    { "name": "The Verge", "url": "https://www.theverge.com/rss/index.xml", "category": null, "weight": 0.8 },
+    { "name": "TechCrunch", "url": "https://techcrunch.com/feed/", "category": null, "weight": 0.8 },
+    { "name": "Wired", "url": "https://www.wired.com/feed/rss", "category": null, "weight": 0.8 },
+    { "name": "The Register", "url": "https://www.theregister.com/headlines.atom", "category": null, "weight": 0.8 },
+
+    { "name": "Google AI Blog", "url": "https://blog.google/technology/ai/rss/", "category": "ai", "weight": 1.0 },
+    { "name": "OpenAI News", "url": "https://openai.com/news/rss.xml", "category": "ai", "weight": 1.0 },
+    { "name": "Hugging Face Blog", "url": "https://huggingface.co/blog/feed.xml", "category": "ai", "weight": 0.8 },
+
+    { "name": "AWS News Blog", "url": "https://aws.amazon.com/blogs/aws/feed/", "category": "cloud", "weight": 1.0 },
+    { "name": "Google Cloud Blog", "url": "https://cloudblog.withgoogle.com/rss/", "category": "cloud", "weight": 0.9 },
+    { "name": "Microsoft Azure Blog", "url": "https://azure.microsoft.com/en-us/blog/feed/", "category": "cloud", "weight": 0.9 },
+    { "name": "Cloudflare Blog", "url": "https://blog.cloudflare.com/rss/", "category": "cloud", "weight": 0.9 },
+    { "name": "Data Center Dynamics", "url": "https://www.datacenterdynamics.com/en/rss/", "category": "cloud", "weight": 0.9 },
+    { "name": "GitHub Blog", "url": "https://github.blog/feed/", "category": "software", "weight": 0.8 },
+
+    { "name": "CISA", "url": "https://www.cisa.gov/cybersecurity-advisories/all.xml", "category": "security", "weight": 1.0 },
+    { "name": "BleepingComputer", "url": "https://www.bleepingcomputer.com/feed/", "category": "security", "weight": 0.9 },
+    { "name": "Krebs on Security", "url": "https://krebsonsecurity.com/feed/", "category": "security", "weight": 0.9 },
+    { "name": "SecurityWeek", "url": "https://www.securityweek.com/feed/", "category": "security", "weight": 0.8 },
+    { "name": "The Hacker News", "url": "https://feeds.feedburner.com/TheHackersNews", "category": "security", "weight": 0.7 },
+
+    { "name": "IoT Analytics", "url": "https://iot-analytics.com/feed/", "category": "iot", "weight": 0.9 },
+    { "name": "IoT Business News", "url": "https://iotbusinessnews.com/feed/", "category": "iot", "weight": 0.8 },
+    { "name": "Embedded.com", "url": "https://www.embedded.com/feed/", "category": "iot", "weight": 0.7 },
+    { "name": "Hackaday", "url": "https://hackaday.com/blog/feed/", "category": "iot", "weight": 0.6 },
+
+    { "name": "DroneDJ", "url": "https://dronedj.com/feed/", "category": "drone", "weight": 0.8 },
+    { "name": "DroneLife", "url": "https://dronelife.com/feed/", "category": "drone", "weight": 0.8 },
+
+    { "name": "Antara Tekno", "url": "https://www.antaranews.com/rss/tekno.xml", "category": null, "weight": 0.8 },
+    { "name": "CNN Indonesia Teknologi", "url": "https://www.cnnindonesia.com/teknologi/rss", "category": null, "weight": 0.7 },
+    { "name": "DailySocial", "url": "https://dailysocial.id/feed", "category": null, "weight": 0.6 }
+  ]
+}

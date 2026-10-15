@@ -1,9 +1,18 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
+import fs from "node:fs";
+
+// The blog link and home section appear only once the first edition exists.
+const blogEditionsDir = path.resolve(__dirname, "src/content/blog/editions");
+const hasBlogEditions =
+  fs.existsSync(blogEditionsDir) && fs.readdirSync(blogEditionsDir).some((f) => f.endsWith(".json"));
 
 export default defineConfig(({ isSsrBuild }) => ({
   plugins: [react()],
+  define: {
+    __BLOG_HAS_EDITIONS__: JSON.stringify(hasBlogEditions),
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
