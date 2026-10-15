@@ -21,7 +21,7 @@ export const services: Service[] = [
       "Cloud",
       "Network",
       "Cybersecurity",
-      "System Integration",
+      "IoT & System Integration",
       "Digital Transformation",
       "Automation",
     ],
@@ -41,6 +41,11 @@ export const services: Service[] = [
         question: "What is drone photogrammetry and when is it useful?",
         answer:
           "It's the process of stitching overlapping drone photos into an accurate 3D model of a site — an orthomosaic map, elevation model, or point cloud. It's most useful for earthworks and construction sites that need frequent, low-cost volume and progress data without waiting on a ground survey crew.",
+      },
+      {
+        question: "Does Aftech work on IoT?",
+        answer:
+          "Yes — IoT is part of our system integration work: sensors and field devices, connectivity, the data platform, real-time dashboards and alerts, connected to the systems you already run. The AI Autonomous Farm program for Kementerian Pertanian runs IoT sensing across 24 farms.",
       },
     ],
     highlights: [

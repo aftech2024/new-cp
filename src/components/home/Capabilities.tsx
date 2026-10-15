@@ -16,6 +16,7 @@ const groupKey: Record<string, string> = {
 const itemKey: Record<string, string> = {
   Software: "terms.software",
   AI: "terms.ai",
+  IoT: "terms.iot",
   Infrastructure: "terms.infrastructure",
   Cloud: "terms.cloud",
   Network: "terms.network",

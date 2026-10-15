@@ -62,7 +62,7 @@ export const capabilityMatrix = [
   {
     group: "Technology",
     company: "Aftech",
-    items: ["Software", "AI", "Infrastructure", "Cloud", "Network", "Cybersecurity"],
+    items: ["Software", "AI", "IoT", "Infrastructure", "Cloud", "Network", "Cybersecurity"],
   },
   {
     group: "Engineering",
