@@ -1,27 +1,71 @@
+# Aftech sebagai perusahaan teknologi & system integrator
+Aftech pada intinya adalah perusahaan teknologi dan **system integrator**. Aftech mengerjakan semua jenis pengembangan (development) — website, aplikasi web, aplikasi mobile, sistem informasi, AI dan IoT — sekaligus mengintegrasikan perangkat keras, perangkat lunak dan jaringan dari berbagai vendor menjadi satu sistem yang berjalan. Mechanical & Electrical melengkapi sisi fisik gedung, dan Halora (perusahaan kedua) mengerjakan sipil dan interior.
+
+Satu tim menangani dari ujung ke ujung: konsultasi & analisis kebutuhan → desain arsitektur → development → integrasi & instalasi di lapangan → pengujian → go-live & serah terima → support. Solusi dibuat custom sesuai kebutuhan, atau memakai dan mengintegrasikan platform yang sudah terbukti bila itu lebih tepat. Teknologi, perangkat dan tempat hosting (cloud atau server milik klien) dipilih sesuai kebutuhan proyek. Untuk pertanyaan sangat spesifik — merek atau model perangkat tertentu, protokol tertentu, sertifikasi, standar kepatuhan — jawab bahwa tim akan mengonfirmasi saat konsultasi.
+
+## Software development
+- Website: website perusahaan / company profile, landing page, portal, toko online (e-commerce).
+- Aplikasi web & sistem informasi custom: dashboard dan laporan, ERP, CRM, HR & penggajian, inventori & gudang, kasir (POS), keuangan & anggaran, manajemen proyek, sistem klinik, sistem sekolah, e-government, portal layanan publik, approval & workflow digital.
+- Aplikasi mobile Android dan iOS, termasuk aplikasi lapangan untuk petugas.
+- API & integrasi: menghubungkan aplikasi dengan sistem lain, payment gateway, WhatsApp, layanan pihak ketiga, dan sistem lama (legacy).
+- Pengembangan lanjutan: melanjutkan, memperbaiki, memodernisasi atau memigrasikan aplikasi yang sudah ada.
+- Platform buatan Aftech yang sudah berjalan: EPTMS — /projects/eptms-enterprise-project-management, MK — /projects/mk-management-construction, platform Photogrammetry Kementerian Pertahanan — /projects/photogrammetry, dan platform AI Autonomous Farm — /projects/ai-autonomous-farm-kementan
+
+## AI (kecerdasan buatan)
+- Chatbot dan asisten virtual untuk website atau WhatsApp, seperti asisten di website ini.
+- Computer vision: analitik video CCTV, deteksi objek, inspeksi visual, kamera thermal untuk deteksi dini.
+- Analitik dan prediksi dari data operasional, skoring otomatis, rekomendasi.
+- Otomasi proses dan dokumen.
+- Proyek terkait: AI Autonomous Farm Kementerian Pertanian (AI Farm Brain, AI health scoring, rekomendasi/prescription) — /projects/ai-autonomous-farm-kementan
+
+## IoT (Internet of Things)
+Solusi IoT lengkap dari perangkat sampai aplikasi: pemilihan dan pemasangan sensor & perangkat, gateway, konektivitas (kabel maupun nirkabel), platform data di cloud atau server, dashboard monitoring real-time, alarm & notifikasi, dan kontrol jarak jauh.
+- Contoh penerapan: smart farming, monitoring lingkungan (suhu, kelembapan, kualitas udara, air), monitoring listrik & energi, monitoring mesin dan peralatan, pelacakan aset, smart building, smart city, early warning system.
+- Data IoT bisa digabung dengan AI dan drone untuk analisis dan pengambilan keputusan.
+- Proyek terkait: AI Autonomous Farm Kementerian Pertanian — IoT sensing, drone survey, AI analytics dan integrasi sistem di 24 lokasi pertanian, dengan Farm Command Center — /projects/ai-autonomous-farm-kementan
+
+## System integrator
+Aftech menyatukan perangkat keras, perangkat lunak dan jaringan dari berbagai vendor agar bekerja sebagai satu sistem — termasuk dengan sistem yang sudah dimiliki klien.
+- Integrasi sistem keamanan: CCTV, access control, kamera thermal, alarm, dalam satu pemantauan.
+- Integrasi data dan aplikasi: menghubungkan aplikasi, database dan perangkat lapangan ke satu dashboard atau command center.
+- Integrasi infrastruktur: jaringan, server, cloud dan sistem gedung.
+- Proyek dengan lingkup System Integration: FEWS thermal camera untuk PLN Indonesia Power Adipala — /projects/fews-camera-installation; CCTV & Access Door di Meikarta District 2 — /projects/cctv-access-door-installation; Cloud & Network Modernization untuk ZTE — /projects/cloud-network-modernization; AI Autonomous Farm — /projects/ai-autonomous-farm-kementan
+
+## Infrastruktur IT, jaringan, cloud & keamanan siber
+- Jaringan LAN, WAN dan WiFi, kabel jaringan terstruktur, perangkat jaringan.
+- Server, ruang server & data center.
+- Cloud: migrasi dari sistem lama, hybrid cloud, backup.
+- Keamanan siber: pengamanan jaringan dan sistem.
+- IT support dan pemeliharaan untuk lingkungan yang sudah ada maupun yang baru dibangun.
+- Proyek terkait: Cloud & Network Modernization untuk ZTE — /projects/cloud-network-modernization
+
+## Drone photogrammetry
+Produk unggulan: survei drone menjadi orthomosaic, DSM/DTM, point cloud 3D dan laporan volume (cut & fill, stockpile) untuk proyek konstruksi dan pekerjaan tanah. Live di kemhan.aftech.co.id — /projects/photogrammetry
+
 # Visitor needs → Aftech service
 Visitors usually write in everyday Indonesian ("mau bikin web", "pasang CCTV", "AC kantor rusak"). Map what they ask for to the service below. Everything listed here is work Aftech or Halora does — such a request is a potential project, not an off-topic question.
 
-## Website, aplikasi web & sistem informasi → Technology — /services/technology
-Kata pengunjung: bikin/buat web, website, website perusahaan, company profile, aplikasi, sistem, sistem informasi, dashboard, portal, software, digitalisasi, otomasi.
-Pembuatan website dan aplikasi/sistem berbasis web termasuk layanan Software Development Aftech: dibuat custom sesuai kebutuhan, atau mengintegrasikan sistem yang sudah ada. Contoh platform web buatan Aftech yang sudah berjalan:
-- EPTMS — manajemen portofolio proyek enterprise (dashboard, Gantt, WBS, Kurva-S) — /projects/eptms-enterprise-project-management
-- MK — project controls manajemen konstruksi (kontrak, BOQ, RAP, biaya) — /projects/mk-management-construction
-- Platform Photogrammetry Kementerian Pertahanan — /projects/photogrammetry
-Untuk jenis platform yang tidak disebut di sini (misalnya aplikasi mobile/Android/iOS), jangan menjawab "bisa" atau "tidak bisa": sampaikan bahwa tim akan mengonfirmasi saat konsultasi, lalu sebut contoh platform web di atas.
+## Website, aplikasi & sistem informasi → Technology — /services/technology
+Kata pengunjung: bikin/buat web, website, website perusahaan, company profile, toko online, aplikasi, app, aplikasi android, aplikasi iOS, aplikasi HP, sistem, sistem informasi, ERP, kasir, dashboard, portal, software, digitalisasi, otomasi.
+
+## IoT, sensor & monitoring → Technology — /services/technology
+Kata pengunjung: IoT, sensor, monitoring jarak jauh, telemetri, smart home, smart building, smart farming, pertanian pintar, monitoring suhu, monitoring listrik, alarm otomatis, kontrol jarak jauh.
+
+## Integrasi sistem → Technology — /services/technology
+Kata pengunjung: system integrator, SI, integrasi, menghubungkan sistem, sistem tidak nyambung, command center, satu dashboard untuk semua.
+
+## AI → Technology — /services/technology
+Kata pengunjung: AI, kecerdasan buatan, chatbot, asisten virtual, machine learning, deteksi wajah/objek, analitik video, prediksi.
 
 ## CCTV, akses pintu & kamera thermal → Technology — /services/technology
 Kata pengunjung: pasang CCTV, kamera keamanan, akses pintu, access door, kartu akses, kamera thermal, deteksi kebakaran dini.
-Proyek terkait: CCTV & Access Door Installation di Meikarta District 2 — /projects/cctv-access-door-installation; FEWS thermal camera untuk PLN Indonesia Power Adipala — /projects/fews-camera-installation
+Proyek terkait: CCTV & Access Door Installation — /projects/cctv-access-door-installation; FEWS thermal camera — /projects/fews-camera-installation
 
 ## Jaringan, server, cloud & keamanan siber → Technology — /services/technology
 Kata pengunjung: internet kantor, jaringan, LAN, WiFi, server, cloud, migrasi, data center, keamanan siber, IT support.
-Proyek terkait: Cloud & Network Modernization untuk ZTE — /projects/cloud-network-modernization
 
 ## Drone, pemetaan & survei → Technology — /projects/photogrammetry
 Kata pengunjung: drone, foto udara, pemetaan, peta, survei lahan, ukur volume, cut and fill, stockpile, orthomosaic, 3D lahan.
-
-## AI, IoT & smart farming → Technology — /projects/ai-autonomous-farm-kementan
-Kata pengunjung: AI, kecerdasan buatan, IoT, sensor, smart farming, pertanian pintar, otomasi.
 
 ## Manajemen proyek & kontrol biaya → Technology — /projects/eptms-enterprise-project-management, /projects/mk-management-construction
 Kata pengunjung: kurva S, Gantt, WBS, BOQ, RAP, monitoring progres proyek, kontrol biaya proyek.
@@ -35,10 +79,31 @@ Kata pengunjung: bangun gedung, gudang, renovasi, sipil, interior, fit-out, furn
 Pekerjaan sipil dan interior dikerjakan Halora (https://compro.halora.co.id). Bila digabung dengan teknologi atau ME, Aftech dan Halora menjalankannya sebagai satu program terintegrasi.
 
 # FAQ (Bahasa Indonesia)
+Q: Aftech itu perusahaan apa?
+A: Perusahaan teknologi dan system integrator: semua jenis development (website, aplikasi web & mobile, sistem informasi, AI, IoT), infrastruktur IT dan integrasi sistem, ditambah layanan Mechanical & Electrical. Sipil dan interior lewat Halora.
+
+Q: Apakah Aftech bisa membuat aplikasi mobile (Android / iOS)?
+A: Bisa. Aftech mengerjakan aplikasi mobile Android dan iOS, juga website dan aplikasi web, sesuai kebutuhan.
+
+Q: Apakah Aftech mengerjakan IoT?
+A: Ya, dari pemasangan sensor dan perangkat, konektivitas, platform data, sampai dashboard monitoring dan alarm. Contohnya program AI Autonomous Farm untuk Kementerian Pertanian di 24 lokasi.
+
+Q: Apakah Aftech system integrator?
+A: Ya. Aftech mengintegrasikan perangkat keras, perangkat lunak dan jaringan dari berbagai vendor — termasuk sistem yang sudah dimiliki klien — menjadi satu sistem, misalnya CCTV dengan access control, atau perangkat lapangan ke satu dashboard.
+
+Q: Bisa integrasi dengan sistem atau perangkat yang sudah kami punya?
+A: Bisa. Aftech bekerja dengan sistem dan infrastruktur yang sudah ada maupun membangun dari awal. Kecocokan merek atau perangkat tertentu dicek tim saat konsultasi.
+
+Q: Teknologi apa yang dipakai? Bisa di server sendiri?
+A: Teknologi dan tempat hosting dipilih sesuai kebutuhan — di cloud atau di server milik klien. Detail teknisnya dibahas tim saat konsultasi.
+
+Q: Bisa membuat chatbot AI seperti asisten ini?
+A: Bisa. Aftech membuat chatbot dan asisten virtual berbasis AI untuk website atau WhatsApp, termasuk yang menjawab dari data perusahaan sendiri.
+
 Q: Bagaimana cara memulai proyek dengan Aftech?
 A: Hubungi tim lewat formulir kontak (/contact) atau WhatsApp. Ceritakan kebutuhan, lokasi dan target waktu. Tim akan menghubungi untuk konsultasi, lalu pekerjaan berjalan sesuai tahapan layanannya (contoh Technology: Discovery → Architecture → Build → Integrate → Support).
 
-Q: Berapa biaya atau harga pembuatan website / pemasangan CCTV / pekerjaan lain?
+Q: Berapa biaya atau harga pembuatan website / aplikasi / pemasangan CCTV / pekerjaan lain?
 A: Biaya bergantung pada lingkup pekerjaan, jadi tim memberikan penawaran setelah konsultasi. Hubungi tim lewat formulir kontak atau WhatsApp.
 
 Q: Berapa lama pengerjaannya?
@@ -53,8 +118,8 @@ A: Kementerian, BUMN dan perusahaan swasta — antara lain Kementerian Pertahana
 Q: Apakah ada dukungan atau maintenance setelah proyek selesai?
 A: Ya. Layanan Technology mencakup tahap Support, dan layanan Mechanical & Electrical mencakup tahap Maintenance.
 
-Q: Saya sudah punya sistem / jaringan, apakah bisa dikembangkan atau diperbaiki?
-A: Bisa. Aftech bekerja dengan sistem dan infrastruktur yang sudah ada maupun membangun dari awal.
+Q: Saya sudah punya sistem / aplikasi / jaringan, apakah bisa dikembangkan atau diperbaiki?
+A: Bisa. Aftech bisa melanjutkan, memperbaiki, memodernisasi atau memigrasikan sistem yang sudah ada, maupun membangun dari awal.
 
 Q: Apakah Aftech bisa melayani pengadaan sekolah?
 A: Aftech memiliki toko resmi di SIPLah: https://siplah.tokoladang.co.id/official-store/aftech-service.53680
