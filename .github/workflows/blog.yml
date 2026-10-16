@@ -43,6 +43,15 @@ jobs:
             echo "::error::Add the repository secret ANTHROPIC_API_KEY_BLOG (Settings → Secrets and variables → Actions)."
             exit 1
           fi
+          # Same router as FALLBACK_BASE_URL in scripts/blog/claude.ts.
+          if [ -n "$FALLBACK_KEY" ]; then
+            code=$(curl -s -o /dev/null -w '%{http_code}' -m 20 -H "Authorization: Bearer $FALLBACK_KEY" https://9router.aftech.co.id/api/v1/models || true)
+            if [ "$code" = 200 ]; then
+              echo "::notice::Fallback key OK (9router)."
+            else
+              echo "::warning::9router rejected FALLBACK_API_KEY_BLOG (HTTP $code); this run has no fallback."
+            fi
+          fi
 
       - uses: actions/checkout@v4
 
