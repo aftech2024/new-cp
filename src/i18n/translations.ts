@@ -803,7 +803,6 @@ const en: Record<string, string> = {
   "prod.pricing.desc": "Start with the plan you need today and move up as your team grows. Every plan starts with a free demo.",
   "prod.pricing.quoteTitle": "Priced for your implementation",
   "prod.pricing.quoteDesc": "Every implementation is scoped to your sites, your devices and the outputs you need. Talk to our team for a quote, starting with a free demo.",
-  "prod.pricing.popular": "Most popular",
   "prod.pricing.billing": "Billing period",
   "prod.pricing.monthly": "Monthly",
   "prod.pricing.yearly": "Yearly",
@@ -855,8 +854,6 @@ const en: Record<string, string> = {
   "prod.form.errSend": "The request could not be sent. Please try again, or contact us on WhatsApp.",
   "prod.faq.eyebrow": "FAQ",
   "prod.faq.title": "Common questions",
-  "prod.close.title": "Ready to see it with your own work?",
-  "prod.close.desc": "Book a demo and we will walk your team through it, end to end.",
 };
 
 const id: Record<string, string> = {
@@ -1658,7 +1655,6 @@ const id: Record<string, string> = {
   "prod.pricing.desc": "Mulai dari paket yang Anda butuhkan sekarang, lalu naikkan saat tim bertambah. Setiap paket diawali demo gratis.",
   "prod.pricing.quoteTitle": "Harga disusun sesuai implementasi Anda",
   "prod.pricing.quoteDesc": "Setiap implementasi disesuaikan dengan lokasi, perangkat, dan output yang Anda butuhkan. Hubungi tim kami untuk penawaran, diawali demo gratis.",
-  "prod.pricing.popular": "Paling populer",
   "prod.pricing.billing": "Periode tagihan",
   "prod.pricing.monthly": "Bulanan",
   "prod.pricing.yearly": "Tahunan",
@@ -1710,8 +1706,6 @@ const id: Record<string, string> = {
   "prod.form.errSend": "Permintaan gagal dikirim. Silakan coba lagi, atau hubungi kami lewat WhatsApp.",
   "prod.faq.eyebrow": "FAQ",
   "prod.faq.title": "Pertanyaan umum",
-  "prod.close.title": "Siap melihatnya dengan pekerjaan Anda sendiri?",
-  "prod.close.desc": "Jadwalkan demo, dan kami tunjukkan alurnya dari awal sampai akhir kepada tim Anda.",
 };
 
 export const dictionaries: Record<Lang, Record<string, string>> = { en, id };

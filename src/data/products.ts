@@ -186,7 +186,7 @@ export interface Product {
 
 const mk: Product = {
   slug: "management-construction",
-  name: "MK — Management Construction",
+  name: "MK · Management Construction",
   shortName: "MK",
   category: l("Project controls · Konstruksi", "Project controls · Construction"),
   tagline: l(
@@ -200,8 +200,8 @@ const mk: Product = {
   cover: mkCostDashboard,
   page: {
     seoTitle: l(
-      "MK — Aplikasi Management Construction & Kontrol Biaya Proyek",
-      "MK — Management Construction & Project Cost Control Software",
+      "MK: Aplikasi Management Construction & Kontrol Biaya Proyek",
+      "MK: Management Construction & Project Cost Control Software",
     ),
     seoDescription: l(
       "MK menghubungkan kontrak, BOQ, WBS, RAP, progres, dan biaya aktual proyek konstruksi dalam satu sistem, lengkap dengan indikator EVM. Jadwalkan demo.",
@@ -517,7 +517,7 @@ const mk: Product = {
 
 const eptms: Product = {
   slug: "eptms",
-  name: "EPTMS — Enterprise Project Management",
+  name: "EPTMS · Enterprise Project Management",
   shortName: "EPTMS",
   category: l("Manajemen portofolio proyek", "Project portfolio management"),
   tagline: l(
@@ -531,8 +531,8 @@ const eptms: Product = {
   cover: eptmsCover,
   page: {
     seoTitle: l(
-      "EPTMS — Software Manajemen Portofolio Proyek dengan Gantt, WBS & Kurva-S",
-      "EPTMS — Project Portfolio Management Software with Gantt, WBS & S-Curves",
+      "EPTMS: Software Manajemen Portofolio Proyek dengan Gantt, WBS & Kurva-S",
+      "EPTMS: Project Portfolio Management Software with Gantt, WBS & S-Curves",
     ),
     seoDescription: l(
       "EPTMS menyatukan dashboard eksekutif, timeline & Gantt, Planning & WBS dengan bobot dinamis, dan Kurva-S otomatis untuk seluruh portofolio proyek, lengkap dengan SPI, CPI, dan peringatan proyek berisiko. Jadwalkan demo.",
@@ -858,8 +858,8 @@ const photogrammetry: Product = {
   cover: photogrammetryCover,
   page: {
     seoTitle: l(
-      "Photogrammetry — Survei Drone, Orthomosaic, Model 3D & Volume Cut-Fill",
-      "Photogrammetry — Drone Survey, Orthomosaic, 3D Model & Cut-Fill Volumes",
+      "Photogrammetry: Survei Drone, Orthomosaic, Model 3D & Volume Cut-Fill",
+      "Photogrammetry: Drone Survey, Orthomosaic, 3D Model & Cut-Fill Volumes",
     ),
     seoDescription: l(
       "Aftech menerbangkan drone di lokasi Anda dan mengolah foto udaranya menjadi orthomosaic, point cloud 3D, DSM/DTM, dan laporan volume cut & fill. Konsultasi dan demo gratis.",
@@ -1102,8 +1102,8 @@ const aiFarm: Product = {
   cover: aiFarmCover,
   page: {
     seoTitle: l(
-      "AI Farm — Platform Pertanian Cerdas dengan IoT, Drone & AI",
-      "AI Farm — Smart Farming Platform with IoT, Drones & AI",
+      "AI Farm: Platform Pertanian Cerdas dengan IoT, Drone & AI",
+      "AI Farm: Smart Farming Platform with IoT, Drones & AI",
     ),
     seoDescription: l(
       "AI Farm menggabungkan sensor IoT, citra drone, dan AI dalam satu Farm Command Center: skor kesehatan per zona, preskripsi yang divalidasi petugas, misi drone, dan verifikasi hasil. Jadwalkan demo.",
@@ -1359,8 +1359,8 @@ const blueCarbon: Product = {
   cover: bcPilotMap,
   page: {
     seoTitle: l(
-      "Aftech Blue Carbon — Platform MRV Karbon Mangrove & Carbon Capture",
-      "Aftech Blue Carbon — Mangrove Carbon MRV & Carbon Capture Platform",
+      "Aftech Blue Carbon: Platform MRV Karbon Mangrove & Carbon Capture",
+      "Aftech Blue Carbon: Mangrove Carbon MRV & Carbon Capture Platform",
     ),
     seoDescription: l(
       "Aftech Blue Carbon mencatat survei UAV, plot sampel permanen, dan perhitungan karbon berversi untuk proyek mangrove, lalu mencocokkan hasil terverifikasi dengan emisi industri Scope 1 dan 2. Konsultasi implementasi gratis.",
@@ -1618,8 +1618,8 @@ const erp: Product = {
   cover: nxDecisionCenter,
   page: {
     seoTitle: l(
-      "Nexora ERP — Software ERP dengan AI untuk Keuangan, Stok & Produksi",
-      "Nexora ERP — AI-powered ERP for Finance, Inventory & Manufacturing",
+      "Nexora ERP: Software ERP dengan AI untuk Keuangan, Stok & Produksi",
+      "Nexora ERP: AI-powered ERP for Finance, Inventory & Manufacturing",
     ),
     seoDescription: l(
       "Nexora menyatukan akuntansi, pajak Indonesia, pembelian, penjualan, stok multi-gudang, manufaktur, dan SDM dalam satu ERP, dengan Decision Center dan Nexora Ask berbasis AI. Jadwalkan demo.",

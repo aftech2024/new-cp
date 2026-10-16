@@ -1,12 +1,11 @@
 import { useState, type CSSProperties } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Plus, X, Check } from "lucide-react";
+import { Plus } from "lucide-react";
 import Seo from "@/components/Seo";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
-import Button from "@/components/ui/Button";
 import ProductHero from "@/components/products/ProductHero";
 import ProductFlow from "@/components/products/ProductFlow";
 import ModuleTour from "@/components/products/ModuleTour";
@@ -20,6 +19,11 @@ function scrollToSection(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+/**
+ * Product landing page. The story runs problem, flow, proof (the module tour),
+ * fit, price, questions, then the demo request, which is also where the page
+ * ends: dark sections only open and close it.
+ */
 export default function ProductDetail() {
   const { slug = "" } = useParams();
   const { lang, t } = useLanguage();
@@ -37,7 +41,7 @@ export default function ProductDetail() {
 
       <ProductHero product={product} page={page} onDemo={bookDemo} onPricing={() => scrollToSection("pricing")} />
 
-      {/* highlights strip */}
+      {/* highlights: the four facts that set the product apart, read as one spec row */}
       <div className="border-b border-line bg-white">
         <Container>
           <motion.dl
@@ -51,7 +55,7 @@ export default function ProductDetail() {
               <motion.div
                 key={h.value.en}
                 variants={staggerItem}
-                className={`flex flex-col gap-1 py-7 lg:px-8 lg:py-9 ${i % 2 === 1 ? "pl-5 border-l border-line" : "pr-5"} ${
+                className={`flex flex-col gap-1 py-7 lg:px-8 lg:py-9 ${i % 2 === 1 ? "border-l border-line pl-5" : "pr-5"} ${
                   i > 1 ? "border-t border-line lg:border-t-0" : ""
                 } ${i > 0 ? "lg:border-l lg:border-line lg:pl-8" : "lg:pl-0"}`}
               >
@@ -63,45 +67,56 @@ export default function ProductDetail() {
         </Container>
       </div>
 
-      {/* before / after */}
+      {/* before / after: each row pairs a problem with what changes, so they are read side by side */}
       <Section>
-        <Container className="flex flex-col gap-12">
-          <SectionHeading eyebrow={t("prod.compare.eyebrow")} title={page.compare.title[lang]} />
-          <div className="grid gap-6 lg:grid-cols-2">
-            <div className="rounded-2xl bg-white p-8 ring-1 ring-line">
-              <p className="spec-label text-muted">
+        <Container className="grid gap-12 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-4">
+            <SectionHeading eyebrow={t("prod.compare.eyebrow")} title={page.compare.title[lang]} />
+          </div>
+          <div className="lg:col-span-8">
+            <div className="hidden grid-cols-2 gap-10 border-b border-ink pb-3 md:grid">
+              <p className="text-sm font-semibold text-muted">
                 {t("prod.compare.without")} {product.shortName}
               </p>
-              <ul className="mt-6 flex flex-col gap-4">
-                {page.compare.before.map((item) => (
-                  <li key={item.en} className="flex items-start gap-3 text-ink/70">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-50 ring-1 ring-red-200">
-                      <X className="h-3 w-3 text-red-500" aria-hidden="true" />
-                    </span>
-                    {item[lang]}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="relative overflow-hidden rounded-2xl bg-deep-navy p-8 text-white ring-1 ring-[rgb(var(--accent)/0.4)]">
-              <div
-                className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-[rgb(var(--accent)/0.18)] blur-3xl"
-                aria-hidden="true"
-              />
-              <p className="spec-label relative text-[rgb(var(--accent))]">
+              <p className="text-sm font-semibold text-ink">
                 {t("prod.compare.with")} {product.shortName}
               </p>
-              <ul className="relative mt-6 flex flex-col gap-4">
-                {page.compare.after.map((item) => (
-                  <li key={item.en} className="flex items-start gap-3 text-white/85">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[rgb(var(--accent))]">
-                      <Check className="h-3 w-3 text-deep-navy" aria-hidden="true" />
-                    </span>
-                    {item[lang]}
-                  </li>
-                ))}
-              </ul>
             </div>
+            <motion.ol variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportOnce}>
+              {page.compare.before.map((before, i) => {
+                const after = page.compare.after[i];
+                return (
+                  <motion.li
+                    key={before.en}
+                    variants={staggerItem}
+                    className="grid gap-3 border-b border-line py-6 md:grid-cols-2 md:gap-10"
+                  >
+                    <p className="flex gap-4 text-muted">
+                      <span className="font-mono text-xs leading-7 text-muted">{String(i + 1).padStart(2, "0")}</span>
+                      <span>
+                        <span className="mb-1 block text-xs font-semibold text-muted md:hidden">
+                          {t("prod.compare.without")} {product.shortName}
+                        </span>
+                        {before[lang]}
+                      </span>
+                    </p>
+                    {after && (
+                      <p className="flex gap-4 font-medium text-ink md:pl-0">
+                        <span className="font-mono text-xs leading-7 text-transparent md:hidden" aria-hidden="true">
+                          00
+                        </span>
+                        <span>
+                          <span className="mb-1 block text-xs font-semibold text-ink md:hidden">
+                            {t("prod.compare.with")} {product.shortName}
+                          </span>
+                          {after[lang]}
+                        </span>
+                      </p>
+                    )}
+                  </motion.li>
+                );
+              })}
+            </motion.ol>
           </div>
         </Container>
       </Section>
@@ -110,8 +125,8 @@ export default function ProductDetail() {
 
       <ModuleTour product={product} page={page} />
 
-      {/* who it is for */}
-      <Section>
+      {/* who it is for: three audiences as an editorial list, not icon cards */}
+      <section className="bg-white py-20 md:py-28">
         <Container className="flex flex-col gap-12">
           <SectionHeading eyebrow={t("prod.personas.eyebrow")} title={page.personasTitle[lang]} />
           <motion.ul
@@ -119,27 +134,22 @@ export default function ProductDetail() {
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="grid gap-6 md:grid-cols-3"
+            className="grid gap-10 md:grid-cols-3 md:gap-0"
           >
-            {page.personas.map((persona) => {
-              const Icon = persona.icon;
-              return (
-                <motion.li
-                  key={persona.title.en}
-                  variants={staggerItem}
-                  className="group flex flex-col gap-4 rounded-2xl bg-white p-8 ring-1 ring-line transition-shadow duration-300 hover:shadow-card"
-                >
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-deep-navy">
-                    <Icon className="h-6 w-6 text-[rgb(var(--accent))]" aria-hidden="true" />
-                  </span>
-                  <h3 className="font-display text-lg font-bold">{persona.title[lang]}</h3>
-                  <p className="leading-relaxed text-muted">{persona.text[lang]}</p>
-                </motion.li>
-              );
-            })}
+            {page.personas.map((persona, i) => (
+              <motion.li
+                key={persona.title.en}
+                variants={staggerItem}
+                className={`flex flex-col gap-3 border-t border-ink pt-6 md:pr-8 ${i > 0 ? "md:pl-8" : ""}`}
+              >
+                <span className="font-mono text-xs text-muted">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="font-display text-xl font-bold">{persona.title[lang]}</h3>
+                <p className="leading-relaxed text-muted">{persona.text[lang]}</p>
+              </motion.li>
+            ))}
           </motion.ul>
         </Container>
-      </Section>
+      </section>
 
       <PricingTable
         pricing={page.pricing}
@@ -149,10 +159,8 @@ export default function ProductDetail() {
         }}
       />
 
-      <DemoRequestForm product={product} page={page} plan={plan} />
-
-      {/* FAQ */}
-      <Section>
+      {/* FAQ sits before the demo form, so questions are answered before someone books */}
+      <section className="bg-white py-20 md:py-28">
         <Container className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <SectionHeading eyebrow={t("prod.faq.eyebrow")} title={t("prod.faq.title")} />
@@ -160,7 +168,7 @@ export default function ProductDetail() {
           <div className="flex flex-col divide-y divide-line border-y border-line lg:col-span-8">
             {page.faq.map((item) => (
               <details key={item.question.en} className="group py-2">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-4 font-display text-lg font-bold [&::-webkit-details-marker]:hidden">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 rounded-pro py-4 font-display text-lg font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aftech [&::-webkit-details-marker]:hidden">
                   {item.question[lang]}
                   <Plus className="h-5 w-5 shrink-0 text-muted transition-transform duration-300 group-open:rotate-45" aria-hidden="true" />
                 </summary>
@@ -169,37 +177,9 @@ export default function ProductDetail() {
             ))}
           </div>
         </Container>
-      </Section>
-
-      {/* closing */}
-      <section className="relative overflow-hidden bg-deep-navy py-20 text-white md:py-24">
-        <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_90%_at_85%_50%,rgb(var(--accent)/0.22),transparent_70%)]"
-          aria-hidden="true"
-        />
-        <Container className="relative flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
-          <div className="max-w-2xl">
-            <h2 className="font-display font-extrabold leading-[1.05] tracking-[-0.02em] text-[clamp(28px,3.2vw,44px)]">
-              {t("prod.close.title")}
-            </h2>
-            <p className="mt-4 text-white/65">{t("prod.close.desc")}</p>
-          </div>
-          <div className="flex flex-wrap items-center gap-4">
-            <Button onClick={bookDemo}>{t("prod.cta.demo")}</Button>
-            {product.appUrl && (
-              <a
-                href={product.appUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-1.5 text-sm text-white/60 transition-colors hover:text-white"
-              >
-                {t("prod.cta.login")}
-                <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </a>
-            )}
-          </div>
-        </Container>
       </section>
+
+      <DemoRequestForm product={product} page={page} plan={plan} />
     </div>
   );
 }

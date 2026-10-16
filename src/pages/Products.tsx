@@ -25,17 +25,17 @@ export default function Products() {
       />
       <Section>
         <Container>
-          <motion.div
+          <motion.ol
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="grid gap-6 lg:grid-cols-2"
+            className="border-b border-line"
           >
-            {ordered.map((product) => (
-              <ProductCard key={product.slug} product={product} />
+            {ordered.map((product, i) => (
+              <ProductCard key={product.slug} product={product} index={i} />
             ))}
-          </motion.div>
+          </motion.ol>
         </Container>
       </Section>
       <CtaSection />

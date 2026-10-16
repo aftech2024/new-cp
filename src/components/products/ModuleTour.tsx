@@ -72,15 +72,13 @@ export default function ModuleTour({ product, page }: { product: Product; page: 
                   aria-selected={selected}
                   aria-controls="tour-panel"
                   onClick={() => pick(i)}
-                  className={`relative shrink-0 overflow-hidden rounded-lg border px-4 py-3 text-left transition-all duration-300 lg:px-5 lg:py-4 ${
-                    selected
-                      ? "border-ink/10 bg-white shadow-card"
-                      : "border-transparent bg-white/40 text-ink/70 hover:bg-white hover:text-ink"
+                  className={`relative shrink-0 overflow-hidden rounded-md border px-4 py-3 text-left transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aftech lg:px-5 lg:py-4 ${
+                    selected ? "border-ink/15 bg-white" : "border-transparent text-ink/70 hover:bg-white/60 hover:text-ink"
                   }`}
                 >
                   <span className="flex items-center gap-3">
                     <span
-                      className={`font-mono text-[11px] font-semibold ${selected ? "text-ink" : "text-muted"}`}
+                      className={`font-mono text-xs font-semibold ${selected ? "text-ink" : "text-muted"}`}
                       aria-hidden="true"
                     >
                       {String(i + 1).padStart(2, "0")}
@@ -111,7 +109,7 @@ export default function ModuleTour({ product, page }: { product: Product; page: 
                   <img
                     key={m.name.en}
                     src={m.image}
-                    alt={i === index ? `${product.shortName} — ${m.name[lang]}` : ""}
+                    alt={i === index ? `${product.shortName}, ${m.name[lang]}` : ""}
                     aria-hidden={i !== index}
                     loading="lazy"
                     className={`absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-700 ${
@@ -123,12 +121,10 @@ export default function ModuleTour({ product, page }: { product: Product; page: 
             </BrowserFrame>
 
             <p className="mt-6 text-muted lg:hidden">{active.summary[lang]}</p>
-            <ul className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            <ul className="mt-6 grid gap-x-6 gap-y-3 sm:grid-cols-2 xl:grid-cols-3">
               {active.points.map((point) => (
-                <li key={point.en} className="flex items-start gap-3 rounded-lg bg-white px-4 py-3 text-sm font-medium ring-1 ring-ink/5">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[rgb(var(--accent)/0.18)]">
-                    <Check className="h-3 w-3 text-ink" aria-hidden="true" />
-                  </span>
+                <li key={point.en} className="flex items-start gap-2.5 border-t border-ink/15 pt-3 text-sm font-medium text-ink">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-aftech" aria-hidden="true" />
                   {point[lang]}
                 </li>
               ))}

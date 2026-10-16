@@ -19,6 +19,12 @@ function perMonth(tier: PricingTier, billing: Billing): number | null {
   return billing === "yearly" ? (tier.monthly * YEARLY_MONTHS) / 12 : tier.monthly;
 }
 
+/**
+ * Plans with published prices, or a single sales-quoted offer when none has a
+ * price. The featured plan is set dark because it is the one built for the
+ * page's main audience (teams running several projects or entities); it
+ * carries no popularity badge, since there is no sales data behind one.
+ */
 export default function PricingTable({
   pricing,
   onChoose,
@@ -50,7 +56,7 @@ export default function PricingTable({
             <div
               role="radiogroup"
               aria-label={t("prod.pricing.billing")}
-              className="inline-flex items-center rounded-full bg-white p-1 shadow-pro ring-1 ring-line"
+              className="inline-flex items-center rounded-pro bg-white p-1 ring-1 ring-line"
             >
               {(["monthly", "yearly"] as const).map((b) => (
                 <button
@@ -59,21 +65,25 @@ export default function PricingTable({
                   role="radio"
                   aria-checked={billing === b}
                   onClick={() => setBilling(b)}
-                  className={`relative rounded-full px-5 py-2 text-sm font-semibold transition-colors duration-300 ${
-                    billing === b ? "text-white" : "text-ink/65 hover:text-ink"
+                  className={`relative rounded-[3px] px-5 py-2 text-sm font-semibold transition-colors duration-300 ${
+                    billing === b ? "text-white" : "text-ink/70 hover:text-ink"
                   }`}
                 >
                   {billing === b && (
                     <motion.span
                       layoutId="billing-pill"
-                      className="absolute inset-0 rounded-full bg-deep-navy"
+                      className="absolute inset-0 rounded-[3px] bg-deep-navy"
                       transition={{ type: "spring", stiffness: 420, damping: 34 }}
                     />
                   )}
                   <span className="relative flex items-center gap-2">
                     {t(`prod.pricing.${b}`)}
                     {b === "yearly" && (
-                      <span className="rounded-full bg-[rgb(var(--accent))] px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wide text-deep-navy">
+                      <span
+                        className={`rounded-[3px] px-1.5 py-0.5 text-[11px] font-semibold ${
+                          billing === b ? "bg-white/15 text-white" : "bg-aftech-ice text-primary-navy"
+                        }`}
+                      >
                         {t("prod.pricing.save")}
                       </span>
                     )}
@@ -87,28 +97,18 @@ export default function PricingTable({
               initial="hidden"
               whileInView="visible"
               viewport={viewportOnce}
-              className="grid w-full gap-6 pt-2 lg:grid-cols-3"
+              className="grid w-full gap-5 lg:grid-cols-3"
             >
               {pricing.tiers.map((tier) => {
                 const featured = Boolean(tier.featured);
                 const price = perMonth(tier, billing);
-                const muted = featured ? "text-white/60" : "text-muted";
+                const muted = featured ? "text-white/65" : "text-muted";
                 return (
                   <motion.div
                     key={tier.name.en}
                     variants={staggerItem}
-                    className={`relative flex flex-col rounded-2xl p-7 lg:p-8 ${
-                      featured
-                        ? "bg-deep-navy text-white shadow-[0_40px_90px_-40px_rgba(4,17,29,0.85)] ring-2 ring-[rgb(var(--accent))]"
-                        : "bg-white shadow-pro ring-1 ring-line"
-                    }`}
+                    className={`flex flex-col rounded-xl p-7 lg:p-8 ${featured ? "bg-deep-navy text-white" : "bg-white ring-1 ring-line"}`}
                   >
-                    {featured && (
-                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[rgb(var(--accent))] px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-deep-navy">
-                        {t("prod.pricing.popular")}
-                      </span>
-                    )}
-
                     <h3 className="font-display text-xl font-bold">{tier.name[lang]}</h3>
                     <p className={`mt-2 text-sm leading-relaxed lg:min-h-[4.5rem] ${muted}`}>{tier.description[lang]}</p>
 
@@ -144,9 +144,7 @@ export default function PricingTable({
                         </>
                       ) : (
                         <>
-                          <span className="block font-display text-[40px] font-bold leading-none tracking-tight">
-                            {tier.customPrice?.[lang]}
-                          </span>
+                          <span className="block font-display text-[40px] font-bold leading-none tracking-tight">{tier.customPrice?.[lang]}</span>
                           <p className={`mt-2.5 text-xs ${muted}`}>{tier.customNote?.[lang] ?? t("prod.pricing.customSub")}</p>
                         </>
                       )}
@@ -155,18 +153,15 @@ export default function PricingTable({
                     <Button
                       onClick={() => onChoose(planLabel(tier, lang, billingLabel))}
                       variant={featured ? "primary" : tier.monthly === null ? "dark" : "secondary"}
+                      withArrow={false}
                       className="mt-6 w-full"
                     >
                       {tier.cta[lang]}
                     </Button>
 
-                    <dl
-                      className={`mt-7 divide-y rounded-xl text-sm ring-1 ${
-                        featured ? "divide-white/10 bg-white/[0.04] ring-white/10" : "divide-line bg-off-white ring-line"
-                      }`}
-                    >
+                    <dl className={`mt-7 divide-y text-sm ${featured ? "divide-white/10 border-y border-white/10" : "divide-line border-y border-line"}`}>
                       {tier.limits.map((limit) => (
-                        <div key={limit.label.en} className="flex items-center justify-between gap-4 px-4 py-2.5">
+                        <div key={limit.label.en} className="flex items-center justify-between gap-4 py-2.5">
                           <dt className={muted}>{limit.label[lang]}</dt>
                           <dd className="text-right font-semibold">{limit.value[lang]}</dd>
                         </div>
@@ -178,10 +173,7 @@ export default function PricingTable({
                       <ul className="flex flex-col gap-2.5 text-sm">
                         {tier.features.map((feature) => (
                           <li key={feature.en} className="flex items-start gap-3">
-                            <Check
-                              className={`mt-0.5 h-4 w-4 shrink-0 ${featured ? "text-[rgb(var(--accent))]" : "text-aftech"}`}
-                              aria-hidden="true"
-                            />
+                            <Check className={`mt-0.5 h-4 w-4 shrink-0 ${featured ? "text-aftech-bright" : "text-aftech"}`} aria-hidden="true" />
                             <span className={featured ? "text-white/85" : "text-ink/85"}>{feature[lang]}</span>
                           </li>
                         ))}
@@ -210,7 +202,7 @@ export default function PricingTable({
               onClick={() => setCompareOpen((v) => !v)}
               aria-expanded={compareOpen}
               aria-controls="pricing-compare"
-              className="group inline-flex items-center gap-2 rounded-full border border-ink/15 bg-white px-6 py-3 text-sm font-semibold text-ink shadow-pro transition-colors hover:border-ink/30"
+              className="inline-flex items-center gap-2 rounded-pro border border-ink/20 bg-white px-6 py-3 text-sm font-semibold text-ink transition-colors hover:border-ink/50"
             >
               {compareOpen ? t("prod.pricing.compareHide") : t("prod.pricing.compare")}
               <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${compareOpen ? "rotate-180" : ""}`} aria-hidden="true" />
@@ -226,7 +218,7 @@ export default function PricingTable({
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   className="w-full overflow-hidden"
                 >
-                  <div className="overflow-x-auto rounded-2xl bg-white shadow-pro ring-1 ring-line">
+                  <div className="overflow-x-auto rounded-xl bg-white ring-1 ring-line">
                     <table className="w-full min-w-[680px] border-collapse text-sm">
                       <caption className="sr-only">{t("prod.pricing.compare")}</caption>
                       <thead>
@@ -240,7 +232,7 @@ export default function PricingTable({
                               <th
                                 key={tier.name.en}
                                 scope="col"
-                                className={`px-4 py-5 text-center align-bottom ${tier.featured ? "bg-[rgb(var(--accent)/0.1)]" : ""}`}
+                                className={`px-4 py-5 text-center align-bottom ${tier.featured ? "bg-aftech-ice" : ""}`}
                               >
                                 <span className="block font-display text-base font-bold">{tier.name[lang]}</span>
                                 <span className="mt-1 block text-xs font-normal text-muted tabular-nums">
@@ -257,7 +249,7 @@ export default function PricingTable({
                             <th
                               colSpan={pricing.tiers.length + 1}
                               scope="colgroup"
-                              className="bg-off-white px-6 py-3 text-left font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-muted"
+                              className="bg-off-white px-6 py-3 text-left text-xs font-semibold text-muted"
                             >
                               {group.group[lang]}
                             </th>
@@ -270,7 +262,7 @@ export default function PricingTable({
                               {row.values.map((value, i) => (
                                 <td
                                   key={pricing.tiers[i]?.name.en ?? i}
-                                  className={`px-4 py-3.5 text-center ${pricing.tiers[i]?.featured ? "bg-[rgb(var(--accent)/0.06)]" : ""}`}
+                                  className={`px-4 py-3.5 text-center ${pricing.tiers[i]?.featured ? "bg-aftech-ice/50" : ""}`}
                                 >
                                   {value === true ? (
                                     <>
@@ -279,7 +271,7 @@ export default function PricingTable({
                                     </>
                                   ) : value === false ? (
                                     <>
-                                      <Minus className="mx-auto h-4 w-4 text-ink/20" aria-hidden="true" />
+                                      <Minus className="mx-auto h-4 w-4 text-ink/25" aria-hidden="true" />
                                       <span className="sr-only">{t("prod.pricing.notIncluded")}</span>
                                     </>
                                   ) : (
@@ -313,28 +305,24 @@ function QuoteOffer({ tier, onChoose }: { tier: PricingTier; onChoose: (plan: st
       initial="hidden"
       whileInView="visible"
       viewport={viewportOnce}
-      className="grid w-full max-w-5xl overflow-hidden rounded-2xl bg-white shadow-pro ring-1 ring-line lg:grid-cols-5"
+      className="grid w-full max-w-5xl overflow-hidden rounded-xl bg-white ring-1 ring-line lg:grid-cols-5"
     >
-      <div className="relative flex flex-col gap-5 overflow-hidden bg-deep-navy p-8 text-white lg:col-span-2 lg:p-10">
-        <div
-          className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[rgb(var(--accent)/0.22)] blur-3xl"
-          aria-hidden="true"
-        />
-        <h3 className="relative font-display text-xl font-bold">{tier.name[lang]}</h3>
-        <p className="relative text-sm leading-relaxed text-white/65">{tier.description[lang]}</p>
-        <div className="relative mt-2">
+      <div className="flex flex-col gap-5 bg-deep-navy p-8 text-white lg:col-span-2 lg:p-10">
+        <h3 className="font-display text-xl font-bold">{tier.name[lang]}</h3>
+        <p className="text-sm leading-relaxed text-white/65">{tier.description[lang]}</p>
+        <div className="mt-2">
           <span className="block font-display text-[40px] font-bold leading-none tracking-tight">{tier.customPrice?.[lang]}</span>
-          <p className="mt-2.5 text-xs text-white/60">{tier.customNote?.[lang] ?? t("prod.pricing.customSub")}</p>
+          <p className="mt-2.5 text-xs text-white/65">{tier.customNote?.[lang] ?? t("prod.pricing.customSub")}</p>
         </div>
-        <Button onClick={() => onChoose(planLabel(tier, lang, ""))} className="relative mt-auto w-full">
+        <Button onClick={() => onChoose(planLabel(tier, lang, ""))} withArrow={false} className="mt-auto w-full">
           {tier.cta[lang]}
         </Button>
       </div>
 
       <div className="flex flex-col gap-7 p-8 lg:col-span-3 lg:p-10">
-        <dl className="divide-y divide-line rounded-xl bg-off-white text-sm ring-1 ring-line">
+        <dl className="divide-y divide-line border-y border-line text-sm">
           {tier.limits.map((limit) => (
-            <div key={limit.label.en} className="flex items-center justify-between gap-4 px-4 py-2.5">
+            <div key={limit.label.en} className="flex items-center justify-between gap-4 py-2.5">
               <dt className="text-muted">{limit.label[lang]}</dt>
               <dd className="text-right font-semibold">{limit.value[lang]}</dd>
             </div>

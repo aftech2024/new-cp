@@ -7,108 +7,99 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import type { Product } from "@/data/products";
 
 /**
- * A product on /products. Products with their own page get the wide layout
- * and a link to it; the rest point to their case study (or app) for now.
+ * One product on /products, as a numbered row of the catalogue. Rows alternate
+ * the screenshot side so the list reads as an index, not a wall of cards; the
+ * short accent rule under the name is the same mark the product page opens with.
  */
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({ product, index }: { product: Product; index: number }) {
   const { lang, t } = useLanguage();
-  const hasPage = Boolean(product.page);
   const style = { "--accent": product.accent } as CSSProperties;
+  const reversed = index % 2 === 1;
+  const number = String(index + 1).padStart(2, "0");
+  const pageUrl = product.page ? `/products/${product.slug}` : null;
 
-  const visual = product.cover ? (
-    <img
-      src={product.cover}
-      alt=""
-      loading="lazy"
-      className="h-full w-full object-cover object-left-top transition-transform duration-700 ease-premium group-hover:scale-[1.03]"
-    />
-  ) : (
-    <div className="flex h-full w-full items-center justify-center bg-deep-navy">
-      <div className="pointer-events-none absolute inset-0 blueprint-dark" aria-hidden="true" />
-      <span className="relative font-display text-3xl font-bold text-white/90">{product.shortName}</span>
-    </div>
-  );
-
-  if (hasPage) {
-    return (
-      <motion.article
-        variants={staggerItem}
-        style={style}
-        className="group relative grid overflow-hidden rounded-2xl bg-deep-navy text-white ring-1 ring-[rgb(var(--accent)/0.35)] lg:col-span-2 lg:grid-cols-12"
-      >
-        <div
-          className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[rgb(var(--accent)/0.2)] blur-3xl"
-          aria-hidden="true"
-        />
-        <div className="relative flex flex-col gap-5 p-8 md:p-10 lg:col-span-5">
-          <span className="flex items-center gap-2.5">
-            <span className="rounded-full bg-[rgb(var(--accent))] px-2 py-0.5 font-mono text-[11px] font-bold text-deep-navy">
-              {product.shortName}
-            </span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/55">{product.category[lang]}</span>
-          </span>
-          <h2 className="font-display text-3xl font-bold leading-tight">{product.name}</h2>
-          <p className="leading-relaxed text-white/70">{product.tagline[lang]}</p>
-          <Link
-            to={`/products/${product.slug}`}
-            className="mt-auto inline-flex w-fit items-center gap-2 rounded-pro bg-white px-6 py-3 font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-deep-navy transition-colors hover:bg-[rgb(var(--accent))]"
-          >
-            {t("prod.card.view")}
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-          </Link>
-        </div>
-        <div className="relative min-h-[240px] overflow-hidden lg:col-span-7 lg:min-h-[360px]">
-          <div className="absolute inset-0 lg:inset-y-8 lg:left-0 lg:right-[-2rem] lg:overflow-hidden lg:rounded-l-xl lg:ring-1 lg:ring-white/10">
-            {visual}
-          </div>
-        </div>
-      </motion.article>
-    );
-  }
-
-  const link = product.caseStudy
+  const fallbackLink = product.caseStudy
     ? { to: `/projects/${product.caseStudy}`, label: t("prod.card.caseStudy") }
     : product.appUrl
       ? { href: product.appUrl, label: t("prod.card.app") }
       : null;
 
+  const image = product.cover ? (
+    <img
+      src={product.cover}
+      alt=""
+      loading="lazy"
+      className="aspect-[16/9] w-full object-cover object-left-top transition-transform duration-700 ease-premium group-hover:scale-[1.03]"
+    />
+  ) : (
+    <div className="flex aspect-[16/9] w-full items-center justify-center bg-primary-navy">
+      <span className="font-display text-3xl font-bold text-white/90">{product.shortName}</span>
+    </div>
+  );
+
   return (
-    <motion.article
+    <motion.li
       variants={staggerItem}
       style={style}
-      className="group flex flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-line transition-shadow duration-300 hover:shadow-card"
+      className="group grid items-center gap-8 border-t border-line py-12 lg:grid-cols-12 lg:gap-14 lg:py-16"
     >
-      <div className="relative aspect-[16/9] overflow-hidden border-b border-line">{visual}</div>
-      <div className="flex flex-1 flex-col gap-3 p-7">
-        <span className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-[rgb(var(--accent))]" aria-hidden="true" />
-          <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">{product.category[lang]}</span>
-        </span>
-        <h2 className="font-display text-xl font-bold">{product.name}</h2>
-        <p className="leading-relaxed text-muted">{product.tagline[lang]}</p>
-        <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-4">
-          <span className="rounded-full bg-off-white px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-muted ring-1 ring-line">
-            {t("prod.card.soon")}
-          </span>
-          {link &&
-            ("to" in link ? (
-              <Link to={link.to!} className="inline-flex items-center gap-1.5 text-sm font-semibold text-aftech hover:underline">
-                {link.label}
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            ) : (
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-aftech hover:underline"
-              >
-                {link.label}
-                <ArrowUpRight className="h-4 w-4" />
-              </a>
-            ))}
-        </div>
+      <div className={`flex flex-col gap-4 lg:col-span-5 ${reversed ? "lg:order-2" : ""}`}>
+        <span className="font-mono text-xs text-muted">{number}</span>
+        <p className="text-sm text-muted">{product.category[lang]}</p>
+        <h2 className="font-display font-extrabold leading-[1.08] tracking-[-0.01em] text-[clamp(26px,2.8vw,38px)]">
+          {pageUrl ? (
+            <Link to={pageUrl} className="rounded-pro hover:text-aftech focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aftech">
+              {product.name}
+            </Link>
+          ) : (
+            product.name
+          )}
+        </h2>
+        <span className="h-0.5 w-10 bg-[rgb(var(--accent))]" aria-hidden="true" />
+        <p className="max-w-md text-base leading-relaxed text-muted md:text-lg">{product.tagline[lang]}</p>
+
+        {pageUrl ? (
+          <Link
+            to={pageUrl}
+            className="mt-2 inline-flex w-fit items-center gap-2 rounded-pro font-semibold text-aftech underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aftech"
+          >
+            {t("prod.card.view")}
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
+            <span className="sr-only">: {product.name}</span>
+          </Link>
+        ) : (
+          <div className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-2">
+            <span className="text-sm text-muted">{t("prod.card.soon")}</span>
+            {fallbackLink &&
+              ("to" in fallbackLink ? (
+                <Link to={fallbackLink.to!} className="inline-flex items-center gap-1.5 text-sm font-semibold text-aftech hover:underline">
+                  {fallbackLink.label}
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              ) : (
+                <a
+                  href={fallbackLink.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-aftech hover:underline"
+                >
+                  {fallbackLink.label}
+                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </a>
+              ))}
+          </div>
+        )}
       </div>
-    </motion.article>
+
+      <div className={`overflow-hidden rounded-xl ring-1 ring-line lg:col-span-7 ${reversed ? "lg:order-1" : ""}`}>
+        {pageUrl ? (
+          <Link to={pageUrl} tabIndex={-1} aria-hidden="true" className="block">
+            {image}
+          </Link>
+        ) : (
+          image
+        )}
+      </div>
+    </motion.li>
   );
 }

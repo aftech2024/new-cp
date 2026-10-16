@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
-import { AlertCircle, CalendarClock, CheckCircle2, Loader2, MonitorPlay, ShieldCheck } from "lucide-react";
+import { AlertCircle, ArrowUpRight, CheckCircle2, Loader2 } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -132,13 +132,8 @@ export default function DemoRequestForm({
   });
 
   return (
-    <Section tone="dark" id="demo" className="scroll-mt-24 overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 blueprint-dark" aria-hidden="true" />
-      <div
-        className="pointer-events-none absolute -left-40 top-10 h-[460px] w-[460px] rounded-full bg-[rgb(var(--accent)/0.14)] blur-3xl"
-        aria-hidden="true"
-      />
-      <Container className="relative grid gap-14 lg:grid-cols-12 lg:gap-16">
+    <Section tone="dark" id="demo" className="scroll-mt-24">
+      <Container className="grid gap-14 lg:grid-cols-12 lg:gap-16">
         <div className="flex flex-col gap-8 lg:col-span-5">
           <SectionHeading
             eyebrow={t("prod.demo.eyebrow")}
@@ -146,32 +141,39 @@ export default function DemoRequestForm({
             description={t("prod.demo.desc")}
             tone="dark"
           />
-          <ul className="flex flex-col gap-5">
-            {[
-              { icon: CalendarClock, text: t("prod.demo.p0") },
-              { icon: MonitorPlay, text: t("prod.demo.p1") },
-              { icon: ShieldCheck, text: t("prod.demo.p2") },
-            ].map(({ icon: Icon, text }) => (
-              <li key={text} className="flex items-start gap-4 text-white/80">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/5 ring-1 ring-white/10">
-                  <Icon className="h-5 w-5 text-[rgb(var(--accent))]" aria-hidden="true" />
-                </span>
-                <span className="pt-2">{text}</span>
+          <ol className="divide-y divide-white/10 border-y border-white/10">
+            {[t("prod.demo.p0"), t("prod.demo.p1"), t("prod.demo.p2")].map((text, i) => (
+              <li key={text} className="flex gap-4 py-4 text-white/80">
+                <span className="font-mono text-xs leading-6 text-white/60">{String(i + 1).padStart(2, "0")}</span>
+                {text}
               </li>
             ))}
-          </ul>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-white/70 transition-colors hover:text-white"
-          >
-            <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
-            {t("prod.demo.whatsapp")}
-          </a>
+          </ol>
+          <div className="flex flex-col gap-3">
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-white/75 underline-offset-4 transition-colors hover:text-white hover:underline"
+            >
+              <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
+              {t("prod.demo.whatsapp")}
+            </a>
+            {product.appUrl && (
+              <a
+                href={product.appUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex w-fit items-center gap-1.5 text-sm text-white/60 underline-offset-4 transition-colors hover:text-white hover:underline"
+              >
+                {t("prod.cta.login")}
+                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </a>
+            )}
+          </div>
         </div>
 
-        <div className="rounded-2xl bg-white p-6 text-ink shadow-[0_40px_100px_-40px_rgba(0,0,0,0.8)] sm:p-8 lg:col-span-7">
+        <div className="rounded-xl bg-white p-6 text-ink sm:p-8 lg:col-span-7">
           {status === "success" ? (
             <div className="flex min-h-[420px] flex-col items-center justify-center gap-4 text-center" role="status">
               <CheckCircle2 className="h-12 w-12 text-aftech" />
@@ -308,7 +310,7 @@ export default function DemoRequestForm({
                 </div>
               )}
 
-              <Button type="submit" disabled={status === "submitting"} withArrow={status !== "submitting"} className="w-full sm:w-auto sm:self-start">
+              <Button type="submit" disabled={status === "submitting"} withArrow={false} className="w-full sm:w-auto sm:self-start">
                 {status === "submitting" ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" /> {t("prod.form.sending")}
