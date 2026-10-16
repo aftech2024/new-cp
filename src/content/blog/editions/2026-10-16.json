@@ -1,0 +1,58 @@
+{
+  "slug": "kabar-teknologi-2026-10-16",
+  "date": "2026-10-16",
+  "title": "Kabar Teknologi 16 Oktober 2026: Celah Nextcloud Dieksploitasi, Patch Microsoft Rekor, Gemini 4 Argon",
+  "description": "Eksploitasi celah Collabora di Nextcloud, lebih dari 1.400 patch Microsoft, peluncuran Gemini 4 Argon, dan survei drone BVLOS di Australia.",
+  "items": [
+    {
+      "category": "security",
+      "headline": "Celah RCE Collabora di Nextcloud Dieksploitasi untuk Menanam Webshell",
+      "summary": "Penyerang mengeksploitasi CVE-2026-110447 pada aplikasi richdocumentscode (built-in CODE server Collabora) di Nextcloud sejak 10 September, sekitar sebulan sebelum CVE terbit. Tanpa autentikasi, mereka menanam webshell PHP untuk mencari basis data kata sandi dan dompet kripto. Instalasi Collabora mandiri, Docker, dan Nextcloud All-in-One tidak terdampak.",
+      "whyItMatters": "Periksa apakah server Nextcloud memakai aplikasi built-in CODE. Perbarui ke versi 26.4.303 atau hapus aplikasinya (menonaktifkan saja tidak cukup), lalu cari jejak webshell.",
+      "source": {
+        "name": "BleepingComputer",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-exploit-collabora-rce-flaw-to-backdoor-nextcloud-servers",
+        "publishedAt": "2026-10-15T20:25:04.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "Microsoft Rilis Patch untuk Lebih dari 1.400 Celah, Satu Zero-Day",
+      "summary": "Pembaruan Oktober dari Microsoft menambal lebih dari 1.400 kerentanan, melampaui rekor September yang hampir mencapai 1.000; sedikitnya 78 di antaranya kritis. Satu celah, CVE-2026-96951 di Windows Shell, sudah dieksploitasi dan memengaruhi Windows 10, 11, serta sebagian versi Server. Microsoft menyebut model bahasa besar sebagai pendorong banyaknya temuan bug.",
+      "whyItMatters": "Volume patch sebesar ini menuntut prioritas: dahulukan CVE-2026-96951 dan celah Microsoft yang masuk katalog KEV CISA. Dukungan pembaruan Windows 10 kini diperpanjang hingga Oktober 2027.",
+      "source": {
+        "name": "Krebs on Security",
+        "url": "https://krebsonsecurity.com/2026/10/microsoft-patches-more-than-1400-security-flaws",
+        "publishedAt": "2026-10-13T23:24:53.000Z"
+      }
+    },
+    {
+      "category": "ai",
+      "headline": "Google Rilis Gemini 4 Argon untuk Pengembang, Enterprise, dan Konsumen",
+      "summary": "Google merilis Gemini 4 Argon secara global melalui API di AI Studio dan Gemini platform, serta di aplikasi Gemini dan AI Mode di Search bagi pelanggan tertentu. Model ini ditujukan untuk tugas kompleks seperti coding, keuangan, hukum, dan keamanan siber, dengan harga perkenalan US$2 per juta token input dan US$10 per juta token output.",
+      "whyItMatters": "Organisasi yang sedang menilai model AI dapat membandingkan Argon dari sisi biaya dan kemampuan untuk analisis dokumen dan coding, sambil memastikan kesesuaian kebijakan data sebelum memakai API.",
+      "source": {
+        "name": "Google AI Blog",
+        "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon",
+        "publishedAt": "2026-10-13T16:00:00.000Z"
+      }
+    },
+    {
+      "category": "drone",
+      "headline": "Skyports Pantau Proyek Transmisi Listrik Australia dengan Drone BVLOS Jarak Jauh",
+      "summary": "Skyports Drone Services memakai DJI Dock 2 yang terpasang permanen di lokasi gardu Maragle, bagian proyek HumeLink West, untuk survei otomatis setiap dua minggu. Drone dioperasikan dari pusat kendali di Sydney yang berjarak lebih dari 350 km dengan izin BVLOS dari CASA. Data diolah di DroneDeploy menjadi model 2D dan 3D.",
+      "whyItMatters": "Model drone-in-a-box dapat mempercepat pemantauan proyek infrastruktur di lokasi terpencil dan mengurangi personel di lapangan; penerapannya bergantung pada izin operasi BVLOS dari regulator.",
+      "source": {
+        "name": "DroneLife",
+        "url": "https://dronelife.com/2026/10/15/automated-bvlos-drone-surveys-australia",
+        "publishedAt": "2026-10-15T15:00:54.000Z"
+      }
+    }
+  ],
+  "aftechNote": null,
+  "meta": {
+    "model": "claude-opus-5-5",
+    "generatedAt": "2026-10-16T02:28:15.536Z",
+    "reviewed": true
+  }
+}
