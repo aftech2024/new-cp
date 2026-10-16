@@ -7,7 +7,6 @@ const en: Record<string, string> = {
   "nav.about": "About",
   "nav.services": "Services",
   "nav.projects": "Projects",
-  "nav.insights": "Insights",
   "nav.contact": "Contact",
   "nav.startProject": "Start a Project",
   "nav.capabilities": "Capabilities",
@@ -163,15 +162,6 @@ const en: Record<string, string> = {
   "cli.empty": "Client logos will appear here once approved for public display.",
   "cliGrid.empty": "Client logos will appear here once approved for public display.",
 
-  // ---------- insights preview ----------
-  "ins.eyebrow": "Insights",
-  "ins.title": "Aftech Insights",
-  "ins.all": "All Insights",
-  "insCard.read": "Read Article",
-  "insCat.Technology": "Technology",
-  "insCat.Engineering": "Engineering",
-  "insCat.Construction": "Construction",
-  "insCat.Business": "Business",
 
   // ---------- cta ----------
   "cta.eyebrow": "[07] — Start a project",
@@ -206,7 +196,6 @@ const en: Record<string, string> = {
   "com.about": "About",
   "com.services": "Services",
   "com.projects": "Projects",
-  "com.insights": "Insights",
   "com.contact": "Contact",
   "com.showing": "Showing",
   "com.of": "of",
@@ -599,39 +588,6 @@ const en: Record<string, string> = {
   "prjData.mechanical-electrical-works.gal.4": "Lift control panel — network device fit-out",
   "prjData.mechanical-electrical-works.gal.5": "Lift control panel — closed and secured",
 
-  // ---------- insights ----------
-  "insPage.seo.title": "Insights",
-  "insPage.seo.desc": "Perspectives on technology, engineering, construction and business from the Aftech team.",
-  "insPage.hero.eyebrow": "Insights",
-  "insPage.hero.title": "Aftech Insights",
-  "insData.ai-for-business.title": "AI for Business: Where to Start",
-  "insData.ai-for-business.excerpt":
-    "Practical entry points for organizations exploring AI adoption without overhauling existing systems.",
-  "insData.ai-for-business.c.0":
-    "Adopting AI does not require replacing existing systems overnight. Most organizations get the most value by starting with a narrow, well-defined use case — document processing, support triage, or reporting automation — and expanding from there.",
-  "insData.ai-for-business.c.1":
-    "The technical work matters less than the integration work: connecting AI capability to real data and real workflows is usually the harder problem.",
-  "insData.digital-transformation-roadmap.title": "Building a Digital Transformation Roadmap",
-  "insData.digital-transformation-roadmap.excerpt":
-    "A phased approach to modernizing IT infrastructure without disrupting daily operations.",
-  "insData.digital-transformation-roadmap.c.0":
-    "A transformation roadmap should sequence changes by risk and dependency, not by ambition. Infrastructure and network foundations typically need to be stable before applications and automation layers are added.",
-  "insData.digital-transformation-roadmap.c.1":
-    "Phasing also protects continuity — teams can keep operating while the underlying systems evolve.",
-  "insData.smart-building-basics.title": "What Makes a Building 'Smart'",
-  "insData.smart-building-basics.excerpt":
-    "Smart building capability is less about gadgets and more about how systems talk to each other.",
-  "insData.smart-building-basics.c.0":
-    "A smart building connects electrical, network, security and HVAC systems so they can be monitored and controlled together, rather than as isolated systems managed by separate teams.",
-  "insData.smart-building-basics.c.1":
-    "The payoff is operational: faster fault detection, lower energy waste, and better data for facility decisions.",
-  "insData.cost-control-construction-projects.title": "Cost Control on Construction Projects",
-  "insData.cost-control-construction-projects.excerpt":
-    "Where budgets typically slip on construction and civil works, and how disciplined execution prevents it.",
-  "insData.cost-control-construction-projects.c.0":
-    "Most cost overruns trace back to scope changes made without re-costing, or to procurement timelines that weren't aligned with the construction schedule.",
-  "insData.cost-control-construction-projects.c.1":
-    "Disciplined change control and early procurement planning are unglamorous but effective levers for cost control.",
 
   // ---------- contact ----------
   "con.seo.title": "Contact",
@@ -725,7 +681,6 @@ const en: Record<string, string> = {
   "chat.kind.service": "Service",
   "chat.kind.project": "Project",
   "chat.kind.product": "Product",
-  "chat.kind.insight": "Article",
   "chat.kind.live": "Live platform",
   "chat.kind.whatsapp": "Direct chat",
   "chat.kind.external": "External site",
@@ -733,7 +688,6 @@ const en: Record<string, string> = {
   "chat.page.services": "All services",
   "chat.page.projects": "All projects",
   "chat.page.products": "All products",
-  "chat.page.insights": "Insights & articles",
   "chat.page.contact": "Talk to our team",
   "chat.page.siplah": "Aftech store on SIPLah",
   "chat.err.generic": "The assistant couldn't reply. Send your message again.",
@@ -861,7 +815,6 @@ const id: Record<string, string> = {
   "nav.about": "Tentang",
   "nav.services": "Layanan",
   "nav.projects": "Proyek",
-  "nav.insights": "Wawasan",
   "nav.contact": "Kontak",
   "nav.startProject": "Mulai Proyek",
   "nav.capabilities": "Kapabilitas",
@@ -1017,15 +970,6 @@ const id: Record<string, string> = {
   "cli.empty": "Logo klien akan tampil di sini setelah disetujui untuk publikasi.",
   "cliGrid.empty": "Logo klien akan tampil di sini setelah disetujui untuk publikasi.",
 
-  // ---------- insights preview ----------
-  "ins.eyebrow": "Wawasan",
-  "ins.title": "Wawasan Aftech",
-  "ins.all": "Semua Wawasan",
-  "insCard.read": "Baca Artikel",
-  "insCat.Technology": "Teknologi",
-  "insCat.Engineering": "Engineering",
-  "insCat.Construction": "Konstruksi",
-  "insCat.Business": "Bisnis",
 
   // ---------- cta ----------
   "cta.eyebrow": "[07] — Mulai proyek",
@@ -1060,7 +1004,6 @@ const id: Record<string, string> = {
   "com.about": "Tentang",
   "com.services": "Layanan",
   "com.projects": "Proyek",
-  "com.insights": "Wawasan",
   "com.contact": "Kontak",
   "com.showing": "Menampilkan",
   "com.of": "dari",
@@ -1451,39 +1394,6 @@ const id: Record<string, string> = {
   "prjData.mechanical-electrical-works.gal.4": "Panel kontrol lift — instalasi perangkat jaringan",
   "prjData.mechanical-electrical-works.gal.5": "Panel kontrol lift — tertutup dan aman",
 
-  // ---------- insights ----------
-  "insPage.seo.title": "Wawasan",
-  "insPage.seo.desc": "Perspektif tentang teknologi, engineering, konstruksi, dan bisnis dari tim Aftech.",
-  "insPage.hero.eyebrow": "Wawasan",
-  "insPage.hero.title": "Wawasan Aftech",
-  "insData.ai-for-business.title": "AI untuk Bisnis: Mulai dari Mana",
-  "insData.ai-for-business.excerpt":
-    "Titik masuk praktis bagi organisasi yang menjajaki adopsi AI tanpa merombak sistem yang ada.",
-  "insData.ai-for-business.c.0":
-    "Mengadopsi AI tidak mengharuskan mengganti sistem yang ada dalam semalam. Kebanyakan organisasi mendapat nilai terbesar dengan memulai dari use case yang sempit dan terdefinisi jelas — pemrosesan dokumen, triase support, atau otomatisasi pelaporan — lalu berkembang dari sana.",
-  "insData.ai-for-business.c.1":
-    "Pekerjaan teknis biasanya kalah penting dari pekerjaan integrasi: menghubungkan kapabilitas AI ke data nyata dan alur kerja nyata justru masalah yang lebih sulit.",
-  "insData.digital-transformation-roadmap.title": "Menyusun Roadmap Transformasi Digital",
-  "insData.digital-transformation-roadmap.excerpt":
-    "Pendekatan bertahap untuk memodernisasi infrastruktur IT tanpa mengganggu operasi harian.",
-  "insData.digital-transformation-roadmap.c.0":
-    "Roadmap transformasi sebaiknya mengurutkan perubahan berdasarkan risiko dan dependensi, bukan ambisi. Fondasi infrastruktur dan jaringan umumnya harus stabil dulu sebelum lapisan aplikasi dan otomatisasi ditambahkan.",
-  "insData.digital-transformation-roadmap.c.1":
-    "Pentahapan juga menjaga keberlangsungan — tim tetap bisa beroperasi sementara sistem di bawahnya berevolusi.",
-  "insData.smart-building-basics.title": "Apa yang Membuat Gedung Menjadi ‘Smart’",
-  "insData.smart-building-basics.excerpt":
-    "Kapabilitas smart building lebih soal bagaimana sistem saling berbicara, bukan soal gadget.",
-  "insData.smart-building-basics.c.0":
-    "Smart building menghubungkan sistem elektrikal, jaringan, keamanan, dan HVAC agar bisa dimonitor dan dikendalikan bersama, bukan sebagai sistem terisolasi yang dikelola tim terpisah.",
-  "insData.smart-building-basics.c.1":
-    "Hasilnya operasional: deteksi gangguan lebih cepat, pemborosan energi lebih rendah, dan data lebih baik untuk keputusan fasilitas.",
-  "insData.cost-control-construction-projects.title": "Pengendalian Biaya Proyek Konstruksi",
-  "insData.cost-control-construction-projects.excerpt":
-    "Di mana anggaran biasanya bocor pada pekerjaan konstruksi dan sipil, dan bagaimana eksekusi disiplin mencegahnya.",
-  "insData.cost-control-construction-projects.c.0":
-    "Kebanyakan pembengkakan biaya berakar pada perubahan lingkup yang dibuat tanpa penghitungan ulang, atau timeline pengadaan yang tidak selaras dengan jadwal konstruksi.",
-  "insData.cost-control-construction-projects.c.1":
-    "Change control yang disiplin dan perencanaan pengadaan sejak awal memang tidak glamor, tetapi efektif untuk pengendalian biaya.",
 
   // ---------- contact ----------
   "con.seo.title": "Kontak",
@@ -1577,7 +1487,6 @@ const id: Record<string, string> = {
   "chat.kind.service": "Layanan",
   "chat.kind.project": "Proyek",
   "chat.kind.product": "Produk",
-  "chat.kind.insight": "Artikel",
   "chat.kind.live": "Platform live",
   "chat.kind.whatsapp": "Chat langsung",
   "chat.kind.external": "Situs eksternal",
@@ -1585,7 +1494,6 @@ const id: Record<string, string> = {
   "chat.page.services": "Semua layanan",
   "chat.page.projects": "Semua proyek",
   "chat.page.products": "Semua produk",
-  "chat.page.insights": "Wawasan & artikel",
   "chat.page.contact": "Bicara dengan tim kami",
   "chat.page.siplah": "Toko Aftech di SIPLah",
   "chat.err.generic": "Asisten belum bisa menjawab. Kirim ulang pesan Anda.",

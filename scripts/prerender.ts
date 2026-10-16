@@ -20,7 +20,6 @@ import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 
 import { resolve, dirname } from "node:path";
 import { services } from "../src/data/services";
 import { projects } from "../src/data/projects";
-import { insights } from "../src/data/insights";
 import { isQuoteOnly, products, YEARLY_MONTHS } from "../src/data/products";
 import { company, locations, capabilityMatrix, values, HALORA_URL, WHATSAPP_URL } from "../src/data/company";
 import { BLOG_DATA_PATH, type BlogEdition, type BlogIndexEntry } from "../src/data/blog";
@@ -87,13 +86,6 @@ const staticRoutes: Route[] = [
     priority: "0.8",
   },
   {
-    path: "/insights",
-    title: "Insights",
-    description: "Perspectives on technology, engineering, construction and business from the Aftech team.",
-    type: "website",
-    priority: "0.6",
-  },
-  {
     path: "/contact",
     title: "Contact",
     description:
@@ -155,14 +147,6 @@ const productRoutes: Route[] = products.flatMap((p) =>
     : [],
 );
 
-const insightRoutes: Route[] = insights.map((i) => ({
-  path: `/insights/${i.slug}`,
-  title: i.title,
-  description: i.excerpt,
-  type: "article",
-  priority: "0.5",
-}));
-
 // "Kabar Teknologi" editions (src/data/blog.ts), newest first. The section only
 // exists once the first edition does.
 const BLOG_DIR = resolve(process.cwd(), "src/content/blog/editions");
@@ -213,7 +197,7 @@ const blogRoutes: Route[] = editions.length
     ]
   : [];
 
-const routes = [...staticRoutes, ...serviceRoutes, ...productRoutes, ...projectRoutes, ...insightRoutes, ...blogRoutes];
+const routes = [...staticRoutes, ...serviceRoutes, ...productRoutes, ...projectRoutes, ...blogRoutes];
 
 function escapeHtml(value: string): string {
   return value
@@ -494,9 +478,6 @@ const knowledge = [
     `Scope: ${p.scope.join(", ")}.`,
     "",
   ]),
-  "# Insights (articles)",
-  ...insights.map((i) => `- ${i.title} — /insights/${i.slug}: ${i.excerpt}`),
-  "",
   "# Site pages",
   bullet(staticRoutes.map((r) => `${r.path} — ${r.title}`)),
   "",

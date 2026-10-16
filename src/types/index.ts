@@ -37,15 +37,6 @@ export interface Service {
   imageAlt?: string;
 }
 
-export interface Insight {
-  id: string;
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: "Technology" | "Engineering" | "Construction" | "Business";
-  date: string;
-  content: string[];
-}
 
 export interface NavItem {
   label: string;

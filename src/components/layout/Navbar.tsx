@@ -24,7 +24,6 @@ const navLabelKey: Record<string, string> = {
   "/services/integrated-solutions": "nav.services",
   "/products": "nav.products",
   "/projects": "nav.projects",
-  "/insights": "nav.insights",
   "/blog": "nav.blog",
   "/contact": "nav.contact",
 };

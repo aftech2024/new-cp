@@ -1,4 +1,4 @@
-import type { Insight, Project, Service } from "@/types";
+import type { Project, Service } from "@/types";
 
 type T = (key: string, fallback?: string) => string;
 
@@ -42,20 +42,4 @@ export function localizeService(s: Service, t: T): Service {
 
 export function localizeServices(list: Service[], t: T): Service[] {
   return list.map((s) => localizeService(s, t));
-}
-
-/** Overlay translated text fields onto an insight; falls back to the source data per-field. */
-export function localizeInsight(i: Insight, t: T): Insight {
-  const b = `insData.${i.slug}`;
-  return {
-    ...i,
-    title: t(`${b}.title`, i.title),
-    excerpt: t(`${b}.excerpt`, i.excerpt),
-    category: (t(`insCat.${i.category}`, i.category) ?? i.category) as Insight["category"],
-    content: i.content.map((p, idx) => t(`${b}.c.${idx}`, p)),
-  };
-}
-
-export function localizeInsights(list: Insight[], t: T): Insight[] {
-  return list.map((i) => localizeInsight(i, t));
 }

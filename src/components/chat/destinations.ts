@@ -1,13 +1,12 @@
 import { company, HALORA_URL, WHATSAPP_URL } from "@/data/company";
-import { insights } from "@/data/insights";
 import { products } from "@/data/products";
 import { projects } from "@/data/projects";
 import { services } from "@/data/services";
-import { localizeInsights, localizeProjects, localizeServices } from "@/i18n/localize";
+import { localizeProjects, localizeServices } from "@/i18n/localize";
 
 type T = (key: string, fallback?: string) => string;
 
-export type DestinationIcon = "page" | "contact" | "project" | "service" | "insight" | "live" | "whatsapp" | "external";
+export type DestinationIcon = "page" | "contact" | "project" | "service" | "live" | "whatsapp" | "external";
 
 export interface Destination {
   href: string;
@@ -33,7 +32,6 @@ export function buildDestinations(t: T): Map<string, Destination> {
   add({ href: "/services", title: t("chat.page.services"), kind: page, icon: "service" });
   add({ href: "/products", title: t("chat.page.products"), kind: page, icon: "service" });
   add({ href: "/projects", title: t("chat.page.projects"), kind: page, icon: "project" });
-  add({ href: "/insights", title: t("chat.page.insights"), kind: page, icon: "insight" });
   add({ href: "/contact", title: t("chat.page.contact"), kind: t("chat.kind.contact"), icon: "contact" });
 
   for (const s of localizeServices(services, t)) {
@@ -48,9 +46,6 @@ export function buildDestinations(t: T): Map<string, Destination> {
       add({ href: p.liveUrl, title: p.title, kind: t("chat.kind.live"), icon: "live", external: true });
     }
   }
-  for (const i of localizeInsights(insights, t)) {
-    add({ href: `/insights/${i.slug}`, title: i.title, kind: t("chat.kind.insight"), icon: "insight" });
-  }
 
   add({ href: WHATSAPP_URL, title: `WhatsApp ${company.whatsapp}`, kind: t("chat.kind.whatsapp"), icon: "whatsapp", external: true });
   add({ href: company.social.instagram, title: "Instagram @aftechds", kind: t("chat.kind.external"), icon: "external", external: true });
@@ -61,7 +56,7 @@ export function buildDestinations(t: T): Map<string, Destination> {
   return map;
 }
 
-const LINK = String.raw`https?:\/\/[^\s)]+|\/(?:about|services|products|projects|insights|contact)(?:\/[a-z0-9-]+)*`;
+const LINK = String.raw`https?:\/\/[^\s)]+|\/(?:about|services|products|projects|blog|contact)(?:\/[a-z0-9-]+)*`;
 // "(…/path)" and " — /path" lose the whole aside; a bare path becomes the page name.
 const INLINE_RE = new RegExp(String.raw`\s*\((${LINK})\)|\s+[—–-]\s+(${LINK})|(${LINK})`, "g");
 

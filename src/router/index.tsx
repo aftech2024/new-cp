@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Navigate, Routes, Route } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
@@ -8,8 +8,6 @@ import Projects from "@/pages/Projects";
 import ProjectDetail from "@/pages/ProjectDetail";
 import Products from "@/pages/Products";
 import ProductDetail from "@/pages/ProductDetail";
-import Insights from "@/pages/Insights";
-import InsightDetail from "@/pages/InsightDetail";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import Contact from "@/pages/Contact";
@@ -27,8 +25,8 @@ export default function AppRouter() {
         <Route path="/products/:slug" element={<ProductDetail />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
-        <Route path="/insights" element={<Insights />} />
-        <Route path="/insights/:slug" element={<InsightDetail />} />
+        {/* Insights were folded into the blog; the server redirects too (public/.htaccess). */}
+        <Route path="/insights/*" element={<Navigate to="/blog" replace />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/contact" element={<Contact />} />

@@ -392,7 +392,7 @@ if ($linksRaw !== '') {
         return rtrim(strtolower(rtrim($href, '.,;:!?')), '/');
     };
     preg_match_all('~https?://[^\s,)]+~', $knowledge, $urls);
-    preg_match_all('~(?<![\w.])/(?:about|services|projects|insights|contact)(?:/[a-z0-9-]+)*~', $knowledge, $paths);
+    preg_match_all('~(?<![\w.])/(?:about|services|products|projects|blog|contact)(?:/[a-z0-9-]+)*~', $knowledge, $paths);
     $allowed = [];
     foreach (array_merge($urls[0], $paths[0]) as $href) {
         $allowed[$normalize($href)] = rtrim($href, '.,;:!?');

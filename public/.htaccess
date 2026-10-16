@@ -9,6 +9,10 @@ RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
 
 RewriteRule ^index\.html$ - [L]
 
+# Insights were folded into the blog. Old links and search results land on
+# /blog instead of a 404, before any leftover prerendered insights files.
+RewriteRule ^insights(/.*)?$ /blog [R=301,L]
+
 # Cache policy: hashed build assets are immutable and safe to cache for a
 # year; HTML shells are revalidated every load so browsers always pick up
 # the latest asset filenames after a deploy (prevents stale shells

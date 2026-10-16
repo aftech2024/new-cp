@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight, BookOpen, Briefcase, ChevronRight, FileText, Globe, Layers, MessageSquareText, MonitorPlay } from "lucide-react";
+import { ArrowUpRight, Briefcase, ChevronRight, FileText, Globe, Layers, MessageSquareText, MonitorPlay } from "lucide-react";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import type { Destination, DestinationIcon } from "./destinations";
 
@@ -8,7 +8,6 @@ const ICONS: Record<Exclude<DestinationIcon, "whatsapp">, typeof Briefcase> = {
   contact: MessageSquareText,
   project: Briefcase,
   service: Layers,
-  insight: BookOpen,
   live: MonitorPlay,
   external: Globe,
 };
