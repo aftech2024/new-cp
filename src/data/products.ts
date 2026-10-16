@@ -3,13 +3,22 @@ import {
   Activity,
   Briefcase,
   Building2,
+  ChartColumn,
   ClipboardCheck,
+  Factory,
   FileSignature,
+  FileText,
   Gauge,
   HardHat,
+  Landmark,
   Network,
   Receipt,
+  ShoppingCart,
+  Store,
   Table2,
+  Truck,
+  Wallet,
+  Warehouse,
 } from "lucide-react";
 import type { Lang } from "@/i18n/translations";
 import mkCostDashboard from "@/assets/images/products/mk/cost-dashboard.webp";
@@ -17,6 +26,12 @@ import mkBoq from "@/assets/images/products/mk/boq.webp";
 import mkWbs from "@/assets/images/products/mk/wbs.webp";
 import mkRap from "@/assets/images/products/mk/rap.webp";
 import mkRoles from "@/assets/images/products/mk/login-roles.webp";
+import nxDecisionCenter from "@/assets/images/products/nexora/decision-center.webp";
+import nxAsk from "@/assets/images/products/nexora/nexora-ask.webp";
+import nxArAging from "@/assets/images/products/nexora/ar-aging.webp";
+import nxTax from "@/assets/images/products/nexora/faktur-pajak.webp";
+import nxStock from "@/assets/images/products/nexora/stock-balance.webp";
+import nxManufacturing from "@/assets/images/products/nexora/manufacturing.webp";
 import eptmsCover from "@/assets/images/products/covers/eptms.webp";
 import aiFarmCover from "@/assets/images/products/covers/ai-farm.webp";
 import photogrammetryCover from "@/assets/images/photogrammetry/orthomosaic.jpg";
@@ -495,13 +510,368 @@ const erp: Product = {
   slug: "nexora-erp",
   name: "Nexora ERP",
   shortName: "Nexora",
-  category: l("ERP bisnis", "Business ERP"),
+  category: l("ERP bisnis · AI", "Business ERP · AI"),
   tagline: l(
-    "Operasional bisnis, dari transaksi sampai laporan, dalam satu sistem ERP.",
-    "Business operations, from transactions to reports, in one ERP system.",
+    "Keuangan, pajak, rantai pasok, produksi, dan SDM dalam satu ERP, dengan AI yang memberi tahu apa yang perlu ditindak.",
+    "Finance, tax, supply chain, manufacturing and HR in one ERP, with AI that tells you what needs action.",
   ),
   accent: "46 168 255",
+  appHost: "erp.aftech.co.id",
   appUrl: "https://erp.aftech.co.id/",
+  cover: nxDecisionCenter,
+  page: {
+    seoTitle: l(
+      "Nexora ERP — Software ERP dengan AI untuk Keuangan, Stok & Produksi",
+      "Nexora ERP — AI-powered ERP for Finance, Inventory & Manufacturing",
+    ),
+    seoDescription: l(
+      "Nexora menyatukan akuntansi, pajak Indonesia, pembelian, penjualan, stok multi-gudang, manufaktur, dan SDM dalam satu ERP, dengan Decision Center dan Nexora Ask berbasis AI. Jadwalkan demo.",
+      "Nexora brings accounting, Indonesian tax, purchasing, sales, multi-warehouse inventory, manufacturing and HR into one ERP, with the AI-powered Decision Center and Nexora Ask. Book a demo.",
+    ),
+    headline: l("ERP yang tahu langkah berikutnya.", "The ERP that knows the next move."),
+    intro: l(
+      "Nexora menyatukan keuangan, pajak, pembelian, penjualan, gudang, produksi, dan SDM dalam satu database. Decision Center memantau data itu dan memberi tahu apa yang perlu ditindak, lengkap dengan alasan, bukti, dan perkiraan dampaknya dalam rupiah.",
+      "Nexora brings finance, tax, purchasing, sales, warehousing, manufacturing and HR into one database. The Decision Center watches that data and tells you what needs action, with the reason, the evidence and the estimated impact in rupiah.",
+    ),
+    heroImage: nxDecisionCenter,
+    heroBadges: [
+      { value: l("Decision Center", "Decision Center"), label: l("Rekomendasi dengan alasan, bukti, dan dampak rupiah", "Recommendations with reason, evidence and rupiah impact") },
+      { value: l("Nexora Ask", "Nexora Ask"), label: l("Tanya data dalam dua bahasa", "Ask your data in two languages") },
+      { value: l("Faktur Pajak · PPN", "Faktur Pajak · VAT"), label: l("Pajak Indonesia sudah bawaan", "Indonesian tax built in") },
+    ],
+    highlights: [
+      { value: l("Satu database", "One database"), label: l("Keuangan, rantai pasok, produksi, dan SDM", "Finance, supply chain, manufacturing and HR") },
+      { value: l("AI dengan sumber", "AI with sources"), label: l("Setiap jawaban menyertakan angka sumbernya", "Every answer shows where its numbers came from") },
+      { value: l("Pajak Indonesia", "Indonesian tax"), label: l("Faktur Pajak, Bukti Potong, dan rekap PPN", "Faktur Pajak, Bukti Potong and VAT summary") },
+      { value: l("Multi-perusahaan", "Multi-company"), label: l("Cabang, gudang, cost center, dan proyek", "Branches, warehouses, cost centers and projects") },
+    ],
+    compare: {
+      title: l(
+        "Dari aplikasi dan spreadsheet yang terpisah ke satu sistem",
+        "From separate apps and spreadsheets to one system",
+      ),
+      before: [
+        l("Penjualan, gudang, dan keuangan memakai aplikasi atau spreadsheet berbeda yang harus direkap manual.", "Sales, warehouse and finance use different apps or spreadsheets that have to be reconciled by hand."),
+        l("Stok habis baru ketahuan saat pelanggan sudah memesan.", "Stock-outs surface only once a customer has already ordered."),
+        l("Faktur pajak dan rekap PPN disiapkan terpisah dari faktur penjualan dan tagihan pembelian.", "Tax invoices and the VAT summary are prepared apart from sales invoices and purchase bills."),
+        l("Piutang yang telat bayar baru dikejar setelah kas menipis.", "Overdue receivables are chased only once cash runs low."),
+      ],
+      after: [
+        l("Penjualan, pembelian, gudang, produksi, keuangan, dan SDM berbagi satu database.", "Sales, purchasing, warehouse, manufacturing, finance and HR share one database."),
+        l("Decision Center memperingatkan stok yang akan habis sebelum barang pengganti datang, lengkap dengan dampaknya dalam rupiah.", "The Decision Center warns about stock that will run out before replacements arrive, with the impact in rupiah."),
+        l("Draft faktur pajak terbentuk dari faktur dan tagihan, dan VAT Summary mencocokkan PPN faktur pajak dengan buku besar.", "Draft tax invoices come from invoices and bills, and the VAT summary matches tax-invoice VAT against the ledger."),
+        l("Faktur yang lewat jatuh tempo diberi skor risiko, jadi penagihan dimulai dari yang paling berisiko.", "Overdue invoices get a risk score, so collection starts with the riskiest."),
+      ],
+    },
+    flow: {
+      title: l("Satu alur, dari pesanan sampai laporan", "One flow, from order to report"),
+      description: l(
+        "Setiap dokumen meneruskan datanya ke tahap berikutnya, jadi stok, piutang, pajak, dan laporan keuangan selalu mengikuti transaksi yang terjadi.",
+        "Each document carries its data into the next stage, so stock, receivables, tax and the financial statements always follow what actually happened.",
+      ),
+      steps: [
+        { name: l("Penjualan", "Sales"), detail: l("Penawaran dan sales order, dengan cek ketersediaan stok.", "Quotations and sales orders, with a stock availability check."), icon: FileText },
+        { name: l("Pembelian", "Purchasing"), detail: l("Permintaan pembelian menjadi purchase order.", "Purchase requisitions become purchase orders."), icon: ShoppingCart },
+        { name: l("Gudang", "Warehouse"), detail: l("Penerimaan barang, transfer, dan stok per gudang.", "Goods receipts, transfers and stock per warehouse."), icon: Warehouse },
+        { name: l("Produksi", "Manufacturing"), detail: l("MRP, work order, job card, dan HPP per work order.", "MRP, work orders, job cards and cost per work order."), icon: Factory },
+        { name: l("Kirim & tagih", "Ship & bill"), detail: l("Delivery order, pengiriman, faktur, dan faktur pajak.", "Delivery orders, shipments, invoices and tax invoices."), icon: Truck },
+        { name: l("Kas & bank", "Cash & bank"), detail: l("Penerimaan, pembayaran, payment run, dan rekonsiliasi bank.", "Receipts, payments, payment runs and bank reconciliation."), icon: Wallet },
+        { name: l("Laporan & AI", "Reports & AI"), detail: l("Laba rugi, aging, anggaran vs realisasi, dan Decision Center.", "Profit and loss, aging, budget vs actual and the Decision Center."), icon: ChartColumn },
+      ],
+    },
+    modulesTitle: l("Lihat isi aplikasinya", "Take a look inside"),
+    modules: [
+      {
+        name: l("Decision Center", "Decision Center"),
+        summary: l(
+          "Detektor memantau stok, kas, pembayaran, penagihan, SDM, dan harga. Setiap temuan datang dengan tingkat keparahan, analisis AI, dan perkiraan dampak dalam rupiah.",
+          "Detectors watch stock, cash, payments, collection, HR and pricing. Each finding comes with a severity, an AI analysis and an estimated impact in rupiah.",
+        ),
+        points: [
+          l("Kemungkinan penyebab dan langkah berikutnya untuk setiap temuan", "Likely causes and next steps for every finding"),
+          l("Menerima rekomendasi hanya membuat draft", "Accepting a recommendation only creates drafts"),
+          l("Pengingat untuk keputusan yang masih tertunda", "Reminders for decisions still waiting"),
+        ],
+        image: nxDecisionCenter,
+      },
+      {
+        name: l("Nexora Ask", "Nexora Ask"),
+        summary: l(
+          "Tanya data perusahaan dalam bahasa Indonesia atau Inggris. Angka diambil dari laporan Nexora, bukan tebakan, dan setiap jawaban menyertakan sumbernya.",
+          "Ask about company data in Indonesian or English. Numbers come from Nexora's own reports, never from guesses, and every answer lists its sources.",
+        ),
+        points: [
+          l("Hanya membaca data sesuai hak akses penanya", "Reads only what the person asking may see"),
+          l("Sumber angka ditampilkan di setiap jawaban", "Sources shown with every answer"),
+          l("Draft dokumen dibuat setelah Anda konfirmasi", "Drafts are created only after you confirm"),
+        ],
+        image: nxAsk,
+      },
+      {
+        name: l("Piutang & penagihan", "Receivables & collection"),
+        summary: l(
+          "Faktur pelanggan, penerimaan, dan umur piutang per pelanggan di satu tempat. Faktur yang lewat jatuh tempo diberi skor risiko dari keterlambatan, nilai, riwayat bayar, dan pengingat.",
+          "Customer invoices, receipts and aging per customer in one place. Overdue invoices are risk-scored on days late, amount, payment history and reminders.",
+        ),
+        points: [
+          l("Umur piutang sampai lebih dari 90 hari", "Aging buckets through 90+ days"),
+          l("Skor risiko per faktur", "A risk score per invoice"),
+          l("Ekspor CSV dan cetak laporan", "CSV export and printable reports"),
+        ],
+        image: nxArAging,
+      },
+      {
+        name: l("Faktur Pajak & PPN", "Tax invoices & VAT"),
+        summary: l(
+          "Draft faktur pajak keluaran dan masukan terbentuk dari faktur penjualan dan tagihan pembelian. Bukti potong dan rekap PPN ada di modul yang sama.",
+          "Draft output and input tax invoices (Faktur Pajak) are created from sales invoices and purchase bills. Withholding slips (Bukti Potong) and the VAT summary sit in the same module.",
+        ),
+        points: [
+          l("Setiap faktur pajak terhubung ke dokumen sumbernya", "Every tax invoice links to its source document"),
+          l("DPP, DPP Nilai Lain, dan PPN per masa pajak", "DPP, DPP Nilai Lain and VAT per tax period"),
+          l("PPN faktur pajak dicocokkan dengan buku besar", "Tax-invoice VAT matched against the ledger"),
+        ],
+        image: nxTax,
+      },
+      {
+        name: l("Stok multi-gudang", "Multi-warehouse stock"),
+        summary: l(
+          "Saldo stok per barang dan gudang: on hand, dipesan, tersedia, harga pokok, dan nilai persediaan, dengan kartu stok untuk setiap barang.",
+          "Stock per item and warehouse: on hand, reserved, available, unit cost and inventory value, with a stock card for every item.",
+        ),
+        points: [
+          l("Stok tersedia sudah dikurangi reservasi pesanan", "Available stock already net of reservations"),
+          l("Penerimaan barang dan transfer antar gudang", "Goods receipts and transfers between warehouses"),
+          l("Valuasi persediaan dan kartu stok", "Inventory valuation and stock cards"),
+        ],
+        image: nxStock,
+      },
+      {
+        name: l("Manufaktur", "Manufacturing"),
+        summary: l(
+          "Dari BOM dan routing sampai work order, job card, dan shop floor kiosk. MRP menyusun saran pengadaan dan produksi, dan HPP dihitung per work order.",
+          "From BOMs and routings to work orders, job cards and a shop floor kiosk. MRP proposes what to buy and make, and cost of goods is calculated per work order.",
+        ),
+        points: [
+          l("MRP dan jadwal produksi (Gantt)", "MRP and a Gantt production schedule"),
+          l("Quality: inspeksi, NCR, dan CAPA", "Quality: inspections, NCRs and CAPAs"),
+          l("Maintenance, OEE, dan HPP per work order", "Maintenance, OEE and cost per work order"),
+        ],
+        image: nxManufacturing,
+      },
+    ],
+    personasTitle: l("Dibuat untuk perusahaan yang mengelola barang, uang, dan orang", "Built for companies that manage goods, money and people"),
+    personas: [
+      {
+        title: l("Distributor & perdagangan", "Distributors & traders"),
+        text: l(
+          "Kelola penjualan, pembelian, dan stok di banyak gudang, lalu tagih pelanggan dari data pengiriman yang sama.",
+          "Run sales, purchasing and stock across many warehouses, then bill customers from the same delivery data.",
+        ),
+        icon: Store,
+      },
+      {
+        title: l("Manufaktur", "Manufacturers"),
+        text: l(
+          "Rencanakan produksi dengan MRP, jalankan work order di lantai produksi, dan ketahui HPP setiap batch.",
+          "Plan production with MRP, run work orders on the shop floor and know the cost of every batch.",
+        ),
+        icon: Factory,
+      },
+      {
+        title: l("Pemilik & tim keuangan", "Owners & finance teams"),
+        text: l(
+          "Lihat laba rugi, piutang, kas, dan pajak kapan saja, dan biarkan Decision Center menandai hal yang perlu diputuskan.",
+          "See profit and loss, receivables, cash and tax at any time, and let the Decision Center flag what needs a decision.",
+        ),
+        icon: Landmark,
+      },
+    ],
+    // Draft prices for review — confirm before publishing.
+    pricing: {
+      tiers: [
+        {
+          name: l("Startup", "Startup"),
+          description: l("Untuk usaha dagang dan distribusi yang ingin keuangan, pajak, dan stok tercatat di satu sistem.", "For trading and distribution businesses that want finance, tax and stock in one system."),
+          monthly: 2_500_000,
+          cta: l("Pilih Startup", "Choose Startup"),
+          limits: [
+            { label: l("Perusahaan", "Companies"), value: l("1", "1") },
+            { label: l("Pengguna", "Users"), value: l("10", "10") },
+            { label: l("Dukungan", "Support"), value: l("Email & WhatsApp", "Email & WhatsApp") },
+          ],
+          features: [
+            l("Akuntansi & laporan keuangan", "Accounting & financial statements"),
+            l("Piutang, hutang, kas & bank", "Receivables, payables, cash & bank"),
+            l("Faktur Pajak, Bukti Potong & PPN", "Faktur Pajak, Bukti Potong & VAT"),
+            l("Pembelian, penjualan & stok multi-gudang", "Purchasing, sales & multi-warehouse stock"),
+            l("Decision Center & Nexora Ask", "Decision Center & Nexora Ask"),
+            l("Approval workflow", "Approval workflows"),
+            l("Hosting cloud dikelola Aftech", "Cloud hosting managed by Aftech"),
+          ],
+        },
+        {
+          name: l("Max", "Max"),
+          description: l("Untuk perusahaan yang juga berproduksi, mengelola SDM, atau menjalankan beberapa badan usaha.", "For companies that also manufacture, manage HR, or run several legal entities."),
+          monthly: 7_500_000,
+          cta: l("Pilih Max", "Choose Max"),
+          limits: [
+            { label: l("Perusahaan", "Companies"), value: l("3", "3") },
+            { label: l("Pengguna", "Users"), value: l("50", "50") },
+            { label: l("Dukungan", "Support"), value: l("Prioritas", "Priority") },
+          ],
+          includesFrom: l("Semua fitur Startup, plus:", "Everything in Startup, plus:"),
+          features: [
+            l("Manufaktur: BOM, MRP, work order & HPP", "Manufacturing: BOM, MRP, work orders & costing"),
+            l("SDM, payroll, absensi & self service", "HR, payroll, attendance & self service"),
+            l("Aset tetap, anggaran & payment run", "Fixed assets, budgets & payment runs"),
+            l("Logistik & pengiriman", "Logistics & shipments"),
+            l("Onboarding & pelatihan tim", "Onboarding & team training"),
+            l("Dukungan prioritas", "Priority support"),
+          ],
+          featured: true,
+        },
+        {
+          name: l("Enterprise", "Enterprise"),
+          description: l("Untuk grup perusahaan, BUMN, dan instansi dengan kebutuhan keamanan dan integrasi khusus.", "For groups, state-owned enterprises and agencies with specific security and integration needs."),
+          monthly: null,
+          customPrice: l("Harga khusus", "Custom"),
+          cta: l("Hubungi sales", "Contact sales"),
+          limits: [
+            { label: l("Perusahaan", "Companies"), value: l("Tidak terbatas", "Unlimited") },
+            { label: l("Pengguna", "Users"), value: l("Tidak terbatas", "Unlimited") },
+            { label: l("Dukungan", "Support"), value: l("SLA & account manager", "SLA & account manager") },
+          ],
+          includesFrom: l("Semua fitur Max, plus:", "Everything in Max, plus:"),
+          features: [
+            l("Server sendiri (on-premise) atau private cloud", "Your own servers (on-premise) or private cloud"),
+            l("Integrasi dengan sistem yang sudah berjalan", "Integration with the systems you already run"),
+            l("Penyesuaian alur approval, dokumen & laporan", "Custom approval flows, documents & reports"),
+            l("Migrasi data dibantu tim Aftech", "Data migration handled with the Aftech team"),
+            l("SLA & account manager khusus", "SLA & a dedicated account manager"),
+          ],
+        },
+      ],
+      compare: [
+        {
+          group: l("Kapasitas", "Capacity"),
+          rows: [
+            { label: l("Perusahaan", "Companies"), values: [l("1", "1"), l("3", "3"), l("Tidak terbatas", "Unlimited")] },
+            { label: l("Pengguna", "Users"), values: [l("10", "10"), l("50", "50"), l("Tidak terbatas", "Unlimited")] },
+          ],
+        },
+        {
+          group: l("Keuangan & pajak", "Finance & tax"),
+          rows: [
+            { label: l("Buku besar & laporan keuangan", "General ledger & financial statements"), values: [YES, YES, YES] },
+            { label: l("Piutang, hutang & aging", "Receivables, payables & aging"), values: [YES, YES, YES] },
+            { label: l("Kas, bank & rekonsiliasi", "Cash, bank & reconciliation"), values: [YES, YES, YES] },
+            { label: l("Faktur Pajak, Bukti Potong & PPN", "Faktur Pajak, Bukti Potong & VAT"), values: [YES, YES, YES] },
+            { label: l("Aset tetap & penyusutan", "Fixed assets & depreciation"), values: [NO, YES, YES] },
+            { label: l("Anggaran vs realisasi", "Budget vs actual"), values: [NO, YES, YES] },
+            { label: l("Payment run", "Payment runs"), values: [NO, YES, YES] },
+          ],
+        },
+        {
+          group: l("Rantai pasok", "Supply chain"),
+          rows: [
+            { label: l("Pembelian: PR, PO & penerimaan barang", "Purchasing: requisitions, POs & goods receipts"), values: [YES, YES, YES] },
+            { label: l("Penjualan: penawaran, SO & delivery order", "Sales: quotations, sales & delivery orders"), values: [YES, YES, YES] },
+            { label: l("Stok multi-gudang & valuasi", "Multi-warehouse stock & valuation"), values: [YES, YES, YES] },
+            { label: l("Logistik & pengiriman", "Logistics & shipments"), values: [NO, YES, YES] },
+          ],
+        },
+        {
+          group: l("Manufaktur", "Manufacturing"),
+          rows: [
+            { label: l("BOM, routing & work order", "BOMs, routings & work orders"), values: [NO, YES, YES] },
+            { label: l("MRP & jadwal produksi (Gantt)", "MRP & Gantt production schedule"), values: [NO, YES, YES] },
+            { label: l("Shop floor kiosk & job card", "Shop floor kiosk & job cards"), values: [NO, YES, YES] },
+            { label: l("HPP, quality & maintenance", "Costing, quality & maintenance"), values: [NO, YES, YES] },
+          ],
+        },
+        {
+          group: l("SDM", "People"),
+          rows: [
+            { label: l("Data karyawan & struktur organisasi", "Employee records & org chart"), values: [NO, YES, YES] },
+            { label: l("Payroll", "Payroll"), values: [NO, YES, YES] },
+            { label: l("Absensi, cuti, lembur & klaim", "Attendance, leave, overtime & claims"), values: [NO, YES, YES] },
+            { label: l("Rekrutmen", "Recruitment"), values: [NO, YES, YES] },
+          ],
+        },
+        {
+          group: l("AI & kontrol", "AI & controls"),
+          rows: [
+            { label: l("Decision Center", "Decision Center"), values: [YES, YES, YES] },
+            { label: l("Nexora Ask", "Nexora Ask"), values: [YES, YES, YES] },
+            { label: l("Deteksi anomali", "Anomaly detection"), values: [YES, YES, YES] },
+            { label: l("Approval workflow", "Approval workflows"), values: [YES, YES, YES] },
+          ],
+        },
+        {
+          group: l("Deployment & dukungan", "Deployment & support"),
+          rows: [
+            { label: l("Cloud dikelola Aftech", "Cloud managed by Aftech"), values: [YES, YES, YES] },
+            { label: l("On-premise / private cloud", "On-premise / private cloud"), values: [NO, NO, YES] },
+            { label: l("Integrasi dengan sistem lain", "Integration with other systems"), values: [NO, NO, YES] },
+            { label: l("Email & WhatsApp (jam kerja)", "Email & WhatsApp (business hours)"), values: [YES, YES, YES] },
+            { label: l("Onboarding & pelatihan tim", "Onboarding & team training"), values: [NO, YES, YES] },
+            { label: l("Migrasi data dibantu", "Assisted data migration"), values: [NO, NO, YES] },
+            { label: l("SLA & account manager khusus", "SLA & dedicated account manager"), values: [NO, NO, YES] },
+          ],
+        },
+      ],
+      notes: [
+        l("Setiap paket diawali demo gratis", "Every plan starts with a free demo"),
+        l("Bayar tahunan: hemat 2 bulan", "Pay yearly: 2 months free"),
+        l("Harga belum termasuk PPN", "Prices exclude VAT"),
+      ],
+    },
+    faq: [
+      {
+        question: l("Apakah Nexora mendukung pajak Indonesia?", "Does Nexora handle Indonesian tax?"),
+        answer: l(
+          "Ya. Draft faktur pajak keluaran dan masukan terbentuk dari faktur penjualan dan tagihan pembelian, bukti potong dicatat di modul yang sama, dan VAT Summary menghitung DPP, DPP Nilai Lain, dan PPN per masa pajak sambil mencocokkannya dengan buku besar.",
+          "Yes. Draft output and input tax invoices are created from sales invoices and purchase bills, withholding slips are recorded in the same module, and the VAT summary works out DPP, DPP Nilai Lain and VAT per tax period while matching it against the ledger.",
+        ),
+      },
+      {
+        question: l("Dari mana angka yang dijawab Nexora Ask?", "Where do Nexora Ask's numbers come from?"),
+        answer: l(
+          "Dari laporan dan data di Nexora sendiri, bukan tebakan. Setiap jawaban mencantumkan sumbernya, Ask hanya membaca data yang boleh dilihat penanya sesuai hak aksesnya, dan data sensitif seperti gaji tetap disamarkan.",
+          "From Nexora's own reports and data, never from guesses. Every answer lists its sources, Ask reads only what the person asking is allowed to see, and sensitive data such as salaries stays masked.",
+        ),
+      },
+      {
+        question: l("Apakah AI bisa mengubah data tanpa persetujuan?", "Can the AI change data without approval?"),
+        answer: l(
+          "Tidak. Menerima rekomendasi Decision Center atau permintaan di Nexora Ask hanya membuat draft. Dokumen baru berlaku setelah dikonfirmasi pengguna dan melewati alur persetujuan yang berlaku.",
+          "No. Accepting a Decision Center recommendation or a request in Nexora Ask only creates drafts. A document takes effect once a person confirms it and it passes the usual approval flow.",
+        ),
+      },
+      {
+        question: l("Bisakah dipakai untuk beberapa perusahaan dan cabang?", "Does it work across several companies and branches?"),
+        answer: l(
+          "Bisa. Nexora mendukung beberapa perusahaan, cabang, gudang, cost center, dan proyek. Laporan seperti laba rugi bisa difilter per cabang, cost center, atau proyek.",
+          "Yes. Nexora supports several companies, branches, warehouses, cost centers and projects. Reports such as profit and loss can be filtered by branch, cost center or project.",
+        ),
+      },
+      {
+        question: l("Bisakah Nexora dipasang di server kami sendiri?", "Can Nexora run on our own servers?"),
+        answer: l(
+          "Bisa, melalui paket Enterprise. Paket lainnya berjalan di cloud yang dikelola Aftech.",
+          "Yes, on the Enterprise package. The other packages run on cloud hosting managed by Aftech.",
+        ),
+      },
+      {
+        question: l("Seperti apa sesi demonya?", "What happens in the demo?"),
+        answer: l(
+          "Sekitar 60 menit, online atau tatap muka. Kami tunjukkan alur Nexora dari pesanan sampai laporan, termasuk Decision Center dan Nexora Ask, dengan contoh yang mirip bisnis Anda, lalu menjawab pertanyaan tim.",
+          "About 60 minutes, online or in person. We walk through Nexora from order to report, including the Decision Center and Nexora Ask, using an example close to your business, then answer the team's questions.",
+        ),
+      },
+    ],
+  },
 };
 
 export const products: Product[] = [mk, eptms, photogrammetry, aiFarm, erp];

@@ -9,7 +9,7 @@ Satu tim menangani dari ujung ke ujung: konsultasi & analisis kebutuhan → desa
 - Aplikasi mobile Android dan iOS, termasuk aplikasi lapangan untuk petugas.
 - API & integrasi: menghubungkan aplikasi dengan sistem lain, payment gateway, WhatsApp, layanan pihak ketiga, dan sistem lama (legacy).
 - Pengembangan lanjutan: melanjutkan, memperbaiki, memodernisasi atau memigrasikan aplikasi yang sudah ada.
-- Platform buatan Aftech yang sudah berjalan (daftar produk siap pakai: /products): EPTMS — /projects/eptms-enterprise-project-management, MK — halaman produk /products/management-construction (studi kasus /projects/mk-management-construction), platform Photogrammetry Kementerian Pertahanan — /projects/photogrammetry, dan platform AI Autonomous Farm — /projects/ai-autonomous-farm-kementan
+- Platform buatan Aftech yang sudah berjalan (daftar produk siap pakai: /products): EPTMS — /projects/eptms-enterprise-project-management, MK — halaman produk /products/management-construction (studi kasus /projects/mk-management-construction), Nexora ERP — halaman produk /products/nexora-erp, platform Photogrammetry Kementerian Pertahanan — /projects/photogrammetry, dan platform AI Autonomous Farm — /projects/ai-autonomous-farm-kementan
 
 ## AI (kecerdasan buatan)
 - Chatbot dan asisten virtual untuk website atau WhatsApp, seperti asisten di website ini.
@@ -69,6 +69,10 @@ Kata pengunjung: drone, foto udara, pemetaan, peta, survei lahan, ukur volume, c
 
 ## Manajemen proyek & kontrol biaya → Technology — /products/management-construction (produk MK, bisa jadwalkan demo), /projects/eptms-enterprise-project-management
 Kata pengunjung: kurva S, Gantt, WBS, BOQ, RAP, monitoring progres proyek, kontrol biaya proyek, aplikasi MK, software konstruksi, demo aplikasi.
+
+## ERP, akuntansi, pajak, stok & produksi → Technology — /products/nexora-erp (produk Nexora ERP, bisa jadwalkan demo)
+Kata pengunjung: ERP, software akuntansi, aplikasi keuangan, faktur pajak, PPN, aplikasi gudang, inventory, stok barang, aplikasi distributor, purchase order, MRP, aplikasi pabrik, HPP, payroll, aplikasi HR, demo ERP.
+Kalau pengunjung butuh ERP yang dibuat khusus dari nol, arahkan ke /services/technology.
 
 ## Listrik, AC, plumbing & proteksi kebakaran → Mechanical & Electrical — /services/mechanical-electrical
 Kata pengunjung: instalasi listrik, panel listrik, kabel, AC, tata udara (HVAC), pipa, air bersih, plumbing, alarm kebakaran, hydrant, sprinkler, sistem gedung.
