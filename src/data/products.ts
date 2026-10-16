@@ -2,34 +2,46 @@ import type { LucideIcon } from "lucide-react";
 import {
   Activity,
   BadgeCheck,
+  BookCheck,
   Box,
   Briefcase,
   Building2,
+  CalendarRange,
   Camera,
   ChartColumn,
+  ChartLine,
   ClipboardCheck,
   ClipboardList,
   Factory,
   FileSignature,
+  FileCheck,
   FileText,
+  FolderKanban,
   Gauge,
   HardHat,
   Landmark,
+  ListChecks,
   Layers,
   MapIcon,
+  MapPinned,
   Mountain,
   Network,
   Plane,
   Radar,
   Receipt,
   Ruler,
+  Scale,
   ScanSearch,
+  ShieldCheck,
   ShoppingCart,
+  Sigma,
   Sprout,
   Store,
   Table2,
+  TreePine,
   Truck,
   UserCheck,
+  Users,
   Wallet,
   Warehouse,
 } from "lucide-react";
@@ -56,6 +68,15 @@ import pgModel3d from "@/assets/images/products/photogrammetry/model-3d.webp";
 import pgDetail from "@/assets/images/products/photogrammetry/detail.webp";
 import pgTerrain from "@/assets/images/products/photogrammetry/terrain.webp";
 import pgArea from "@/assets/images/products/photogrammetry/area.webp";
+import eptmsKurvaS from "@/assets/images/products/eptms/kurva-s.webp";
+import eptmsExecutive from "@/assets/images/products/eptms/executive.webp";
+import eptmsGantt from "@/assets/images/products/eptms/gantt.webp";
+import eptmsWbs from "@/assets/images/products/eptms/wbs.webp";
+import bcPilotMap from "@/assets/images/products/blue-carbon/pilot-map.webp";
+import bcGis from "@/assets/images/products/blue-carbon/gis-viewer.webp";
+import bcCalculation from "@/assets/images/products/blue-carbon/calculation.webp";
+import bcAllometry from "@/assets/images/products/blue-carbon/allometry.webp";
+import bcStatus from "@/assets/images/products/blue-carbon/status-chain.webp";
 import eptmsCover from "@/assets/images/products/covers/eptms.webp";
 import aiFarmCover from "@/assets/images/products/covers/ai-farm.webp";
 import photogrammetryCover from "@/assets/images/photogrammetry/orthomosaic.jpg";
@@ -504,9 +525,323 @@ const eptms: Product = {
     "The whole project portfolio on one screen: executive dashboard, Gantt, WBS and automatic S-curves.",
   ),
   accent: "139 92 246",
+  appHost: "eptms.aftech.co.id",
   appUrl: "https://eptms.aftech.co.id/",
   caseStudy: "eptms-enterprise-project-management",
   cover: eptmsCover,
+  page: {
+    seoTitle: l(
+      "EPTMS — Software Manajemen Portofolio Proyek dengan Gantt, WBS & Kurva-S",
+      "EPTMS — Project Portfolio Management Software with Gantt, WBS & S-Curves",
+    ),
+    seoDescription: l(
+      "EPTMS menyatukan dashboard eksekutif, timeline & Gantt, Planning & WBS dengan bobot dinamis, dan Kurva-S otomatis untuk seluruh portofolio proyek, lengkap dengan SPI, CPI, dan peringatan proyek berisiko. Jadwalkan demo.",
+      "EPTMS brings an executive dashboard, timeline & Gantt, Planning & WBS with dynamic weights and automatic S-curves together for the whole project portfolio, with SPI, CPI and at-risk warnings. Book a demo.",
+    ),
+    headline: l("Seluruh portofolio proyek, dalam satu layar.", "Your whole portfolio, on one screen."),
+    intro: l(
+      "EPTMS menyatukan dashboard eksekutif, timeline & Gantt, Planning & WBS dengan bobot dinamis, dan Kurva-S yang terbentuk sendiri dari progres. Direksi melihat SPI, CPI, dan proyek berisiko tanpa menunggu laporan mingguan.",
+      "EPTMS brings the executive dashboard, timeline & Gantt, Planning & WBS with dynamic weights and self-building S-curves together. Directors see SPI, CPI and projects at risk without waiting for the weekly report.",
+    ),
+    heroImage: eptmsKurvaS,
+    heroBadges: [
+      { value: l("Kurva-S otomatis", "Automatic S-curve"), label: l("Timeline → bobot → progres, tanpa input manual", "Timeline → weights → progress, no manual input") },
+      { value: l("SPI · CPI · EAC", "SPI · CPI · EAC"), label: l("Kinerja jadwal dan biaya per proyek", "Schedule and cost performance per project") },
+      { value: l("Bobot 100%", "100% weights"), label: l("Proyek terbit hanya jika total bobot tepat", "Projects publish only when weights add up") },
+    ],
+    highlights: [
+      { value: l("Satu layar portofolio", "One portfolio screen"), label: l("Semua proyek, klien, dan departemen", "Every project, client and department") },
+      { value: l("Kurva-S otomatis", "Automatic S-curves"), label: l("Tanpa rekap progres manual", "No manual progress roll-ups") },
+      { value: l("Peringatan dini", "Early warning"), label: l("Proyek berisiko ditandai otomatis", "Projects at risk flagged automatically") },
+      { value: l("Baseline berversi", "Versioned baselines"), label: l("Setiap revisi rencana tercatat", "Every plan revision is recorded") },
+    ],
+    compare: {
+      title: l(
+        "Dari laporan proyek yang tercecer ke satu layar komando",
+        "From scattered project reports to one command screen",
+      ),
+      before: [
+        l("Jadwal, progres, dan anggaran tiap proyek tersimpan di file dan aplikasi yang berbeda.", "Each project's schedule, progress and budget sit in different files and apps."),
+        l("Kurva-S disusun ulang secara manual setiap periode pelaporan.", "The S-curve is rebuilt by hand every reporting period."),
+        l("Proyek yang terlambat baru ketahuan di rapat bulanan.", "Late projects come to light only at the monthly meeting."),
+        l("Revisi rencana menimpa versi lama tanpa jejak.", "Plan revisions overwrite the old version without a trace."),
+      ],
+      after: [
+        l("Semua proyek dikelompokkan per perusahaan atau departemen dalam satu hub.", "Every project is grouped by company or department in one hub."),
+        l("Kurva-S terbentuk otomatis dari timeline, bobot, dan progres.", "S-curves build themselves from the timeline, weights and progress."),
+        l("SPI, CPI, dan sistem peringatan menandai proyek berisiko di dashboard eksekutif.", "SPI, CPI and a warning system flag projects at risk on the executive dashboard."),
+        l("Baseline berversi menyimpan setiap revisi rencana.", "Versioned baselines keep every revision of the plan."),
+      ],
+    },
+    flow: {
+      title: l("Dari rencana sampai dashboard direksi", "From plan to the directors' dashboard"),
+      description: l(
+        "Setiap modul memakai data dari modul sebelumnya, jadi angka di dashboard eksekutif selalu mengikuti jadwal dan progres terakhir.",
+        "Each module builds on the one before it, so the executive dashboard always follows the latest schedule and progress.",
+      ),
+      steps: [
+        { name: l("Portofolio", "Portfolio"), detail: l("Proyek dikelompokkan per perusahaan atau departemen, lengkap dengan stage gate.", "Projects grouped by company or department, with stage gates."), icon: FolderKanban },
+        { name: l("Timeline & Gantt", "Timeline & Gantt"), detail: l("Milestone, critical path, dan impor jadwal sekaligus.", "Milestones, critical path and bulk schedule import."), icon: CalendarRange },
+        { name: l("Planning & WBS", "Planning & WBS"), detail: l("WBS, biaya, bobot pekerjaan, baseline, dan kalender kerja.", "WBS, cost, work weights, baselines and the working calendar."), icon: Network },
+        { name: l("Eksekusi", "Execution"), detail: l("Task board dan progres aktual setiap pekerjaan.", "Task board and actual progress for every task."), icon: ListChecks },
+        { name: l("Biaya & sumber daya", "Cost & resources"), detail: l("Anggaran, biaya committed dan terbayar, serta sumber daya.", "Budget, committed and paid cost, and resources."), icon: Wallet },
+        { name: l("Kurva-S & analitik", "S-curve & analytics"), detail: l("Plan, actual, forecast, SPI, CPI, dan EAC.", "Plan, actual, forecast, SPI, CPI and EAC."), icon: ChartLine },
+        { name: l("Dashboard eksekutif", "Executive dashboard"), detail: l("Kesehatan portofolio dan proyek berisiko.", "Portfolio health and projects at risk."), icon: Gauge },
+      ],
+    },
+    modulesTitle: l("Lihat isi aplikasinya", "Take a look inside"),
+    modules: [
+      {
+        name: l("Analytics & Kurva-S", "Analytics & S-curve"),
+        summary: l(
+          "Kurva-S terbentuk otomatis dari timeline, bobot, dan progres, lengkap dengan garis rencana, aktual, forecast, dan hari ini.",
+          "The S-curve builds itself from the timeline, weights and progress, with plan, actual, forecast and today lines.",
+        ),
+        points: [
+          l("SPI, CPI, dan EAC per proyek", "SPI, CPI and EAC per project"),
+          l("Forecast tanggal selesai", "Forecast finish date"),
+          l("Tabel Kurva-S dan ekspor CSV", "S-curve table and CSV export"),
+        ],
+        image: eptmsKurvaS,
+      },
+      {
+        name: l("Executive Dashboard", "Executive Dashboard"),
+        summary: l(
+          "Tampilan komando portofolio: SPI dan CPI, jumlah proyek aktif dan terlambat, kontrol biaya, dan kesehatan setiap proyek.",
+          "The portfolio command view: SPI and CPI, active and delayed projects, cost control and the health of every project.",
+        ),
+        points: [
+          l("BAC, nilai kontrak, dan forecast profit", "BAC, contract value and forecast profit"),
+          l("Biaya committed, terbayar, dan posisi kas", "Committed and paid cost, and cash position"),
+          l("Sistem peringatan proyek berisiko", "A warning system for projects at risk"),
+        ],
+        image: eptmsExecutive,
+      },
+      {
+        name: l("Timeline & Gantt", "Timeline & Gantt"),
+        summary: l(
+          "Jadwal proyek dalam tampilan hari, minggu, atau bulan, dengan filter milestone dan critical path.",
+          "The project schedule by day, week or month, with milestone filters and the critical path.",
+        ),
+        points: [
+          l("Tampilkan critical path", "Show the critical path"),
+          l("Impor banyak pekerjaan sekaligus", "Import many tasks at once"),
+          l("Progres tampil di setiap batang", "Progress shown on every bar"),
+        ],
+        image: eptmsGantt,
+      },
+      {
+        name: l("Planning & WBS", "Planning & WBS"),
+        summary: l(
+          "WBS dengan bobot dinamis, rencana dan aktual per pekerjaan, baseline berversi, dan kalender kerja.",
+          "A WBS with dynamic weights, plan and actual per task, versioned baselines and a working calendar.",
+        ),
+        points: [
+          l("Total bobot wajib 100% sebelum terbit", "Weights must total 100% before publishing"),
+          l("Plan weight dan actual weight", "Plan weight and actual weight"),
+          l("Revisi baseline tercatat", "Baseline revisions recorded"),
+        ],
+        image: eptmsWbs,
+      },
+    ],
+    personasTitle: l("Untuk tim yang mengelola banyak proyek sekaligus", "For teams running many projects at once"),
+    personas: [
+      {
+        title: l("Direksi & PMO", "Directors & PMO"),
+        text: l(
+          "Pantau kesehatan seluruh portofolio, SPI, CPI, dan proyek berisiko dari satu dashboard.",
+          "Follow the health of the whole portfolio, SPI, CPI and projects at risk from one dashboard.",
+        ),
+        icon: Gauge,
+      },
+      {
+        title: l("Project manager", "Project managers"),
+        text: l(
+          "Susun WBS dan jadwal, catat progres, dan biarkan Kurva-S terbentuk sendiri.",
+          "Build the WBS and schedule, record progress and let the S-curve build itself.",
+        ),
+        icon: Briefcase,
+      },
+      {
+        title: l("BUMN & instansi", "State-owned enterprises & agencies"),
+        text: l(
+          "Kelola proyek dari banyak unit dan klien dengan baseline dan stage gate yang terdokumentasi.",
+          "Run projects across many units and clients with documented baselines and stage gates.",
+        ),
+        icon: Building2,
+      },
+    ],
+    // Draft prices for review — confirm before publishing.
+    pricing: {
+      tiers: [
+        {
+          name: l("Startup", "Startup"),
+          description: l("Untuk tim yang mulai menyatukan jadwal dan progres beberapa proyek.", "For teams starting to bring the schedules and progress of several projects together."),
+          monthly: 1_800_000,
+          cta: l("Pilih Startup", "Choose Startup"),
+          limits: [
+            { label: l("Proyek aktif", "Active projects"), value: l("3", "3") },
+            { label: l("Pengguna", "Users"), value: l("15", "15") },
+            { label: l("Dukungan", "Support"), value: l("Email & WhatsApp", "Email & WhatsApp") },
+          ],
+          features: [
+            l("Executive dashboard", "Executive dashboard"),
+            l("Hub proyek & task board", "Project hub & task board"),
+            l("Timeline & Gantt dengan critical path", "Timeline & Gantt with critical path"),
+            l("Planning & WBS dengan bobot dinamis", "Planning & WBS with dynamic weights"),
+            l("Kurva-S & SPI otomatis", "Automatic S-curve & SPI"),
+            l("Baseline & kalender kerja", "Baselines & working calendar"),
+            l("Hosting cloud dikelola Aftech", "Cloud hosting managed by Aftech"),
+          ],
+        },
+        {
+          name: l("Max", "Max"),
+          description: l("Untuk PMO yang mengelola portofolio lintas perusahaan atau departemen.", "For PMOs running a portfolio across companies or departments."),
+          monthly: 4_800_000,
+          cta: l("Pilih Max", "Choose Max"),
+          limits: [
+            { label: l("Proyek aktif", "Active projects"), value: l("15", "15") },
+            { label: l("Pengguna", "Users"), value: l("60", "60") },
+            { label: l("Dukungan", "Support"), value: l("Prioritas", "Priority") },
+          ],
+          includesFrom: l("Semua fitur Startup, plus:", "Everything in Startup, plus:"),
+          features: [
+            l("Portofolio multi-perusahaan & departemen", "Multi-company & department portfolio"),
+            l("Kontrol biaya: BAC, committed, paid, EAC & CPI", "Cost control: BAC, committed, paid, EAC & CPI"),
+            l("Sumber daya, dokumen & komunikasi tim", "Resources, documents & team communication"),
+            l("Laporan & ekspor CSV", "Reports & CSV export"),
+            l("Onboarding & pelatihan tim", "Onboarding & team training"),
+            l("Dukungan prioritas", "Priority support"),
+          ],
+          featured: true,
+        },
+        {
+          name: l("Enterprise", "Enterprise"),
+          description: l("Untuk BUMN, instansi, dan grup perusahaan dengan kebutuhan keamanan dan integrasi khusus.", "For state-owned enterprises, agencies and groups with specific security and integration needs."),
+          monthly: null,
+          customPrice: l("Harga khusus", "Custom"),
+          cta: l("Hubungi sales", "Contact sales"),
+          limits: [
+            { label: l("Proyek aktif", "Active projects"), value: l("Tidak terbatas", "Unlimited") },
+            { label: l("Pengguna", "Users"), value: l("Tidak terbatas", "Unlimited") },
+            { label: l("Dukungan", "Support"), value: l("SLA & account manager", "SLA & account manager") },
+          ],
+          includesFrom: l("Semua fitur Max, plus:", "Everything in Max, plus:"),
+          features: [
+            l("Server sendiri (on-premise) atau private cloud", "Your own servers (on-premise) or private cloud"),
+            l("Integrasi dengan sistem keuangan/ERP", "Integration with finance/ERP systems"),
+            l("Penyesuaian stage gate, approval & laporan", "Custom stage gates, approvals & reports"),
+            l("Migrasi data dibantu tim Aftech", "Data migration handled with the Aftech team"),
+            l("SLA & account manager khusus", "SLA & a dedicated account manager"),
+          ],
+        },
+      ],
+      compare: [
+        {
+          group: l("Kapasitas", "Capacity"),
+          rows: [
+            { label: l("Proyek aktif", "Active projects"), values: [l("3", "3"), l("15", "15"), l("Tidak terbatas", "Unlimited")] },
+            { label: l("Pengguna", "Users"), values: [l("15", "15"), l("60", "60"), l("Tidak terbatas", "Unlimited")] },
+          ],
+        },
+        {
+          group: l("Perencanaan & jadwal", "Planning & schedule"),
+          rows: [
+            { label: l("Hub proyek & task board", "Project hub & task board"), values: [YES, YES, YES] },
+            { label: l("Timeline & Gantt, critical path", "Timeline & Gantt, critical path"), values: [YES, YES, YES] },
+            { label: l("Impor jadwal sekaligus", "Bulk schedule import"), values: [YES, YES, YES] },
+            { label: l("Planning & WBS dengan bobot dinamis", "Planning & WBS with dynamic weights"), values: [YES, YES, YES] },
+            { label: l("Baseline berversi & kalender kerja", "Versioned baselines & working calendar"), values: [YES, YES, YES] },
+          ],
+        },
+        {
+          group: l("Analitik & portofolio", "Analytics & portfolio"),
+          rows: [
+            { label: l("Kurva-S otomatis & SPI", "Automatic S-curve & SPI"), values: [YES, YES, YES] },
+            { label: l("Executive dashboard", "Executive dashboard"), values: [YES, YES, YES] },
+            { label: l("Portofolio multi-perusahaan & departemen", "Multi-company & department portfolio"), values: [NO, YES, YES] },
+            { label: l("Kontrol biaya, CPI & EAC", "Cost control, CPI & EAC"), values: [NO, YES, YES] },
+            { label: l("Laporan & ekspor CSV", "Reports & CSV export"), values: [NO, YES, YES] },
+          ],
+        },
+        {
+          group: l("Kolaborasi", "Collaboration"),
+          rows: [
+            { label: l("Sumber daya", "Resources"), values: [NO, YES, YES] },
+            { label: l("Dokumen & komunikasi tim", "Documents & team communication"), values: [NO, YES, YES] },
+          ],
+        },
+        {
+          group: l("Deployment & dukungan", "Deployment & support"),
+          rows: [
+            { label: l("Cloud dikelola Aftech", "Cloud managed by Aftech"), values: [YES, YES, YES] },
+            { label: l("On-premise / private cloud", "On-premise / private cloud"), values: [NO, NO, YES] },
+            { label: l("Integrasi keuangan/ERP", "Finance/ERP integration"), values: [NO, NO, YES] },
+            { label: l("Email & WhatsApp (jam kerja)", "Email & WhatsApp (business hours)"), values: [YES, YES, YES] },
+            { label: l("Onboarding & pelatihan tim", "Onboarding & team training"), values: [NO, YES, YES] },
+            { label: l("Dukungan prioritas", "Priority support"), values: [NO, YES, YES] },
+            { label: l("SLA & account manager khusus", "SLA & dedicated account manager"), values: [NO, NO, YES] },
+          ],
+        },
+      ],
+      notes: [
+        l("Setiap paket diawali demo gratis", "Every plan starts with a free demo"),
+        l("Bayar tahunan: hemat 2 bulan", "Pay yearly: 2 months free"),
+        l("Harga belum termasuk PPN", "Prices exclude VAT"),
+      ],
+    },
+    faq: [
+      {
+        question: l("Apa bedanya EPTMS dengan MK?", "How is EPTMS different from MK?"),
+        answer: l(
+          "MK fokus pada kontrol biaya proyek konstruksi: BOQ, RAP, biaya aktual, dan EVM. EPTMS mengelola portofolio banyak proyek dari berbagai jenis pekerjaan: jadwal, WBS, bobot, Kurva-S, dan dashboard eksekutif. Keduanya bisa dipakai bersama.",
+          "MK focuses on construction cost control: BOQ, RAP, actual cost and EVM. EPTMS runs a portfolio of many projects of any kind: schedules, WBS, weights, S-curves and the executive dashboard. The two can be used together.",
+        ),
+      },
+      {
+        question: l("Bagaimana Kurva-S dibuat?", "How is the S-curve built?"),
+        answer: l(
+          "Otomatis, dari timeline ke bobot lalu ke progres, tanpa input manual. Grafiknya menampilkan rencana, aktual, forecast, dan garis hari ini, beserta SPI dan perkiraan tanggal selesai.",
+          "Automatically, from the timeline to the weights to progress, with no manual input. The chart shows plan, actual, forecast and today, with SPI and the forecast finish date.",
+        ),
+      },
+      {
+        question: l("Apa maksud aturan bobot 100%?", "What is the 100% weight rule?"),
+        answer: l(
+          "Total bobot pekerjaan di WBS harus tepat 100% sebelum proyek bisa dipublikasikan, supaya progres tertimbang dan Kurva-S selalu benar.",
+          "The work weights in the WBS must total exactly 100% before a project can be published, so weighted progress and the S-curve are always right.",
+        ),
+      },
+      {
+        question: l("Bisakah jadwal yang sudah ada diimpor?", "Can we bring in an existing schedule?"),
+        answer: l(
+          "Bisa. Modul Timeline & Gantt punya Bulk Import untuk memasukkan banyak pekerjaan sekaligus.",
+          "Yes. The Timeline & Gantt module has a bulk import for adding many tasks at once.",
+        ),
+      },
+      {
+        question: l("Sudah dipakai di mana?", "Where is it in use?"),
+        answer: l(
+          "EPTMS dipakai untuk portofolio proyek PLN Indonesia Power dan Kementerian Pertahanan. Ceritanya ada di studi kasus EPTMS.",
+          "EPTMS runs project portfolios for PLN Indonesia Power and Indonesia's Ministry of Defence. The story is in the EPTMS case study.",
+        ),
+      },
+      {
+        question: l("Bisakah EPTMS dipasang di server kami sendiri?", "Can EPTMS run on our own servers?"),
+        answer: l(
+          "Bisa, melalui paket Enterprise. Paket lainnya berjalan di cloud yang dikelola Aftech.",
+          "Yes, on the Enterprise package. The other packages run on cloud hosting managed by Aftech.",
+        ),
+      },
+      {
+        question: l("Seperti apa sesi demonya?", "What happens in the demo?"),
+        answer: l(
+          "Sekitar 60 menit, online atau tatap muka. Kami tunjukkan alur EPTMS dari portofolio sampai Kurva-S dengan contoh yang mirip proyek Anda, lalu menjawab pertanyaan tim.",
+          "About 60 minutes, online or in person. We walk through EPTMS from portfolio to S-curve using an example close to your projects, then answer the team's questions.",
+        ),
+      },
+    ],
+  },
 };
 
 const photogrammetry: Product = {
@@ -1011,6 +1346,263 @@ const aiFarm: Product = {
   },
 };
 
+const blueCarbon: Product = {
+  slug: "blue-carbon",
+  name: "Aftech Blue Carbon",
+  shortName: "Blue Carbon",
+  category: l("Karbon biru · MRV", "Blue carbon · MRV"),
+  tagline: l(
+    "Pengukuran, monitoring, pelaporan, dan verifikasi karbon mangrove, dihubungkan langsung dengan emisi industri.",
+    "Measurement, monitoring, reporting and verification of mangrove carbon, linked directly to industrial emissions.",
+  ),
+  accent: "6 182 212",
+  cover: bcPilotMap,
+  page: {
+    seoTitle: l(
+      "Aftech Blue Carbon — Platform MRV Karbon Mangrove & Carbon Capture",
+      "Aftech Blue Carbon — Mangrove Carbon MRV & Carbon Capture Platform",
+    ),
+    seoDescription: l(
+      "Aftech Blue Carbon mencatat survei UAV, plot sampel permanen, dan perhitungan karbon berversi untuk proyek mangrove, lalu mencocokkan hasil terverifikasi dengan emisi industri Scope 1 dan 2. Konsultasi implementasi gratis.",
+      "Aftech Blue Carbon records UAV surveys, permanent sample plots and versioned carbon calculations for mangrove projects, then matches verified results to Scope 1 and 2 industrial emissions. Free implementation consultation.",
+    ),
+    headline: l("Karbon mangrove, terlacak sampai plotnya.", "Mangrove carbon, traced to the plot."),
+    intro: l(
+      "Aftech Blue Carbon mencatat survei UAV, plot sampel permanen, dan perhitungan karbon berversi untuk proyek mangrove, lalu mencocokkan hasil yang sudah terverifikasi dengan emisi industri.",
+      "Aftech Blue Carbon records UAV surveys, permanent sample plots and versioned carbon calculations for mangrove projects, then matches verified results to industrial emissions.",
+    ),
+    heroImage: bcPilotMap,
+    heroBadges: [
+      { value: l("UAV + plot sampel", "UAV + sample plots"), label: l("Orthomosaic, DSM, CHM, dan plot permanen", "Orthomosaic, DSM, CHM and permanent plots") },
+      { value: l("SHA-256", "SHA-256"), label: l("Setiap file bukti diberi sidik jari saat diunggah", "Every evidence file fingerprinted at upload") },
+      { value: l("Verifier independen", "Independent verifier"), label: l("Hanya verifier yang memutuskan verifikasi", "Only the verifier decides verification") },
+    ],
+    highlights: [
+      { value: l("Satu rantai data", "One chain of data"), label: l("Dari emisi industri sampai laporan", "From industrial emission to report") },
+      { value: l("Perhitungan berversi", "Versioned calculations"), label: l("Setiap angka bisa ditelusuri", "Every figure can be traced") },
+      { value: l("Ledger append-only", "Append-only ledger"), label: l("Mencegah penghitungan ganda", "Prevents double counting") },
+      { value: l("10 peran", "10 roles"), label: l("Dari pilot UAV sampai verifier", "From UAV pilot to verifier") },
+    ],
+    compare: {
+      title: l(
+        "Dari klaim karbon yang sulit dibuktikan ke data yang bisa diperiksa",
+        "From carbon claims that are hard to prove to data anyone can check",
+      ),
+      before: [
+        l("Data survei lapangan, foto drone, dan perhitungan karbon tersebar di file yang berbeda.", "Field surveys, drone imagery and carbon calculations are spread across separate files."),
+        l("Estimasi stok karbon mudah tertukar dengan kredit karbon yang sudah terverifikasi.", "Carbon stock estimates are easily confused with verified carbon credits."),
+        l("Satu ton karbon berisiko diklaim lebih dari sekali.", "The same tonne risks being claimed more than once."),
+        l("Pihak luar sulit memeriksa asal angka di laporan.", "Outsiders struggle to check where the numbers in a report came from."),
+      ],
+      after: [
+        l("Emisi industri, batas proyek, survei UAV, plot sampel, dan perhitungan terhubung dalam satu sistem.", "Industrial emissions, project boundaries, UAV surveys, sample plots and calculations are linked in one system."),
+        l("Setiap ton membawa statusnya, dari estimasi sampai terdaftar, dan angka tetap berstatus estimasi sampai diverifikasi.", "Every tonne carries its status from estimate to registered, and figures stay estimates until verified."),
+        l("Carbon ledger append-only mencatat setiap reservasi, alokasi, dan pembatalan.", "An append-only carbon ledger records every reservation, allocation and cancellation."),
+        l("Laporan terbit dari snapshot beku dengan ID verifikasi publik.", "Reports are issued from a frozen snapshot with a public verification ID."),
+      ],
+    },
+    flow: {
+      title: l("Satu rantai, dari emisi sampai bukti", "One chain from emission to evidence"),
+      description: l(
+        "Setiap tahap menghasilkan catatan yang dipakai tahap berikutnya, jadi satu ton yang dilaporkan selalu bisa ditelusuri ke asalnya.",
+        "Each step produces the records the next one depends on, so a reported tonne can always be followed back to where it came from.",
+      ),
+      steps: [
+        { name: l("Emisi industri", "Industrial emission"), detail: l("Data aktivitas Scope 1 dan 2 dengan faktor emisi berversi.", "Scope 1 and 2 activity data with versioned emission factors."), icon: Factory },
+        { name: l("Kebutuhan kompensasi", "Compensation need"), detail: l("Emisi dikali target yang dipilih perusahaan.", "Emission multiplied by the target the company commits to."), icon: Scale },
+        { name: l("Registri proyek", "Project registry"), detail: l("Batas proyek mangrove disimpan dan diukur di PostGIS.", "Mangrove project boundaries stored and measured in PostGIS."), icon: MapPinned },
+        { name: l("UAV & ground truth", "UAV & ground truth"), detail: l("Orthomosaic, DSM, CHM, dan plot sampel permanen.", "Orthomosaic, DSM, CHM and permanent sample plots."), icon: Plane },
+        { name: l("Stok & perubahan karbon", "Carbon stock & change"), detail: l("Alometri, inti tanah, baseline, leakage, dan ketidakpastian.", "Allometry, soil cores, baseline, leakage and uncertainty."), icon: Sigma },
+        { name: l("MRV & verifikasi", "MRV & verification"), detail: l("Bukti ber-hash SHA-256, review, dan verifier independen.", "SHA-256 hashed evidence, reviews and an independent verifier."), icon: ShieldCheck },
+        { name: l("Alokasi & ledger", "Allocation & ledger"), detail: l("Perlindungan dari penghitungan ganda di setiap ton.", "Double-counting protection on every tonne."), icon: BookCheck },
+        { name: l("Laporan", "Report"), detail: l("Snapshot beku dengan ID verifikasi publik.", "A frozen snapshot with a public verification ID."), icon: FileCheck },
+      ],
+    },
+    modulesTitle: l("Lihat isi platformnya", "Take a look inside"),
+    modules: [
+      {
+        name: l("Peta proyek mangrove", "Mangrove project map"),
+        summary: l(
+          "Batas proyek, jalur terbang UAV, dan plot sampel permanen di atas citra satelit, seperti pilot di laguna Segara Anakan, Cilacap.",
+          "Project boundaries, UAV flight paths and permanent sample plots over satellite imagery, like the pilot in the Segara Anakan lagoon, Cilacap.",
+        ),
+        points: [
+          l("Luas resmi dihitung di PostGIS", "Official area computed in PostGIS"),
+          l("Rencana survei dan plot permanen", "Survey plans and permanent plots"),
+          l("Kode proyek per wilayah", "Project codes by region"),
+        ],
+        image: bcPilotMap,
+      },
+      {
+        name: l("GIS viewer", "GIS viewer"),
+        summary: l(
+          "Satu peta untuk batas proyek, fasilitas industri, orthomosaic, DSM dan DTM hasil UAV, plot sampel, dan permukaan kepadatan karbon.",
+          "One map for project boundaries, industrial facilities, UAV orthomosaic, DSM and DTM, sample plots and carbon density surfaces.",
+        ),
+        points: [
+          l("Layer dengan pengaturan opasitas", "Layers with opacity control"),
+          l("Alat ukur dan gambar batas", "Measuring and boundary drawing tools"),
+          l("Deteksi perubahan antar survei", "Change detection between surveys"),
+        ],
+        image: bcGis,
+      },
+      {
+        name: l("Perhitungan yang bisa ditelusuri", "Traceable calculations"),
+        summary: l(
+          "Setiap angka karbon menunjukkan input, persamaan, faktor, versi, dan asumsinya. Perhitungan yang sudah final dibekukan, dan koreksi membuat versi baru.",
+          "Every carbon figure shows its inputs, equations, factors, versions and assumptions. Finalized calculations are frozen, and a correction creates a new version.",
+        ),
+        points: [
+          l("Biomassa atas tanah, bawah tanah, dan tanah", "Above-ground, below-ground and soil carbon"),
+          l("Penyesuaian baseline dan ketidakpastian", "Baseline and uncertainty adjustments"),
+          l("Metodologi dan versi engine tercatat", "Methodology and engine version recorded"),
+        ],
+        image: bcCalculation,
+      },
+      {
+        name: l("Data ilmiah berversi", "Versioned scientific data"),
+        summary: l(
+          "Persamaan alometrik, faktor emisi, spesies mangrove, dan parameter metodologi disimpan bersama sumbernya. Versi aktif tidak bisa diubah, jadi hasil lama tetap bisa direproduksi.",
+          "Allometric equations, emission factors, mangrove species and methodology parameters are stored with their sources. Active versions cannot be changed, so past results stay reproducible.",
+        ),
+        points: [
+          l("Persamaan Komiyama dan Chave", "Komiyama and Chave equations"),
+          l("Faktor emisi IPCC dan jaringan listrik", "IPCC and grid emission factors"),
+          l("Kepadatan kayu per spesies", "Wood density per species"),
+        ],
+        image: bcAllometry,
+      },
+      {
+        name: l("Status unit karbon", "Carbon unit status"),
+        summary: l(
+          "Stok karbon, estimasi sekuestrasi, manfaat proyek, alokasi kompensasi, dan unit terverifikasi dibedakan. Setiap ton bergerak dari estimasi sampai terdaftar.",
+          "Carbon stock, sequestration estimates, project benefit, compensation allocation and verified units are kept apart. Each tonne moves from estimate to registered.",
+        ),
+        points: [
+          l("Estimasi, review internal, cek metodologi", "Estimate, internal review, methodology check"),
+          l("Validasi dan verifikasi independen", "Validation and independent verification"),
+          l("Terdaftar atau diterbitkan", "Registered or issued"),
+        ],
+        image: bcStatus,
+      },
+    ],
+    personasTitle: l("Untuk industri, pengelola mangrove, dan tim MRV", "For industry, mangrove managers and MRV teams"),
+    personas: [
+      {
+        title: l("Perusahaan industri", "Industrial companies"),
+        text: l(
+          "PLTU, kilang, semen, manufaktur, pelabuhan, dan kawasan industri: hitung emisi Scope 1 dan 2, lalu rencanakan kompensasi dari proyek mangrove.",
+          "Power plants, refineries, cement, manufacturing, ports and industrial estates: work out Scope 1 and 2 emissions, then plan compensation from mangrove projects.",
+        ),
+        icon: Factory,
+      },
+      {
+        title: l("Pengelola proyek mangrove", "Mangrove project owners"),
+        text: l(
+          "Pengelola mangrove, koperasi, pemerintah daerah, BUMN, program CSR, dan NGO: catat restorasi, survei, dan bukti di satu tempat.",
+          "Mangrove managers, cooperatives, local government, state-owned enterprises, CSR programs and NGOs: record restoration, surveys and evidence in one place.",
+        ),
+        icon: TreePine,
+      },
+      {
+        title: l("Tim profesional", "Professional teams"),
+        text: l(
+          "Pilot UAV, analis GIS, analis karbon, konsultan, MRV officer, dan verifier independen, masing-masing dengan perannya sendiri.",
+          "UAV pilots, GIS analysts, carbon analysts, consultants, MRV officers and independent verifiers, each with their own role.",
+        ),
+        icon: Users,
+      },
+    ],
+    pricing: {
+      tiers: [
+        {
+          name: l("Implementasi", "Implementation"),
+          description: l(
+            "Disusun setelah konsultasi dengan tim kami, sesuai lokasi proyek, fasilitas industri, dan metodologi yang Anda pakai.",
+            "Put together after a consultation with our team, around your project sites, industrial facilities and the methodology you use.",
+          ),
+          monthly: null,
+          customPrice: l("Konsultasi", "Consultation"),
+          customNote: l("Dihitung dari luas area, jumlah lokasi, siklus monitoring, dan cakupan emisi", "Quoted on area, sites, monitoring cycles and emission scope"),
+          cta: l("Jadwalkan konsultasi", "Book a consultation"),
+          limits: [
+            { label: l("Cakupan", "Coverage"), value: l("Proyek mangrove & fasilitas", "Mangrove projects & facilities") },
+            { label: l("Survei", "Surveys"), value: l("UAV & plot sampel", "UAV & sample plots") },
+            { label: l("Pengguna", "Users"), value: l("10 peran", "10 roles") },
+          ],
+          includesFrom: l("Termasuk dalam implementasi:", "Included in the implementation:"),
+          features: [
+            l("Registri proyek & batas area di PostGIS", "Project registry & boundaries in PostGIS"),
+            l("Inventaris emisi Scope 1 & 2", "Scope 1 & 2 emission inventory"),
+            l("Misi UAV, orthomosaic, DSM & CHM", "UAV missions, orthomosaic, DSM & CHM"),
+            l("Field mode untuk plot sampel, tetap jalan tanpa sinyal", "Field mode for sample plots, works without signal"),
+            l("Perhitungan stok karbon & baseline berversi", "Versioned carbon stock & baseline calculations"),
+            l("Alur MRV, bukti SHA-256 & verifikasi independen", "MRV workflow, SHA-256 evidence & independent verification"),
+            l("Kalkulator kompensasi & carbon ledger", "Compensation calculator & carbon ledger"),
+            l("Laporan dengan ID verifikasi publik", "Reports with a public verification ID"),
+          ],
+        },
+      ],
+      compare: [],
+      notes: [
+        l("Konsultasi dan demo gratis", "Free consultation and demo"),
+        l("Penawaran disusun sesuai lingkup program", "Quotes are scoped to your program"),
+      ],
+    },
+    faq: [
+      {
+        question: l("Apakah hasil perhitungan langsung menjadi kredit karbon?", "Do the calculations become carbon credits automatically?"),
+        answer: l(
+          "Tidak. Platform membedakan stok karbon, estimasi sekuestrasi, manfaat karbon proyek, alokasi kompensasi, dan unit karbon terverifikasi. Angka tetap berstatus estimasi sampai melewati review internal, cek metodologi, validasi, dan verifikasi independen.",
+          "No. The platform keeps carbon stock, sequestration estimates, project carbon benefit, compensation allocation and verified carbon units apart. Figures stay estimates until they pass internal review, methodology check, validation and independent verification.",
+        ),
+      },
+      {
+        question: l("Siapa yang memutuskan verifikasi?", "Who decides verification?"),
+        answer: l(
+          "Hanya peran verifier, yang dipegang verifier independen. Super admin pun tidak bisa memberi keputusan verifikasi.",
+          "Only the verifier role, held by an independent verifier. Not even a super admin can record a verification decision.",
+        ),
+      },
+      {
+        question: l("Bagaimana penghitungan ganda dicegah?", "How is double counting prevented?"),
+        answer: l(
+          "Carbon ledger bersifat append-only: setiap reservasi, alokasi, verifikasi, dan pembatalan dicatat berurutan dan tidak pernah diubah. Koreksi dicatat sebagai entri baru, dan saldo setiap proyek dihitung dari total dikurangi yang sudah dipesan, dialokasikan, dan dipensiunkan.",
+          "The carbon ledger is append-only: every reservation, allocation, verification and cancellation is recorded in order and never edited. Corrections are posted as new entries, and each project's balance is the total less what is reserved, allocated and retired.",
+        ),
+      },
+      {
+        question: l("Bisakah dipakai di lapangan tanpa sinyal?", "Does it work in the field without signal?"),
+        answer: l(
+          "Bisa. Field mode memandu petugas lewat delapan langkah, dari proyek, survei, kunci GPS, plot, pohon, foto, dan tanah sampai review. Data proyek disimpan di perangkat lalu disinkronkan saat sinyal kembali.",
+          "Yes. Field mode walks the surveyor through eight steps, from project, survey, GPS lock, plot, trees, photos and soil to review. Project data is kept on the device and synced once there is signal again.",
+        ),
+      },
+      {
+        question: l("Metodologi apa yang dipakai?", "Which methodology does it use?"),
+        answer: l(
+          "Persamaan alometrik, faktor emisi, dan parameter metodologi disimpan sebagai data berversi beserta sumbernya, misalnya persamaan Komiyama dan Chave serta faktor emisi IPCC 2006. Saat implementasi, parameternya disesuaikan dengan metodologi yang Anda gunakan.",
+          "Allometric equations, emission factors and methodology parameters are stored as versioned data with their sources, such as the Komiyama and Chave equations and IPCC 2006 emission factors. During implementation the parameters are set to the methodology you use.",
+        ),
+      },
+      {
+        question: l("Bagaimana pihak luar memeriksa laporan?", "How can outsiders check a report?"),
+        answer: l(
+          "Setiap laporan yang terbit membawa ID verifikasi publik dan kode QR. Siapa pun bisa memeriksanya tanpa akun.",
+          "Every issued report carries a public verification ID and QR code. Anyone can check it without an account.",
+        ),
+      },
+      {
+        question: l("Bagaimana harganya dihitung?", "How is it priced?"),
+        answer: l(
+          "Tidak ada harga paket. Penawaran disusun setelah konsultasi, dari luas area, jumlah lokasi, siklus monitoring, dan cakupan emisi yang ingin dihitung. Jadwalkan konsultasi dengan tim kami untuk memulai.",
+          "There are no packaged prices. A quote is put together after a consultation, from the area, number of sites, monitoring cycles and the emissions to be covered. Book a consultation with our team to start.",
+        ),
+      },
+    ],
+  },
+};
+
 const erp: Product = {
   slug: "nexora-erp",
   name: "Nexora ERP",
@@ -1379,7 +1971,7 @@ const erp: Product = {
   },
 };
 
-export const products: Product[] = [mk, eptms, photogrammetry, aiFarm, erp];
+export const products: Product[] = [mk, eptms, erp, blueCarbon, photogrammetry, aiFarm];
 
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);

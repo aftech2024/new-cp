@@ -75,7 +75,7 @@ const staticRoutes: Route[] = [
     path: "/products",
     title: "Produk",
     description:
-      "Aplikasi siap pakai dari Aftech: kontrol biaya proyek konstruksi, manajemen portofolio proyek, fotogrametri drone, pertanian cerdas, dan ERP.",
+      "Aplikasi siap pakai dari Aftech: kontrol biaya proyek konstruksi, manajemen portofolio proyek, ERP, MRV karbon biru, fotogrametri drone, dan pertanian cerdas.",
     type: "website",
     priority: "0.8",
   },

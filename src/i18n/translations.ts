@@ -781,7 +781,7 @@ const en: Record<string, string> = {
   // ---------- products ----------
   "nav.products": "Products",
   "prod.hub.seo.title": "Products",
-  "prod.hub.seo.desc": "Ready-to-use applications from Aftech: construction cost control, project portfolio management, drone photogrammetry, smart farming and ERP.",
+  "prod.hub.seo.desc": "Ready-to-use applications from Aftech: construction cost control, project portfolio management, ERP, blue carbon MRV, drone photogrammetry and smart farming.",
   "prod.hub.eyebrow": "Aftech products",
   "prod.hub.title": "Applications built by Aftech, ready for your team.",
   "prod.hub.desc": "Platforms already running for our clients, packaged so your organisation can use them too. Pick one to see what it does, how it is priced, and book a demo.",
@@ -1636,7 +1636,7 @@ const id: Record<string, string> = {
   // ---------- products ----------
   "nav.products": "Produk",
   "prod.hub.seo.title": "Produk",
-  "prod.hub.seo.desc": "Aplikasi siap pakai dari Aftech: kontrol biaya proyek konstruksi, manajemen portofolio proyek, fotogrametri drone, pertanian cerdas, dan ERP.",
+  "prod.hub.seo.desc": "Aplikasi siap pakai dari Aftech: kontrol biaya proyek konstruksi, manajemen portofolio proyek, ERP, MRV karbon biru, fotogrametri drone, dan pertanian cerdas.",
   "prod.hub.eyebrow": "Produk Aftech",
   "prod.hub.title": "Aplikasi buatan Aftech, siap dipakai tim Anda.",
   "prod.hub.desc": "Platform yang sudah berjalan untuk klien kami, dikemas agar bisa dipakai organisasi Anda. Pilih produk untuk melihat fiturnya, harganya, dan jadwalkan demo.",

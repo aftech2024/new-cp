@@ -9,7 +9,7 @@ Satu tim menangani dari ujung ke ujung: konsultasi & analisis kebutuhan → desa
 - Aplikasi mobile Android dan iOS, termasuk aplikasi lapangan untuk petugas.
 - API & integrasi: menghubungkan aplikasi dengan sistem lain, payment gateway, WhatsApp, layanan pihak ketiga, dan sistem lama (legacy).
 - Pengembangan lanjutan: melanjutkan, memperbaiki, memodernisasi atau memigrasikan aplikasi yang sudah ada.
-- Platform buatan Aftech yang sudah berjalan (daftar produk siap pakai: /products): EPTMS — /projects/eptms-enterprise-project-management, MK — halaman produk /products/management-construction (studi kasus /projects/mk-management-construction), Nexora ERP — halaman produk /products/nexora-erp, Photogrammetry — halaman produk /products/photogrammetry (studi kasus Kementerian Pertahanan /projects/photogrammetry), dan AI Farm — halaman produk /products/ai-farm (studi kasus AI Autonomous Farm Kementerian Pertanian /projects/ai-autonomous-farm-kementan)
+- Platform buatan Aftech yang sudah berjalan (daftar produk siap pakai: /products): EPTMS — halaman produk /products/eptms (studi kasus /projects/eptms-enterprise-project-management), Aftech Blue Carbon — halaman produk /products/blue-carbon, MK — halaman produk /products/management-construction (studi kasus /projects/mk-management-construction), Nexora ERP — halaman produk /products/nexora-erp, Photogrammetry — halaman produk /products/photogrammetry (studi kasus Kementerian Pertahanan /projects/photogrammetry), dan AI Farm — halaman produk /products/ai-farm (studi kasus AI Autonomous Farm Kementerian Pertanian /projects/ai-autonomous-farm-kementan)
 
 ## AI (kecerdasan buatan)
 - Chatbot dan asisten virtual untuk website atau WhatsApp, seperti asisten di website ini.
@@ -70,8 +70,12 @@ Kata pengunjung: internet kantor, jaringan, LAN, WiFi, server, cloud, migrasi, d
 ## Drone, pemetaan & survei → Technology — /products/photogrammetry (produk Photogrammetry, bisa jadwalkan demo), /projects/photogrammetry
 Kata pengunjung: drone, foto udara, pemetaan, peta, survei lahan, ukur volume, cut and fill, stockpile, orthomosaic, 3D lahan.
 
-## Manajemen proyek & kontrol biaya → Technology — /products/management-construction (produk MK, bisa jadwalkan demo), /projects/eptms-enterprise-project-management
-Kata pengunjung: kurva S, Gantt, WBS, BOQ, RAP, monitoring progres proyek, kontrol biaya proyek, aplikasi MK, software konstruksi, demo aplikasi.
+## Manajemen proyek & kontrol biaya → Technology — /products/management-construction (produk MK untuk kontrol biaya konstruksi, bisa jadwalkan demo), /products/eptms (produk EPTMS untuk portofolio banyak proyek, bisa jadwalkan demo)
+Kata pengunjung: kurva S, Gantt, WBS, BOQ, RAP, monitoring progres proyek, kontrol biaya proyek, aplikasi MK, software konstruksi, portofolio proyek, PMO, dashboard proyek, aplikasi EPTMS, demo aplikasi.
+
+## Karbon biru, carbon capture & MRV → Technology — /products/blue-carbon (produk Aftech Blue Carbon, harga per implementasi lewat konsultasi)
+Kata pengunjung: blue carbon, karbon biru, carbon capture, penyerapan karbon, kredit karbon, offset karbon, kompensasi emisi, emisi Scope 1 Scope 2, inventaris GRK, MRV, mangrove, restorasi mangrove, ESG, net zero.
+Platform ini tidak mengubah estimasi menjadi kredit karbon secara otomatis; angka tetap estimasi sampai diverifikasi verifier independen.
 
 ## ERP, akuntansi, pajak, stok & produksi → Technology — /products/nexora-erp (produk Nexora ERP, bisa jadwalkan demo)
 Kata pengunjung: ERP, software akuntansi, aplikasi keuangan, faktur pajak, PPN, aplikasi gudang, inventory, stok barang, aplikasi distributor, purchase order, MRP, aplikasi pabrik, HPP, payroll, aplikasi HR, demo ERP.
