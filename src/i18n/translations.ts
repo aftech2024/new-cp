@@ -11,10 +11,10 @@ const en: Record<string, string> = {
   "nav.contact": "Contact",
   "nav.startProject": "Start a Project",
   "nav.capabilities": "Capabilities",
-  "nav.homeAria": "Aftech — home",
+  "nav.homeAria": "Aftech, home",
   "nav.openMenu": "Open menu",
   "nav.closeMenu": "Close menu",
-  "nav.menuLabel": "AFTECH — Menu",
+  "nav.menuLabel": "AFTECH menu",
   "nav.directContact": "Direct contact",
   "nav.meta.technology": "Software · AI · Infrastructure · Cloud",
   "nav.meta.me": "Mechanical · Electrical · HVAC",
@@ -189,7 +189,7 @@ const en: Record<string, string> = {
 
   // ---------- footer ----------
   "foot.positioningA": "We build the digital and physical world.",
-  "foot.positioningB": "Technology and engineering delivered by Aftech — civil and interior work by our second company, Halora.",
+  "foot.positioningB": "Technology and engineering delivered by Aftech, civil and interior work by our second company, Halora.",
   "foot.techTag": "TECHNOLOGY · MECHANICAL & ELECTRICAL",
   "foot.secondCo": "SECOND COMPANY · CIVIL + INTERIOR",
   "foot.explore": "Explore",
@@ -199,7 +199,7 @@ const en: Record<string, string> = {
   "foot.email": "Email",
   "foot.civil": "Civil & Interior (Halora) ↗",
   "foot.rights": "All Rights Reserved.",
-  "foot.group": "AFTECH · HALORA — ONE GROUP",
+  "foot.group": "AFTECH · HALORA, ONE GROUP",
 
   // ---------- common ----------
   "com.home": "Home",
@@ -865,10 +865,10 @@ const id: Record<string, string> = {
   "nav.contact": "Kontak",
   "nav.startProject": "Mulai Proyek",
   "nav.capabilities": "Kapabilitas",
-  "nav.homeAria": "Aftech — beranda",
+  "nav.homeAria": "Aftech, beranda",
   "nav.openMenu": "Buka menu",
   "nav.closeMenu": "Tutup menu",
-  "nav.menuLabel": "AFTECH — Menu",
+  "nav.menuLabel": "AFTECH menu",
   "nav.directContact": "Kontak langsung",
   "nav.meta.technology": "Software · AI · Infrastruktur · Cloud",
   "nav.meta.me": "Mekanikal · Elektrikal · HVAC",
@@ -1043,7 +1043,7 @@ const id: Record<string, string> = {
 
   // ---------- footer ----------
   "foot.positioningA": "Kami membangun dunia digital dan fisik.",
-  "foot.positioningB": "Teknologi dan engineering dikerjakan Aftech — pekerjaan sipil dan interior oleh perusahaan kedua kami, Halora.",
+  "foot.positioningB": "Teknologi dan engineering dikerjakan Aftech, pekerjaan sipil dan interior oleh perusahaan kedua kami, Halora.",
   "foot.techTag": "TEKNOLOGI · MEKANIKAL & ELEKTRIKAL",
   "foot.secondCo": "PERUSAHAAN KEDUA · SIPIL + INTERIOR",
   "foot.explore": "Jelajahi",
@@ -1053,7 +1053,7 @@ const id: Record<string, string> = {
   "foot.email": "Email",
   "foot.civil": "Sipil & Interior (Halora) ↗",
   "foot.rights": "Hak Cipta Dilindungi.",
-  "foot.group": "AFTECH · HALORA — SATU GRUP",
+  "foot.group": "AFTECH · HALORA, SATU GRUP",
 
   // ---------- common ----------
   "com.home": "Beranda",

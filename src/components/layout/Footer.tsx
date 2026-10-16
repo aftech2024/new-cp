@@ -115,8 +115,8 @@ export default function Footer() {
               href={company.social.siplah}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Siplah Tokoladang — Aftech official store"
-              title="Siplah Tokoladang — Aftech official store"
+              aria-label="Siplah Tokoladang: Aftech official store"
+              title="Siplah Tokoladang: Aftech official store"
               className="flex h-9 w-9 items-center justify-center rounded-pro border border-white/15 text-white/60 hover:text-white hover:border-aftech-bright transition-colors"
             >
               <Store className="h-4 w-4" />
