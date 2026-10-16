@@ -21,7 +21,7 @@ import { resolve, dirname } from "node:path";
 import { services } from "../src/data/services";
 import { projects } from "../src/data/projects";
 import { insights } from "../src/data/insights";
-import { products, YEARLY_MONTHS } from "../src/data/products";
+import { isQuoteOnly, products, YEARLY_MONTHS } from "../src/data/products";
 import { company, locations, capabilityMatrix, values, HALORA_URL, WHATSAPP_URL } from "../src/data/company";
 import { BLOG_DATA_PATH, type BlogEdition, type BlogIndexEntry } from "../src/data/blog";
 
@@ -139,11 +139,15 @@ const productRoutes: Route[] = products.flatMap((p) =>
               description: p.page.seoDescription.id,
               url: `${SITE_URL}/products/${p.slug}`,
               provider: { "@type": "Organization", name: company.legalName, url: SITE_URL },
-              offers: p.page.pricing.tiers.flatMap((tier) =>
-                tier.monthly === null
-                  ? []
-                  : [{ "@type": "Offer", name: tier.name.id, price: tier.monthly, priceCurrency: "IDR", url: `${SITE_URL}/products/${p.slug}#pricing` }],
-              ),
+              ...(isQuoteOnly(p.page.pricing)
+                ? {}
+                : {
+                    offers: p.page.pricing.tiers.flatMap((tier) =>
+                      tier.monthly === null
+                        ? []
+                        : [{ "@type": "Offer", name: tier.name.id, price: tier.monthly, priceCurrency: "IDR", url: `${SITE_URL}/products/${p.slug}#pricing` }],
+                    ),
+                  }),
             },
           ],
         },
@@ -458,12 +462,16 @@ const knowledge = [
           p.page.intro.en,
           `Modules: ${p.page.modules.map((m) => `${m.name.en} (${m.summary.en})`).join("; ")}`,
           `For: ${p.page.personas.map((x) => x.title.en).join(", ")}.`,
-          `Plans (prices exclude VAT; yearly billing charges ${YEARLY_MONTHS} months): ${p.page.pricing.tiers
-            .map(
-              (tier) =>
-                `${tier.name.en} — ${tier.monthly === null ? "custom price, contact sales" : `Rp ${tier.monthly.toLocaleString("id-ID")} per month`} — ${tier.limits.map((x) => `${x.label.en}: ${x.value.en}`).join(", ")} — ${tier.description.en}`,
-            )
-            .join("; ")}.`,
+          isQuoteOnly(p.page.pricing)
+            ? `Pricing: no published price. Each implementation is quoted by sales — ${p.page.pricing.tiers
+                .map((tier) => `${tier.customNote?.en ?? tier.description.en}. Includes: ${tier.features.map((f) => f.en).join(", ")}`)
+                .join("; ")}. Point visitors to the demo form or the sales team.`
+            : `Plans (prices exclude VAT; yearly billing charges ${YEARLY_MONTHS} months): ${p.page.pricing.tiers
+                .map(
+                  (tier) =>
+                    `${tier.name.en} — ${tier.monthly === null ? "custom price, contact sales" : `Rp ${tier.monthly.toLocaleString("id-ID")} per month`} — ${tier.limits.map((x) => `${x.label.en}: ${x.value.en}`).join(", ")} — ${tier.description.en}`,
+                )
+                .join("; ")}.`,
           "Demo: visitors book one with the form on the product page (date, time slot, online or in person).",
           ...p.page.faq.map((f) => `Q: ${f.question.en}\nA: ${f.answer.en}`),
         ]

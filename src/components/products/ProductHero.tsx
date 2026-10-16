@@ -10,7 +10,7 @@ import type { Product, ProductPage } from "@/data/products";
 
 // Where each badge sits on the screenshot's edges on large screens, clear of the figures.
 const BADGE_SPOTS = [
-  "lg:absolute lg:-left-12 lg:top-[56%]",
+  "lg:absolute lg:-left-8 lg:top-[56%]",
   "lg:absolute lg:-bottom-10 lg:left-[20%]",
   "lg:absolute lg:-bottom-10 lg:right-[14%] xl:right-[30%]",
 ];

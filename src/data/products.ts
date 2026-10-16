@@ -1,22 +1,35 @@
 import type { LucideIcon } from "lucide-react";
 import {
   Activity,
+  BadgeCheck,
+  Box,
   Briefcase,
   Building2,
+  Camera,
   ChartColumn,
   ClipboardCheck,
+  ClipboardList,
   Factory,
   FileSignature,
   FileText,
   Gauge,
   HardHat,
   Landmark,
+  Layers,
+  MapIcon,
+  Mountain,
   Network,
+  Plane,
+  Radar,
   Receipt,
+  Ruler,
+  ScanSearch,
   ShoppingCart,
+  Sprout,
   Store,
   Table2,
   Truck,
+  UserCheck,
   Wallet,
   Warehouse,
 } from "lucide-react";
@@ -32,6 +45,17 @@ import nxArAging from "@/assets/images/products/nexora/ar-aging.webp";
 import nxTax from "@/assets/images/products/nexora/faktur-pajak.webp";
 import nxStock from "@/assets/images/products/nexora/stock-balance.webp";
 import nxManufacturing from "@/assets/images/products/nexora/manufacturing.webp";
+import farmCommandCenter from "@/assets/images/products/ai-farm/command-center.webp";
+import farmFarms from "@/assets/images/products/ai-farm/farms.webp";
+import farmBrain from "@/assets/images/products/ai-farm/farm-brain.webp";
+import farmPrescriptions from "@/assets/images/products/ai-farm/prescriptions.webp";
+import farmMissions from "@/assets/images/products/ai-farm/missions.webp";
+import farmAnalytics from "@/assets/images/products/ai-farm/analytics.webp";
+import pgOrthomosaic from "@/assets/images/products/photogrammetry/orthomosaic.webp";
+import pgModel3d from "@/assets/images/products/photogrammetry/model-3d.webp";
+import pgDetail from "@/assets/images/products/photogrammetry/detail.webp";
+import pgTerrain from "@/assets/images/products/photogrammetry/terrain.webp";
+import pgArea from "@/assets/images/products/photogrammetry/area.webp";
 import eptmsCover from "@/assets/images/products/covers/eptms.webp";
 import aiFarmCover from "@/assets/images/products/covers/ai-farm.webp";
 import photogrammetryCover from "@/assets/images/photogrammetry/orthomosaic.jpg";
@@ -68,6 +92,8 @@ export interface PricingTier {
   monthly: number | null;
   /** Shown instead of a price when `monthly` is null. */
   customPrice?: Localized;
+  /** What a sales quote is based on, under `customPrice`. Falls back to a generic line. */
+  customNote?: Localized;
   cta: Localized;
   /** Headline capacity of the plan. */
   limits: { label: Localized; value: Localized }[];
@@ -91,6 +117,11 @@ export interface Pricing {
 
 /** Months charged for a year on yearly billing. */
 export const YEARLY_MONTHS = 10;
+
+/** True when no plan has a published price, so the page shows a single sales-quoted offer. */
+export function isQuoteOnly(pricing: Pricing): boolean {
+  return pricing.tiers.every((tier) => tier.monthly === null);
+}
 
 /** How a chosen plan is named in the demo form and the email: "Max · Tahunan", or just the tier for sales-quoted plans. */
 export function planLabel(tier: PricingTier, lang: Lang, billing: string): string {
@@ -490,6 +521,236 @@ const photogrammetry: Product = {
   accent: "20 184 166",
   caseStudy: "photogrammetry",
   cover: photogrammetryCover,
+  page: {
+    seoTitle: l(
+      "Photogrammetry — Survei Drone, Orthomosaic, Model 3D & Volume Cut-Fill",
+      "Photogrammetry — Drone Survey, Orthomosaic, 3D Model & Cut-Fill Volumes",
+    ),
+    seoDescription: l(
+      "Aftech menerbangkan drone di lokasi Anda dan mengolah foto udaranya menjadi orthomosaic, point cloud 3D, DSM/DTM, dan laporan volume cut & fill. Konsultasi dan demo gratis.",
+      "Aftech flies your site and turns the aerial photos into orthomosaics, 3D point clouds, DSM/DTM and cut & fill volume reports. Free consultation and demo.",
+    ),
+    headline: l("Terbangkan sekali, ukur seluruh lokasi.", "Fly once, measure the whole site."),
+    intro: l(
+      "Kami menerbangkan drone di lokasi dan mengolah foto udaranya menjadi orthomosaic, model 3D, DSM/DTM, dan laporan volume. Tim proyek mendapat peta yang bisa diukur langsung, tanpa menunggu tim survei darat.",
+      "We fly the site and turn the aerial photos into orthomosaics, 3D models, DSM/DTM and volume reports. The project team gets a map it can measure directly, without waiting on a ground survey crew.",
+    ),
+    heroImage: pgOrthomosaic,
+    heroBadges: [
+      { value: l("Orthomosaic", "Orthomosaic"), label: l("Peta udara tanpa distorsi", "A distortion-free aerial map") },
+      { value: l("DSM / DTM", "DSM / DTM"), label: l("Model permukaan dan terrain", "Surface and terrain models") },
+      { value: l("Cut & fill", "Cut & fill"), label: l("Volume pekerjaan tanah per periode", "Earthwork volumes per period") },
+    ],
+    highlights: [
+      { value: l("Peta terukur", "Measurable map"), label: l("Ukur jarak dan luas langsung di peta", "Measure distances and areas on the map") },
+      { value: l("Model 3D", "3D model"), label: l("Point cloud untuk elevasi dan as-built", "Point clouds for elevation and as-built checks") },
+      { value: l("Volume tanah", "Earthwork volumes"), label: l("Cut & fill dan stockpile", "Cut & fill and stockpiles") },
+      { value: l("Survei berkala", "Repeat surveys"), label: l("Bandingkan progres antar periode", "Compare progress period to period") },
+    ],
+    compare: {
+      title: l("Dari pengukuran titik demi titik ke peta seluruh lokasi", "From point-by-point measurement to a map of the whole site"),
+      before: [
+        l("Pengukuran volume tanah menunggu jadwal tim survei darat.", "Earthwork volumes wait for the ground survey crew's schedule."),
+        l("Progres lapangan dilaporkan dari foto ponsel dan catatan manual.", "Site progress is reported from phone photos and handwritten notes."),
+        l("Area yang luas atau sulit dijangkau hanya diukur di beberapa titik.", "Large or hard-to-reach areas are measured at only a few points."),
+        l("Perubahan dari bulan ke bulan sulit dibandingkan.", "Month-to-month change is hard to compare."),
+      ],
+      after: [
+        l("Volume cut & fill dan stockpile dihitung dari model permukaan hasil terbang drone.", "Cut & fill and stockpile volumes come from the surface model of a drone flight."),
+        l("Orthomosaic memperlihatkan seluruh lokasi dalam satu peta yang bisa diukur.", "An orthomosaic shows the whole site in one measurable map."),
+        l("Seluruh area terpetakan, termasuk bagian yang sulit dijangkau.", "The whole area is mapped, including the parts that are hard to reach."),
+        l("Survei berkala menunjukkan perubahan dari satu periode ke periode berikutnya.", "Repeat surveys show what changed from one period to the next."),
+      ],
+    },
+    flow: {
+      title: l("Dari penerbangan ke data lokasi", "From flight to site intelligence"),
+      description: l(
+        "Foto udara yang saling bertampalan diolah bertahap sampai menjadi peta, model, dan laporan yang siap dibahas di rapat proyek.",
+        "Overlapping aerial photos are processed step by step into maps, models and reports ready for the site meeting.",
+      ),
+      steps: [
+        { name: l("Terbang & akuisisi", "Flight & capture"), detail: l("Jalur terbang direncanakan, lalu drone memotret area dengan foto yang saling bertampalan.", "The flight path is planned and the drone photographs the area with overlapping images."), icon: Plane },
+        { name: l("Structure from Motion", "Structure from Motion"), detail: l("Ribuan foto disusun menjadi geometri tiga dimensi.", "Thousands of photos are assembled into 3D geometry."), icon: Layers },
+        { name: l("Point cloud 3D", "3D point cloud"), detail: l("Jutaan titik bergeoreferensi untuk elevasi dan struktur.", "Millions of geo-referenced points for elevation and structures."), icon: Box },
+        { name: l("Orthomosaic", "Orthomosaic"), detail: l("Peta udara seluruh lokasi tanpa distorsi.", "A distortion-free aerial map of the whole site."), icon: MapIcon },
+        { name: l("DSM / DTM", "DSM / DTM"), detail: l("Model permukaan dan terrain untuk cut, fill, dan drainase.", "Surface and terrain models for cut, fill and drainage."), icon: Mountain },
+        { name: l("Laporan volume", "Volume report"), detail: l("Volume pekerjaan tanah dan perubahan antar periode.", "Earthwork volumes and period-to-period change."), icon: Ruler },
+      ],
+    },
+    modulesTitle: l("Lihat hasilnya", "See the output"),
+    modules: [
+      {
+        name: l("Orthomosaic", "Orthomosaic"),
+        summary: l(
+          "Peta udara seluruh lokasi tanpa distorsi. Jarak dan luas bisa diukur langsung dari peta.",
+          "A distortion-free aerial map of the entire site. Measure distances and areas directly on it.",
+        ),
+        points: [
+          l("Satu peta untuk seluruh lokasi", "One map for the whole site"),
+          l("Ukur jarak dan luas langsung", "Measure distances and areas directly"),
+          l("Dasar perencanaan dan laporan", "A base for planning and reporting"),
+        ],
+        image: pgOrthomosaic,
+      },
+      {
+        name: l("Model 3D & point cloud", "3D model & point cloud"),
+        summary: l(
+          "Jutaan titik bergeoreferensi untuk membaca elevasi, struktur, dan kondisi as-built, seperti rekonstruksi koridor jalan ini.",
+          "Millions of geo-referenced points for elevation, structures and as-built checks, like this road corridor reconstruction.",
+        ),
+        points: [
+          l("Elevasi dan struktur", "Elevation and structures"),
+          l("Pemeriksaan as-built", "As-built checks"),
+          l("Rekonstruksi koridor jalan", "Road corridor reconstruction"),
+        ],
+        image: pgModel3d,
+      },
+      {
+        name: l("Terrain & drainase", "Terrain & drainage"),
+        summary: l(
+          "DSM dan DTM dibangun dari foto udara untuk memperlihatkan kontur, area cut dan fill, serta perilaku aliran air di lokasi.",
+          "DSM and DTM built from the aerial photos show contours, cut and fill areas and how water moves across the site.",
+        ),
+        points: [
+          l("Model permukaan (DSM)", "Surface model (DSM)"),
+          l("Model terrain (DTM)", "Terrain model (DTM)"),
+          l("Volume cut & fill dan stockpile", "Cut & fill and stockpile volumes"),
+        ],
+        image: pgTerrain,
+      },
+      {
+        name: l("Detail resolusi tinggi", "High-resolution detail"),
+        summary: l(
+          "Foto udara resolusi tinggi memperlihatkan detail lokasi seperti akses jalan, area parkir, dan fasilitas.",
+          "High-resolution aerial photos show site detail such as access roads, parking and facilities.",
+        ),
+        points: [
+          l("Inspeksi visual dari udara", "Visual inspection from the air"),
+          l("Dokumentasi kondisi lokasi", "A record of site conditions"),
+          l("Bukti progres lapangan", "Evidence of site progress"),
+        ],
+        image: pgDetail,
+      },
+      {
+        name: l("Pemetaan kawasan", "Area mapping"),
+        summary: l(
+          "Kawasan permukiman, fasilitas, dan lahan terpetakan dalam satu survei, siap untuk perencanaan dan pendataan.",
+          "Residential areas, facilities and land mapped in a single survey, ready for planning and inventory.",
+        ),
+        points: [
+          l("Kawasan permukiman dan fasilitas", "Residential areas and facilities"),
+          l("Pendataan bangunan dan lahan", "Building and land inventory"),
+          l("Perencanaan pengembangan kawasan", "Planning for area development"),
+        ],
+        image: pgArea,
+      },
+    ],
+    personasTitle: l("Untuk tim yang perlu mengukur lokasi dengan cepat", "For teams that need to measure a site quickly"),
+    personas: [
+      {
+        title: l("Kontraktor & pekerjaan tanah", "Contractors & earthworks"),
+        text: l(
+          "Hitung volume cut & fill dan stockpile, lalu pantau progres dari satu periode ke periode berikutnya.",
+          "Work out cut & fill and stockpile volumes, then track progress from one period to the next.",
+        ),
+        icon: HardHat,
+      },
+      {
+        title: l("Owner, developer & konsultan", "Owners, developers & consultants"),
+        text: l(
+          "Dapatkan gambaran seluruh lokasi dan bukti progres lapangan untuk rapat proyek dan laporan.",
+          "Get a view of the whole site and evidence of progress for project meetings and reports.",
+        ),
+        icon: Building2,
+      },
+      {
+        title: l("Instansi pemerintah", "Government agencies"),
+        text: l(
+          "Petakan kawasan, lahan, dan infrastruktur yang luas atau sulit dijangkau dalam satu survei.",
+          "Map large or hard-to-reach areas, land and infrastructure in a single survey.",
+        ),
+        icon: Landmark,
+      },
+    ],
+    pricing: {
+      tiers: [
+        {
+          name: l("Implementasi", "Implementation"),
+          description: l(
+            "Disusun per proyek, dari luas area, frekuensi survei, sampai output yang Anda butuhkan.",
+            "Scoped per project, from the size of the area and how often it is surveyed to the outputs you need.",
+          ),
+          monthly: null,
+          customPrice: l("Hubungi sales", "Contact sales"),
+          customNote: l("Dihitung dari luas area, frekuensi survei, dan output", "Quoted on area, survey frequency and outputs"),
+          cta: l("Hubungi sales", "Contact sales"),
+          limits: [
+            { label: l("Output", "Outputs"), value: l("Orthomosaic, 3D, DSM/DTM", "Orthomosaic, 3D, DSM/DTM") },
+            { label: l("Laporan", "Reports"), value: l("Volume & progres", "Volumes & progress") },
+            { label: l("Survei", "Surveys"), value: l("Sekali atau berkala", "One-off or recurring") },
+          ],
+          includesFrom: l("Termasuk dalam implementasi:", "Included in the implementation:"),
+          features: [
+            l("Perencanaan jalur terbang", "Flight path planning"),
+            l("Akuisisi foto udara dengan drone", "Aerial photo capture by drone"),
+            l("Pengolahan Structure from Motion", "Structure from Motion processing"),
+            l("Orthomosaic & point cloud 3D", "Orthomosaic & 3D point cloud"),
+            l("DSM / DTM", "DSM / DTM"),
+            l("Laporan volume cut & fill dan progres", "Cut & fill volume and progress reports"),
+          ],
+        },
+      ],
+      compare: [],
+      notes: [
+        l("Konsultasi dan demo gratis", "Free consultation and demo"),
+        l("Penawaran disusun sesuai lingkup proyek", "Quotes are scoped to your project"),
+      ],
+    },
+    faq: [
+      {
+        question: l("Apa itu fotogrametri drone dan kapan berguna?", "What is drone photogrammetry and when is it useful?"),
+        answer: l(
+          "Fotogrametri menyusun foto drone yang saling bertampalan menjadi model 3D lokasi yang akurat: peta orthomosaic, model elevasi, atau point cloud. Paling berguna untuk pekerjaan tanah dan proyek konstruksi yang butuh data volume dan progres secara rutin tanpa menunggu tim survei darat.",
+          "It stitches overlapping drone photos into an accurate 3D model of a site: an orthomosaic map, an elevation model or a point cloud. It is most useful for earthworks and construction sites that need frequent volume and progress data without waiting on a ground survey crew.",
+        ),
+      },
+      {
+        question: l("Output apa saja yang kami terima?", "What do we receive?"),
+        answer: l(
+          "Orthomosaic, point cloud 3D, DSM/DTM, dan laporan volume cut & fill serta progres antar periode. Output disesuaikan dengan kebutuhan proyek saat penawaran disusun.",
+          "An orthomosaic, a 3D point cloud, DSM/DTM, and cut & fill volume and period-to-period progress reports. Outputs are tailored to the project when the quote is put together.",
+        ),
+      },
+      {
+        question: l("Seberapa sering survei bisa dilakukan?", "How often can the site be surveyed?"),
+        answer: l(
+          "Sekali untuk pemetaan awal, atau berkala untuk memantau progres dan perubahan volume dari satu periode ke periode berikutnya.",
+          "Once for a baseline map, or on a schedule to track progress and volume change from one period to the next.",
+        ),
+      },
+      {
+        question: l("Sudah dipakai di mana?", "Where is it in use?"),
+        answer: l(
+          "Platform fotogrametri Aftech berjalan untuk Kementerian Pertahanan. Ceritanya ada di studi kasus Photogrammetry.",
+          "Aftech's photogrammetry platform runs for Indonesia's Ministry of Defence. The story is in the Photogrammetry case study.",
+        ),
+      },
+      {
+        question: l("Bagaimana harganya dihitung?", "How is it priced?"),
+        answer: l(
+          "Tidak ada harga paket. Setiap implementasi dihitung dari luas area, frekuensi survei, dan output yang dibutuhkan. Hubungi tim sales atau jadwalkan demo untuk mendapatkan penawaran.",
+          "There are no packaged prices. Each implementation is quoted on the area, how often it is surveyed and the outputs needed. Contact sales or book a demo to get a quote.",
+        ),
+      },
+      {
+        question: l("Seperti apa sesi demonya?", "What happens in the demo?"),
+        answer: l(
+          "Sekitar 60 menit, online atau tatap muka. Kami tunjukkan contoh orthomosaic, model 3D, dan laporan volume, lalu membahas lokasi dan kebutuhan Anda.",
+          "About 60 minutes, online or in person. We show example orthomosaics, 3D models and volume reports, then talk through your site and what you need.",
+        ),
+      },
+    ],
+  },
 };
 
 const aiFarm: Product = {
@@ -504,6 +765,250 @@ const aiFarm: Product = {
   accent: "34 197 94",
   caseStudy: "ai-autonomous-farm-kementan",
   cover: aiFarmCover,
+  page: {
+    seoTitle: l(
+      "AI Farm — Platform Pertanian Cerdas dengan IoT, Drone & AI",
+      "AI Farm — Smart Farming Platform with IoT, Drones & AI",
+    ),
+    seoDescription: l(
+      "AI Farm menggabungkan sensor IoT, citra drone, dan AI dalam satu Farm Command Center: skor kesehatan per zona, preskripsi yang divalidasi petugas, misi drone, dan verifikasi hasil. Jadwalkan demo.",
+      "AI Farm brings IoT sensors, drone imagery and AI into one Farm Command Center: health scores per zone, prescriptions validated by people, drone missions and verified results. Book a demo.",
+    ),
+    headline: l("Dari sensor sampai tindakan yang terverifikasi.", "From sensing to verified action."),
+    intro: l(
+      "AI Farm menggabungkan sensor IoT, citra drone, dan AI dalam satu command center. Setiap zona lahan diberi skor kesehatan, AI menyusun preskripsi, petugas memvalidasinya, lalu drone menjalankan misi dan hasilnya diverifikasi.",
+      "AI Farm brings IoT sensors, drone imagery and AI into one command center. Every zone gets a health score, the AI drafts a prescription, a person validates it, then a drone flies the mission and the result is verified.",
+    ),
+    heroImage: farmCommandCenter,
+    heroBadges: [
+      { value: l("NDVI · RGB · Thermal", "NDVI · RGB · Thermal"), label: l("Sensor dan citra dalam satu skor", "Sensors and imagery in one score") },
+      { value: l("24 lahan", "24 farms"), label: l("Terhubung dalam program Kementan", "Connected in the Ministry program") },
+      { value: l("Validasi manusia", "Human validation"), label: l("Preskripsi jalan setelah disetujui", "Prescriptions run once approved") },
+    ],
+    highlights: [
+      { value: l("Satu command center", "One command center"), label: l("Seluruh lahan dalam satu peta kesehatan", "Every farm on one health map") },
+      { value: l("Skor per zona", "Scores per zone"), label: l("Sehat, waspada, atau kritis", "Healthy, watch or critical") },
+      { value: l("Preskripsi AI", "AI prescriptions"), label: l("Nutrisi, proteksi, atau air", "Nutrition, protection or water") },
+      { value: l("Misi drone", "Drone missions"), label: l("Survei, inspeksi, dan penyemprotan", "Survey, inspection and spraying") },
+    ],
+    compare: {
+      title: l("Dari pengamatan manual ke keputusan berbasis data per zona", "From walking the field to decisions on data per zone"),
+      before: [
+        l("Masalah tanaman baru diketahui setelah gejalanya terlihat oleh mata.", "Crop problems are found only once they are visible to the eye."),
+        l("Pupuk dan pestisida diberikan merata, termasuk ke area yang tidak membutuhkannya.", "Fertiliser and pesticide go on evenly, including where they are not needed."),
+        l("Kondisi banyak lahan dilaporkan manual dan datang terlambat.", "Reports from many farms are put together by hand and arrive late."),
+        l("Hasil penanganan sulit dibuktikan.", "The effect of a treatment is hard to prove."),
+      ],
+      after: [
+        l("Skor kesehatan per zona dari NDVI/NDRE, RGB, thermal, dan data cuaca menandai masalah lebih awal.", "Zone health scores from NDVI/NDRE, RGB, thermal and weather data flag problems earlier."),
+        l("Preskripsi hanya menargetkan zona yang bermasalah.", "Prescriptions target only the zones that need them."),
+        l("Semua lahan terpantau dari satu Farm Command Center.", "Every farm is followed from one Farm Command Center."),
+        l("Setiap misi melewati verifikasi, dan pemulihan skor kesehatan tercatat di Analytics.", "Every mission goes through verification, and health score recovery is tracked in Analytics."),
+      ],
+    },
+    flow: {
+      title: l("Dari sensor sampai tindakan yang terverifikasi", "From sensing to verified action"),
+      description: l(
+        "Data sensor dan citra mengalir ke AI Farm Brain, lalu menjadi tindakan di lapangan yang hasilnya diukur kembali.",
+        "Sensor and imagery data flow into the AI Farm Brain, become action in the field, and the result is measured again.",
+      ),
+      steps: [
+        { name: l("Sensor & citra", "Sensors & imagery"), detail: l("NDVI/NDRE, RGB, thermal, serta data cuaca dan lapangan.", "NDVI/NDRE, RGB, thermal, plus weather and field data."), icon: Camera },
+        { name: l("Skor zona", "Zone score"), detail: l("AI Farm Brain menghitung skor kesehatan per zona.", "The AI Farm Brain scores the health of each zone."), icon: Gauge },
+        { name: l("Klasifikasi risiko", "Risk classification"), detail: l("Setiap zona ditandai sehat, waspada, atau kritis.", "Each zone is marked healthy, watch or critical."), icon: ScanSearch },
+        { name: l("Preskripsi", "Prescription"), detail: l("Rekomendasi nutrisi, proteksi, atau air untuk zona tersebut.", "A nutrition, protection or water recommendation for the zone."), icon: ClipboardList },
+        { name: l("Validasi", "Validation"), detail: l("Petugas menyetujui atau menolak preskripsi.", "A person approves or rejects the prescription."), icon: UserCheck },
+        { name: l("Misi drone", "Drone mission"), detail: l("Jalur terbang, ketinggian, dan overlap direncanakan.", "Flight path, altitude and overlap are planned."), icon: Plane },
+        { name: l("Verifikasi", "Verification"), detail: l("Hasil misi diverifikasi dan pemulihan skor dipantau.", "The mission result is verified and score recovery tracked."), icon: BadgeCheck },
+      ],
+    },
+    modulesTitle: l("Lihat isi aplikasinya", "Take a look inside"),
+    modules: [
+      {
+        name: l("Farm Command Center", "Farm Command Center"),
+        summary: l(
+          "Peta kesehatan seluruh lahan dengan luas area, jumlah zona kritis, misi aktif, distribusi kesehatan, dan performa misi.",
+          "A health map of every farm with total area, critical zones, active missions, health distribution and mission performance.",
+        ),
+        points: [
+          l("Peta lahan sehat, waspada, dan kritis", "Healthy, watch and critical farms on one map"),
+          l("Distribusi kesehatan per zona", "Health distribution by zone"),
+          l("Performa misi survei, inspeksi, dan penyemprotan", "Survey, inspection and spraying mission performance"),
+        ],
+        image: farmCommandCenter,
+      },
+      {
+        name: l("Daftar lahan", "Farms"),
+        summary: l(
+          "Setiap lahan dengan lokasi, komoditas, luas, skor kesehatan, zona kritis, misi aktif, dan waktu pemindaian terakhir.",
+          "Every farm with its location, commodity, area, health score, critical zones, active mission and last scan.",
+        ),
+        points: [
+          l("Filter per komoditas", "Filter by commodity"),
+          l("Skor kesehatan per lahan", "A health score per farm"),
+          l("Waktu pemindaian terakhir", "Time of the last scan"),
+        ],
+        image: farmFarms,
+      },
+      {
+        name: l("AI Farm Brain", "AI Farm Brain"),
+        summary: l(
+          "Input sensor dan citra masuk ke pipeline skor kesehatan, klasifikasi risiko, dan rekomendasi, lalu temuan disusun per zona.",
+          "Sensor and imagery inputs feed a pipeline of health scoring, risk classification and recommendation, with findings listed per zone.",
+        ),
+        points: [
+          l("Input NDVI/NDRE, RGB, thermal, cuaca", "NDVI/NDRE, RGB, thermal and weather inputs"),
+          l("Skor dan tingkat risiko per zona", "Score and risk level per zone"),
+          l("Penyebab temuan, misalnya penurunan NDRE", "The cause of each finding, such as an NDRE decline"),
+        ],
+        image: farmBrain,
+      },
+      {
+        name: l("Preskripsi", "Prescriptions"),
+        summary: l(
+          "Rekomendasi penanganan menunggu validasi, persetujuan, dan eksekusi oleh petugas, dengan status dari draft sampai selesai.",
+          "Recommended treatments await validation, approval and execution by people, with a status from draft to completed.",
+        ),
+        points: [
+          l("Nutrisi, proteksi, air, atau tanpa tindakan", "Nutrition, protection, water or no action"),
+          l("Validasi dan persetujuan manusia", "Human validation and approval"),
+          l("Status dari draft sampai selesai", "Status from draft to completed"),
+        ],
+        image: farmPrescriptions,
+      },
+      {
+        name: l("Misi drone", "Drone missions"),
+        summary: l(
+          "Setiap misi punya jalur terbang di peta, luas area, durasi, ketinggian dan overlap, drone yang dipakai, serta statusnya.",
+          "Each mission has its flight path on the map, planned area, duration, altitude and overlap, the drone used and its status.",
+        ),
+        points: [
+          l("Jalur terbang di peta", "Flight path on the map"),
+          l("Luas, durasi, ketinggian & overlap", "Area, duration, altitude & overlap"),
+          l("Status misi sampai verifikasi", "Mission status through verification"),
+        ],
+        image: farmMissions,
+      },
+      {
+        name: l("Analytics", "Analytics"),
+        summary: l(
+          "Metrik pilot dibandingkan dengan targetnya: efisiensi input, deteksi dini, cakupan, dan pemulihan kesehatan tanaman.",
+          "Pilot metrics measured against their targets: input efficiency, early detection, coverage and crop health recovery.",
+        ),
+        points: [
+          l("Efisiensi input per hektar", "Input efficiency per hectare"),
+          l("Deteksi AI dibanding pengamatan visual", "AI detection against visual detection"),
+          l("Cakupan lahan dan zona teranalisis", "Farms covered and zones analysed"),
+        ],
+        image: farmAnalytics,
+      },
+    ],
+    personasTitle: l("Untuk program dan bisnis pertanian berskala besar", "For large-scale farming programs and businesses"),
+    personas: [
+      {
+        title: l("Program pemerintah", "Government programs"),
+        text: l(
+          "Pantau banyak lahan di berbagai provinsi dari satu command center, lengkap dengan bukti hasil penanganan.",
+          "Follow many farms across provinces from one command center, with evidence of what each treatment achieved.",
+        ),
+        icon: Landmark,
+      },
+      {
+        title: l("Perkebunan & agribisnis", "Plantations & agribusiness"),
+        text: l(
+          "Arahkan pupuk, proteksi, dan air hanya ke zona yang membutuhkannya.",
+          "Send fertiliser, protection and water only to the zones that need them.",
+        ),
+        icon: Sprout,
+      },
+      {
+        title: l("Operator lapangan & drone", "Field and drone operators"),
+        text: l(
+          "Terima preskripsi yang sudah disetujui, jalankan misi drone, dan catat hasilnya untuk diverifikasi.",
+          "Receive approved prescriptions, fly the drone missions and record the result for verification.",
+        ),
+        icon: Radar,
+      },
+    ],
+    pricing: {
+      tiers: [
+        {
+          name: l("Implementasi", "Implementation"),
+          description: l(
+            "Dirancang bersama sesuai jumlah lahan, komoditas, perangkat, dan misi drone yang Anda butuhkan.",
+            "Designed with you around the number of farms, the commodities, the devices and the drone missions you need.",
+          ),
+          monthly: null,
+          customPrice: l("Hubungi sales", "Contact sales"),
+          customNote: l("Dihitung dari jumlah lahan, perangkat, dan misi drone", "Quoted on farms, devices and drone missions"),
+          cta: l("Hubungi sales", "Contact sales"),
+          limits: [
+            { label: l("Cakupan", "Coverage"), value: l("Sesuai jumlah lahan", "Sized to your farms") },
+            { label: l("Data", "Data"), value: l("Sensor IoT & citra drone", "IoT sensors & drone imagery") },
+            { label: l("Pendampingan", "Support"), value: l("Tim Aftech", "The Aftech team") },
+          ],
+          includesFrom: l("Termasuk dalam implementasi:", "Included in the implementation:"),
+          features: [
+            l("Analisis kebutuhan & desain sistem", "Needs analysis & system design"),
+            l("Pemasangan sensor IoT & konektivitas", "IoT sensor installation & connectivity"),
+            l("Integrasi citra drone: NDVI/NDRE, RGB, thermal", "Drone imagery: NDVI/NDRE, RGB, thermal"),
+            l("Farm Command Center & AI Farm Brain", "Farm Command Center & AI Farm Brain"),
+            l("Preskripsi, misi drone & verifikasi", "Prescriptions, drone missions & verification"),
+            l("Pelatihan operator", "Operator training"),
+          ],
+        },
+      ],
+      compare: [],
+      notes: [
+        l("Konsultasi dan demo gratis", "Free consultation and demo"),
+        l("Penawaran disusun sesuai lingkup program", "Quotes are scoped to your program"),
+      ],
+    },
+    faq: [
+      {
+        question: l("Data apa saja yang dipakai AI Farm Brain?", "What data does the AI Farm Brain use?"),
+        answer: l(
+          "Citra NDVI/NDRE, RGB, dan thermal dari drone, ditambah data cuaca dan lapangan dari sensor IoT. Dari situ AI menghitung skor kesehatan per zona, mengklasifikasikan risikonya, dan menyusun rekomendasi.",
+          "NDVI/NDRE, RGB and thermal imagery from drones, plus weather and field data from IoT sensors. From these the AI scores each zone's health, classifies its risk and drafts a recommendation.",
+        ),
+      },
+      {
+        question: l("Apakah rekomendasi AI langsung dijalankan?", "Does the AI act on its own?"),
+        answer: l(
+          "Tidak. Preskripsi menunggu validasi dan persetujuan petugas, dan misi drone baru berjalan setelah disetujui. Petugas juga bisa menolak preskripsi.",
+          "No. Prescriptions wait for validation and approval by people, and a drone mission runs only once approved. Prescriptions can also be rejected.",
+        ),
+      },
+      {
+        question: l("Bagaimana hasil penanganan dibuktikan?", "How is the result of a treatment proven?"),
+        answer: l(
+          "Setiap misi melewati tahap verifikasi, dan Analytics menampilkan pemulihan skor kesehatan pada zona yang sudah diverifikasi, bersama metrik efisiensi input, deteksi dini, dan cakupan.",
+          "Every mission goes through verification, and Analytics shows health score recovery on verified zones, alongside input efficiency, early detection and coverage metrics.",
+        ),
+      },
+      {
+        question: l("Komoditas apa yang sudah dipantau?", "Which crops does it already cover?"),
+        answer: l(
+          "Di program yang berjalan, AI Farm memantau padi, jagung, kedelai, cabai, bawang merah, kelapa sawit, dan sayuran dataran tinggi.",
+          "In the running program, AI Farm follows rice, maize, soybean, chilli, shallot, oil palm and highland vegetables.",
+        ),
+      },
+      {
+        question: l("Sudah dipakai di mana?", "Where is it in use?"),
+        answer: l(
+          "Dalam program AI Autonomous Farm untuk Kementerian Pertanian, dengan 24 lahan terhubung di berbagai provinsi. Ceritanya ada di studi kasus program tersebut.",
+          "In the AI Autonomous Farm program for Indonesia's Ministry of Agriculture, with 24 connected farms across several provinces. The story is in that program's case study.",
+        ),
+      },
+      {
+        question: l("Bagaimana harganya dihitung?", "How is it priced?"),
+        answer: l(
+          "Tidak ada harga paket. Setiap implementasi dihitung dari jumlah lahan, perangkat, dan misi drone yang dibutuhkan. Hubungi tim sales atau jadwalkan demo untuk mendapatkan penawaran.",
+          "There are no packaged prices. Each implementation is quoted on the number of farms, devices and drone missions needed. Contact sales or book a demo to get a quote.",
+        ),
+      },
+    ],
+  },
 };
 
 const erp: Product = {

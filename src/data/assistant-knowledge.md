@@ -9,20 +9,20 @@ Satu tim menangani dari ujung ke ujung: konsultasi & analisis kebutuhan → desa
 - Aplikasi mobile Android dan iOS, termasuk aplikasi lapangan untuk petugas.
 - API & integrasi: menghubungkan aplikasi dengan sistem lain, payment gateway, WhatsApp, layanan pihak ketiga, dan sistem lama (legacy).
 - Pengembangan lanjutan: melanjutkan, memperbaiki, memodernisasi atau memigrasikan aplikasi yang sudah ada.
-- Platform buatan Aftech yang sudah berjalan (daftar produk siap pakai: /products): EPTMS — /projects/eptms-enterprise-project-management, MK — halaman produk /products/management-construction (studi kasus /projects/mk-management-construction), Nexora ERP — halaman produk /products/nexora-erp, platform Photogrammetry Kementerian Pertahanan — /projects/photogrammetry, dan platform AI Autonomous Farm — /projects/ai-autonomous-farm-kementan
+- Platform buatan Aftech yang sudah berjalan (daftar produk siap pakai: /products): EPTMS — /projects/eptms-enterprise-project-management, MK — halaman produk /products/management-construction (studi kasus /projects/mk-management-construction), Nexora ERP — halaman produk /products/nexora-erp, Photogrammetry — halaman produk /products/photogrammetry (studi kasus Kementerian Pertahanan /projects/photogrammetry), dan AI Farm — halaman produk /products/ai-farm (studi kasus AI Autonomous Farm Kementerian Pertanian /projects/ai-autonomous-farm-kementan)
 
 ## AI (kecerdasan buatan)
 - Chatbot dan asisten virtual untuk website atau WhatsApp, seperti asisten di website ini.
 - Computer vision: analitik video CCTV, deteksi objek, inspeksi visual, kamera thermal untuk deteksi dini.
 - Analitik dan prediksi dari data operasional, skoring otomatis, rekomendasi.
 - Otomasi proses dan dokumen.
-- Proyek terkait: AI Autonomous Farm Kementerian Pertanian (AI Farm Brain, AI health scoring, rekomendasi/prescription) — /projects/ai-autonomous-farm-kementan
+- Proyek terkait: AI Autonomous Farm Kementerian Pertanian (AI Farm Brain, AI health scoring, rekomendasi/prescription) — /projects/ai-autonomous-farm-kementan; produknya: AI Farm — /products/ai-farm
 
 ## IoT (Internet of Things)
 Solusi IoT lengkap dari perangkat sampai aplikasi: pemilihan dan pemasangan sensor & perangkat, gateway, konektivitas (kabel maupun nirkabel), platform data di cloud atau server, dashboard monitoring real-time, alarm & notifikasi, dan kontrol jarak jauh.
 - Contoh penerapan: smart farming, monitoring lingkungan (suhu, kelembapan, kualitas udara, air), monitoring listrik & energi, monitoring mesin dan peralatan, pelacakan aset, smart building, smart city, early warning system.
 - Data IoT bisa digabung dengan AI dan drone untuk analisis dan pengambilan keputusan.
-- Proyek terkait: AI Autonomous Farm Kementerian Pertanian — IoT sensing, drone survey, AI analytics dan integrasi sistem di 24 lokasi pertanian, dengan Farm Command Center — /projects/ai-autonomous-farm-kementan
+- Proyek terkait: AI Autonomous Farm Kementerian Pertanian — IoT sensing, drone survey, AI analytics dan integrasi sistem di 24 lokasi pertanian, dengan Farm Command Center — /projects/ai-autonomous-farm-kementan; produknya: AI Farm — /products/ai-farm (harga per implementasi, hubungi sales)
 
 ## System integrator
 Aftech menyatukan perangkat keras, perangkat lunak dan jaringan dari berbagai vendor agar bekerja sebagai satu sistem — termasuk dengan sistem yang sudah dimiliki klien.
@@ -40,13 +40,16 @@ Aftech menyatukan perangkat keras, perangkat lunak dan jaringan dari berbagai ve
 - Proyek terkait: Cloud & Network Modernization untuk ZTE — /projects/cloud-network-modernization
 
 ## Drone photogrammetry
-Produk unggulan: survei drone menjadi orthomosaic, DSM/DTM, point cloud 3D dan laporan volume (cut & fill, stockpile) untuk proyek konstruksi dan pekerjaan tanah. Live di kemhan.aftech.co.id — /projects/photogrammetry
+Produk unggulan: survei drone menjadi orthomosaic, DSM/DTM, point cloud 3D dan laporan volume (cut & fill, stockpile) untuk proyek konstruksi dan pekerjaan tanah. Halaman produk /products/photogrammetry (harga per implementasi, hubungi sales); studi kasus Kementerian Pertahanan — /projects/photogrammetry
 
 # Visitor needs → Aftech service
 Visitors usually write in everyday Indonesian ("mau bikin web", "pasang CCTV", "AC kantor rusak"). Map what they ask for to the service below. Everything listed here is work Aftech or Halora does — such a request is a potential project, not an off-topic question.
 
 ## Website, aplikasi & sistem informasi → Technology — /services/technology
 Kata pengunjung: bikin/buat web, website, website perusahaan, company profile, toko online, aplikasi, app, aplikasi android, aplikasi iOS, aplikasi HP, sistem, sistem informasi, ERP, kasir, dashboard, portal, software, digitalisasi, otomasi.
+
+## Pertanian cerdas → Technology — /products/ai-farm (produk AI Farm, bisa jadwalkan demo), /projects/ai-autonomous-farm-kementan
+Kata pengunjung: smart farming, pertanian pintar, pertanian cerdas, AI pertanian, drone pertanian, drone semprot, NDVI, kesehatan tanaman, pemupukan presisi, perkebunan, sawit, padi.
 
 ## IoT, sensor & monitoring → Technology — /services/technology
 Kata pengunjung: IoT, sensor, monitoring jarak jauh, telemetri, smart home, smart building, smart farming, pertanian pintar, monitoring suhu, monitoring listrik, alarm otomatis, kontrol jarak jauh.
@@ -64,7 +67,7 @@ Proyek terkait: CCTV & Access Door Installation — /projects/cctv-access-door-i
 ## Jaringan, server, cloud & keamanan siber → Technology — /services/technology
 Kata pengunjung: internet kantor, jaringan, LAN, WiFi, server, cloud, migrasi, data center, keamanan siber, IT support.
 
-## Drone, pemetaan & survei → Technology — /projects/photogrammetry
+## Drone, pemetaan & survei → Technology — /products/photogrammetry (produk Photogrammetry, bisa jadwalkan demo), /projects/photogrammetry
 Kata pengunjung: drone, foto udara, pemetaan, peta, survei lahan, ukur volume, cut and fill, stockpile, orthomosaic, 3D lahan.
 
 ## Manajemen proyek & kontrol biaya → Technology — /products/management-construction (produk MK, bisa jadwalkan demo), /projects/eptms-enterprise-project-management
