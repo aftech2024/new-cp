@@ -31,7 +31,7 @@ const en: Record<string, string> = {
     "PT Aftech Daya Solusindo has spent over 5 years delivering technology, engineering and mechanical & electrical solutions, with civil construction and interior work delivered through our second company, Halora.",
 
   // ---------- technology core ----------
-  "tech.eyebrow": "Core Identity — Aftech IT",
+  "tech.eyebrow": "Core identity · Aftech IT",
   "tech.title": "Technology is our core.",
   "tech.desc":
     "We design and deliver digital solutions that help organizations operate smarter, connect better and scale with confidence.",
@@ -56,37 +56,41 @@ const en: Record<string, string> = {
   "tech.c8.d": "Monitoring, alerting, task automation.",
 
   // ---------- digital to physical ----------
-  "d2p.eyebrow": "Delivery ontology — one graph",
+  "d2p.eyebrow": "From digital to physical",
   "d2p.title": "From digital intelligence to physical infrastructure.",
-  "d2p.desc":
-    "Every layer mapped as one connected graph. Aftech owns digital and engineering; Halora executes built space — a single handoff, no gaps.",
-  "d2p.e.models": "models",
-  "d2p.e.runsOn": "runs on",
-  "d2p.e.carries": "carries",
-  "d2p.e.controls": "controls",
-  "d2p.e.verifiedBy": "verified by",
-  "d2p.e.handoff": "hand off",
+  "d2p.desc": "A project passes through every layer below. Aftech is responsible for the digital and engineering layers; Halora builds the space after a single handover.",
   "d2p.handoff": "Handoff to Halora",
-  "d2p.legendAftech": "AFTECH · DIGITAL + ENGINEERING",
-  "d2p.legendHalora": "HALORA · BUILT SPACE",
+  "d2p.groupAftech": "Aftech · digital and engineering",
+  "d2p.groupHalora": "Halora · built space",
+  "d2p.l.ai.t": "AI",
+  "d2p.l.ai.d": "Models that read operational data.",
+  "d2p.l.software.t": "Software",
+  "d2p.l.software.d": "Applications where the models and teams work.",
+  "d2p.l.data.t": "Data",
+  "d2p.l.data.d": "Readings carried in from the field and the building.",
+  "d2p.l.network.t": "Network",
+  "d2p.l.network.d": "Links devices, sites and the cloud.",
+  "d2p.l.building.t": "Building systems",
+  "d2p.l.building.d": "Power, HVAC, security and fire protection, under control.",
+  "d2p.l.engineering.t": "Engineering",
+  "d2p.l.engineering.d": "Design and testing that verify the whole stack.",
+  "d2p.l.space.t": "Built space",
+  "d2p.l.space.d": "Buildings and interiors, built by Halora.",
 
   // ---------- what we do ----------
-  "wwd.eyebrow": "What we do — two companies",
+  "wwd.eyebrow": "What we do · two companies",
   "wwd.title": "Two companies. One accountable partner.",
   "wwd.desc":
     "Aftech delivers technology and engineering directly. Civil construction and interior work are delivered by our second company, Halora.",
-  "wwd.more": "more",
   "wwd.haloraTitle": "Civil & Interior",
-  "wwd.haloraDesc":
-    "Building construction, renovation, office and commercial interiors — everything outside IT, delivered by Halora.",
+  "wwd.haloraDesc": "Building construction, renovation, office and commercial interiors: everything outside IT, delivered by Halora.",
   "wwd.secondCompany": "Second company",
-  "wwd.haloraAlt": "Halora — Civil & Interior",
+  "wwd.haloraAlt": "Halora, Civil & Interior",
 
   // ---------- integrated solutions (home) ----------
   "int.eyebrow": "Integrated solutions",
   "int.title": "One partner. Multiple capabilities.",
-  "int.desc":
-    "Programs that combine Aftech technology with Halora construction — scoped once, managed once, handed over once.",
+  "int.desc": "Programs that combine Aftech technology with Halora construction, scoped once, managed once and handed over once.",
   "int.link": "See Integrated Solutions",
   "int.s1.problem": "IT, security and building systems procured separately.",
   "int.s2.problem": "Site progress invisible to management.",
@@ -94,13 +98,16 @@ const en: Record<string, string> = {
   "int.s1.owner": "Aftech lead · Halora support",
   "int.s2.owner": "Aftech + Halora joint",
   "int.s3.owner": "Aftech lead",
+  "int.col.problem": "The problem",
+  "int.col.parts": "What we combine",
+  "int.col.owner": "Who leads",
 
   // ---------- selected works ----------
-  "sel.eyebrow": "Portfolio — Aftech delivery",
+  "sel.eyebrow": "Portfolio · Aftech delivery",
   "sel.title": "Selected Works",
-  "sel.desc": "Technology, engineering and integrated programs — documented with scope, systems and outcomes.",
+  "sel.desc": "Technology, engineering and integrated programs, documented with scope, systems and outcomes.",
   "sel.viewAll": "View All Projects",
-  "sel.note": "* Civil & interior portfolio lives with Halora — our second company.",
+  "sel.note": "Civil and interior projects are documented by Halora, our second company.",
   "cat.technology": "Technology",
   "cat.me": "Mechanical & Electrical",
   "cat.integrated": "Integrated",
@@ -108,14 +115,6 @@ const en: Record<string, string> = {
   "status.ongoing": "ongoing",
 
   // ---------- capability matrix ----------
-  "cap.eyebrow": "Capability matrix",
-  "cap.title": "Built around capability.",
-  "cap.desc":
-    "Blue columns are Aftech (technology + engineering). Bronze columns are Halora (construction + space) — our second company.",
-  "cap.g.technology": "Technology",
-  "cap.g.engineering": "Engineering",
-  "cap.g.construction": "Construction",
-  "cap.g.space": "Space",
 
   // ---------- shared capability terms ----------
   "terms.software": "Software",
@@ -142,37 +141,34 @@ const en: Record<string, string> = {
   "terms.commercial": "Commercial",
 
   // ---------- halora teaser ----------
-  "hal.eyebrow": "[06] — Second company",
-  "hal.tag": "CIVIL · INTERIOR · SPACE",
+  "hal.eyebrow": "Second company",
   "hal.titleA": "Built together. ",
   "hal.titleB": "Finished with care.",
-  "hal.desc":
-    "Aftech covers technology and engineering. Halora is our second company, handling civil construction and interior work — everything outside IT, under the same standard of accountability.",
+  "hal.desc": "Aftech covers technology and engineering. Halora is our second company, handling civil construction and interior work: everything outside IT, under the same standard of accountability.",
   "hal.visit": "Visit Halora",
   "hal.discuss": "Discuss Civil / Interior",
   "hal.civ.title": "Civil Construction",
-  "hal.civ.desc": "Buildings, warehouses, structural works and site execution — measured, documented, handed over.",
+  "hal.civ.desc": "Buildings, warehouses, structural works and site execution: measured, documented, handed over.",
   "hal.int.title": "Interior & Fit-Out",
-  "hal.int.desc": "Office, commercial and retail interiors — from space planning to furniture and finishing.",
+  "hal.int.desc": "Office, commercial and retail interiors, from space planning to furniture and finishing.",
   "hal.open": "Open in Halora",
 
   // ---------- clients ----------
   "cli.eyebrow": "Clients & Partners",
-  "cli.title": "Trusted by organizations that build and move forward.",
+  "cli.title": "Our clients and partners.",
   "cli.empty": "Client logos will appear here once approved for public display.",
   "cliGrid.empty": "Client logos will appear here once approved for public display.",
 
 
   // ---------- cta ----------
-  "cta.eyebrow": "[07] — Start a project",
-  "cta.title": "Let's build something that matters.",
-  "cta.desc":
-    "Tell us what you are building — our team will route it to the right track: Aftech for technology, Halora for civil and interior.",
-  "cta.aftechTrack": "AFTECH TRACK",
+  "cta.eyebrow": "Start a project",
+  "cta.title": "Tell us what you are building.",
+  "cta.desc": "Our team routes it to the right track: Aftech for technology and engineering, Halora for civil and interior work.",
+  "cta.aftechTrack": "Aftech track",
   "cta.aftechTitle": "Technology & Engineering",
   "cta.aftechDesc": "Software, IT infra, network, ME systems.",
   "cta.aftechBtn": "Start with Aftech",
-  "cta.haloraTrack": "HALORA TRACK",
+  "cta.haloraTrack": "Halora track",
   "cta.haloraTitle": "Civil & Interior",
   "cta.haloraDesc": "Construction, renovation, fit-out.",
   "cta.haloraBtn": "Continue to Halora",
@@ -324,8 +320,7 @@ const en: Record<string, string> = {
   "svcData.technology.hl.3": "Track stockpile and progress changes with weekly or monthly flyovers",
   "svcData.technology.hl.4": "Layer CAD and orthophoto data to brief stakeholders with visual evidence",
   "svcData.mechanical-electrical.title": "Mechanical & Electrical",
-  "svcData.mechanical-electrical.short":
-    "Building systems engineered for reliability — mechanical, electrical, HVAC and fire protection.",
+  "svcData.mechanical-electrical.short": "Building systems engineered for reliability: mechanical, electrical, HVAC and fire protection.",
   "svcData.mechanical-electrical.intro":
     "Our mechanical and electrical team designs and executes building systems that keep facilities running safely and efficiently.",
   "svcData.mechanical-electrical.cap.0": "Mechanical Systems",
@@ -451,21 +446,21 @@ const en: Record<string, string> = {
   "prjData.photogrammetry.scope.3": "Orthomosaic",
   "prjData.photogrammetry.scope.4": "DSM / DTM",
   "prjData.photogrammetry.scope.5": "Volume Report",
-  "prjData.ai-autonomous-farm-kementan.title": "AI Autonomous Farm — Kementerian Pertanian",
+  "prjData.ai-autonomous-farm-kementan.title": "AI Autonomous Farm, Kementerian Pertanian",
   "prjData.ai-autonomous-farm-kementan.desc":
     "Integrated smart-farming platform combining IoT sensing, drone imagery, AI health scoring and drone mission execution — Farm Command Center, AI Farm Brain, prescriptions and verification in one program.",
   "prjData.ai-autonomous-farm-kementan.scope.0": "IoT Sensing",
   "prjData.ai-autonomous-farm-kementan.scope.1": "Drone Survey",
   "prjData.ai-autonomous-farm-kementan.scope.2": "AI Analytics",
   "prjData.ai-autonomous-farm-kementan.scope.3": "System Integration",
-  "prjData.eptms-enterprise-project-management.title": "EPTMS — Enterprise Project Management System",
+  "prjData.eptms-enterprise-project-management.title": "EPTMS · Enterprise Project Management System",
   "prjData.eptms-enterprise-project-management.desc":
     "Enterprise portfolio command system — executive dashboard, project hub, timeline & Gantt, Planning & WBS with dynamic bobot, and automatic Kurva-S analytics from timeline to progress. Live at eptms.aftech.co.id.",
   "prjData.eptms-enterprise-project-management.scope.0": "Portfolio Dashboard",
   "prjData.eptms-enterprise-project-management.scope.1": "Timeline & Gantt",
   "prjData.eptms-enterprise-project-management.scope.2": "Planning & WBS",
   "prjData.eptms-enterprise-project-management.scope.3": "Analytics & Kurva-S",
-  "prjData.mk-management-construction.title": "MK — Management Construction Project Controls",
+  "prjData.mk-management-construction.title": "MK · Management Construction Project Controls",
   "prjData.mk-management-construction.desc":
     "Management-construction controls combining contract, BOQ, WBS & cost code, RAP, progress and actual cost into one golden thread — portfolio dashboard, cost dashboard, BOQ baseline and RAP approval. Live at mk.aftech.co.id.",
   "prjData.mk-management-construction.scope.0": "Contract & BOQ",
@@ -839,7 +834,7 @@ const id: Record<string, string> = {
     "PT Aftech Daya Solusindo telah lebih dari 5 tahun menghadirkan solusi teknologi, engineering, serta mekanikal & elektrikal, dengan pekerjaan konstruksi sipil dan interior yang dikerjakan melalui perusahaan kedua kami, Halora.",
 
   // ---------- technology core ----------
-  "tech.eyebrow": "Identitas Inti — IT Aftech",
+  "tech.eyebrow": "Identitas inti · IT Aftech",
   "tech.title": "Teknologi adalah inti kami.",
   "tech.desc":
     "Kami merancang dan menghadirkan solusi digital yang membantu organisasi bekerja lebih cerdas, terhubung lebih baik, dan bertumbuh dengan percaya diri.",
@@ -864,37 +859,41 @@ const id: Record<string, string> = {
   "tech.c8.d": "Monitoring, alerting, otomatisasi tugas.",
 
   // ---------- digital to physical ----------
-  "d2p.eyebrow": "Ontologi delivery — satu graf",
+  "d2p.eyebrow": "Dari digital ke fisik",
   "d2p.title": "Dari kecerdasan digital ke infrastruktur fisik.",
-  "d2p.desc":
-    "Setiap lapisan dipetakan sebagai satu graf yang terhubung. Aftech memegang digital dan engineering; Halora mengeksekusi ruang terbangun — satu serah terima, tanpa celah.",
-  "d2p.e.models": "model",
-  "d2p.e.runsOn": "berjalan di",
-  "d2p.e.carries": "membawa",
-  "d2p.e.controls": "mengendalikan",
-  "d2p.e.verifiedBy": "diverifikasi oleh",
-  "d2p.e.handoff": "serah terima",
+  "d2p.desc": "Sebuah proyek melewati setiap lapisan di bawah ini. Aftech bertanggung jawab atas lapisan digital dan engineering; Halora membangun ruangnya setelah satu kali serah terima.",
   "d2p.handoff": "Serah terima ke Halora",
-  "d2p.legendAftech": "AFTECH · DIGITAL + ENGINEERING",
-  "d2p.legendHalora": "HALORA · RUANG TERBANGUN",
+  "d2p.groupAftech": "Aftech · digital dan engineering",
+  "d2p.groupHalora": "Halora · ruang terbangun",
+  "d2p.l.ai.t": "AI",
+  "d2p.l.ai.d": "Model yang membaca data operasional.",
+  "d2p.l.software.t": "Software",
+  "d2p.l.software.d": "Aplikasi tempat model dan tim bekerja.",
+  "d2p.l.data.t": "Data",
+  "d2p.l.data.d": "Data yang masuk dari lapangan dan gedung.",
+  "d2p.l.network.t": "Jaringan",
+  "d2p.l.network.d": "Menghubungkan perangkat, lokasi, dan cloud.",
+  "d2p.l.building.t": "Sistem gedung",
+  "d2p.l.building.d": "Listrik, HVAC, keamanan, dan proteksi kebakaran yang terkendali.",
+  "d2p.l.engineering.t": "Engineering",
+  "d2p.l.engineering.d": "Perancangan dan pengujian yang memverifikasi seluruh lapisan.",
+  "d2p.l.space.t": "Ruang terbangun",
+  "d2p.l.space.d": "Gedung dan interior yang dibangun Halora.",
 
   // ---------- what we do ----------
-  "wwd.eyebrow": "Apa yang kami kerjakan — dua perusahaan",
+  "wwd.eyebrow": "Apa yang kami kerjakan · dua perusahaan",
   "wwd.title": "Dua perusahaan. Satu mitra yang bertanggung jawab.",
   "wwd.desc":
     "Aftech mengerjakan teknologi dan engineering secara langsung. Pekerjaan konstruksi sipil dan interior dikerjakan oleh perusahaan kedua kami, Halora.",
-  "wwd.more": "lainnya",
   "wwd.haloraTitle": "Sipil & Interior",
-  "wwd.haloraDesc":
-    "Konstruksi gedung, renovasi, interior kantor dan komersial — semua yang di luar IT, dikerjakan oleh Halora.",
+  "wwd.haloraDesc": "Konstruksi gedung, renovasi, interior kantor dan komersial: semua yang di luar IT, dikerjakan oleh Halora.",
   "wwd.secondCompany": "Perusahaan kedua",
-  "wwd.haloraAlt": "Halora — Sipil & Interior",
+  "wwd.haloraAlt": "Halora, Sipil & Interior",
 
   // ---------- integrated solutions (home) ----------
   "int.eyebrow": "Solusi terintegrasi",
   "int.title": "Satu mitra. Banyak kapabilitas.",
-  "int.desc":
-    "Program yang memadukan teknologi Aftech dengan konstruksi Halora — direncanakan sekali, dikelola sekali, diserahterimakan sekali.",
+  "int.desc": "Program yang memadukan teknologi Aftech dengan konstruksi Halora: direncanakan sekali, dikelola sekali, diserahterimakan sekali.",
   "int.link": "Lihat Solusi Terintegrasi",
   "int.s1.problem": "IT, keamanan, dan sistem gedung dibeli secara terpisah.",
   "int.s2.problem": "Progres lapangan tak terlihat oleh manajemen.",
@@ -902,13 +901,16 @@ const id: Record<string, string> = {
   "int.s1.owner": "Dipimpin Aftech · didukung Halora",
   "int.s2.owner": "Gabungan Aftech + Halora",
   "int.s3.owner": "Dipimpin Aftech",
+  "int.col.problem": "Masalahnya",
+  "int.col.parts": "Yang kami padukan",
+  "int.col.owner": "Siapa yang memimpin",
 
   // ---------- selected works ----------
-  "sel.eyebrow": "Portofolio — delivery Aftech",
+  "sel.eyebrow": "Portofolio · delivery Aftech",
   "sel.title": "Karya Terpilih",
-  "sel.desc": "Program teknologi, engineering, dan terintegrasi — terdokumentasi dengan lingkup, sistem, dan hasil.",
+  "sel.desc": "Program teknologi, engineering, dan terintegrasi, terdokumentasi dengan lingkup, sistem, dan hasil.",
   "sel.viewAll": "Lihat Semua Proyek",
-  "sel.note": "* Portofolio sipil & interior ada di Halora — perusahaan kedua kami.",
+  "sel.note": "Portofolio sipil dan interior ada di Halora, perusahaan kedua kami.",
   "cat.technology": "Teknologi",
   "cat.me": "Mekanikal & Elektrikal",
   "cat.integrated": "Terintegrasi",
@@ -916,14 +918,6 @@ const id: Record<string, string> = {
   "status.ongoing": "berjalan",
 
   // ---------- capability matrix ----------
-  "cap.eyebrow": "Matriks kapabilitas",
-  "cap.title": "Dibangun di atas kapabilitas.",
-  "cap.desc":
-    "Kolom biru adalah Aftech (teknologi + engineering). Kolom perunggu adalah Halora (konstruksi + ruang) — perusahaan kedua kami.",
-  "cap.g.technology": "Teknologi",
-  "cap.g.engineering": "Engineering",
-  "cap.g.construction": "Konstruksi",
-  "cap.g.space": "Ruang",
 
   // ---------- shared capability terms ----------
   "terms.software": "Software",
@@ -950,37 +944,34 @@ const id: Record<string, string> = {
   "terms.commercial": "Komersial",
 
   // ---------- halora teaser ----------
-  "hal.eyebrow": "[06] — Perusahaan kedua",
-  "hal.tag": "SIPIL · INTERIOR · RUANG",
+  "hal.eyebrow": "Perusahaan kedua",
   "hal.titleA": "Dibangun bersama. ",
   "hal.titleB": "Diselesaikan dengan cermat.",
-  "hal.desc":
-    "Aftech menangani teknologi dan engineering. Halora adalah perusahaan kedua kami, yang mengerjakan konstruksi sipil dan interior — semua yang di luar IT, dengan standar akuntabilitas yang sama.",
+  "hal.desc": "Aftech menangani teknologi dan engineering. Halora adalah perusahaan kedua kami, yang mengerjakan konstruksi sipil dan interior: semua yang di luar IT, dengan standar akuntabilitas yang sama.",
   "hal.visit": "Kunjungi Halora",
   "hal.discuss": "Diskusikan Sipil / Interior",
   "hal.civ.title": "Konstruksi Sipil",
-  "hal.civ.desc": "Gedung, gudang, pekerjaan struktural, dan eksekusi lapangan — terukur, terdokumentasi, diserahterimakan.",
+  "hal.civ.desc": "Gedung, gudang, pekerjaan struktural, dan eksekusi lapangan: terukur, terdokumentasi, diserahterimakan.",
   "hal.int.title": "Interior & Fit-Out",
-  "hal.int.desc": "Interior kantor, komersial, dan ritel — dari perencanaan ruang hingga furnitur dan finishing.",
+  "hal.int.desc": "Interior kantor, komersial, dan ritel, dari perencanaan ruang hingga furnitur dan finishing.",
   "hal.open": "Buka di Halora",
 
   // ---------- clients ----------
   "cli.eyebrow": "Klien & Mitra",
-  "cli.title": "Dipercaya organisasi yang membangun dan melangkah maju.",
+  "cli.title": "Klien dan mitra kami.",
   "cli.empty": "Logo klien akan tampil di sini setelah disetujui untuk publikasi.",
   "cliGrid.empty": "Logo klien akan tampil di sini setelah disetujui untuk publikasi.",
 
 
   // ---------- cta ----------
-  "cta.eyebrow": "[07] — Mulai proyek",
-  "cta.title": "Mari bangun sesuatu yang bermakna.",
-  "cta.desc":
-    "Ceritakan apa yang sedang Anda bangun — tim kami akan mengarahkannya ke jalur yang tepat: Aftech untuk teknologi, Halora untuk sipil dan interior.",
-  "cta.aftechTrack": "JALUR AFTECH",
+  "cta.eyebrow": "Mulai proyek",
+  "cta.title": "Ceritakan apa yang sedang Anda bangun.",
+  "cta.desc": "Tim kami mengarahkannya ke jalur yang tepat: Aftech untuk teknologi dan engineering, Halora untuk sipil dan interior.",
+  "cta.aftechTrack": "Jalur Aftech",
   "cta.aftechTitle": "Teknologi & Engineering",
   "cta.aftechDesc": "Software, infra IT, jaringan, sistem ME.",
   "cta.aftechBtn": "Mulai dengan Aftech",
-  "cta.haloraTrack": "JALUR HALORA",
+  "cta.haloraTrack": "Jalur Halora",
   "cta.haloraTitle": "Sipil & Interior",
   "cta.haloraDesc": "Konstruksi, renovasi, fit-out.",
   "cta.haloraBtn": "Lanjut ke Halora",
@@ -1132,8 +1123,7 @@ const id: Record<string, string> = {
   "svcData.technology.hl.3": "Pantau perubahan stockpile dan progres dengan penerbangan mingguan atau bulanan",
   "svcData.technology.hl.4": "Lapiskan data CAD dan ortofoto untuk brief stakeholder dengan bukti visual",
   "svcData.mechanical-electrical.title": "Mekanikal & Elektrikal",
-  "svcData.mechanical-electrical.short":
-    "Sistem gedung yang direkayasa untuk keandalan — mekanikal, elektrikal, HVAC, dan proteksi kebakaran.",
+  "svcData.mechanical-electrical.short": "Sistem gedung yang direkayasa untuk keandalan: mekanikal, elektrikal, HVAC, dan proteksi kebakaran.",
   "svcData.mechanical-electrical.intro":
     "Tim mekanikal dan elektrikal kami merancang dan mengeksekusi sistem gedung agar fasilitas berjalan aman dan efisien.",
   "svcData.mechanical-electrical.cap.0": "Sistem Mekanikal",
@@ -1259,21 +1249,21 @@ const id: Record<string, string> = {
   "prjData.photogrammetry.scope.3": "Ortomosaik",
   "prjData.photogrammetry.scope.4": "DSM / DTM",
   "prjData.photogrammetry.scope.5": "Laporan Volume",
-  "prjData.ai-autonomous-farm-kementan.title": "AI Autonomous Farm — Kementerian Pertanian",
+  "prjData.ai-autonomous-farm-kementan.title": "AI Autonomous Farm, Kementerian Pertanian",
   "prjData.ai-autonomous-farm-kementan.desc":
     "Platform smart-farming terintegrasi yang memadukan sensor IoT, citra drone, skor kesehatan AI, dan eksekusi misi drone — Farm Command Center, AI Farm Brain, prescription, dan verifikasi dalam satu program.",
   "prjData.ai-autonomous-farm-kementan.scope.0": "Sensor IoT",
   "prjData.ai-autonomous-farm-kementan.scope.1": "Survei Drone",
   "prjData.ai-autonomous-farm-kementan.scope.2": "Analitik AI",
   "prjData.ai-autonomous-farm-kementan.scope.3": "Integrasi Sistem",
-  "prjData.eptms-enterprise-project-management.title": "EPTMS — Sistem Manajemen Proyek Enterprise",
+  "prjData.eptms-enterprise-project-management.title": "EPTMS · Sistem Manajemen Proyek Enterprise",
   "prjData.eptms-enterprise-project-management.desc":
     "Sistem komando portofolio enterprise — executive dashboard, hub proyek, timeline & Gantt, Planning & WBS dengan bobot dinamis, dan analitik Kurva-S otomatis dari timeline hingga progres. Live di eptms.aftech.co.id.",
   "prjData.eptms-enterprise-project-management.scope.0": "Dasbor Portofolio",
   "prjData.eptms-enterprise-project-management.scope.1": "Timeline & Gantt",
   "prjData.eptms-enterprise-project-management.scope.2": "Perencanaan & WBS",
   "prjData.eptms-enterprise-project-management.scope.3": "Analitik & Kurva-S",
-  "prjData.mk-management-construction.title": "MK — Kontrol Proyek Manajemen Konstruksi",
+  "prjData.mk-management-construction.title": "MK · Kontrol Proyek Manajemen Konstruksi",
   "prjData.mk-management-construction.desc":
     "Kontrol manajemen konstruksi yang memadukan kontrak, BOQ, WBS & cost code, RAP, progres, dan actual cost dalam satu golden thread — dasbor portofolio, dasbor biaya, baseline BOQ, dan approval RAP. Live di mk.aftech.co.id.",
   "prjData.mk-management-construction.scope.0": "Kontrak & BOQ",

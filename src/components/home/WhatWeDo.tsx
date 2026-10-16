@@ -1,47 +1,46 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
-import ImageReveal from "@/components/ui/ImageReveal";
 import { AftechMark, HaloraMark } from "@/components/ui/CompanyMark";
 import { services } from "@/data/services";
 import { HALORA_URL } from "@/data/company";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { localizeServices } from "@/i18n/localize";
-import { staggerContainer, staggerItem, viewportOnce } from "@/lib/motion";
+import { clipReveal, staggerContainer, staggerItem, viewportOnce } from "@/lib/motion";
 import haloraBg from "@/assets/images/halora-bg.jpg";
 
 const haloraTagKeys = ["terms.civil", "terms.warehouse", "terms.fitout", "terms.furniture"];
 
+/** A photo that wipes in once; the card around it carries the company, so the photo carries no label. */
+function Photo({ src, alt }: { src: string; alt: string }) {
+  return (
+    <motion.div variants={clipReveal} initial="hidden" whileInView="visible" viewport={viewportOnce} className="aspect-[4/3] overflow-hidden">
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        className="h-full w-full object-cover transition-transform duration-700 ease-premium group-hover:scale-[1.03]"
+      />
+    </motion.div>
+  );
+}
+
+/**
+ * The three practices, photographed. Aftech's two sit on navy, Halora's on
+ * its linen, so the company split reads from the colour alone; the Halora
+ * card is the only one that leaves the site, hence its ↗.
+ */
 export default function WhatWeDo() {
   const { t } = useLanguage();
-  const localized = localizeServices(services, t);
-  const coreServices = localized.filter((s) => s.slug !== "integrated-solutions");
+  const coreServices = localizeServices(services, t).filter((s) => s.slug !== "integrated-solutions");
 
   return (
-    <Section tone="dark" className="overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 blueprint-dark opacity-70" aria-hidden="true" />
-      <Container className="relative flex flex-col gap-12">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <SectionHeading
-            index="03"
-            eyebrow={t("wwd.eyebrow")}
-            title={t("wwd.title")}
-            description={t("wwd.desc")}
-            tone="dark"
-            brand="aftech"
-          />
-          <div className="flex shrink-0 items-center gap-2 font-mono text-[11px] tracking-[0.16em]">
-            <span className="flex items-center gap-1.5 rounded-pro bg-white/5 border border-white/10 px-2.5 py-1.5 text-white/80">
-              <AftechMark className="h-4 w-auto" /> AFTECH ×2
-            </span>
-            <span className="flex items-center gap-1.5 rounded-pro bg-white/5 border border-white/10 px-2.5 py-1.5 text-white/80">
-              <HaloraMark className="h-4 w-4" /> HALORA ×1
-            </span>
-          </div>
-        </div>
+    <Section tone="dark">
+      <Container className="flex flex-col gap-12">
+        <SectionHeading index="03" eyebrow={t("wwd.eyebrow")} title={t("wwd.title")} description={t("wwd.desc")} tone="dark" brand="aftech" />
 
         <motion.div
           variants={staggerContainer}
@@ -54,71 +53,48 @@ export default function WhatWeDo() {
             <motion.div key={service.slug} variants={staggerItem}>
               <Link
                 to={`/services/${service.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-pro border border-white/12 bg-[#0A1F33]/90 transition-all hover:border-aftech-bright/50 hover:shadow-glow"
+                className="group flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-primary-navy transition-colors hover:border-white/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aftech-bright"
               >
-                <ImageReveal
-                  motif={service.slug === "technology" ? "technology" : "me"}
-                  src={service.image}
-                  alt={service.imageAlt}
-                  ratio="service"
-                  label={service.title}
-                />
+                {service.image && <Photo src={service.image} alt={service.imageAlt ?? service.title} />}
                 <div className="flex flex-1 flex-col gap-3 p-6">
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-2 spec-label text-aftech-bright">
-                      <AftechMark className="h-4 w-auto" /> AFTECH / {service.number}
-                    </span>
-                    <ArrowUpRight className="h-4 w-4 text-white/30 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-aftech-bright" />
-                  </div>
-                  <h3 className="font-display text-xl font-extrabold text-white">{service.title}</h3>
-                  <p className="text-sm leading-relaxed text-white/60">{service.shortStatement}</p>
-                  <div className="mt-auto flex flex-wrap gap-1.5 pt-2">
-                    {service.capabilities.slice(0, 3).map((c) => (
-                      <span key={c} className="rounded border border-white/10 bg-white/5 px-2 py-1 font-mono text-[10px] tracking-wide text-white/55">
-                        {c}
-                      </span>
-                    ))}
-                    <span className="rounded border border-aftech/30 bg-aftech/10 px-2 py-1 font-mono text-[10px] tracking-wide text-aftech-bright">
-                      +{service.capabilities.length - 3} {t("wwd.more")}
-                    </span>
-                  </div>
+                  <span className="flex items-center gap-2 text-sm text-white/65">
+                    <AftechMark className="h-4 w-auto" /> Aftech
+                  </span>
+                  <h3 className="font-display text-xl font-bold text-white">{service.title}</h3>
+                  <p className="text-sm leading-relaxed text-white/65">{service.shortStatement}</p>
+                  <p className="mt-auto border-t border-white/10 pt-4 text-sm text-white/65">
+                    {service.capabilities.slice(0, 4).join(" · ")}
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-white">
+                    {service.title}
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
+                  </span>
                 </div>
               </Link>
             </motion.div>
           ))}
 
-          {/* Halora — warm architectural card */}
           <motion.div variants={staggerItem}>
             <a
               href={HALORA_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex h-full flex-col overflow-hidden rounded-pro border border-halora-bronze/40 bg-halora-linen text-ink transition-all hover:shadow-[0_16px_48px_-16px_rgba(183,121,31,0.5)]"
+              className="group flex h-full flex-col overflow-hidden rounded-xl border border-halora-bronze/40 bg-halora-linen text-ink transition-colors hover:border-halora-bronze focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-halora-bronze"
             >
-              <ImageReveal src={haloraBg} ratio="service" label={t("wwd.haloraAlt")} />
-              <div className="relative flex flex-1 flex-col gap-3 p-6">
-                <div className="halora-hatch pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
-                <div className="relative flex items-center justify-between">
-                  <span className="flex items-center gap-2">
-                    <HaloraMark className="h-5 w-5" />
-                    <span className="spec-label text-halora-bronze">HALORA / 03</span>
-                    <span className="rounded-full bg-halora-bronze px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-white">
-                      {t("wwd.secondCompany")}
-                    </span>
-                  </span>
-                  <ArrowUpRight className="h-4 w-4 text-halora-bronze transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </div>
-                <h3 className="relative font-display text-xl font-extrabold">{t("wwd.haloraTitle")}</h3>
-                <p className="relative text-sm leading-relaxed text-ink/70">
-                  {t("wwd.haloraDesc")}
+              <Photo src={haloraBg} alt={t("wwd.haloraAlt")} />
+              <div className="flex flex-1 flex-col gap-3 p-6">
+                <span className="flex items-center gap-2 text-sm text-ink/70">
+                  <HaloraMark className="h-4 w-4" /> Halora · {t("wwd.secondCompany")}
+                </span>
+                <h3 className="font-display text-xl font-bold">{t("wwd.haloraTitle")}</h3>
+                <p className="text-sm leading-relaxed text-ink/70">{t("wwd.haloraDesc")}</p>
+                <p className="mt-auto border-t border-halora-bronze/25 pt-4 text-sm text-ink/70">
+                  {haloraTagKeys.map((key) => t(key)).join(" · ")}
                 </p>
-                <div className="relative mt-auto flex flex-wrap gap-1.5 pt-2">
-                  {haloraTagKeys.map((key) => (
-                    <span key={key} className="rounded border border-halora-bronze/30 bg-white px-2 py-1 font-mono text-[10px] tracking-wide text-ink/70">
-                      {t(key)}
-                    </span>
-                  ))}
-                </div>
+                <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-halora-deep">
+                  Halora
+                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+                </span>
               </div>
             </a>
           </motion.div>

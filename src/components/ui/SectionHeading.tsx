@@ -46,7 +46,8 @@ export default function SectionHeading({
         <span className="flex items-center gap-3">
           {align === "left" && <span className={`h-px w-8 ${brandTick[brand]}`} aria-hidden="true" />}
           <span className={`spec-label ${tone === "dark" ? (brand === "halora" ? "text-white/65" : "text-aftech-bright") : brandAccent[brand]}`}>
-            {index ? `[${index}] — ${eyebrow}` : eyebrow}
+            {index && <span className="mr-2.5 opacity-70">{index}</span>}
+            {eyebrow}
           </span>
           {align === "center" && <span className={`h-px w-8 ${brandTick[brand]}`} aria-hidden="true" />}
         </span>

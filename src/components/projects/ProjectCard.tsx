@@ -34,9 +34,9 @@ export default function ProjectCard({ project, size = "regular" }: { project: Pr
                 {t(categoryKey[project.category])}
               </span>
               {project.liveUrl && (
-                <span className="inline-flex w-fit items-center gap-1 rounded border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-emerald-600">
+                <span className="inline-flex w-fit items-center gap-1 rounded border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-emerald-700">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
-                  Live ↗
+                  Live
                 </span>
               )}
             </span>
@@ -44,7 +44,7 @@ export default function ProjectCard({ project, size = "regular" }: { project: Pr
               {project.title}
             </h3>
             <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
-              {project.location} · {project.year ?? "—"}
+              {[project.location, project.year].filter(Boolean).join(" · ")}
             </p>
           </div>
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pro border border-line text-muted transition-all group-hover:border-aftech group-hover:bg-aftech group-hover:text-white">

@@ -309,10 +309,10 @@ export const projects: Project[] = [
   {
     id: "p5",
     slug: "ai-autonomous-farm-kementan",
-    title: "AI Autonomous Farm — Kementerian Pertanian",
+    title: "AI Autonomous Farm, Kementerian Pertanian",
     category: "integrated",
     client: "Kementerian Pertanian",
-    location: "Indonesia — 24 Farms",
+    location: "Indonesia · 24 Farms",
     status: "ongoing",
     description:
       "Integrated smart-farming platform combining IoT sensing, drone imagery, AI health scoring and drone mission execution — Farm Command Center, AI Farm Brain, prescriptions and verification in one program.",
@@ -324,7 +324,7 @@ export const projects: Project[] = [
   {
     id: "p8",
     slug: "eptms-enterprise-project-management",
-    title: "EPTMS — Enterprise Project Management System",
+    title: "EPTMS · Enterprise Project Management System",
     category: "integrated",
     client: "PLN Indonesia Power / Kementerian Pertahanan",
     location: "Indonesia",
@@ -340,7 +340,7 @@ export const projects: Project[] = [
   {
     id: "p9",
     slug: "mk-management-construction",
-    title: "MK — Management Construction Project Controls",
+    title: "MK · Management Construction Project Controls",
     category: "integrated",
     client: "Gedung Perkantoran BSD & Construction Portfolio",
     location: "BSD, Tangerang",

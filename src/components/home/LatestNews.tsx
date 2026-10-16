@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -12,6 +13,10 @@ export default function LatestNews() {
   return __BLOG_HAS_EDITIONS__ ? <LatestNewsSection /> : null;
 }
 
+/**
+ * Editions as a list, newest first. A list takes one, two or three entries
+ * without leaving empty cells, which a fixed three-column grid did.
+ */
 function LatestNewsSection() {
   const { t, lang } = useLanguage();
   const index = useBlogIndex();
@@ -22,25 +27,32 @@ function LatestNewsSection() {
       <Container className="flex flex-col gap-10">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHeading eyebrow={t("blog.home.eyebrow")} title={t("blog.home.title")} />
-          <LinkArrow to="/blog">{t("blog.home.all")}</LinkArrow>
+          <LinkArrow to="/blog" className="shrink-0 text-ink">
+            {t("blog.home.all")}
+          </LinkArrow>
         </div>
-        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-pro border border-line bg-line md:grid-cols-3">
+        <ol className="border-t border-ink">
           {index.data.slice(0, 3).map((edition) => (
-            <Link
-              key={edition.slug}
-              to={`/blog/${edition.slug}`}
-              className="group flex flex-col gap-3 bg-white p-6 transition-colors hover:bg-off-white"
-            >
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-aftech-teal">
-                {formatEditionDate(edition.date, lang)}
-              </span>
-              <h3 className="font-display text-lg font-bold leading-snug transition-colors group-hover:text-aftech-teal">
-                {edition.title}
-              </h3>
-              <p className="text-sm text-muted">{edition.description}</p>
-            </Link>
+            <li key={edition.slug} className="border-b border-ink/15">
+              <Link
+                to={`/blog/${edition.slug}`}
+                className="group grid gap-3 py-7 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aftech md:grid-cols-12 md:gap-8"
+              >
+                <span className="text-sm font-semibold text-ink/70 md:col-span-3 md:pt-1">{formatEditionDate(edition.date, lang)}</span>
+                <span className="flex flex-col gap-2 md:col-span-8">
+                  <span className="font-display text-xl font-bold leading-snug text-ink transition-colors group-hover:text-aftech md:text-2xl">
+                    {edition.title}
+                  </span>
+                  <span className="leading-relaxed text-muted">{edition.description}</span>
+                </span>
+                <ArrowRight
+                  className="hidden h-5 w-5 self-center justify-self-end text-ink/50 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-aftech md:col-span-1 md:block"
+                  aria-hidden="true"
+                />
+              </Link>
+            </li>
           ))}
-        </div>
+        </ol>
       </Container>
     </Section>
   );

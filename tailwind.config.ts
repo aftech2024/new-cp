@@ -12,6 +12,8 @@ export default {
         // Aftech — IT / Engineering (professional blue)
         aftech: {
           DEFAULT: "#1479D1",
+          // brand blue a step darker, for small text on light grounds (5.2:1 on off-white)
+          strong: "#0F6BBE",
           bright: "#2EA8FF",
           deep: "#04111D",
           navy: "#071A2B",
@@ -23,6 +25,8 @@ export default {
         // Halora — Civil / Interior: satu aksen perunggu + kertas linen netral
         halora: {
           bronze: "#B7791F",
+          // bronze deep enough for text and button fills (5.6:1 with white, 5.3:1 on linen)
+          deep: "#8F5D16",
           linen: "#FAF7F2",
         },
         ink: "#111827",

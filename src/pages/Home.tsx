@@ -5,7 +5,6 @@ import DigitalToPhysical from "@/components/home/DigitalToPhysical";
 import WhatWeDo from "@/components/home/WhatWeDo";
 import IntegratedSolutions from "@/components/home/IntegratedSolutions";
 import SelectedWorks from "@/components/home/SelectedWorks";
-import Capabilities from "@/components/home/Capabilities";
 import HaloraTeaser from "@/components/home/HaloraTeaser";
 import Clients from "@/components/home/Clients";
 import LatestNews from "@/components/home/LatestNews";
@@ -23,7 +22,6 @@ export default function Home() {
       <WhatWeDo />
       <IntegratedSolutions />
       <SelectedWorks />
-      <Capabilities />
       <HaloraTeaser />
       <Clients />
       <LatestNews />

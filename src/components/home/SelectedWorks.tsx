@@ -15,23 +15,22 @@ export default function SelectedWorks() {
   );
 
   return (
-    <Section tone="light" className="overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 blueprint-light opacity-50" aria-hidden="true" />
-      <Container className="relative flex flex-col gap-12">
+    <Section tone="light">
+      <Container className="flex flex-col gap-12">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <SectionHeading
-            index="04B"
+            index="05"
             eyebrow={t("sel.eyebrow")}
             title={t("sel.title")}
             description={t("sel.desc")}
             brand="aftech"
           />
-          <LinkArrow to="/projects">{t("sel.viewAll")}</LinkArrow>
+          <LinkArrow to="/projects" className="shrink-0 text-ink">
+            {t("sel.viewAll")}
+          </LinkArrow>
         </div>
         <ProjectGrid projects={featured} />
-        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
-          {t("sel.note")}
-        </p>
+        <p className="text-sm text-muted">{t("sel.note")}</p>
       </Container>
     </Section>
   );

@@ -1,41 +1,37 @@
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
-import Marquee from "@/components/ui/Marquee";
 import { partnerLogos } from "@/data/partners";
 import { useLanguage } from "@/i18n/LanguageContext";
 
+/**
+ * Client and partner logos, still and all visible at once: a scrolling strip
+ * hides half of them at any moment, and these are names worth reading.
+ */
 export default function Clients() {
   const { t } = useLanguage();
   return (
-    <Section tone="tint" className="overflow-hidden border-t border-aftech/10">
-      <Container className="relative flex flex-col gap-10">
-        <SectionHeading
-          align="center"
-          eyebrow={t("cli.eyebrow")}
-          title={t("cli.title")}
-          brand="aftech"
-        />
+    <Section tone="light" className="border-t border-line">
+      <Container className="grid gap-10 lg:grid-cols-12 lg:items-center">
+        <div className="lg:col-span-4">
+          <SectionHeading eyebrow={t("cli.eyebrow")} title={t("cli.title")} brand="aftech" />
+        </div>
         {partnerLogos.length === 0 ? (
-          <p className="mx-auto max-w-md text-center text-sm leading-relaxed text-muted">
-            {t("cli.empty")}
-            <span className="mt-1 block font-mono text-[11px] text-muted/70">
-              Taruh file logo di src/assets/images/partner/
-            </span>
-          </p>
+          <p className="text-sm leading-relaxed text-muted lg:col-span-8">{t("cli.empty")}</p>
         ) : (
-          <Marquee className="py-2">
+          <ul className="grid grid-cols-2 border-l border-t border-line sm:grid-cols-4 lg:col-span-8">
             {partnerLogos.map((logo) => (
-              <img
-                key={logo.src}
-                src={logo.src}
-                alt={logo.name}
-                title={logo.name}
-                loading="lazy"
-                className="h-11 w-auto max-w-[170px] shrink-0 object-contain opacity-60 mix-blend-multiply grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 md:h-14"
-              />
+              <li key={logo.src} className="flex h-24 items-center justify-center border-b border-r border-line bg-white px-6">
+                <img
+                  src={logo.src}
+                  alt={logo.name}
+                  title={logo.name}
+                  loading="lazy"
+                  className="max-h-10 w-auto max-w-[130px] object-contain opacity-80 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
+                />
+              </li>
             ))}
-          </Marquee>
+          </ul>
         )}
       </Container>
     </Section>
