@@ -5,7 +5,8 @@
  *   npx tsx scripts/blog/run.ts --dry-run   only fetch and list candidate stories (no API key needed)
  *   npx tsx scripts/blog/run.ts --date=2026-10-19 --force
  *
- * Needs ANTHROPIC_API_KEY. BLOG_MODE=auto marks the edition as unreviewed;
+ * Needs ANTHROPIC_API_KEY; with FALLBACK_API_KEY set, a failed Anthropic call is
+ * retried on the 9router fallback (see claude.ts). BLOG_MODE=auto marks the edition as unreviewed;
  * anything else (the default, "pr") marks it reviewed, because then it can
  * only reach the site through a merged pull request.
  *

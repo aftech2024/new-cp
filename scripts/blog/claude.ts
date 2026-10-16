@@ -14,11 +14,33 @@ import type { Candidate } from "./feeds";
 
 export const MODEL = "claude-opus-5-5";
 
+// Fallback: any OpenAI-compatible /chat/completions endpoint, used when the
+// Anthropic call fails and FALLBACK_API_KEY is set. Same router as the chat assistant.
+const FALLBACK_BASE_URL = "https://9router.aftech.co.id/api/v1";
+const FALLBACK_MODEL = "kr/claude-sonnet-4.5";
+const FALLBACK_TIMEOUT_MS = 300_000;
+
 let client: Anthropic | null = null;
 
 type Effort = "low" | "medium" | "high";
 
 async function ask<T extends z.ZodType>(
+  label: string,
+  schema: T,
+  system: string,
+  user: string,
+  effort: Effort,
+): Promise<{ data: z.infer<T>; model: string }> {
+  try {
+    return await askClaude(label, schema, system, user, effort);
+  } catch (error) {
+    if (!process.env.FALLBACK_API_KEY) throw error;
+    console.log(`[${label}] Anthropic failed (${(error as Error).message}) — retrying on ${FALLBACK_MODEL}`);
+    return askFallback(label, schema, system, user);
+  }
+}
+
+async function askClaude<T extends z.ZodType>(
   label: string,
   schema: T,
   system: string,
@@ -46,6 +68,59 @@ async function ask<T extends z.ZodType>(
     throw new Error(`${label}: no complete structured output (stop_reason ${response.stop_reason})`);
   }
   return { data: response.parsed_output as z.infer<T>, model: response.model };
+}
+
+/**
+ * The router ignores response_format, so the schema goes into the prompt and
+ * the reply is validated here; one invalid reply gets a second chance.
+ */
+async function askFallback<T extends z.ZodType>(
+  label: string,
+  schema: T,
+  system: string,
+  user: string,
+): Promise<{ data: z.infer<T>; model: string }> {
+  const messages = [
+    {
+      role: "system",
+      content: `${system}\n\nReply with only one JSON object — no prose, no code fences — that matches this JSON Schema:\n${JSON.stringify(z.toJSONSchema(schema))}`,
+    },
+    { role: "user", content: user },
+  ];
+  for (let attempt = 1; ; attempt++) {
+    const response = await fetch(`${FALLBACK_BASE_URL}/chat/completions`, {
+      method: "POST",
+      headers: { authorization: `Bearer ${process.env.FALLBACK_API_KEY}`, "content-type": "application/json" },
+      body: JSON.stringify({ model: FALLBACK_MODEL, max_tokens: 16000, stream: false, messages }),
+      signal: AbortSignal.timeout(FALLBACK_TIMEOUT_MS),
+    });
+    if (!response.ok) throw new Error(`${label}: fallback HTTP ${response.status} ${(await response.text()).slice(0, 300)}`);
+    const body = (await response.json()) as {
+      choices?: { message?: { content?: unknown }; finish_reason?: string }[];
+      usage?: { prompt_tokens?: number; completion_tokens?: number };
+    };
+    const choice = body.choices?.[0];
+    const content = typeof choice?.message?.content === "string" ? choice.message.content : "";
+    console.log(
+      `[${label}] ${FALLBACK_MODEL} · ${body.usage?.prompt_tokens ?? "?"} in / ${body.usage?.completion_tokens ?? "?"} out · ${choice?.finish_reason}`,
+    );
+    if (choice?.finish_reason === "length") throw new Error(`${label}: fallback reply cut off at max_tokens`);
+
+    let problem: string;
+    try {
+      const json = content.slice(content.indexOf("{"), content.lastIndexOf("}") + 1);
+      const parsed = schema.safeParse(JSON.parse(json));
+      if (parsed.success) return { data: parsed.data, model: FALLBACK_MODEL };
+      problem = parsed.error.message;
+    } catch (error) {
+      problem = (error as Error).message;
+    }
+    if (attempt === 2) throw new Error(`${label}: fallback reply is not valid JSON for the schema (${problem.slice(0, 300)})`);
+    messages.push(
+      { role: "assistant", content },
+      { role: "user", content: `That reply does not match the schema: ${problem.slice(0, 1000)}\nReply again with only the corrected JSON object.` },
+    );
+  }
 }
 
 const category = z.enum(BLOG_CATEGORIES);

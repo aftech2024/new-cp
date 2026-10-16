@@ -140,7 +140,12 @@ Setup, once:
    limit set in the Claude Console (about US$5/month at this schedule).
 2. Settings → Actions → General → enable "Allow GitHub Actions to create and
    approve pull requests".
-3. Actions → *Blog edition* → *Run workflow* to produce the first edition.
+3. Optional: repository secret `FALLBACK_API_KEY_BLOG` — a 9router key. When an
+   Anthropic call fails (outage, credit, refusal), the same request goes to
+   `kr/claude-sonnet-4.5` on `https://9router.aftech.co.id/api/v1`
+   (`FALLBACK_*` constants in `scripts/blog/claude.ts`). The PR shows which
+   model wrote the edition.
+4. Actions → *Blog edition* → *Run workflow* to produce the first edition.
 
 By default each edition arrives as a pull request: read it, edit the JSON in
 the PR if needed, merge to publish (the merge deploys). Set the repository
