@@ -1,5 +1,6 @@
 import { company, HALORA_URL, WHATSAPP_URL } from "@/data/company";
 import { insights } from "@/data/insights";
+import { products } from "@/data/products";
 import { projects } from "@/data/projects";
 import { services } from "@/data/services";
 import { localizeInsights, localizeProjects, localizeServices } from "@/i18n/localize";
@@ -30,12 +31,16 @@ export function buildDestinations(t: T): Map<string, Destination> {
   const page = t("chat.kind.page");
   add({ href: "/about", title: t("chat.page.about"), kind: page, icon: "page" });
   add({ href: "/services", title: t("chat.page.services"), kind: page, icon: "service" });
+  add({ href: "/products", title: t("chat.page.products"), kind: page, icon: "service" });
   add({ href: "/projects", title: t("chat.page.projects"), kind: page, icon: "project" });
   add({ href: "/insights", title: t("chat.page.insights"), kind: page, icon: "insight" });
   add({ href: "/contact", title: t("chat.page.contact"), kind: t("chat.kind.contact"), icon: "contact" });
 
   for (const s of localizeServices(services, t)) {
     add({ href: `/services/${s.slug}`, title: s.title, kind: t("chat.kind.service"), icon: "service" });
+  }
+  for (const p of products) {
+    if (p.page) add({ href: `/products/${p.slug}`, title: p.name, kind: t("chat.kind.product"), icon: "service" });
   }
   for (const p of localizeProjects(projects, t)) {
     add({ href: `/projects/${p.slug}`, title: p.title, kind: t("chat.kind.project"), icon: "project" });
@@ -56,7 +61,7 @@ export function buildDestinations(t: T): Map<string, Destination> {
   return map;
 }
 
-const LINK = String.raw`https?:\/\/[^\s)]+|\/(?:about|services|projects|insights|contact)(?:\/[a-z0-9-]+)*`;
+const LINK = String.raw`https?:\/\/[^\s)]+|\/(?:about|services|products|projects|insights|contact)(?:\/[a-z0-9-]+)*`;
 // "(…/path)" and " — /path" lose the whole aside; a bare path becomes the page name.
 const INLINE_RE = new RegExp(String.raw`\s*\((${LINK})\)|\s+[—–-]\s+(${LINK})|(${LINK})`, "g");
 

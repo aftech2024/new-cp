@@ -21,6 +21,7 @@ import { resolve, dirname } from "node:path";
 import { services } from "../src/data/services";
 import { projects } from "../src/data/projects";
 import { insights } from "../src/data/insights";
+import { products, YEARLY_MONTHS } from "../src/data/products";
 import { company, locations, capabilityMatrix, values, HALORA_URL, WHATSAPP_URL } from "../src/data/company";
 import { BLOG_DATA_PATH, type BlogEdition, type BlogIndexEntry } from "../src/data/blog";
 
@@ -71,6 +72,14 @@ const staticRoutes: Route[] = [
     priority: "0.8",
   },
   {
+    path: "/products",
+    title: "Produk",
+    description:
+      "Aplikasi siap pakai dari Aftech: kontrol biaya proyek konstruksi, manajemen portofolio proyek, fotogrametri drone, pertanian cerdas, dan ERP.",
+    type: "website",
+    priority: "0.8",
+  },
+  {
     path: "/projects",
     title: "Projects",
     description: "Selected technology, mechanical & electrical and integrated projects delivered by Aftech.",
@@ -109,6 +118,38 @@ const projectRoutes: Route[] = projects.map((p) => ({
   type: "article",
   priority: "0.6",
 }));
+
+// Product pages are written for Indonesian buyers first, so their head uses the Indonesian copy.
+const productRoutes: Route[] = products.flatMap((p) =>
+  p.page
+    ? [
+        {
+          path: `/products/${p.slug}`,
+          title: p.page.seoTitle.id,
+          description: p.page.seoDescription.id,
+          type: "website" as const,
+          priority: "0.8",
+          jsonLd: [
+            {
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              name: p.name,
+              applicationCategory: "BusinessApplication",
+              operatingSystem: "Web",
+              description: p.page.seoDescription.id,
+              url: `${SITE_URL}/products/${p.slug}`,
+              provider: { "@type": "Organization", name: company.legalName, url: SITE_URL },
+              offers: p.page.pricing.tiers.flatMap((tier) =>
+                tier.monthly === null
+                  ? []
+                  : [{ "@type": "Offer", name: tier.name.id, price: tier.monthly, priceCurrency: "IDR", url: `${SITE_URL}/products/${p.slug}#pricing` }],
+              ),
+            },
+          ],
+        },
+      ]
+    : [],
+);
 
 const insightRoutes: Route[] = insights.map((i) => ({
   path: `/insights/${i.slug}`,
@@ -168,7 +209,7 @@ const blogRoutes: Route[] = editions.length
     ]
   : [];
 
-const routes = [...staticRoutes, ...serviceRoutes, ...projectRoutes, ...insightRoutes, ...blogRoutes];
+const routes = [...staticRoutes, ...serviceRoutes, ...productRoutes, ...projectRoutes, ...insightRoutes, ...blogRoutes];
 
 function escapeHtml(value: string): string {
   return value
@@ -406,6 +447,27 @@ const knowledge = [
     `Process: ${s.process.join(" → ")}.`,
     ...(s.highlights?.length ? ["Highlights:", bullet(s.highlights)] : []),
     ...s.faq.map((f) => `Q: ${f.question}\nA: ${f.answer}`),
+    "",
+  ]),
+  "# Products (ready-made applications)",
+  ...products.flatMap((p) => [
+    `## ${p.name} — ${p.page ? `/products/${p.slug}` : p.caseStudy ? `/projects/${p.caseStudy}` : "/products"}`,
+    `${p.category.en}. ${p.tagline.en}`,
+    ...(p.page
+      ? [
+          p.page.intro.en,
+          `Modules: ${p.page.modules.map((m) => `${m.name.en} (${m.summary.en})`).join("; ")}`,
+          `For: ${p.page.personas.map((x) => x.title.en).join(", ")}.`,
+          `Plans (prices exclude VAT; yearly billing charges ${YEARLY_MONTHS} months): ${p.page.pricing.tiers
+            .map(
+              (tier) =>
+                `${tier.name.en} — ${tier.monthly === null ? "custom price, contact sales" : `Rp ${tier.monthly.toLocaleString("id-ID")} per month`} — ${tier.limits.map((x) => `${x.label.en}: ${x.value.en}`).join(", ")} — ${tier.description.en}`,
+            )
+            .join("; ")}.`,
+          "Demo: visitors book one with the form on the product page (date, time slot, online or in person).",
+          ...p.page.faq.map((f) => `Q: ${f.question.en}\nA: ${f.answer.en}`),
+        ]
+      : ["Product page coming soon; point visitors to the case study or the contact form."]),
     "",
   ]),
   "# Projects",

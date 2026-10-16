@@ -144,3 +144,30 @@ h3 {
     opacity: 0;
   }
 }
+
+/* Product pages — badges drifting gently over the hero screenshot */
+@keyframes product-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+.product-float {
+  animation: product-float 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-float {
+    animation: none;
+  }
+}
+
+/* Product tour — the active tab's bar fills, then the tour moves on */
+@keyframes tour-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.tour-progress {
+  transform-origin: left;
+  animation: tour-progress linear forwards;
+}

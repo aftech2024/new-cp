@@ -45,6 +45,7 @@ export const navItems: NavItem[] = [
       { label: "Integrated Solutions", to: "/services/integrated-solutions" },
     ],
   },
+  { label: "Products", to: "/products" },
   { label: "Projects", to: "/projects" },
   { label: "Insights", to: "/insights" },
   // Appears once the first "Kabar Teknologi" edition is published (src/data/blog.ts).

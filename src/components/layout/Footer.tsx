@@ -11,6 +11,7 @@ import logo from "@/assets/images/logo-aftech.png";
 
 const exploreKeys = [
   { key: "nav.about", to: "/about" },
+  { key: "nav.products", to: "/products" },
   { key: "nav.projects", to: "/projects" },
   { key: "nav.insights", to: "/insights" },
   ...(__BLOG_HAS_EDITIONS__ ? [{ key: "nav.blog", to: "/blog" }] : []),

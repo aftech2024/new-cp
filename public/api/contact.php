@@ -76,37 +76,79 @@ $fullName = cleanString($body['fullName'] ?? '', 120);
 $company = cleanString($body['company'] ?? '', 120);
 $email = cleanString($body['email'] ?? '', 200);
 $phone = cleanString($body['phone'] ?? '', 40);
-$projectType = cleanString($body['projectType'] ?? '', 60);
-$budgetRange = cleanString($body['budgetRange'] ?? '', 60);
-$location = cleanString($body['location'] ?? '', 120);
-$timeline = cleanString($body['timeline'] ?? '', 60);
-$message = cleanString($body['message'] ?? '', 4000);
-
 $errors = [];
 if ($fullName === '') $errors['fullName'] = 'Full name is required.';
 if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors['email'] = 'A valid email is required.';
-if ($projectType === '') $errors['projectType'] = 'Project type is required.';
-if (mb_strlen($message) < 10) $errors['message'] = 'Message must be at least 10 characters.';
+
+if (($body['kind'] ?? '') === 'demo') {
+    // Demo request from a product page (src/components/products/DemoRequestForm.tsx).
+    $product = cleanString($body['product'] ?? '', 80);
+    $jobTitle = cleanString($body['jobTitle'] ?? '', 120);
+    $preferredDate = cleanString($body['preferredDate'] ?? '', 10);
+    $preferredTime = cleanString($body['preferredTime'] ?? '', 40);
+    $format = ($body['format'] ?? '') === 'onsite' ? 'Tatap muka di kantor klien' : 'Online (video call)';
+    $plan = cleanString($body['plan'] ?? '', 60);
+    $notes = cleanString($body['notes'] ?? '', 2000);
+
+    $date = DateTimeImmutable::createFromFormat('!Y-m-d', $preferredDate, new DateTimeZone('Asia/Jakarta'));
+    if ($product === '') $errors['product'] = 'Product is required.';
+    if ($company === '') $errors['company'] = 'Company is required.';
+    if (strlen(preg_replace('/\D/', '', $phone) ?? '') < 8) $errors['phone'] = 'A valid phone number is required.';
+    if (!$date || $date->format('Y-m-d') !== $preferredDate) $errors['preferredDate'] = 'A valid date is required.';
+    if ($preferredTime === '') $errors['preferredTime'] = 'A time slot is required.';
+
+    $subject = "Permintaan demo $product — $fullName ($company)";
+    $days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    $dateLabel = $date ? $days[(int) $date->format('w')] . ', ' . $date->format('d-m-Y') : $preferredDate;
+    $lines = [
+        "Produk: $product",
+        "Paket yang diminati: " . ($plan !== '' ? $plan : 'Belum tahu'),
+        '',
+        "Jadwal yang diminta: $dateLabel, $preferredTime",
+        "Format: $format",
+        '',
+        "Nama: $fullName",
+        "Perusahaan / instansi: $company",
+        "Jabatan: $jobTitle",
+        "Email: $email",
+        "WhatsApp: $phone",
+        '',
+        'Catatan:',
+        $notes !== '' ? $notes : '-',
+        '',
+        'Konfirmasi jadwal ke pemohon lewat WhatsApp atau email.',
+    ];
+} else {
+    $projectType = cleanString($body['projectType'] ?? '', 60);
+    $budgetRange = cleanString($body['budgetRange'] ?? '', 60);
+    $location = cleanString($body['location'] ?? '', 120);
+    $timeline = cleanString($body['timeline'] ?? '', 60);
+    $message = cleanString($body['message'] ?? '', 4000);
+
+    if ($projectType === '') $errors['projectType'] = 'Project type is required.';
+    if (mb_strlen($message) < 10) $errors['message'] = 'Message must be at least 10 characters.';
+
+    $subject = 'New project inquiry from ' . $fullName;
+    $lines = [
+        "Full Name: $fullName",
+        "Company: $company",
+        "Email: $email",
+        "Phone: $phone",
+        "Project Type: $projectType",
+        "Budget Range: $budgetRange",
+        "Location: $location",
+        "Timeline: $timeline",
+        '',
+        'Message:',
+        $message,
+    ];
+}
 
 if (!empty($errors)) {
     jsonResponse(422, ['ok' => false, 'errors' => $errors]);
 }
 
 // --- compose + send (headers built from sanitized values only) ----------
-$subject = 'New project inquiry from ' . $fullName;
-$lines = [
-    "Full Name: $fullName",
-    "Company: $company",
-    "Email: $email",
-    "Phone: $phone",
-    "Project Type: $projectType",
-    "Budget Range: $budgetRange",
-    "Location: $location",
-    "Timeline: $timeline",
-    '',
-    'Message:',
-    $message,
-];
 $textBody = implode("\n", $lines);
 
 $headers = [];
@@ -123,6 +165,8 @@ $headers[] = 'Message-ID: <' . bin2hex(random_bytes(12)) . '@' . ($_SERVER['SERV
 // (whose SPF authorizes Hostinger) instead of the shared server hostname.
 // Falls back to plain mail() if the host rejects the -f parameter.
 $envelope = '-f' . $ENVELOPE_FROM;
+// Names and the demo subject can carry non-ASCII characters; headers must be MIME-encoded.
+$subject = mb_encode_mimeheader($subject, 'UTF-8', 'B');
 $sent = @mail($RECIPIENT_EMAIL, $subject, $textBody, implode("\r\n", $headers), $envelope);
 if (!$sent) {
     $sent = @mail($RECIPIENT_EMAIL, $subject, $textBody, implode("\r\n", $headers));

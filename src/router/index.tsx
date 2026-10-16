@@ -6,6 +6,8 @@ import Services from "@/pages/Services";
 import ServiceDetail from "@/pages/ServiceDetail";
 import Projects from "@/pages/Projects";
 import ProjectDetail from "@/pages/ProjectDetail";
+import Products from "@/pages/Products";
+import ProductDetail from "@/pages/ProductDetail";
 import Insights from "@/pages/Insights";
 import InsightDetail from "@/pages/InsightDetail";
 import Blog from "@/pages/Blog";
@@ -21,6 +23,8 @@ export default function AppRouter() {
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/services/:slug" element={<ServiceDetail />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:slug" element={<ProductDetail />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/insights" element={<Insights />} />
