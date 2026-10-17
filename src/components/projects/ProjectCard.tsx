@@ -11,45 +11,33 @@ const categoryKey: Record<Project["category"], string> = {
   integrated: "cat.integrated",
 };
 
-const categoryStyle: Record<Project["category"], string> = {
-  technology: "bg-aftech/10 text-aftech border-aftech/25",
-  me: "bg-aftech-ice text-aftech border-aftech/20",
-  integrated: "bg-halora-bronze/10 text-halora-bronze border-halora-bronze/30",
+/** Integrated work is the only category Halora takes part in, so it alone reads in bronze. */
+const categoryColor: Record<Project["category"], string> = {
+  technology: "text-aftech-strong",
+  me: "text-aftech-strong",
+  integrated: "text-halora-deep",
 };
 
-export default function ProjectCard({ project, size = "regular" }: { project: Project; size?: "large" | "regular" }) {
+export default function ProjectCard({ project }: { project: Project }) {
   const { t } = useLanguage();
+  const cover = isMotif(project.coverImage)
+    ? { motif: project.coverImage as Motif }
+    : { src: project.coverImage };
+
   return (
-    <motion.div variants={staggerItem} className={size === "large" ? "md:col-span-2" : ""}>
-      <Link to={`/projects/${project.slug}`} className="group block overflow-hidden rounded-pro border border-line bg-white shadow-pro transition-all hover:-translate-y-1 hover:shadow-card">
-        {isMotif(project.coverImage) ? (
-          <ImageReveal motif={project.coverImage as Motif} ratio={size === "large" ? "wide" : "project"} label={project.title} className="!rounded-none !ring-0 !shadow-none" />
-        ) : (
-          <ImageReveal src={project.coverImage} ratio={size === "large" ? "wide" : "project"} label={project.title} className="!rounded-none !ring-0 !shadow-none" />
-        )}
-        <div className="flex items-start justify-between gap-4 p-5">
-          <div className="flex flex-col gap-2">
-            <span className="flex flex-wrap items-center gap-2">
-              <span className={`w-fit rounded border px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] ${categoryStyle[project.category]}`}>
-                {t(categoryKey[project.category])}
-              </span>
-              {project.liveUrl && (
-                <span className="inline-flex w-fit items-center gap-1 rounded border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-emerald-700">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
-                  Live
-                </span>
-              )}
-            </span>
-            <h3 className="font-display font-bold text-lg md:text-xl leading-snug group-hover:text-aftech transition-colors">
-              {project.title}
-            </h3>
-            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
-              {[project.location, project.year].filter(Boolean).join(" · ")}
-            </p>
-          </div>
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pro border border-line text-muted transition-all group-hover:border-aftech group-hover:bg-aftech group-hover:text-white">
-            →
-          </span>
+    <motion.div variants={staggerItem}>
+      <Link to={`/projects/${project.slug}`} className="group flex flex-col gap-5">
+        <ImageReveal {...cover} ratio="project" alt={project.title} />
+        <div className="flex flex-col gap-1.5">
+          <p className="flex flex-wrap gap-x-4 text-sm font-semibold">
+            <span className={categoryColor[project.category]}>{t(categoryKey[project.category])}</span>
+            {/* the platform is online and can be opened from the project page */}
+            {project.liveUrl && <span className="text-emerald-700">{t("prj.live")}</span>}
+          </p>
+          <h3 className="font-display text-xl font-bold leading-snug text-ink transition-colors group-hover:text-aftech-strong md:text-2xl">
+            {project.title}
+          </h3>
+          <p className="text-sm text-muted">{[project.location, project.year].filter(Boolean).join(", ")}</p>
         </div>
       </Link>
     </motion.div>

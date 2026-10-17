@@ -14,11 +14,17 @@ import haloraBg from "@/assets/images/halora-bg.jpg";
 
 const haloraTagKeys = ["terms.civil", "terms.warehouse", "terms.fitout", "terms.furniture"];
 
-/** A photo that wipes in once; the card around it carries the company, so the photo carries no label. */
+/**
+ * A photo that wipes in once; the card around it carries the company, so the
+ * photo carries no label. The frame is what gets watched for visibility and
+ * the image inside it is what gets clipped: a target clipped to zero height
+ * never reads as in view on narrow screens, so the wipe would not start.
+ */
 function Photo({ src, alt }: { src: string; alt: string }) {
   return (
-    <motion.div variants={clipReveal} initial="hidden" whileInView="visible" viewport={viewportOnce} className="aspect-[4/3] overflow-hidden">
-      <img
+    <motion.div initial="hidden" whileInView="visible" viewport={viewportOnce} className="aspect-[4/3] overflow-hidden">
+      <motion.img
+        variants={clipReveal}
         src={src}
         alt={alt}
         loading="lazy"

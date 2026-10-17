@@ -3,6 +3,7 @@ import PageHero from "@/components/ui/PageHero";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
+import Button from "@/components/ui/Button";
 import ServiceGrid from "@/components/services/ServiceGrid";
 import CtaSection from "@/components/home/CtaSection";
 import { services } from "@/data/services";
@@ -25,21 +26,17 @@ export default function Services() {
       />
       <ServiceGrid services={localizeServices(services, t)} />
 
-      <Section tone="tint">
-        <Container className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+      <Section tone="halora" className="border-t border-halora-bronze/20">
+        <Container className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <SectionHeading
             eyebrow={t("svc.halora.eyebrow")}
             title={t("svc.halora.title")}
             description={t("svc.halora.desc")}
+            brand="halora"
           />
-          <a
-            href={HALORA_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 inline-flex items-center gap-2 rounded-full bg-deep-navy text-white px-6 py-3 text-sm font-semibold hover:bg-primary-navy transition-colors"
-          >
+          <Button href={HALORA_URL} variant="halora" className="shrink-0">
             {t("svc.halora.visit")}
-          </a>
+          </Button>
         </Container>
       </Section>
 

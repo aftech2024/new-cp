@@ -1,127 +1,42 @@
 import { motion } from "framer-motion";
-import { Plane, Cog, Map, Boxes, Mountain, FileBarChart } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import LinkArrow from "@/components/ui/LinkArrow";
 import { staggerContainer, staggerItem, viewportOnce } from "@/lib/motion";
 import { useLanguage } from "@/i18n/LanguageContext";
-import droneImage from "@/assets/images/drone-photogrammetry.jpg";
-
-const pipelineKeys = ["photo.pipe.0", "photo.pipe.1", "photo.pipe.2", "photo.pipe.3", "photo.pipe.4", "photo.pipe.5"];
-const pipelineCodes = ["P.01", "P.02", "P.03", "P.04", "P.05", "P.06"];
-const pipelineIcons = [Plane, Cog, Boxes, Map, Mountain, FileBarChart];
-
-interface Props {
-  /**
-   * "lead" opens with its own heading and hero image — for a page that has not
-   * introduced photogrammetry yet. "embedded" drops both, for the project
-   * detail page whose PageHero already carries the title and description.
-   */
-  variant?: "lead" | "embedded";
-  /** Optional live platform URL — rendered as a prominent external CTA when present. */
-  liveUrl?: string;
-}
 
 /**
- * Drone photogrammetry processing pipeline, from flight to site intelligence
- * the project team can act on.
+ * What a photogrammetry flight hands the project team. Sits on the
+ * photogrammetry project page under the scope list, so it names the
+ * deliverables rather than repeating the processing steps.
  */
-export default function PhotogrammetryShowcase({ variant = "lead", liveUrl }: Props) {
+export default function PhotogrammetryShowcase() {
   const { t } = useLanguage();
-  const pipeline = pipelineKeys.map((key, i) => ({ icon: pipelineIcons[i], code: pipelineCodes[i], label: t(key) }));
   const outputs = [0, 1, 2, 3].map((i) => ({ title: t(`photo.out.${i}.t`), desc: t(`photo.out.${i}.d`) }));
   return (
-    <Section tone="dark" className="overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 blueprint-dark opacity-60" aria-hidden="true" />
-      <Container className="relative flex flex-col gap-12">
-        {variant === "lead" && (
-          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
-            <SectionHeading
-              index="F.01"
-              eyebrow={t("photo.eyebrow")}
-              title={t("photo.title")}
-              description={t("photo.desc")}
-              tone="dark"
-              brand="aftech"
-            />
-            <motion.div
-              variants={staggerItem}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportOnce}
-              className="overflow-hidden rounded-pro border border-white/12 shadow-card"
-            >
-              <img
-                src={droneImage}
-                alt={t("photo.imgAlt")}
-                className="aspect-[16/10] w-full object-cover"
-                loading="lazy"
-              />
-            </motion.div>
-          </div>
-        )}
+    <Section tone="dark">
+      <Container className="flex flex-col gap-12">
+        <SectionHeading eyebrow={t("photo.eyebrow")} title={t("photo.title")} tone="dark" />
 
-        {/* processing pipeline */}
-        <motion.ol
+        <motion.ul
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="grid grid-cols-2 gap-px overflow-hidden rounded-pro border border-white/12 bg-white/10 sm:grid-cols-3 lg:grid-cols-6"
+          className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4"
         >
-          {pipeline.map((step) => (
-            <motion.li
-              key={step.code}
-              variants={staggerItem}
-              className="flex flex-col gap-2.5 bg-deep-navy/95 p-4"
-            >
-              <step.icon className="h-4 w-4 text-aftech-bright" />
-              <span className="spec-label !text-[10px] text-white/35">{step.code}</span>
-              <span className="text-sm font-semibold leading-snug text-white">{step.label}</span>
+          {outputs.map((o) => (
+            <motion.li key={o.title} variants={staggerItem} className="flex flex-col gap-2 border-t border-white/20 pt-5">
+              <h3 className="font-semibold text-white">{o.title}</h3>
+              <p className="text-sm leading-relaxed text-white/65">{o.desc}</p>
             </motion.li>
           ))}
-        </motion.ol>
+        </motion.ul>
 
-        {/* deliverables */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
-        >
-          {outputs.map((o, i) => (
-            <motion.div
-              key={o.title}
-              variants={staggerItem}
-              className="flex flex-col gap-2 rounded-pro border border-white/12 bg-white/[0.04] p-5"
-            >
-              <span className="font-mono text-[11px] font-bold text-aftech-bright">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="font-semibold text-white">{o.title}</h3>
-              <p className="text-sm leading-relaxed text-white/55">{o.desc}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
-          {liveUrl && (
-            <a
-              href={liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-pro bg-white px-6 py-3 font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-deep-navy transition-all duration-300 hover:bg-aftech-bright"
-            >
-              {t("pd.liveDemo")}
-              <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
-            </a>
-          )}
-          <LinkArrow to="/contact" className="text-white">
-            {t("photo.cta")}
-          </LinkArrow>
-        </div>
+        <LinkArrow to="/contact" className="w-fit text-white">
+          {t("photo.cta")}
+        </LinkArrow>
       </Container>
     </Section>
   );

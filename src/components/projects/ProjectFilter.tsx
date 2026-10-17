@@ -13,23 +13,22 @@ interface ProjectFilterProps {
   onChange: (value: Project["category"] | "all") => void;
 }
 
+/** Category tabs: the active one is underlined, the way the main navigation marks the current page. */
 export default function ProjectFilter({ active, onChange }: ProjectFilterProps) {
   const { t } = useLanguage();
   return (
-    <div className="flex flex-wrap gap-2" role="group" aria-label="Filter projects by category">
+    <div className="flex flex-wrap gap-x-7 gap-y-2 border-b border-line" role="group" aria-label={t("prj.filter.label")}>
       {filterKeys.map((f) => (
         <button
           key={f.value}
           type="button"
           onClick={() => onChange(f.value)}
           aria-pressed={active === f.value}
-          className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-300 ease-premium ${
-            active === f.value
-              ? "bg-deep-navy text-white"
-              : "bg-white text-ink border border-line hover:border-aftech-teal"
+          className={`-mb-px border-b-2 pb-3 text-sm font-semibold transition-colors ${
+            active === f.value ? "border-aftech-strong text-ink" : "border-transparent text-muted hover:text-ink"
           }`}
         >
-            {t(f.key)}
+          {t(f.key)}
         </button>
       ))}
     </div>

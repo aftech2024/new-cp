@@ -249,7 +249,7 @@ export default function ContactForm() {
         type="submit"
         disabled={status === "submitting"}
         withArrow={false}
-        className="self-start px-10 py-4 text-sm shadow-[0_16px_32px_-12px_rgba(20,121,209,0.7)]"
+        className="self-start px-10 py-4 text-sm"
       >
         {status === "submitting" ? (
           <>

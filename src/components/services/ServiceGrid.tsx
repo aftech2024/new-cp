@@ -5,7 +5,7 @@ import ServiceFeatureCard from "./ServiceFeatureCard";
 import { staggerContainer, viewportOnce } from "@/lib/motion";
 import type { Service } from "@/types";
 
-const bandTone: Array<"bg-off-white" | "bg-teal-tint"> = ["bg-off-white", "bg-teal-tint"];
+const bandTone = ["bg-off-white", "bg-aftech-ice"];
 
 export default function ServiceGrid({ services }: { services: Service[] }) {
   const featured = services.filter((s) => s.videoUrl);
@@ -14,11 +14,11 @@ export default function ServiceGrid({ services }: { services: Service[] }) {
   return (
     <div className="flex flex-col">
       {featured.map((service, i) => (
-        <div key={service.slug} className={`py-8 md:py-10 ${bandTone[i % bandTone.length]}`}>
+        <section key={service.slug} className={`py-20 md:py-24 ${bandTone[i % bandTone.length]}`}>
           <Container>
-            <ServiceFeatureCard service={service} />
+            <ServiceFeatureCard service={service} flip={i % 2 === 1} />
           </Container>
-        </div>
+        </section>
       ))}
 
       {rest.length > 0 && (

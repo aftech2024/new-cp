@@ -27,6 +27,7 @@ export default function Projects() {
       <PageHero
         eyebrow={t("prj.hero.eyebrow")}
         title={t("prj.hero.title")}
+        description={t("prj.hero.desc")}
         breadcrumb={[{ label: t("com.home"), to: "/" }, { label: t("com.projects") }]}
         backgroundImage={heroBg}
       />

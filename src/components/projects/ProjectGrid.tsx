@@ -10,9 +10,8 @@ export default function ProjectGrid({ projects }: { projects: Project[] }) {
     return <p className="text-muted">{t("prj.empty")}</p>;
   }
 
-  // Remount the stagger container whenever the list changes so dynamically
-  // added cards (load more / filter) replay the animation instead of
-  // staying stuck in the `hidden` variant (opacity 0 → looks "hilang").
+  // Remount the stagger container whenever the list changes so cards added by
+  // a filter replay the animation instead of staying stuck at opacity 0.
   const gridKey = projects.map((p) => p.id).join("-");
 
   return (
@@ -22,10 +21,10 @@ export default function ProjectGrid({ projects }: { projects: Project[] }) {
       initial="hidden"
       whileInView="visible"
       viewport={viewportOnce}
-      className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-14"
+      className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2"
     >
-      {projects.map((project, i) => (
-        <ProjectCard key={project.id} project={project} size={i % 5 === 0 ? "large" : "regular"} />
+      {projects.map((project) => (
+        <ProjectCard key={project.id} project={project} />
       ))}
     </motion.div>
   );

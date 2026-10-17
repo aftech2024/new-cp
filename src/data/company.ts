@@ -24,12 +24,12 @@ export const WHATSAPP_URL = `https://wa.me/${company.whatsapp.replace(/\D/g, "")
 export const locations = [
   {
     name: "Aftech Daya Solusindo",
-    tag: "Technology · Engineering",
+    tag: "Technology and engineering",
     address: "Jl. Lingkar Timur No.23, Kuwasen, Karangkandri, Kec. Kesugihan, Kabupaten Cilacap, Jawa Tengah 53274",
   },
   {
     name: "Halora Galona Adikara",
-    tag: "Civil · Interior",
+    tag: "Civil and interior",
     address: "Jl. H. Adam Malik, Ruko 5Delapan, RT.004/RW.001, Kreo Selatan, Kec. Larangan, Kota Tangerang, Banten 15156",
   },
 ];

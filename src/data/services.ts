@@ -12,7 +12,7 @@ export const services: Service[] = [
     image: technologyPhoto,
     imageAlt: "Overhead services and cable containment above a data hall rack row",
     intro:
-      "We design and deliver digital solutions that help organizations operate smarter, connect better and scale with confidence — from software to infrastructure to cybersecurity. Drone photogrammetry is a flagship product: we turn aerial survey data into terrain models and volume reports project teams can act on the same day.",
+      "We design and deliver digital solutions that help organizations operate smarter, connect better and scale with confidence, from software to infrastructure to cybersecurity. Drone photogrammetry is a flagship product: we turn aerial survey data into terrain models and volume reports project teams can act on the same day.",
     capabilities: [
       "Drone Photogrammetry",
       "Software Development",
@@ -35,17 +35,17 @@ export const services: Service[] = [
       {
         question: "Can Aftech support an existing IT infrastructure?",
         answer:
-          "Yes — we work with existing environments as well as greenfield builds, covering network, cloud, and security.",
+          "Yes. We work with existing environments as well as greenfield builds, covering network, cloud, and security.",
       },
       {
         question: "What is drone photogrammetry and when is it useful?",
         answer:
-          "It's the process of stitching overlapping drone photos into an accurate 3D model of a site — an orthomosaic map, elevation model, or point cloud. It's most useful for earthworks and construction sites that need frequent, low-cost volume and progress data without waiting on a ground survey crew.",
+          "It's the process of stitching overlapping drone photos into an accurate 3D model of a site: an orthomosaic map, elevation model, or point cloud. It's most useful for earthworks and construction sites that need frequent, low-cost volume and progress data without waiting on a ground survey crew.",
       },
       {
         question: "Does Aftech work on IoT?",
         answer:
-          "Yes — IoT is part of our system integration work: sensors and field devices, connectivity, the data platform, real-time dashboards and alerts, connected to the systems you already run. The AI Autonomous Farm program for Kementerian Pertanian runs IoT sensing across 24 farms.",
+          "Yes. IoT is part of our system integration work: sensors and field devices, connectivity, the data platform, real-time dashboards and alerts, connected to the systems you already run. The AI Autonomous Farm program for Kementerian Pertanian runs IoT sensing across 24 farms.",
       },
     ],
     highlights: [
@@ -61,7 +61,7 @@ export const services: Service[] = [
     slug: "mechanical-electrical",
     number: "02",
     title: "Mechanical & Electrical",
-    shortStatement: "Building systems engineered for reliability — mechanical, electrical, HVAC and fire protection.",
+    shortStatement: "Building systems engineered for reliability: mechanical, electrical, HVAC and fire protection.",
     image: mePhoto,
     imageAlt: "Electrical distribution panel with MCBs and busbars installed by the Aftech ME team",
     intro:
@@ -94,11 +94,11 @@ export const services: Service[] = [
     slug: "integrated-solutions",
     number: "03",
     title: "Integrated Solutions",
-    shortStatement: "One program, two companies — technology and physical infrastructure working together.",
+    shortStatement: "One program, two companies: technology and physical infrastructure working together.",
     image: integratedPhoto,
-    imageAlt: "AI Autonomous Farm command center — integrated smart-farming program with Kementerian Pertanian",
+    imageAlt: "AI Autonomous Farm command center, an integrated smart-farming program with Kementerian Pertanian",
     intro:
-      "For projects that span digital and physical infrastructure, Aftech coordinates technology and engineering directly, and partners with our second company Halora for civil construction and interior work — one accountable program.",
+      "For projects that span digital and physical infrastructure, Aftech coordinates technology and engineering directly, and partners with our second company Halora for civil construction and interior work, as one accountable program.",
     capabilities: [
       "Smart Building",
       "Digital Construction",
@@ -110,7 +110,7 @@ export const services: Service[] = [
       {
         question: "What kind of projects need an integrated solution?",
         answer:
-          "Projects like smart buildings or new facilities where IT, network, security, electrical and construction all need to work together from day one — coordinated across Aftech and Halora.",
+          "Projects like smart buildings or new facilities where IT, network, security, electrical and construction all need to work together from day one, coordinated across Aftech and Halora.",
       },
     ],
     highlights: [

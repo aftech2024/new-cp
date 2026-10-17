@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { ChevronDown, Rss } from "lucide-react";
+import { Rss } from "lucide-react";
 import Seo from "@/components/Seo";
 import PageHero from "@/components/ui/PageHero";
 import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import EditionCard from "@/components/blog/EditionCard";
+import Button from "@/components/ui/Button";
 import CtaSection from "@/components/home/CtaSection";
 import { BLOG_CATEGORIES, type BlogCategory } from "@/data/blog";
 import { useBlogIndex } from "@/hooks/useBlog";
@@ -35,7 +36,7 @@ export default function Blog() {
       <Section>
         <Container className="flex flex-col gap-8">
           {present.length > 1 && (
-            <div role="group" aria-label={t("blog.filter")} className="flex flex-wrap gap-2">
+            <div role="group" aria-label={t("blog.filter")} className="flex flex-wrap gap-x-7 gap-y-2 border-b border-line">
               {(["all", ...present] as const).map((c) => (
                 <button
                   key={c}
@@ -45,10 +46,8 @@ export default function Blog() {
                     setCategory(c);
                     setVisible(PAGE_SIZE);
                   }}
-                  className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
-                    category === c
-                      ? "border-deep-navy bg-deep-navy text-white"
-                      : "border-line bg-white text-ink hover:border-deep-navy"
+                  className={`-mb-px border-b-2 pb-3 text-sm font-semibold transition-colors ${
+                    category === c ? "border-aftech-strong text-ink" : "border-transparent text-muted hover:text-ink"
                   }`}
                 >
                   {c === "all" ? t("blog.cat.all") : t(`blog.cat.${c}`)}
@@ -64,7 +63,8 @@ export default function Blog() {
           )}
 
           {shown.length > 0 && (
-            <div>
+            // the category tabs already draw the rule above the first edition
+            <div className={present.length > 1 ? "[&>article:first-child]:border-t-0 [&>article:first-child]:pt-0" : ""}>
               {shown.map((edition) => (
                 <EditionCard key={edition.slug} edition={edition} />
               ))}
@@ -73,21 +73,16 @@ export default function Blog() {
 
           <div className="flex flex-wrap items-center justify-between gap-4">
             {filtered.length > shown.length ? (
-              <button
-                type="button"
-                onClick={() => setVisible((v) => v + PAGE_SIZE)}
-                className="group inline-flex items-center gap-2 rounded-full border border-deep-navy bg-deep-navy px-6 py-3 text-sm font-semibold text-white shadow-pro transition-all hover:-translate-y-0.5 hover:shadow-card"
-              >
+              <Button variant="secondary" onClick={() => setVisible((v) => v + PAGE_SIZE)}>
                 {t("com.loadMore")} ({filtered.length - shown.length} {t("com.more")})
-                <ChevronDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5" />
-              </button>
+              </Button>
             ) : (
               <span />
             )}
             {editions.length > 0 && (
               <a
                 href="/blog/rss.xml"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-aftech-teal"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-aftech-strong"
               >
                 <Rss className="h-4 w-4" aria-hidden="true" />
                 {t("blog.rss")}

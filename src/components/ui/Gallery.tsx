@@ -11,7 +11,7 @@ interface GalleryItem {
 }
 
 function Tile({ item, title, index, className }: { item: GalleryItem; title: string; index: number; className: string }) {
-  const label = item.caption ?? `${title} — ${index + 1}`;
+  const label = item.caption ?? `${title}, ${index + 1}`;
 
   return (
     <motion.figure variants={staggerItem} className={`group relative overflow-hidden rounded-sm ${className}`}>
@@ -80,7 +80,7 @@ export default function Gallery({ items, title }: { items: GalleryItem[]; title:
         <button
           type="button"
           onClick={() => setExpanded((v) => !v)}
-          className="group inline-flex items-center gap-2 self-start rounded-full border border-line bg-white px-5 py-2.5 text-sm font-semibold hover:border-aftech-teal transition-colors"
+          className="inline-flex items-center gap-2 self-start rounded-pro border border-line bg-white px-5 py-2.5 text-sm font-semibold transition-colors hover:border-aftech-strong"
         >
           {expanded ? (
             <>

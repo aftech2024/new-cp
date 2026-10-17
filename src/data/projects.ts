@@ -31,7 +31,6 @@ import dcRackRow from "@/assets/images/datacenter/rack-row.jpg";
 import dcOverheadServices from "@/assets/images/datacenter/overhead-services.jpg";
 import dcCabinetStaging from "@/assets/images/datacenter/cabinet-staging.jpg";
 import dcCabinetFitout from "@/assets/images/datacenter/cabinet-fitout.jpg";
-import dronePhotogrammetry from "@/assets/images/drone-photogrammetry.jpg";
 import photoOrthomosaic from "@/assets/images/photogrammetry/orthomosaic.jpg";
 import photoAerialParking from "@/assets/images/photogrammetry/aerial-parking.jpg";
 import photoAerialField from "@/assets/images/photogrammetry/aerial-field.jpg";
@@ -101,8 +100,8 @@ const FEWS_CAPTIONS: Record<string, string> = {
   "fews-thermal-01.jpg": "Thermal camera mounting",
   "fews-thermal-02.jpg": "Camera housing installation",
   "fews-thermal-03.jpg": "Mounting works at height",
-  "fews-thermal-04.jpg": "Coal conveyor — monitored area",
-  "fews-thermal-05.jpg": "Conveyor gallery — monitored area",
+  "fews-thermal-04.jpg": "Coal conveyor: monitored area",
+  "fews-thermal-05.jpg": "Conveyor gallery: monitored area",
   "fews-unit-01.jpg": "Camera unit on steel structure",
   "fews-unit-02.jpg": "Night site work",
   "fews-unit-03.jpg": "Equipment housing check",
@@ -115,7 +114,7 @@ const FEWS_CAPTIONS: Record<string, string> = {
   "fews-cable-06.jpg": "Pole setting works",
   "fews-cable-07.jpg": "Indoor crew works",
   "fews-cable-08.jpg": "Conduit detail",
-  "fews-height-01.jpg": "At-height works — Adipala",
+  "fews-height-01.jpg": "At-height works: Adipala",
   "fews-height-02.jpg": "Site briefing",
   "fews-height-03.jpg": "Site mobilization",
   "fews-height-04.jpg": "Cable coiling",
@@ -130,7 +129,7 @@ const FEWS_CAPTIONS: Record<string, string> = {
 
 const fewsGallery = FEWS_ORDER.filter((f) => fewsByFile[f]).map((f) => ({
   image: fewsByFile[f],
-  caption: FEWS_CAPTIONS[f] ?? "Field documentation — Adipala",
+  caption: FEWS_CAPTIONS[f] ?? "Field documentation: Adipala",
 }));
 
 /**
@@ -162,33 +161,33 @@ const AI_FARM_ORDER = [
 ];
 
 const AI_FARM_CAPTIONS: Record<string, string> = {
-  "ai-farm-01.jpg": "Farm Command Center — zone-level intelligence across Indonesia",
-  "ai-farm-02.jpg": "Farms registry — 24 connected farms across Indonesia",
-  "ai-farm-03.jpg": "AI Farm Brain — health scoring & risk classification pipeline",
-  "ai-farm-04.jpg": "Prescriptions — treatments awaiting validation & execution",
-  "ai-farm-05.jpg": "Mission M-021 — drone survey flight path, Jember",
-  "ai-farm-06.jpg": "Analytics — input efficiency, early detection & coverage",
+  "ai-farm-01.jpg": "Farm Command Center: zone-level intelligence across Indonesia",
+  "ai-farm-02.jpg": "Farms registry: 24 connected farms across Indonesia",
+  "ai-farm-03.jpg": "AI Farm Brain: health scoring & risk classification pipeline",
+  "ai-farm-04.jpg": "Prescriptions: treatments awaiting validation & execution",
+  "ai-farm-05.jpg": "Mission M-021: drone survey flight path, Jember",
+  "ai-farm-06.jpg": "Analytics: input efficiency, early detection & coverage",
 };
 
 const EPTMS_ORDER = ["eptms-01.jpg", "eptms-02.jpg", "eptms-03.jpg", "eptms-04.jpg", "eptms-05.jpg"];
 
 const EPTMS_CAPTIONS: Record<string, string> = {
-  "eptms-01.jpg": "Executive Dashboard — portfolio command view",
-  "eptms-02.jpg": "Portfolio & Projects Hub — PLN Indonesia Power & Kementerian Pertahanan",
-  "eptms-03.jpg": "Timeline & Gantt — Photogrammetry for Defense Platform",
-  "eptms-04.jpg": "Planning & WBS — dynamic bobot 100%",
-  "eptms-05.jpg": "Analytics & Kurva S — plan vs actual",
+  "eptms-01.jpg": "Executive Dashboard: portfolio command view",
+  "eptms-02.jpg": "Portfolio & Projects Hub: PLN Indonesia Power & Kementerian Pertahanan",
+  "eptms-03.jpg": "Timeline & Gantt: Photogrammetry for Defense Platform",
+  "eptms-04.jpg": "Planning & WBS: dynamic bobot 100%",
+  "eptms-05.jpg": "Analytics & Kurva S: plan vs actual",
 };
 
 const MK_ORDER = ["mk-01.jpg", "mk-02.jpg", "mk-03.jpg", "mk-04.jpg", "mk-05.jpg", "mk-06.jpg"];
 
 const MK_CAPTIONS: Record<string, string> = {
-  "mk-01.jpg": "MK Login — Management Construction Project Controls",
-  "mk-02.jpg": "Portfolio Dashboard — contract, RAP & forecast summary",
-  "mk-03.jpg": "Cost Dashboard — Gedung Perkantoran BSD, RAP vs Earned Value",
-  "mk-04.jpg": "Bill of Quantity — 219 item BOQ baseline",
-  "mk-05.jpg": "WBS & Cost Code — 27 WBS, 100% weight",
-  "mk-06.jpg": "RAP — Rencana Anggaran Pelaksanaan approval",
+  "mk-01.jpg": "MK Login: Management Construction Project Controls",
+  "mk-02.jpg": "Portfolio Dashboard: contract, RAP & forecast summary",
+  "mk-03.jpg": "Cost Dashboard: Gedung Perkantoran BSD, RAP vs Earned Value",
+  "mk-04.jpg": "Bill of Quantity: 219 item BOQ baseline",
+  "mk-05.jpg": "WBS & Cost Code: 27 WBS, 100% weight",
+  "mk-06.jpg": "RAP: Rencana Anggaran Pelaksanaan approval",
 };
 
 const aiFarmGallery = AI_FARM_ORDER.filter((f) => integratedByFile[f]).map((f) => ({
@@ -224,8 +223,8 @@ export const projects: Project[] = [
     scope: ["Thermal Camera Installation", "Fire Detection System", "Network Cabling", "System Integration"],
     coverImage: projectEnterpriseIt,
     gallery: [
-      { image: projectEnterpriseIt, caption: "FEWS Camera — Coal Storage Area" },
-      { image: fewsPoleInstallation, caption: "Camera pole installation — coal yard" },
+      { image: projectEnterpriseIt, caption: "FEWS Camera: Coal Storage Area" },
+      { image: fewsPoleInstallation, caption: "Camera pole installation: coal yard" },
       ...fewsGallery,
     ],
     featured: true,
@@ -240,26 +239,26 @@ export const projects: Project[] = [
     status: "completed",
     description: "Installation of CCTV surveillance and access door control systems across a residential district.",
     scope: ["CCTV Installation", "Access Control", "Network Cabling", "System Integration"],
-    coverImage: fieldNvrWall,
+    coverImage: meikartaMonitoringWall,
     gallery: [
-      { image: fieldNvrWall, caption: "NVR monitoring wall — lobby & floors" },
+      { image: fieldNvrWall, caption: "NVR monitoring wall: lobby & floors" },
       { image: meikartaRooftopInstall, caption: "Field Installation" },
       { image: fieldRooftop01, caption: "Rooftop fire alarm & camera point" },
       { image: fieldRooftop02, caption: "Rooftop installation point" },
       { image: fieldRooftop03, caption: "Rooftop installation point" },
       { image: fieldRooftop04, caption: "Rooftop installation point" },
       { image: fieldRooftop05, caption: "Rooftop installation point" },
-      { image: fieldDome02, caption: "Dome camera — Tower 56009" },
-      { image: fieldDome01, caption: "Dome camera installation — tower" },
-      { image: fieldDome03, caption: "Dome camera installation — tower" },
-      { image: fieldHikMonitor, caption: "Hikvision NVR monitor — corridor coverage" },
+      { image: fieldDome02, caption: "Dome camera: Tower 56009" },
+      { image: fieldDome01, caption: "Dome camera installation: tower" },
+      { image: fieldDome03, caption: "Dome camera installation: tower" },
+      { image: fieldHikMonitor, caption: "Hikvision NVR monitor: corridor coverage" },
       { image: meikartaControlRoomWide, caption: "CCTV Control Room" },
       { image: meikartaMonitoringWall, caption: "Central Monitoring Display" },
       { image: fieldCabinet01, caption: "Cabinet wiring & camera testing" },
       { image: fieldCabinet02, caption: "Field cabinet & testing" },
       { image: fieldNetCabinet01, caption: "Network cabinet termination" },
       { image: fieldNetCabinet02, caption: "Switch & UTP termination" },
-      { image: fieldSiteTeam, caption: "Site team — Meikarta" },
+      { image: fieldSiteTeam, caption: "Site team: Meikarta" },
       { image: meikartaFirePanelSkyline, caption: "Fire & Access Panel" },
       { image: meikartaAccessControlPanel, caption: "Access Control Panel" },
       { image: meikartaMagneticDoorLock, caption: "Magnetic Door Lock" },
@@ -288,21 +287,20 @@ export const projects: Project[] = [
       "DSM / DTM",
       "Volume Report",
     ],
-    coverImage: dronePhotogrammetry,
+    coverImage: photoOrthomosaic,
     liveUrl: "https://kemhan.aftech.co.id/",
     gallery: [
-      { image: dronePhotogrammetry, caption: "Aerial capture processed into a 3D terrain model" },
-      { image: photoOrthomosaic, caption: "Orthomosaic — full-site aerial map" },
-      { image: photoAerialParking, caption: "Parking & access — high-resolution detail" },
-      { image: photoAerialField, caption: "Field & forest canopy — survey detail" },
-      { image: photoAerialTrailPond, caption: "Trail & pond — terrain detail" },
-      { image: photoAerialPondPlayground, caption: "Pond & recreation area — aerial detail" },
-      { image: photoAerialForestRoad, caption: "Forest road — oblique aerial view" },
-      { image: photoAerialCanopyRoad, caption: "Canopy & access road — survey frame" },
-      { image: photoModel3dRoad, caption: "3D model — road corridor reconstruction" },
-      { image: photoAerialResPool, caption: "Residential rooftops & pool — nadir detail" },
-      { image: photoAerialResTennis, caption: "Housing & sports courts — aerial survey" },
-      { image: photoAerialResBlock, caption: "Residential block — high-resolution mapping" },
+      { image: photoOrthomosaic, caption: "Orthomosaic: full-site aerial map" },
+      { image: photoAerialParking, caption: "Parking & access: high-resolution detail" },
+      { image: photoAerialField, caption: "Field & forest canopy: survey detail" },
+      { image: photoAerialTrailPond, caption: "Trail & pond: terrain detail" },
+      { image: photoAerialPondPlayground, caption: "Pond & recreation area: aerial detail" },
+      { image: photoAerialForestRoad, caption: "Forest road: oblique aerial view" },
+      { image: photoAerialCanopyRoad, caption: "Canopy & access road: survey frame" },
+      { image: photoModel3dRoad, caption: "3D model: road corridor reconstruction" },
+      { image: photoAerialResPool, caption: "Residential rooftops & pool: nadir detail" },
+      { image: photoAerialResTennis, caption: "Housing & sports courts: aerial survey" },
+      { image: photoAerialResBlock, caption: "Residential block: high-resolution mapping" },
     ],
     featured: false,
   },
@@ -315,7 +313,7 @@ export const projects: Project[] = [
     location: "Indonesia · 24 Farms",
     status: "ongoing",
     description:
-      "Integrated smart-farming platform combining IoT sensing, drone imagery, AI health scoring and drone mission execution — Farm Command Center, AI Farm Brain, prescriptions and verification in one program.",
+      "Integrated smart-farming platform combining IoT sensing, drone imagery, AI health scoring and drone mission execution: Farm Command Center, AI Farm Brain, prescriptions and verification in one program.",
     scope: ["IoT Sensing", "Drone Survey", "AI Analytics", "System Integration"],
     coverImage: integratedByFile["ai-farm-01.jpg"] ?? "",
     gallery: aiFarmGallery,
@@ -330,7 +328,7 @@ export const projects: Project[] = [
     location: "Indonesia",
     status: "ongoing",
     description:
-      "Enterprise portfolio command system — executive dashboard, project hub, timeline & Gantt, Planning & WBS with dynamic bobot, and automatic Kurva-S analytics from timeline to progress. Live at eptms.aftech.co.id.",
+      "Enterprise portfolio command system: executive dashboard, project hub, timeline & Gantt, Planning & WBS with dynamic bobot, and automatic Kurva-S analytics from timeline to progress. Live at eptms.aftech.co.id.",
     scope: ["Portfolio Dashboard", "Timeline & Gantt", "Planning & WBS", "Analytics & Kurva-S"],
     coverImage: integratedByFile["eptms-01.jpg"] ?? "",
     liveUrl: "https://eptms.aftech.co.id/",
@@ -346,7 +344,7 @@ export const projects: Project[] = [
     location: "BSD, Tangerang",
     status: "ongoing",
     description:
-      "Management-construction controls combining contract, BOQ, WBS & cost code, RAP, progress and actual cost into one golden thread — portfolio dashboard, cost dashboard, BOQ baseline and RAP approval. Live at mk.aftech.co.id.",
+      "Management-construction controls combining contract, BOQ, WBS & cost code, RAP, progress and actual cost into one golden thread: portfolio dashboard, cost dashboard, BOQ baseline and RAP approval. Live at mk.aftech.co.id.",
     scope: ["Contract & BOQ", "WBS & Cost Control", "RAP", "Progress & Cost Dashboard"],
     coverImage: integratedByFile["mk-02.jpg"] ?? "",
     liveUrl: "https://mk.aftech.co.id/",
@@ -362,7 +360,7 @@ export const projects: Project[] = [
     location: "Meikarta District 2",
     status: "completed",
     description:
-      "Mechanical and electrical installation works at Meikarta District 2 — distribution panels with MCB and busbar termination, cable tray installation, conduit and fire-resistant cable routing, network panel termination and lift control panels, executed room by room through commissioning.",
+      "Mechanical and electrical installation works at Meikarta District 2: distribution panels with MCB and busbar termination, cable tray installation, conduit and fire-resistant cable routing, network panel termination and lift control panels, executed room by room through commissioning.",
     scope: [
       "Electrical Panel Installation",
       "Cable Tray & Conduit Routing",
@@ -371,12 +369,12 @@ export const projects: Project[] = [
     ],
     coverImage: meDistributionPanel,
     gallery: [
-      { image: meDistributionPanel, caption: "Distribution panel — MCB and busbar termination" },
+      { image: meDistributionPanel, caption: "Distribution panel: MCB and busbar termination" },
       { image: mePanelTermination, caption: "Network panel termination at height" },
       { image: meConduitFireCable, caption: "Conduit and fire-resistant cable routing" },
       { image: meCableTrayInstall, caption: "Cable tray installation below fire pipe" },
-      { image: meLiftControlOpen, caption: "Lift control panel — network device fit-out" },
-      { image: meLiftControlClosed, caption: "Lift control panel — closed and secured" },
+      { image: meLiftControlOpen, caption: "Lift control panel: network device fit-out" },
+      { image: meLiftControlClosed, caption: "Lift control panel: closed and secured" },
     ],
     featured: true,
   },
@@ -392,10 +390,10 @@ export const projects: Project[] = [
     scope: ["Cloud", "Network", "System Integration"],
     coverImage: dcRackRow,
     gallery: [
-      { image: dcRackRow, caption: "Rack row — busway and cable containment overhead" },
+      { image: dcRackRow, caption: "Rack row: busway and cable containment overhead" },
       { image: dcOverheadServices, caption: "Overhead services above the rack rows" },
       { image: dcCabinetStaging, caption: "Cabinets staged for positioning" },
-      { image: dcCabinetFitout, caption: "Cabinet fit-out — rails and panels" },
+      { image: dcCabinetFitout, caption: "Cabinet fit-out: rails and panels" },
     ],
     featured: false,
   },

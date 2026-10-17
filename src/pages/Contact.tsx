@@ -28,15 +28,17 @@ export default function Contact() {
                   <MapPin className="h-5 w-5 text-aftech-teal shrink-0 mt-1" />
                   <div className="flex flex-col">
                     <span className="font-semibold">{loc.name}</span>
-                    <span className="text-xs uppercase tracking-wide text-muted">{loc.tag}</span>
-                    <span className="text-muted">{loc.address}</span>
+                    <span className="text-sm text-muted">{t(loc.tag.includes("Civil") ? "loc.tag.halora" : "loc.tag.aftech")}</span>
+                    <span className="mt-1 leading-relaxed text-ink/80">{loc.address}</span>
                   </div>
                 </div>
               ))}
             </div>
             <div className="flex items-start gap-4">
               <Mail className="h-5 w-5 text-aftech-teal shrink-0 mt-1" />
-              <span>{company.email}</span>
+              <a href={`mailto:${company.email}`} className="underline decoration-line underline-offset-4 transition-colors hover:text-aftech-strong">
+                {company.email}
+              </a>
             </div>
             <div className="flex items-start gap-4">
               <Phone className="h-5 w-5 text-aftech-teal shrink-0 mt-1" />

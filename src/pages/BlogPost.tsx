@@ -51,14 +51,14 @@ export default function BlogPost() {
               {edition.items.map((item, i) => (
                 <li key={item.source.url}>
                   <article className="flex flex-col gap-4 border-t border-line pt-8">
-                    <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em]">
-                      <span className="font-mono text-muted">{String(i + 1).padStart(2, "0")}</span>
-                      <span className="text-aftech-teal">{t(`blog.cat.${item.category}`)}</span>
+                    <div className="flex items-center gap-3 text-sm font-semibold">
+                      <span className="text-muted">{String(i + 1).padStart(2, "0")}</span>
+                      <span className="text-aftech-strong">{t(`blog.cat.${item.category}`)}</span>
                     </div>
                     <h2 className="font-display text-2xl font-bold leading-snug md:text-3xl">{item.headline}</h2>
                     <p className="text-lg leading-relaxed text-ink/90">{item.summary}</p>
-                    <div className="border-l-2 border-aftech-teal pl-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-aftech-teal">{t("blog.why")}</p>
+                    <div className="border-l-2 border-aftech-strong pl-4">
+                      <p className="text-sm font-semibold text-aftech-strong">{t("blog.why")}</p>
                       <p className="mt-1 leading-relaxed text-ink/90">{item.whyItMatters}</p>
                     </div>
                     <p className="text-sm text-muted">
@@ -67,12 +67,12 @@ export default function BlogPost() {
                         href={item.source.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-0.5 font-semibold text-ink underline decoration-line underline-offset-4 transition-colors hover:text-aftech-teal"
+                        className="inline-flex items-center gap-0.5 font-semibold text-ink underline decoration-line underline-offset-4 transition-colors hover:text-aftech-strong"
                       >
                         {item.source.name}
                         <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-                      </a>{" "}
-                      · {formatEditionDate(item.source.publishedAt.slice(0, 10), lang, false)}
+                      </a>
+                      , {formatEditionDate(item.source.publishedAt.slice(0, 10), lang, false)}
                     </p>
                   </article>
                 </li>
@@ -81,7 +81,7 @@ export default function BlogPost() {
 
             {edition.aftechNote && (
               <aside className="rounded-pro bg-aftech-ice p-6">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-aftech-teal">{t("blog.aftechNote")}</p>
+                <p className="text-sm font-semibold text-aftech-strong">{t("blog.aftechNote")}</p>
                 <p className="mt-2 leading-relaxed text-ink/90">{edition.aftechNote}</p>
               </aside>
             )}

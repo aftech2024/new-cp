@@ -34,18 +34,18 @@ export default function Footer() {
           <div className="flex items-center gap-4 py-5 md:pr-8">
             <AftechMark className="h-10 w-auto" />
             <div>
-              <p className="font-display text-sm font-extrabold tracking-[0.14em] text-white">AFTECH DAYA SOLUSINDO</p>
-              <p className="font-mono text-[10px] tracking-[0.2em] text-aftech-bright">{t("foot.techTag")}</p>
+              <p className="font-display text-base font-bold text-white">Aftech Daya Solusindo</p>
+              <p className="text-sm text-white/60">{t("foot.techTag")}</p>
             </div>
           </div>
           <a href={HALORA_URL} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 py-5 md:pl-8 md:border-l border-white/10">
             <HaloraMark className="h-10 w-10" />
             <div className="flex-1">
-              <p className="flex items-center gap-2 font-display text-sm font-extrabold tracking-[0.14em] text-white">
-                HALORA GALONA ADIKARA
+              <p className="flex items-center gap-2 font-display text-base font-bold text-white">
+                Halora Galona Adikara
                 <ArrowUpRight className="h-3.5 w-3.5 text-halora-bronze transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </p>
-              <p className="font-mono text-[10px] tracking-[0.2em] text-white/55">{t("foot.secondCo")}</p>
+              <p className="text-sm text-white/60">{t("foot.secondCo")}</p>
             </div>
           </a>
         </Container>
@@ -67,7 +67,7 @@ export default function Footer() {
                 <WhatsAppIcon className="h-4 w-4" />
               </span>
               <div className="flex flex-col leading-tight">
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">{t("foot.whatsapp")}</span>
+                <span className="text-xs text-white/50">{t("foot.whatsapp")}</span>
                 <span className="text-sm text-white">{company.whatsapp}</span>
               </div>
             </div>
@@ -76,7 +76,7 @@ export default function Footer() {
                 <Phone className="h-4 w-4" />
               </span>
               <div className="flex flex-col leading-tight">
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">{t("foot.office")}</span>
+                <span className="text-xs text-white/50">{t("foot.office")}</span>
                 <span className="text-sm text-white">{company.phone}</span>
               </div>
             </div>
@@ -85,7 +85,7 @@ export default function Footer() {
                 <Mail className="h-4 w-4" />
               </span>
               <div className="flex flex-col leading-tight">
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">{t("foot.email")}</span>
+                <span className="text-xs text-white/50">{t("foot.email")}</span>
                 <span className="text-sm text-white">{company.email}</span>
               </div>
             </div>
@@ -125,10 +125,7 @@ export default function Footer() {
 
         {/* explore */}
         <div className="flex flex-col gap-5">
-            <span className="flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-white">
-            <span className="h-1.5 w-1.5 rounded-full bg-aftech-bright" />
-            {t("foot.explore")}
-          </span>
+          <h2 className="text-sm font-semibold text-white">{t("foot.explore")}</h2>
           <nav aria-label="Footer explore" className="flex flex-col gap-3">
             {exploreKeys.map((link) => (
               <Link key={link.to} to={link.to} className="text-sm hover:text-white transition-colors w-fit">
@@ -140,10 +137,7 @@ export default function Footer() {
 
         {/* services */}
         <div className="flex flex-col gap-5">
-          <span className="flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-white">
-            <span className="h-1.5 w-1.5 rounded-full bg-aftech-bright" />
-            Aftech
-          </span>
+          <h2 className="text-sm font-semibold text-white">Aftech</h2>
           <nav aria-label="Footer services" className="flex flex-col gap-3">
             {serviceLinks.map((link) => (
               <Link key={link.to} to={link.to} className="text-sm hover:text-white transition-colors w-fit">
@@ -163,10 +157,7 @@ export default function Footer() {
 
         {/* offices */}
         <div className="flex flex-col gap-5">
-            <span className="flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-white">
-            <span className="h-1.5 w-1.5 rounded-full bg-halora-bronze" />
-            {t("foot.offices")}
-          </span>
+          <h2 className="text-sm font-semibold text-white">{t("foot.offices")}</h2>
           <div className="flex flex-col gap-5">
             {locations.map((loc) => (
               <div key={loc.name} className="flex flex-col gap-1.5 rounded-pro border border-white/10 bg-white/[0.03] p-4">
@@ -178,7 +169,7 @@ export default function Footer() {
                   )}
                   <span className="font-display text-[13px] font-bold text-white">{loc.name}</span>
                 </span>
-                <span className={`font-mono text-[10px] tracking-[0.18em] ${loc.tag.includes("Civil") ? "text-white/55" : "text-aftech-bright"}`}>{loc.tag.toUpperCase()}</span>
+                <span className="text-xs text-white/55">{t(loc.tag.includes("Civil") ? "loc.tag.halora" : "loc.tag.aftech")}</span>
                 <span className="text-[13px] text-white/60 leading-relaxed">{loc.address}</span>
               </div>
             ))}
@@ -191,10 +182,7 @@ export default function Footer() {
           <span>© {new Date().getFullYear()} {company.legalName}. {t("foot.rights")}</span>
           <span className="flex flex-wrap items-center gap-4">
             <LanguageToggle compact />
-            <span className="flex items-center gap-2 font-mono text-[10px] tracking-[0.18em]">
-              <span className="h-1.5 w-1.5 rounded-full bg-aftech-bright" />
-              {t("foot.group")}
-            </span>
+            <span>{t("foot.group")}</span>
           </span>
         </Container>
       </div>
