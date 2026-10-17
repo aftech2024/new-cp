@@ -39,16 +39,16 @@ function Logo({ logo }: { logo: PartnerLogo }) {
         if (w && h) setScale(1 / Math.sqrt(w / h));
       }}
       style={{ "--logo-s": scale } as CSSProperties}
-      className="h-[clamp(22px,calc(var(--logo-k)*var(--logo-s)),88px)] w-auto max-w-full object-contain opacity-80 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
+      className="h-[clamp(20px,calc(var(--logo-k)*var(--logo-s)),80px)] w-auto max-w-full object-contain"
     />
   );
 }
 
 /**
- * Client and partner logos in one row, a slide of four at a time. The row
- * moves on by itself, stops while a pointer or keyboard focus is on it, and
- * stays put for anyone who has asked for reduced motion; the arrows and the
- * slide markers move it by hand.
+ * Client and partner logos in one row, a slide of four at a time, in their
+ * own colours. The row moves on by itself, stops while a pointer or keyboard
+ * focus is on it, and stays put for anyone who has asked for reduced motion;
+ * the arrows on either side move it by hand.
  */
 export default function Clients() {
   const { t } = useLanguage();
@@ -72,48 +72,13 @@ export default function Clients() {
 
   const go = (to: number) => setSlide((to + count) % count);
 
+  const arrowClass =
+    "flex h-10 w-8 shrink-0 items-center justify-center text-ink/25 transition-colors hover:text-ink/70 sm:w-10";
+
   return (
     <Section tone="light" className="border-t border-line">
-      <Container className="flex flex-col gap-12">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <SectionHeading eyebrow={t("cli.eyebrow")} title={t("cli.title")} brand="aftech" />
-          {count > 1 && (
-            <div className="flex items-center gap-5">
-              <div className="flex items-center gap-2">
-                {slides.map((_, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    onClick={() => go(i)}
-                    aria-label={`${t("cli.slide")} ${i + 1} / ${count}`}
-                    aria-current={i === current}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      i === current ? "w-6 bg-ink" : "w-1.5 bg-ink/25 hover:bg-ink/50"
-                    }`}
-                  />
-                ))}
-              </div>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => go(current - 1)}
-                  aria-label={t("cli.prev")}
-                  className="flex h-10 w-10 items-center justify-center rounded-pro border border-line text-ink transition-colors hover:border-aftech-strong hover:text-aftech-strong"
-                >
-                  <ChevronLeft className="h-4 w-4" aria-hidden="true" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => go(current + 1)}
-                  aria-label={t("cli.next")}
-                  className="flex h-10 w-10 items-center justify-center rounded-pro border border-line text-ink transition-colors hover:border-aftech-strong hover:text-aftech-strong"
-                >
-                  <ChevronRight className="h-4 w-4" aria-hidden="true" />
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
+      <Container className="flex flex-col gap-10">
+        <SectionHeading eyebrow={t("cli.eyebrow")} title={t("cli.title")} brand="aftech" />
 
         {partnerLogos.length === 0 ? (
           <p className="text-sm leading-relaxed text-muted">{t("cli.empty")}</p>
@@ -122,35 +87,47 @@ export default function Clients() {
             role="region"
             aria-roledescription="carousel"
             aria-label={t("cli.title")}
-            className="overflow-hidden [--logo-k:62px] sm:[--logo-k:76px] lg:[--logo-k:92px]"
+            className="flex items-center gap-2 [--logo-k:56px] sm:gap-6 sm:[--logo-k:64px] lg:[--logo-k:72px]"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             onFocusCapture={() => setPaused(true)}
             onBlurCapture={() => setPaused(false)}
           >
-            <div
-              className="flex transition-transform duration-700 ease-premium"
-              style={{ transform: `translateX(-${current * 100}%)` }}
-            >
-              {slides.map((group, i) => (
-                <div
-                  key={i}
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label={`${i + 1} / ${count}`}
-                  aria-hidden={i !== current}
-                  className="w-full shrink-0"
-                >
-                  <ul className="grid grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-10">
-                    {group.map((logo) => (
-                      <li key={logo.src} className="flex h-24 items-center justify-center sm:h-28">
-                        <Logo logo={logo} />
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+            {count > 1 && (
+              <button type="button" onClick={() => go(current - 1)} aria-label={t("cli.prev")} className={arrowClass}>
+                <ChevronLeft className="h-6 w-6" strokeWidth={1.5} aria-hidden="true" />
+              </button>
+            )}
+            <div className="min-w-0 flex-1 overflow-hidden">
+              <div
+                className="flex transition-transform duration-700 ease-premium"
+                style={{ transform: `translateX(-${current * 100}%)` }}
+              >
+                {slides.map((group, i) => (
+                  <div
+                    key={i}
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`${t("cli.slide")} ${i + 1} / ${count}`}
+                    aria-hidden={i !== current}
+                    className="w-full shrink-0"
+                  >
+                    <ul className="grid grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-10">
+                      {group.map((logo) => (
+                        <li key={logo.src} className="flex h-24 items-center justify-center sm:h-28">
+                          <Logo logo={logo} />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </div>
+            {count > 1 && (
+              <button type="button" onClick={() => go(current + 1)} aria-label={t("cli.next")} className={arrowClass}>
+                <ChevronRight className="h-6 w-6" strokeWidth={1.5} aria-hidden="true" />
+              </button>
+            )}
           </div>
         )}
       </Container>
