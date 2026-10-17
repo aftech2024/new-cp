@@ -8,7 +8,7 @@ CARA MENAMBAH LOGO PARTNER / KLIEN
 
 3. Tidak perlu edit kode apa pun — logo otomatis
    terbaca dan tampil di section "Trusted by..."
-   halaman utama dengan auto-slide.
+   halaman utama, 4 logo per slide.
 
 4. Nama logo diambil dari nama file:
    "pln-indonesia-power.png" -> "Pln Indonesia Power"
@@ -18,3 +18,6 @@ CATATAN:
   dari pemiliknya (lihat PRD bagian Content Governance).
 - Disarankan file PNG/SVG dengan background transparan,
   lebar 400-800px, ukuran file < 200KB.
+- Untuk SVG: viewBox harus rapat ke logo (tanpa margin
+  kosong) dan width/height sama rasio dengan viewBox.
+  Margin di dalam file membuat logo tampil kecil.

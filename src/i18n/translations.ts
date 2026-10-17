@@ -157,6 +157,9 @@ const en: Record<string, string> = {
   "cli.eyebrow": "Clients & Partners",
   "cli.title": "Our clients and partners.",
   "cli.empty": "Client logos will appear here once approved for public display.",
+  "cli.slide": "Logo group",
+  "cli.prev": "Previous logos",
+  "cli.next": "Next logos",
   "cliGrid.empty": "Client logos will appear here once approved for public display.",
 
 
@@ -950,6 +953,9 @@ const id: Record<string, string> = {
   "cli.eyebrow": "Klien & Mitra",
   "cli.title": "Klien dan mitra kami.",
   "cli.empty": "Logo klien akan tampil di sini setelah disetujui untuk publikasi.",
+  "cli.slide": "Kelompok logo",
+  "cli.prev": "Logo sebelumnya",
+  "cli.next": "Logo berikutnya",
   "cliGrid.empty": "Logo klien akan tampil di sini setelah disetujui untuk publikasi.",
 
 
