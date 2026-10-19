@@ -1,0 +1,58 @@
+{
+  "slug": "kabar-teknologi-2026-10-19",
+  "date": "2026-10-19",
+  "title": "Kabar Teknologi 19 Oktober 2026: Serangan Rantai Pasok M365, Celah Kritis Drupal, Ransomware Gedung",
+  "description": "Serangan rantai pasok ConnectWise ke Microsoft 365, patch kritis Drupal, ransomware sistem gedung, risiko AI open-weight, dan aturan drone AS.",
+  "items": [
+    {
+      "category": "security",
+      "headline": "Serangan rantai pasok ConnectWise bobol tenant Microsoft 365 lewat aplikasi backup",
+      "summary": "ConnectWise menutup akses layanan Cloud Backup (sebelumnya SkyKick) setelah penyerang menyalahgunakan identitas aplikasi untuk masuk ke tenant Microsoft 365. Huntress menemukan sedikitnya 162 tenant terdampak; sebagian service principal memberi dirinya peran Exchange Administrator hingga Global Administrator. MFA tidak efektif karena login memakai secret aplikasi.",
+      "whyItMatters": "Admin perlu memeriksa sign-in service principal di Entra ID, menonaktifkan aplikasi ConnectWise terkait, dan menghapus secret atau sertifikat tak dikenal yang ditambahkan sejak 13 Oktober.",
+      "source": {
+        "name": "BleepingComputer",
+        "url": "https://www.bleepingcomputer.com/news/security/hackers-breach-microsoft-365-tenants-via-connectwise-supply-chain-attack",
+        "publishedAt": "2026-10-17T15:18:51.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "Drupal tambal dua celah RCE kritis, eksploit diperkirakan segera muncul",
+      "summary": "Drupal merilis patch untuk dua celah kritis (CVE-2026-108097 dan CVE-2026-108099) pada modul inti Field UI dan modul Entity List yang memungkinkan eksekusi kode jarak jauh. Semua versi Drupal core yang didukung terdampak, dan ada jalur eksploitasi tanpa autentikasi melalui modul tambahan atau kode kustom.",
+      "whyItMatters": "Perbarui ke Drupal 10.6.19, 11.3.19 atau 11.4.10 serta Entity List 3.0.10; jika belum bisa, copot modul Field UI. Situs yang masih memakai versi end-of-life perlu segera dimigrasikan.",
+      "source": {
+        "name": "BleepingComputer",
+        "url": "https://www.bleepingcomputer.com/news/security/drupal-patches-critical-rce-flaws-warns-exploits-may-emerge-soon",
+        "publishedAt": "2026-10-17T14:32:48.000Z"
+      }
+    },
+    {
+      "category": "ai",
+      "headline": "Microsoft dan NVIDIA rilis panduan manajemen risiko model AI open-weight",
+      "summary": "Microsoft dan NVIDIA menerbitkan whitepaper berisi taksonomi risiko lima kategori: keamanan siber, perlindungan data, konten, interaksi manusia-AI, dan bias. Panduan merujuk standar ISO dan NIST AI RMF serta menegaskan risiko ditentukan oleh model, use case, deployment, dan safeguard, bukan sekadar keterbukaan bobot.",
+      "whyItMatters": "Organisasi yang menjalankan model open-weight sendiri perlu memetakan risiko per use case dan memastikan kontrol yang biasanya disediakan layanan terkelola kini ditangani secara internal.",
+      "source": {
+        "name": "Microsoft Azure Blog",
+        "url": "https://azure.microsoft.com/en-us/blog/managing-open-weight-model-risk-in-enterprise-deployments",
+        "publishedAt": "2026-10-16T16:05:00.000Z"
+      }
+    },
+    {
+      "category": "drone",
+      "headline": "AS batasi penerbangan drone di koridor perbatasan dengan Meksiko",
+      "summary": "DOT, Departemen Perang, dan DHS mengumumkan pembatasan penerbangan sementara (TFR) yang melarang drone tanpa izin dalam jarak satu mil laut di utara perbatasan AS-Meksiko, dari permukaan hingga 400 kaki. Langkah ini ditujukan melawan drone kartel; masa berlaku dan prosedur izin akan dirinci lewat NOTAM FAA.",
+      "whyItMatters": "Menunjukkan tren pembatasan ruang udara berbasis koridor sebagai bagian strategi counter-drone; operator drone perlu selalu memeriksa NOTAM dan zona larangan sebelum terbang, termasuk di luar negeri.",
+      "source": {
+        "name": "DroneLife",
+        "url": "https://dronelife.com/2026/10/16/drone-flight-restrictions-us-mexico-border",
+        "publishedAt": "2026-10-16T17:55:27.000Z"
+      }
+    }
+  ],
+  "aftechNote": null,
+  "meta": {
+    "model": "claude-opus-5-5",
+    "generatedAt": "2026-10-19T00:53:52.481Z",
+    "reviewed": true
+  }
+}
