@@ -164,9 +164,7 @@ const en: Record<string, string> = {
 
 
   // ---------- cta ----------
-  "cta.eyebrow": "Start a project",
   "cta.title": "Tell us what you are building.",
-  "cta.desc": "Our team routes it to the right track: Aftech for technology and engineering, Halora for civil and interior work.",
   "cta.aftechTrack": "Aftech track",
   "cta.aftechTitle": "Technology & Engineering",
   "cta.aftechDesc": "Software, IT infra, network, ME systems.",
@@ -179,8 +177,6 @@ const en: Record<string, string> = {
   // ---------- footer ----------
   "foot.positioningA": "We build the digital and physical world.",
   "foot.positioningB": "Technology and engineering delivered by Aftech, civil and interior work by our second company, Halora.",
-  "foot.techTag": "Technology, mechanical & electrical",
-  "foot.secondCo": "Second company: civil and interior",
   "foot.explore": "Explore",
   "foot.offices": "Offices",
   "foot.whatsapp": "WhatsApp / Mobile",
@@ -188,7 +184,6 @@ const en: Record<string, string> = {
   "foot.email": "Email",
   "foot.civil": "Civil & Interior (Halora) ↗",
   "foot.rights": "All Rights Reserved.",
-  "foot.group": "Aftech and Halora, one group",
   "loc.tag.aftech": "Technology and engineering",
   "loc.tag.halora": "Civil and interior",
 
@@ -960,9 +955,7 @@ const id: Record<string, string> = {
 
 
   // ---------- cta ----------
-  "cta.eyebrow": "Mulai proyek",
   "cta.title": "Ceritakan apa yang sedang Anda bangun.",
-  "cta.desc": "Tim kami mengarahkannya ke jalur yang tepat: Aftech untuk teknologi dan engineering, Halora untuk sipil dan interior.",
   "cta.aftechTrack": "Jalur Aftech",
   "cta.aftechTitle": "Teknologi & Engineering",
   "cta.aftechDesc": "Software, infra IT, jaringan, sistem ME.",
@@ -975,8 +968,6 @@ const id: Record<string, string> = {
   // ---------- footer ----------
   "foot.positioningA": "Kami membangun dunia digital dan fisik.",
   "foot.positioningB": "Teknologi dan engineering dikerjakan Aftech, pekerjaan sipil dan interior oleh perusahaan kedua kami, Halora.",
-  "foot.techTag": "Teknologi, mekanikal & elektrikal",
-  "foot.secondCo": "Perusahaan kedua: sipil dan interior",
   "foot.explore": "Jelajahi",
   "foot.offices": "Kantor",
   "foot.whatsapp": "WhatsApp / Seluler",
@@ -984,7 +975,6 @@ const id: Record<string, string> = {
   "foot.email": "Email",
   "foot.civil": "Sipil & Interior (Halora) ↗",
   "foot.rights": "Hak Cipta Dilindungi.",
-  "foot.group": "Aftech dan Halora, satu grup",
   "loc.tag.aftech": "Teknologi dan engineering",
   "loc.tag.halora": "Sipil dan interior",
 

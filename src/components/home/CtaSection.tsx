@@ -39,14 +39,15 @@ export default function CtaSection() {
   return (
     <section className="bg-deep-navy py-24 text-white md:py-32">
       <Container className="grid gap-14 lg:grid-cols-12 lg:gap-12">
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewportOnce} className="flex flex-col gap-5 lg:col-span-5">
-          <span className="flex items-center gap-3">
-            <span className="h-px w-8 bg-aftech-bright" aria-hidden="true" />
-            <span className="text-sm font-semibold text-white/70">{t("cta.eyebrow")}</span>
-          </span>
-          <h2 className="font-display font-extrabold leading-[1.03] tracking-[-0.02em] text-[clamp(30px,4vw,52px)]">{t("cta.title")}</h2>
-          <p className="max-w-md text-base leading-relaxed text-white/70 md:text-lg">{t("cta.desc")}</p>
-        </motion.div>
+        <motion.h2
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          className="font-display font-extrabold leading-[1.03] tracking-[-0.02em] text-[clamp(30px,4vw,52px)] lg:col-span-5"
+        >
+          {t("cta.title")}
+        </motion.h2>
 
         <motion.ul
           variants={fadeUp}

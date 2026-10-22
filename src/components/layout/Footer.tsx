@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, Instagram, Store, ArrowUpRight } from "lucide-react";
+import { Phone, Mail, Instagram, Store } from "lucide-react";
 import Container from "@/components/ui/Container";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import TikTokIcon from "@/components/ui/TikTokIcon";
@@ -27,30 +27,7 @@ export default function Footer() {
   const { t } = useLanguage();
   const serviceLinks = navItems.find((item) => item.label === "Services")?.children ?? [];
   return (
-    <footer className="bg-deep-navy text-white/70">
-      {/* dual-company strip */}
-      <div className="border-b border-white/10">
-        <Container className="grid grid-cols-1 md:grid-cols-2 gap-px py-0">
-          <div className="flex items-center gap-4 py-5 md:pr-8">
-            <AftechMark className="h-10 w-auto" />
-            <div>
-              <p className="font-display text-base font-bold text-white">Aftech Daya Solusindo</p>
-              <p className="text-sm text-white/60">{t("foot.techTag")}</p>
-            </div>
-          </div>
-          <a href={HALORA_URL} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 py-5 md:pl-8 md:border-l border-white/10">
-            <HaloraMark className="h-10 w-10" />
-            <div className="flex-1">
-              <p className="flex items-center gap-2 font-display text-base font-bold text-white">
-                Halora Galona Adikara
-                <ArrowUpRight className="h-3.5 w-3.5 text-halora-bronze transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </p>
-              <p className="text-sm text-white/60">{t("foot.secondCo")}</p>
-            </div>
-          </a>
-        </Container>
-      </div>
-
+    <footer className="border-t border-white/10 bg-deep-navy text-white/70">
       <Container className="py-16 grid grid-cols-1 lg:grid-cols-[1.4fr_0.8fr_0.8fr_1fr] gap-12">
         {/* brand + contact */}
         <div className="flex flex-col gap-8">
@@ -180,10 +157,7 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <Container className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 py-5 text-xs text-white/40">
           <span>© {new Date().getFullYear()} {company.legalName}. {t("foot.rights")}</span>
-          <span className="flex flex-wrap items-center gap-4">
-            <LanguageToggle compact />
-            <span>{t("foot.group")}</span>
-          </span>
+          <LanguageToggle compact />
         </Container>
       </div>
     </footer>
