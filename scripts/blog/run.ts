@@ -20,6 +20,7 @@ import { resolve } from "node:path";
 import { editionSlug, type BlogEdition, type BlogItem } from "../../src/data/blog";
 import { collectCandidates, type Source, type Candidate } from "./feeds";
 import { articleText } from "./web";
+import { annotation } from "./actions";
 
 const ROOT = process.cwd();
 const EDITIONS_DIR = resolve(ROOT, "src/content/blog/editions");
@@ -27,6 +28,8 @@ const SOURCES_FILE = resolve(ROOT, "src/content/blog/sources.json");
 
 const MAX_ITEMS = 5;
 const MIN_ITEMS = 3;
+// Picks beyond MAX_ITEMS are spares: thin sources and failed checks usually drop two or three.
+const MAX_PICKS = 8;
 const MIN_SOURCE_CHARS = 300;
 const DAY = 86_400_000;
 
@@ -39,7 +42,7 @@ const date =
   new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Jakarta" }).format(now);
 
 function fail(code: number, message: string): never {
-  console.error(message);
+  console.error(annotation("error", message));
   process.exit(code);
 }
 
@@ -55,9 +58,14 @@ function clip(text: string, max: number): string {
   return cut.slice(0, Math.max(cut.lastIndexOf(" "), max * 0.6)).trimEnd() + "…";
 }
 
-/** True when the write-up repeats 10 consecutive words of its source verbatim. */
+/**
+ * True when the write-up repeats 10 consecutive words of its source verbatim.
+ * Tokens with digits ("8.5.12", "26,739", "CVE-2026-109618") are facts rather
+ * than wording and don't count, so listing the patched versions is not copying.
+ */
 function copiesSource(writeup: string, source: string): boolean {
-  const words = (s: string) => s.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? [];
+  const words = (s: string) =>
+    (s.toLowerCase().match(/[\p{L}\p{N}]+(?:[.,:/_-][\p{L}\p{N}]+)*/gu) ?? []).filter((w) => !/\p{N}/u.test(w));
   const sourceWords = words(source);
   const shingles = new Set<string>();
   for (let i = 0; i + 10 <= sourceWords.length; i++) shingles.add(sourceWords.slice(i, i + 10).join(" "));
@@ -109,20 +117,20 @@ async function main() {
   }
   if (candidates.length < 10) fail(2, "too few new stories in the window — skipping this edition");
 
-  const { selectStories, writeEdition, verifyEdition } = await import("./claude");
+  const { selectStories, writeEdition, verifyEdition, describeEdition } = await import("./claude");
 
   // 1. pick
   const byId = new Map(candidates.map((c) => [c.id, c]));
   const perSource = new Map<string, number>();
   const picks: { candidate: Candidate; category: string }[] = [];
-  for (const pick of await selectStories(candidates, now)) {
+  for (const pick of await selectStories(candidates, now, MAX_PICKS)) {
     const candidate = byId.get(pick.id);
     if (!candidate) continue;
     const count = perSource.get(candidate.source.name) ?? 0;
     if (count >= 2) continue;
     perSource.set(candidate.source.name, count + 1);
     picks.push({ candidate, category: pick.category });
-    if (picks.length === MAX_ITEMS + 1) break;
+    if (picks.length === MAX_PICKS) break;
   }
   console.log(`picked: ${picks.map((p) => `${p.candidate.id} ${p.candidate.title}`).join(" | ")}`);
 
@@ -132,13 +140,14 @@ async function main() {
     const page = await articleText(pick.candidate.url);
     const text = page.length >= pick.candidate.feedText.length ? page : pick.candidate.feedText;
     if (text.length < MIN_SOURCE_CHARS) {
-      console.log(`  drop ${pick.candidate.id}: not enough source text`);
+      console.log(annotation("warning", `drop ${pick.candidate.id}: not enough source text`));
       continue;
     }
     stories.push({ ...pick, text });
   }
   if (stories.length < MIN_ITEMS) fail(2, "not enough readable sources — skipping this edition");
-  const textById = new Map(stories.map((s) => [s.candidate.id, s.text]));
+  // The writer sees the source title too, so the checks need it: a headline may take a figure from it.
+  const textById = new Map(stories.map((s) => [s.candidate.id, `TITLE: ${s.candidate.title}\n${s.text}`]));
 
   // 3. write, 4. check
   const { edition: draft, model } = await writeEdition(stories);
@@ -156,7 +165,7 @@ async function main() {
     else if (item.headline.length > 110 || item.summary.length > 520 || item.whyItMatters.length > 330)
       problem = "too long";
     if (problem) {
-      console.log(`  drop ${item.id}: ${problem}`);
+      console.log(annotation("warning", `drop ${item.id}: ${problem}`));
       continue;
     }
     items.push({
@@ -171,11 +180,14 @@ async function main() {
   }
   if (items.length < MIN_ITEMS) fail(2, `only ${items.length} items passed the checks — skipping this edition`);
 
+  // 5. title and description, from the items that passed only
+  const { topics, description } = await describeEdition(items);
+
   const edition: BlogEdition = {
     slug: editionSlug(date),
     date,
-    title: `Kabar Teknologi ${indonesianDate(date)}: ${clip(draft.topics.trim(), 90)}`,
-    description: clip(draft.description.trim(), 160),
+    title: `Kabar Teknologi ${indonesianDate(date)}: ${clip(topics.trim(), 90)}`,
+    description: clip(description.trim(), 160),
     items,
     aftechNote: null,
     meta: { model, generatedAt: now.toISOString(), reviewed: process.env.BLOG_MODE !== "auto" },
