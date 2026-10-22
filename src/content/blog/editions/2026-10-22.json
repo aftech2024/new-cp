@@ -1,0 +1,69 @@
+{
+  "slug": "kabar-teknologi-2026-10-22",
+  "date": "2026-10-22",
+  "title": "Kabar Teknologi 22 Oktober 2026: Celah Kritis PHP dan GitLab, Paket LiteLLM Disusupi, Inspeksi Drone Trafo",
+  "description": "Celah kritis php2shell dan GitLab, LiteLLM 1.107.0 disusupi backdoor, kerentanan MicroSCADA X SYS600, dan inspeksi drone 500 trafo tiang NGED.",
+  "items": [
+    {
+      "category": "security",
+      "headline": "CISA minta organisasi segera tambal dua celah kritis PHP \"php2shell\"",
+      "summary": "CISA meminta organisasi segera menambal CVE-2026-109618 dan CVE-2026-109619, dua celah kritis PHP yang dijuluki \"php2shell\". Keduanya memungkinkan eksekusi kode jarak jauh tanpa autentikasi pada semua instalasi PHP yang melayani permintaan web. Versi perbaikan: 8.5.12, 8.4.27, 8.3.36, dan 8.2.35. Saat publikasi, CISA belum melihat adanya eksploitasi.",
+      "whyItMatters": "Inventarisasi semua sistem yang memakai PHP, termasuk yang tertanam di perangkat lunak lain, dan tambal yang terhubung internet lebih dulu. Sistem PHP 8.1 ke bawah sebaiknya dimatikan hingga diperbarui.",
+      "source": {
+        "name": "CISA",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/10/21/critical-vulnerabilities-php-require-immediate-patching",
+        "publishedAt": "2026-10-21T12:00:00.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "Celah GitLab ber-CVSS 10.0 memungkinkan RCE tanpa login di versi sejak 2014",
+      "summary": "GitLab merilis perbaikan pada 21 Oktober untuk celah yang memungkinkan penyerang menjalankan kode di server self-managed tanpa login. Celah ini memengaruhi semua versi hingga 7.0 yang dirilis pada 2014. Pembaruan 12 Oktober hanya mencakup versi 19.2 ke atas, sedangkan versi perbaikan baru berada satu patch di atasnya.",
+      "whyItMatters": "Administrator yang sudah memperbarui pada 12 Oktober tetap perlu memasang pembaruan terbaru. Periksa versi seluruh instans GitLab self-managed di organisasi Anda.",
+      "source": {
+        "name": "The Hacker News",
+        "url": "https://thehackernews.com/2026/10/critical-gitlab-flaw-cvss-100-could.html",
+        "publishedAt": "2026-10-21T18:57:34.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "Paket LiteLLM 1.107.0 disusupi pencuri kredensial dan backdoor",
+      "summary": "Paket Python LiteLLM versi 1.107.0, yang didistribusikan melalui wheel PyPI dan image Docker, disusupi dalam serangan rantai pasok perangkat lunak yang menyisipkan pencuri kredensial dan backdoor. Temuan ini dilaporkan oleh SafeDep, Socket, StepSecurity, dan Upwind. Paket tersebut kini telah dikarantina di PyPI.",
+      "whyItMatters": "Tim yang memakai LiteLLM perlu memeriksa apakah versi 1.107.0 sempat terpasang di lingkungan atau image mereka; jika ya, anggap kredensial terkait telah bocor dan segera lakukan rotasi.",
+      "source": {
+        "name": "The Hacker News",
+        "url": "https://thehackernews.com/2026/10/litellm-compromised-in-supply-chain.html",
+        "publishedAt": "2026-10-21T18:01:57.000Z"
+      }
+    },
+    {
+      "category": "iot",
+      "headline": "Hitachi Energy umumkan sejumlah kerentanan pada MicroSCADA X SYS600",
+      "summary": "Hitachi Energy melaporkan beberapa kerentanan pada MicroSCADA X SYS600 versi 10.7 ke bawah, dengan skor CVSS tertinggi 7.8. Celahnya mencakup injeksi CSV, akses objek aplikasi oleh pengguna sistem operasi tanpa autentikasi SYS600, dan eskalasi hak akses menjadi administrator Windows. Vendor merekomendasikan pembaruan ke versi 10.8.",
+      "whyItMatters": "Operator sektor energi pengguna SYS600 perlu memperbarui ke 10.8 dan menerapkan strategi mitigasi dari manual vendor, karena salah satu celah masih memengaruhi versi 10.8.",
+      "source": {
+        "name": "CISA",
+        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-293-04",
+        "publishedAt": "2026-10-20T12:00:00.000Z"
+      }
+    },
+    {
+      "category": "drone",
+      "headline": "Team UAV rampungkan inspeksi drone 500 trafo tiang untuk proyek AI NGED",
+      "summary": "Team UAV menyelesaikan inspeksi drone terhadap 500 trafo tiang milik National Grid Electricity Distribution (NGED) di Cornwall, Wales, dan Midlands. Citra resolusi tinggi itu akan dipakai Softwire untuk mengembangkan model computer vision pendeteksi korosi dan kerusakan visual. Team UAV juga membangun basis data GIS yang menautkan citra ke lokasi tiap trafo.",
+      "whyItMatters": "Bagi utilitas dan pengelola aset tersebar, proyek ini menunjukkan pentingnya metode pengambilan citra yang konsisten dan data GIS terstruktur sebelum menerapkan analisis AI pada inspeksi drone.",
+      "source": {
+        "name": "DroneLife",
+        "url": "https://dronelife.com/2026/10/21/team-uav-completes-500-transformer-drone-inspections-for-national-grid-electricity-distribution",
+        "publishedAt": "2026-10-21T13:04:18.000Z"
+      }
+    }
+  ],
+  "aftechNote": null,
+  "meta": {
+    "model": "claude-opus-5-5",
+    "generatedAt": "2026-10-22T05:03:22.082Z",
+    "reviewed": true
+  }
+}
