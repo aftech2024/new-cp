@@ -87,7 +87,7 @@ Proyek terkait: Mechanical & Electrical Works di Meikarta District 2 — /projec
 
 ## Bangun, renovasi & interior → Halora (perusahaan kedua Aftech) — /services/integrated-solutions
 Kata pengunjung: bangun gedung, gudang, renovasi, sipil, interior, fit-out, furniture, desain ruang.
-Pekerjaan sipil dan interior dikerjakan Halora (https://compro.halora.co.id). Bila digabung dengan teknologi atau ME, Aftech dan Halora menjalankannya sebagai satu program terintegrasi.
+Pekerjaan sipil dan interior dikerjakan Halora (https://halora.co.id). Bila digabung dengan teknologi atau ME, Aftech dan Halora menjalankannya sebagai satu program terintegrasi.
 
 # FAQ (Bahasa Indonesia)
 Q: Aftech itu perusahaan apa?

@@ -1,6 +1,6 @@
 import type { NavItem } from "@/types";
 
-export const HALORA_URL = "https://compro.halora.co.id";
+export const HALORA_URL = "https://halora.co.id";
 
 export const company = {
   legalName: "PT Aftech Daya Solusindo",
