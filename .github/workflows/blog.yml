@@ -86,6 +86,13 @@ jobs:
           git add "$FILE"
           git commit -m "content(blog): $TITLE"
           git push --force origin "$branch"
+          # A manual re-run for the same date replaces the edition in the pull request that is already open.
+          open_pr=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')
+          if [ -n "$open_pr" ]; then
+            gh pr edit "$open_pr" --title "$TITLE" --body-file "$RUNNER_TEMP/blog-pr.md"
+            echo "::notice::Updated pull request #$open_pr with the new edition."
+            exit 0
+          fi
           gh pr create --base main --head "$branch" --title "$TITLE" --body-file "$RUNNER_TEMP/blog-pr.md" || {
             echo "::error::Could not open the pull request. Enable Settings → Actions → General → 'Allow GitHub Actions to create and approve pull requests', or open one by hand from branch $branch."
             exit 1
