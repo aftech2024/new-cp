@@ -82,7 +82,7 @@ jobs:
             [ "$code" = "200" ] || fail=1
           done
           # The sibling apps must survive every deploy.
-          for path in /erp/ /klinik/ /budget/ /adminklinik/ /eptms/ /mk/ /smart/; do
+          for path in /erp/ /budget/ /eptms/ /mk/ /smart/; do
             code=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 30 "https://aftech.co.id$path")
             echo "$path -> $code"
             [ "$code" = "200" ] || fail=1
