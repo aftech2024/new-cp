@@ -4,7 +4,7 @@ import Container from "@/components/ui/Container";
 import Section from "@/components/ui/Section";
 import SectionHeading from "@/components/ui/SectionHeading";
 import LinkArrow from "@/components/ui/LinkArrow";
-import { formatEditionDate } from "@/data/blog";
+import { editionTopics, formatEditionDate } from "@/data/blog";
 import { useBlogIndex } from "@/hooks/useBlog";
 import { useLanguage } from "@/i18n/LanguageContext";
 
@@ -41,7 +41,7 @@ function LatestNewsSection() {
                 <span className="text-sm font-semibold text-ink/70 md:col-span-3 md:pt-1">{formatEditionDate(edition.date, lang)}</span>
                 <span className="flex flex-col gap-2 md:col-span-8">
                   <span className="font-display text-xl font-bold leading-snug text-ink transition-colors group-hover:text-aftech md:text-2xl">
-                    {edition.title}
+                    {editionTopics(edition.title)}
                   </span>
                   <span className="leading-relaxed text-muted">{edition.description}</span>
                 </span>

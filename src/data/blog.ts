@@ -69,3 +69,21 @@ export function formatEditionDate(date: string, lang: "id" | "en", weekday = tru
     year: "numeric",
   });
 }
+
+/** "Oktober 2026" — the heading of a month in the archive. */
+export function formatEditionMonth(date: string, lang: "id" | "en"): string {
+  return new Date(`${date}T00:00:00Z`).toLocaleDateString(lang === "id" ? "id-ID" : "en-US", {
+    timeZone: "UTC",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+/**
+ * The title without its "Kabar Teknologi 22 Oktober 2026: " prefix, for lists
+ * that already show the date next to it.
+ */
+export function editionTopics(title: string): string {
+  const i = title.indexOf(": ");
+  return i < 0 ? title : title.slice(i + 2);
+}
