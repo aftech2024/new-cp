@@ -1,0 +1,69 @@
+{
+  "slug": "kabar-teknologi-2026-10-26",
+  "date": "2026-10-26",
+  "title": "Kabar Teknologi 26 Oktober 2026: Zero-Day VeloCloud, AGENTS.md Bajak AI Agent, Akhir Windows Server 2016",
+  "description": "Patch zero-day VeloCloud Orchestrator, AGENTS.md pembajak AI coding agent, serangan PHP2Shell berbantuan AI, akhir dukungan Windows Server 2016, dan Claude.",
+  "items": [
+    {
+      "category": "security",
+      "headline": "Arista tambal zero-day ketiga di VeloCloud Orchestrator yang sudah dieksploitasi",
+      "summary": "Arista merilis patch untuk CVE-2026-114625 (CVSS 9,9), celah SQL injection pada VeloCloud Orchestrator (VCO) on-prem yang sudah dieksploitasi aktif. Pengguna terautentikasi dengan peran terendah dapat memperoleh hak operator. Versi sebelum 5.2.3.18, 6.1.3.10, dan 6.4.2.12 terdampak. Ini zero-day ketiga di VCO dalam empat bulan.",
+      "whyItMatters": "Pengguna VCO on-prem perlu segera memperbarui, membatasi akses antarmuka web, memblokir dua alamat IP penyerang yang dirilis Arista, dan memeriksa log untuk tanda kompromi.",
+      "source": {
+        "name": "SecurityWeek",
+        "url": "https://www.securityweek.com/attackers-exploit-third-velocloud-orchestrator-zero-day-in-four-months",
+        "publishedAt": "2026-10-23T09:58:34.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "File AGENTS.md di folder Downloads dapat membajak AI coding agent",
+      "summary": "Peneliti Forever Security menemukan file AGENTS.md berbahaya di folder Downloads pelanggan yang membuat AI coding agent mencoba memasang paket npm jahat. Serangan direproduksi pada OpenAI Codex, dan teknik serupa pada Claude Code dapat membocorkan token OAuth. Halaman web dapat mengunduh file semacam itu ke Downloads tanpa disadari pengguna.",
+      "whyItMatters": "Tim pengembang sebaiknya tidak menjalankan AI agent dari folder Downloads, membatasi direktori kerja ke folder proyek, meninjau file instruksi asing, serta tetap mengaktifkan prompt persetujuan dan sandbox.",
+      "source": {
+        "name": "BleepingComputer",
+        "url": "https://www.bleepingcomputer.com/news/security/ai-coding-agents-hijacked-using-agentsmd-file-in-downloads-folder",
+        "publishedAt": "2026-10-25T15:49:38.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "Eksploitasi PHP2Shell sasar instansi pemerintah, penyerang diduga dibantu AI agentik",
+      "summary": "Pelaku ancaman teramati memakai platform AI agentik untuk aktivitas pasca-eksploitasi setelah menyalahgunakan celah PHP2Shell (CVE-2026-109618 dan CVE-2026-109619), di tengah pemindaian global. Dalam satu kasus, sebuah instansi pemerintah di Eropa disasar dan penyerang berhasil mengakses hash kata sandi dalam dua jam setelah eksploitasi awal.",
+      "whyItMatters": "Organisasi perlu memeriksa apakah sistemnya terdampak kedua CVE tersebut dan memprioritaskan penanganannya, karena jeda dari eksploitasi awal ke pencurian kredensial bisa sangat singkat.",
+      "source": {
+        "name": "The Hacker News",
+        "url": "https://thehackernews.com/2026/10/php2shell-exploitation-hits-government.html",
+        "publishedAt": "2026-10-25T17:19:46.000Z"
+      }
+    },
+    {
+      "category": "software",
+      "headline": "Windows Server 2016 berhenti menerima update keamanan pada Januari 2027",
+      "summary": "Microsoft mengingatkan bahwa extended support Windows Server 2016 berakhir pada 12 Januari 2027, dan update keamanan Januari 2027 menjadi yang terakhir. Ketentuan ini berlaku untuk semua edisi: Datacenter, Essentials, MultiPoint Premium, dan Standard. Microsoft menyarankan upgrade ke Windows Server 2025.",
+      "whyItMatters": "Inventarisasi server yang masih memakai Windows Server 2016 dan susun rencana migrasi sebelum Januari 2027. Versi uji coba Windows Server 2025 tersedia gratis selama 180 hari.",
+      "source": {
+        "name": "BleepingComputer",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-windows-server-2016-reaches-end-of-support-in-january",
+        "publishedAt": "2026-10-23T17:05:07.000Z"
+      }
+    },
+    {
+      "category": "cloud",
+      "headline": "Google Cloud hadirkan opsi model Claude yang dikelola langsung oleh Anthropic",
+      "summary": "Google Cloud mengumumkan ketersediaan umum opsi deployment model Claude yang dikelola Anthropic, berdampingan dengan opsi yang dikelola Google. Pada opsi baru, Anthropic menjadi pemroses data dan fitur seperti Claude Managed Agents (beta) langsung tersedia; opsi Google-managed menawarkan VPC Service Controls, CMEK, dan residensi data di AS, UE, dan APAC.",
+      "whyItMatters": "Pilihan ini menentukan siapa pemroses data dan ketentuan yang berlaku. Organisasi perlu menimbangnya terhadap kebijakan kepatuhan dan perlindungan data internal sebelum memilih.",
+      "source": {
+        "name": "Google Cloud Blog",
+        "url": "https://cloud.google.com/blog/products/ai-machine-learning/expanding-claude-availability-on-google-cloud",
+        "publishedAt": "2026-10-22T21:00:00.000Z"
+      }
+    }
+  ],
+  "aftechNote": null,
+  "meta": {
+    "model": "claude-opus-5-5",
+    "generatedAt": "2026-10-26T01:01:48.754Z",
+    "reviewed": false
+  }
+}
