@@ -1,0 +1,58 @@
+{
+  "slug": "kabar-teknologi-2026-10-29",
+  "date": "2026-10-29",
+  "title": "Kabar Teknologi 29 Oktober 2026: Celah Oracle EBS Dipindai, Entra ID Beralih ke Passkey, Celah UEFI",
+  "description": "Celah kritis Oracle E-Business Suite mulai dipindai, Microsoft hentikan MFA SMS di Entra ID, celah UEFI EDK II, dan spektrum 800 MHz untuk drone.",
+  "items": [
+    {
+      "category": "security",
+      "headline": "Celah kritis Oracle E-Business Suite mulai dipindai penyerang usai patch dirilis",
+      "summary": "Firma intelijen ancaman Defused Cyber melaporkan pelaku ancaman mulai memindai celah CVE-2026-101767 (CVSS 9.8) di Oracle E-Business Suite. Kerentanan berupa autentikasi yang tidak tepat pada komponen Oracle Application Object Library ini dapat dimanfaatkan untuk eksekusi kode jarak jauh dan telah ditambal Oracle pekan lalu.",
+      "whyItMatters": "Organisasi pengguna Oracle EBS perlu segera memastikan patch terbaru sudah terpasang, terutama pada instans yang dapat diakses dari internet, serta memantau log akses untuk aktivitas mencurigakan.",
+      "source": {
+        "name": "The Hacker News",
+        "url": "https://thehackernews.com/2026/10/hackers-target-critical-oracle-e.html",
+        "publishedAt": "2026-10-28T12:48:03.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "Microsoft minta admin Entra ID beralih ke passkey sebelum SMS dan suara dihentikan",
+      "summary": "Microsoft akan menghentikan autentikasi SMS dan suara bawaan untuk tenant workforce Entra ID mulai 1 Februari 2027 karena rentan phishing dan SIM swap. Admin diminta memigrasikan pengguna ke metode tahan phishing seperti passkey, kunci FIDO2, atau autentikasi kode QR. SMS/suara hanya bisa dipertahankan lewat penyedia telekomunikasi pihak ketiga.",
+      "whyItMatters": "Tim TI perlu mengidentifikasi pengguna yang masih memakai SMS/suara, misalnya dengan skrip Entra SMS/Voice Policy Scanner, lalu menuntaskan migrasi agar proses login tidak terganggu.",
+      "source": {
+        "name": "BleepingComputer",
+        "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-reminds-entra-id-admins-to-migrate-users-to-passkeys",
+        "publishedAt": "2026-10-28T14:48:32.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "Celah UEFI berusia 16 tahun di EDK II bisa jalankan kode sebelum Secure Boot",
+      "summary": "Sebuah celah kritis berusia 16 tahun ditemukan di EDK II, kode open source yang dipakai sebagian besar produsen perangkat keras untuk membangun firmware UEFI. Celah ini memungkinkan penyerang menjalankan kode sebelum sistem operasi dimuat, tetapi hanya ketika mesin melakukan boot melalui jaringan.",
+      "whyItMatters": "Organisasi yang mengoperasikan server dengan boot melalui jaringan perlu memantau pembaruan firmware dari vendor perangkat kerasnya dan meninjau apakah fitur tersebut memang diperlukan.",
+      "source": {
+        "name": "The Hacker News",
+        "url": "https://thehackernews.com/2026/10/critical-16-year-old-uefi-flaw-can-run.html",
+        "publishedAt": "2026-10-28T11:50:00.000Z"
+      }
+    },
+    {
+      "category": "drone",
+      "headline": "FCC akan putuskan pembukaan spektrum seluler 800 MHz untuk drone di AS",
+      "summary": "Regulator komunikasi AS, FCC, menjadwalkan pemungutan suara pada 29 Oktober atas aturan yang membuka 50 MHz spektrum seluler 800 MHz untuk drone, yang dibatasi sekitar 35 tahun. Usulan ini didukung Amazon, AT&T, Verizon dan AUVSI, namun tidak otomatis mengizinkan penerbangan BVLOS dan syarat teknisnya belum dirinci.",
+      "whyItMatters": "Keputusan ini layak dipantau sebagai acuan bagi operator drone dan pemangku kebijakan di Indonesia yang menimbang konektivitas seluler untuk inspeksi infrastruktur, pengiriman, dan misi keselamatan publik.",
+      "source": {
+        "name": "DroneLife",
+        "url": "https://dronelife.com/2026/10/28/fcc-drone-spectrum-800-mhz-industry-support",
+        "publishedAt": "2026-10-28T12:45:46.000Z"
+      }
+    }
+  ],
+  "aftechNote": null,
+  "meta": {
+    "model": "claude-opus-5-5",
+    "generatedAt": "2026-10-29T02:11:35.478Z",
+    "reviewed": false
+  }
+}
