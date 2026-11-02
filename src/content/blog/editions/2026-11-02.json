@@ -1,0 +1,69 @@
+{
+  "slug": "kabar-teknologi-2026-11-02",
+  "date": "2026-11-02",
+  "title": "Kabar Teknologi 2 November 2026: Firewall Palo Alto Dibobol, Celah Ivanti, Sertifikat eMudhra Dipalsukan",
+  "description": "Serangan PHP2Shell pada firewall Palo Alto, celah Ivanti masuk katalog KEV CISA, kunci lemah eMudhra, pembobolan Northflank, dan celah kritis LXD.",
+  "items": [
+    {
+      "category": "security",
+      "headline": "Serangan PHP2Shell bobol firewall Palo Alto, upaya terhadap WordPress belum berhasil",
+      "summary": "Kelompok peretas terkait Tiongkok merangkai celah PHP2Shell (CVE-2026-109618 dan CVE-2026-109619) dengan bug kernel Fragnesia untuk meraih akses root di firewall Palo Alto; sedikitnya 25 perangkat dibobol lewat antarmuka manajemen yang terbuka ke internet. Palo Alto telah merilis patch PAN-OS. Upaya serupa terhadap WordPress sejauh ini belum dilaporkan berhasil.",
+      "whyItMatters": "Pastikan antarmuka manajemen firewall tidak terbuka ke internet dan patch PAN-OS sudah diterapkan. Perbarui juga PHP di server web, karena lebih dari 22,6 juta instans terdeteksi berpotensi rentan.",
+      "source": {
+        "name": "SecurityWeek",
+        "url": "https://www.securityweek.com/php2shell-attacks-root-palo-alto-firewalls-but-fail-against-wordpress",
+        "publishedAt": "2026-10-30T15:09:25.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "CISA masukkan dua celah Ivanti Connect Secure ke katalog kerentanan yang dieksploitasi",
+      "summary": "CISA menambahkan CVE-2026-111357 (fungsi kritis tanpa autentikasi) dan CVE-2026-118527 (pembuatan angka atau identifier yang dapat ditebak) pada Ivanti Connect Secure ke katalog KEV berdasarkan bukti eksploitasi aktif. Kewajiban perbaikan berlaku bagi lembaga federal AS, namun CISA mendorong semua organisasi memprioritaskan katalog ini.",
+      "whyItMatters": "Pengguna Ivanti Connect Secure perlu segera memeriksa status patch, terutama pada perangkat yang terekspos publik, serta menelusuri tanda kompromi yang mungkin terjadi sebelum patch diterapkan.",
+      "source": {
+        "name": "CISA",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/10/30/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+        "publishedAt": "2026-10-30T12:00:00.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "Kunci lemah eMudhra dipakai memalsukan sertifikat, Cloudflare belum lihat penyadapan",
+      "summary": "Delapan kunci privat intermediate CA eMudhra sangat lemah sehingga siapa pun dapat memulihkannya dari sertifikat publik dan menerbitkan sertifikat untuk domain apa pun. Cloudflare sudah menambal sistem prioritas tinggi dan mencatat sekitar 22.000 handshake memakai kunci itu; ada sertifikat palsu yang dibuat kurang dari sejam setelah laporan bug Mozilla dipublikasikan.",
+      "whyItMatters": "Periksa aplikasi, perangkat, dan klien TLS internal yang tidak menerapkan Certificate Transparency agar menolak sertifikat yang ditandatangani kunci eMudhra yang terdampak.",
+      "source": {
+        "name": "Cloudflare Blog",
+        "url": "https://blog.cloudflare.com/emudhra-patching",
+        "publishedAt": "2026-10-30T17:38:50.000Z"
+      }
+    },
+    {
+      "category": "cloud",
+      "headline": "Pembobolan Northflank berujung penyalahgunaan API key AI milik pelanggan",
+      "summary": "Platform hosting aplikasi cloud Northflank meminta pelanggan menganggap seluruh environment variable telah didekripsi dan segera merotasi semua secret, setelah menerima peringatan dari Wiz pada 30 Oktober. Sejumlah pelanggan melaporkan penggunaan API key AI tanpa izin. Wiz mencatat sedikitnya sembilan insiden pada platform pengembangan AI sepanjang Oktober.",
+      "whyItMatters": "Jika memakai platform sejenis, rotasi API key dan kredensial yang tersimpan di sana, lalu pantau log penggunaan serta tagihan layanan AI untuk mendeteksi penyalahgunaan (LLMJacking).",
+      "source": {
+        "name": "BleepingComputer",
+        "url": "https://www.bleepingcomputer.com/news/security/northflank-security-breach-leads-to-abuse-of-customers-ai-api-keys",
+        "publishedAt": "2026-10-31T18:01:12.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "Celah CVSS 10.0 di LXD dan MicroCloud memungkinkan penyamaran klien tepercaya",
+      "summary": "Celah kritis pada LXD dan MicroCloud buatan Canonical memungkinkan penyerang masuk sebagai klien tepercaya tanpa memiliki kunci privatnya. Syaratnya, penyerang dapat menjangkau API HTTPS lewat jaringan dan memegang sertifikat publik klien tersebut; setelah itu ia memperoleh akses ke klaster beserta mesin virtualnya.",
+      "whyItMatters": "Organisasi yang menjalankan LXD atau MicroCloud perlu membatasi akses jaringan ke API HTTPS-nya dan memantau rilis perbaikan dari Canonical.",
+      "source": {
+        "name": "The Hacker News",
+        "url": "https://thehackernews.com/2026/11/critical-lxd-and-microcloud-flaw-cvss.html",
+        "publishedAt": "2026-11-01T08:51:31.000Z"
+      }
+    }
+  ],
+  "aftechNote": null,
+  "meta": {
+    "model": "claude-opus-5-5",
+    "generatedAt": "2026-11-02T02:09:51.528Z",
+    "reviewed": false
+  }
+}
