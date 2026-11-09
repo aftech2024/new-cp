@@ -1,0 +1,69 @@
+{
+  "slug": "kabar-teknologi-2026-11-09",
+  "date": "2026-11-09",
+  "title": "Kabar Teknologi 9 November 2026: Celah VPN SonicWall, Eksploitasi OpenSSH, Kebocoran Rahasia Claude Code",
+  "description": "Celah SSL-VPN SonicWall dan OpenSSH dieksploitasi, rahasia bocor lewat Claude Code, serangan ke sistem pendingin, dan panduan kesiapan PQC vendor.",
+  "items": [
+    {
+      "category": "security",
+      "headline": "SonicWall tambal celah bypass MFA SSL-VPN di SonicOS yang sudah dieksploitasi",
+      "summary": "SonicWall merilis pembaruan untuk tujuh kerentanan SonicOS. Celah CVE-2026-19868 (CVSS 7.1) memungkinkan penyerang yang memiliki kredensial metode autentikasi alternatif melewati kontrol SAML, termasuk MFA, pada SSL-VPN berbasis SAML. CISA telah memasukkannya ke katalog KEV. Perbaikan tersedia di versi 7.3.4-7013 dan 8.2.3-8015, tanpa workaround.",
+      "whyItMatters": "Pengguna firewall SonicWall Gen7 dan Gen8, terutama yang memakai SSL-VPN dengan SAML, perlu segera memeriksa versi SonicOS dan memperbaruinya karena tidak ada workaround.",
+      "source": {
+        "name": "BleepingComputer",
+        "url": "https://www.bleepingcomputer.com/news/security/sonicwall-warns-of-new-ssl-vpn-mfa-bypass-flaw-exploited-in-attacks",
+        "publishedAt": "2026-11-07T00:00:55.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "Celah OpenSSH 'SSHole' dicoba dieksploitasi beberapa jam setelah diungkap",
+      "summary": "Menurut Previdian, pelaku ancaman mencoba mengeksploitasi CVE-2026-123158 (CVSS 8.1) di OpenSSH, yang dapat memungkinkan login ke akun tanpa kata sandi. Celah ini berdampak pada sistem Linux yang menjalankan OpenSSH dengan pustaka musl C dan PAM dinonaktifkan. Penyerang dilaporkan berhasil memperoleh akses root pada sebuah honeypot.",
+      "whyItMatters": "Tim IT perlu mengidentifikasi sistem Linux berbasis musl yang menjalankan OpenSSH tanpa PAM, memastikan tidak ada akun tanpa kata sandi, dan memantau ketersediaan patch.",
+      "source": {
+        "name": "The Hacker News",
+        "url": "https://thehackernews.com/2026/11/hackers-exploited-openssh-sshole-flaw.html",
+        "publishedAt": "2026-11-06T15:21:49.000Z"
+      }
+    },
+    {
+      "category": "software",
+      "headline": "Berkas Claude Code bocorkan kata sandi dan API key di 1.122 salinan publik GitHub",
+      "summary": "Saat pengguna memilih opsi \"Yes, and don't ask again\", Claude Code dapat menyimpan perintah yang disetujui secara utuh, termasuk rahasia di dalamnya, ke berkas pengaturan proyek. Perusahaan keamanan Apiiro menemukan 1.122 salinan publik berkas tersebut di GitHub yang memuat kata sandi dan API key yang dapat dibaca siapa saja.",
+      "whyItMatters": "Tim pengembang yang memakai asisten AI coding perlu memeriksa berkas pengaturan proyek sebelum commit, mengecualikannya dari repositori bila perlu, dan merotasi kredensial yang mungkin terekspos.",
+      "source": {
+        "name": "The Hacker News",
+        "url": "https://thehackernews.com/2026/11/claude-codes-dont-ask-again-file.html",
+        "publishedAt": "2026-11-07T06:44:17.000Z"
+      }
+    },
+    {
+      "category": "iot",
+      "headline": "Otoritas AS peringatkan serangan siber ke sistem pendingin industri dan rantai dingin",
+      "summary": "CISA, FBI, HHS, USDA, dan DoT melaporkan aktivitas berbahaya secara global yang menyasar pengendali suhu dan kontroler refrigerasi komersial. Melalui bypass autentikasi, injeksi kode, atau konfigurasi lemah, pelaku dapat mengubah pengaturan dan memaksa unit terus memanas dan defrost, berisiko merusak persediaan, memicu bahaya kebakaran, dan menghilangkan visibilitas suhu.",
+      "whyItMatters": "Operator gudang dingin, ritel pangan, farmasi, dan logistik berpendingin perlu memastikan kontroler tidak terekspos internet, mengganti password bawaan, memisahkan jaringan OT, dan memasang batas setpoint beserta alarm.",
+      "source": {
+        "name": "CISA",
+        "url": "https://www.cisa.gov/resources-tools/resources/us-government-partners-urge-hardening-industrial-refrigeration-and-cold-chain-monitoring-systems",
+        "publishedAt": "2026-11-05T12:00:00.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "CISA, ACSC, dan NSA terbitkan panduan menilai kesiapan PQC vendor",
+      "summary": "CISA, ACSC Australia, dan NSA merilis panduan bersama berisi pertanyaan netral-vendor untuk menilai kesiapan pemasok beralih ke post-quantum cryptography (PQC). Panduan ini menekankan bahwa kriptografi kunci publik akan rentan terhadap komputer kuantum yang relevan secara kriptografis, sementara banyak sistem seperti ICS dan IoT sulit diperbarui dan bergantung pada dukungan vendor.",
+      "whyItMatters": "Organisasi dapat mulai menginventarisasi produk dan layanan yang bergantung pada kriptografi, lalu menanyakan rencana transisi PQC kepada vendor cloud, layanan terkelola, ICS, dan IoT sejak dini.",
+      "source": {
+        "name": "CISA",
+        "url": "https://www.cisa.gov/resources-tools/resources/post-quantum-questions-ask-your-vendors",
+        "publishedAt": "2026-11-05T12:00:00.000Z"
+      }
+    }
+  ],
+  "aftechNote": null,
+  "meta": {
+    "model": "claude-opus-5-5",
+    "generatedAt": "2026-11-09T02:26:54.864Z",
+    "reviewed": false
+  }
+}
