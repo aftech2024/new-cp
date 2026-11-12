@@ -1,0 +1,69 @@
+{
+  "slug": "kabar-teknologi-2026-11-12",
+  "date": "2026-11-12",
+  "title": "Kabar Teknologi 12 November 2026: Serangan ScreenConnect ke MSP, Celah Xen Orchestra, Patch Tuesday",
+  "description": "Serangan ScreenConnect bobol MSP, celah Xen Orchestra dieksploitasi, Patch Tuesday 1.093 celah, enam tambahan KEV CISA, dan regulasi agen AI Komdigi.",
+  "items": [
+    {
+      "category": "security",
+      "headline": "Serangan aktif lewat ScreenConnect bobol MSP, puluhan organisasi terdampak",
+      "summary": "ConnectWise menyelidiki kampanye yang memanfaatkan lingkungan ScreenConnect milik MSP untuk memasang klien akses jarak jauh ilegal di perangkat pelanggan. Huntress mencatat enam MSP dan lebih dari 286 endpoint di 47 organisasi terdampak. Sebagai langkah pencegahan, ConnectWise menonaktifkan lima ekstensi pihak ketiga di sekitar 400 lingkungan mitra.",
+      "whyItMatters": "Pengguna ScreenConnect dan klien MSP perlu memeriksa riwayat Run Command, log autentikasi, serta ekstensi yang terpasang. Pengguna versi on-premises harus menonaktifkan ekstensi tersebut secara manual.",
+      "source": {
+        "name": "BleepingComputer",
+        "url": "https://www.bleepingcomputer.com/news/security/active-screenconnect-attacks-breach-msps-impact-dozens-of-organizations",
+        "publishedAt": "2026-11-11T22:56:21.000Z"
+      }
+    },
+    {
+      "category": "cloud",
+      "headline": "Celah kritis Xen Orchestra dieksploitasi, node XCP-ng bisa diambil alih",
+      "summary": "Vates memperingatkan eksploitasi aktif atas celah bypass autentikasi kritis pada mekanisme REST Xen Orchestra. Celah ini memberi penyerang hak administrator hingga dapat mengambil alih node XCP-ng sebagai root, dan memengaruhi rilis sebelum 6.9.2 (stable) dan 6.10.1 (latest). Pelaku yang sama juga memakai zero-day impor VM berbahaya yang perbaikannya masih disiapkan.",
+      "whyItMatters": "Pengguna XCP-ng/XenServer perlu segera memperbarui sistem, menempatkan Xen Orchestra di jaringan terpisah, dan merotasi kredensial. Bila terbukti dibobol, Vates menyarankan instalasi ulang penuh.",
+      "source": {
+        "name": "SecurityWeek",
+        "url": "https://www.securityweek.com/critical-xen-orchestra-flaws-exploited-in-attacks",
+        "publishedAt": "2026-11-11T15:42:47.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "Patch Tuesday November: Microsoft tambal hampir 1.100 kerentanan",
+      "summary": "Microsoft merilis perbaikan untuk 1.093 kerentanan, termasuk 63 yang berkategori kritis dan satu zero-day spoofing di Outlook (CVE-2026-124194) yang sudah dieksploitasi. Pada pekan yang sama, Apple, Google, Mozilla, dan Adobe juga merilis pembaruan keamanan, termasuk perbaikan zero-day Chrome CVE-2026-125350.",
+      "whyItMatters": "Tim TI perlu memprioritaskan patch Outlook/Microsoft 365 dan Chrome yang sudah dieksploitasi, serta memastikan perangkat Apple benar-benar terbarui tanpa hanya mengandalkan pembaruan otomatis.",
+      "source": {
+        "name": "Krebs on Security",
+        "url": "https://krebsonsecurity.com/2026/11/microsoft-fixes-nearly-1100-security-vulnerabilities",
+        "publishedAt": "2026-11-10T21:55:03.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "CISA tambahkan enam kerentanan yang dieksploitasi aktif ke katalog KEV",
+      "summary": "CISA memasukkan enam kerentanan ke katalog Known Exploited Vulnerabilities berdasarkan bukti eksploitasi aktif. Daftar tersebut mencakup Cisco BroadWorks, dua celah pada produk Barracuda termasuk Email Security Gateway, Openwave Webtop, Microsoft Outlook, dan Google Chromium.",
+      "whyItMatters": "Kewajiban BOD 26-04 hanya berlaku bagi lembaga federal AS, tetapi katalog KEV dapat dijadikan acuan prioritas patch. Periksa apakah organisasi Anda memakai produk yang tercantum.",
+      "source": {
+        "name": "CISA",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/11/10/cisa-adds-six-known-exploited-vulnerabilities-catalog",
+        "publishedAt": "2026-11-10T12:00:00.000Z"
+      }
+    },
+    {
+      "category": "ai",
+      "headline": "Komdigi siapkan regulasi untuk antisipasi serangan siber berbasis agen AI",
+      "summary": "Wamenkomdigi Nezar menyebut Komdigi dan BSSN berkolaborasi menghadapi serangan siber yang dibantu agen AI, antara lain melalui simulasi dan penguatan infrastruktur digital. Komdigi menyiapkan regulasi terkait privasi, perlindungan data pribadi, dan keamanan agen AI, dengan aturan yang lebih ketat serta uji sandbox sebelum produk diluncurkan.",
+      "whyItMatters": "Organisasi di sektor berisiko tinggi seperti keuangan dan kesehatan perlu mencermati aturan mendatang tentang pengawasan manusia dan sandboxing bila berencana menggunakan agen AI.",
+      "source": {
+        "name": "CNN Indonesia Teknologi",
+        "url": "https://www.cnnindonesia.com/teknologi/20261111154135-192-1425942/antisipasi-serangan-agen-ai-komdigi-siapkan-regulasi",
+        "publishedAt": "2026-11-12T01:30:17.000Z"
+      }
+    }
+  ],
+  "aftechNote": null,
+  "meta": {
+    "model": "claude-opus-5-5",
+    "generatedAt": "2026-11-12T03:39:32.181Z",
+    "reviewed": false
+  }
+}
