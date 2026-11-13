@@ -9,7 +9,7 @@ Satu tim menangani dari ujung ke ujung: konsultasi & analisis kebutuhan → desa
 - Aplikasi mobile Android dan iOS, termasuk aplikasi lapangan untuk petugas.
 - API & integrasi: menghubungkan aplikasi dengan sistem lain, payment gateway, WhatsApp, layanan pihak ketiga, dan sistem lama (legacy).
 - Pengembangan lanjutan: melanjutkan, memperbaiki, memodernisasi atau memigrasikan aplikasi yang sudah ada.
-- Platform buatan Aftech yang sudah berjalan (daftar produk siap pakai: /products): EPTMS — halaman produk /products/eptms (studi kasus /projects/eptms-enterprise-project-management), Aftech Blue Carbon — halaman produk /products/blue-carbon, MK — halaman produk /products/management-construction (studi kasus /projects/mk-management-construction), Nexora ERP — halaman produk /products/nexora-erp, Photogrammetry — halaman produk /products/photogrammetry (studi kasus Kementerian Pertahanan /projects/photogrammetry), dan AI Farm — halaman produk /products/ai-farm (studi kasus AI Autonomous Farm Kementerian Pertanian /projects/ai-autonomous-farm-kementan)
+- Platform buatan Aftech yang sudah berjalan (daftar produk siap pakai: /products): EPTMS — halaman produk /products/eptms (studi kasus /projects/eptms-enterprise-project-management), Aftech Blue Carbon — halaman produk /products/blue-carbon, MK — halaman produk /products/management-construction (studi kasus /projects/mk-management-construction), Nexora ERP — halaman produk /products/nexora-erp, Nexora Health (manajemen klinik): halaman produk /products/nexora-health, Notulindo (notulen rapat): halaman produk /products/notulindo, PLTS Monitoring (monitoring inverter dan kinerja PLTS): halaman produk /products/plts-monitoring, Photogrammetry — halaman produk /products/photogrammetry (studi kasus Kementerian Pertahanan /projects/photogrammetry), dan AI Farm — halaman produk /products/ai-farm (studi kasus AI Autonomous Farm Kementerian Pertanian /projects/ai-autonomous-farm-kementan)
 
 ## AI (kecerdasan buatan)
 - Chatbot dan asisten virtual untuk website atau WhatsApp, seperti asisten di website ini.
@@ -80,6 +80,17 @@ Platform ini tidak mengubah estimasi menjadi kredit karbon secara otomatis; angk
 ## ERP, akuntansi, pajak, stok & produksi → Technology — /products/nexora-erp (produk Nexora ERP, bisa jadwalkan demo)
 Kata pengunjung: ERP, software akuntansi, aplikasi keuangan, faktur pajak, PPN, aplikasi gudang, inventory, stok barang, aplikasi distributor, purchase order, MRP, aplikasi pabrik, HPP, payroll, aplikasi HR, demo ERP.
 Kalau pengunjung butuh ERP yang dibuat khusus dari nol, arahkan ke /services/technology.
+
+## Klinik, rekam medis & kasir klinik → Technology: /products/nexora-health (produk Nexora Health, harga per implementasi lewat sales, bisa jadwalkan demo)
+Kata pengunjung: aplikasi klinik, sistem klinik, SIMKLINIK, rekam medis elektronik, RME, booking pasien, antrean klinik, kasir klinik, apotek klinik, stok obat, jasa dokter, SATUSEHAT, sunat center, klinik pratama, multi cabang klinik.
+Integrasi SATUSEHAT: pemeriksaan selesai diantrekan untuk dikirim (FHIR R4) setelah ID organisasi, lokasi, dan kredensial klinik diisi. Jangan menjanjikan integrasi BPJS; tim akan mengonfirmasi saat konsultasi.
+
+## Notulen & tindak lanjut rapat → Technology: /products/notulindo (produk Notulindo, harga per implementasi lewat sales, bisa jadwalkan demo)
+Kata pengunjung: notulen rapat, notulensi, risalah rapat, transkrip rapat, rekam rapat, minutes of meeting, MoM, tindak lanjut rapat, action item, daftar hadir rapat, Zoom, Google Meet, Teams.
+
+## Monitoring PLTS & energi surya → Technology: /products/plts-monitoring (produk PLTS Monitoring, harga per implementasi lewat sales, bisa jadwalkan demo)
+Kata pengunjung: PLTS, panel surya, solar panel, solar PV, inverter, GoodWe, Solis, performance ratio, PR, specific yield, monitoring energi, O&M PLTS, alarm inverter, laporan produksi listrik surya.
+Konektor yang tersedia: GoodWe SEMS dan SolisCloud. Untuk merek inverter lain, tim akan mengecek API vendornya saat konsultasi.
 
 ## Listrik, AC, plumbing & proteksi kebakaran → Mechanical & Electrical — /services/mechanical-electrical
 Kata pengunjung: instalasi listrik, panel listrik, kabel, AC, tata udara (HVAC), pipa, air bersih, plumbing, alarm kebakaran, hydrant, sprinkler, sistem gedung.

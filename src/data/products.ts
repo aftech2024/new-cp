@@ -2,10 +2,14 @@ import type { LucideIcon } from "lucide-react";
 import {
   Activity,
   BadgeCheck,
+  BellRing,
   BookCheck,
+  BookOpen,
   Box,
   Briefcase,
   Building2,
+  CalendarCheck,
+  CalendarPlus,
   CalendarRange,
   Camera,
   ChartColumn,
@@ -15,28 +19,38 @@ import {
   Factory,
   FileSignature,
   FileCheck,
+  FileSpreadsheet,
   FileText,
   FolderKanban,
   Gauge,
   HardHat,
   Landmark,
   ListChecks,
+  ListOrdered,
   Layers,
   MapIcon,
   MapPinned,
+  Mic,
   Mountain,
   Network,
+  PenLine,
+  Pill,
   Plane,
+  PlugZap,
+  QrCode,
   Radar,
   Receipt,
   Ruler,
   Scale,
   ScanSearch,
+  Search,
   ShieldCheck,
   ShoppingCart,
   Sigma,
   Sprout,
+  Stethoscope,
   Store,
+  Sun,
   Table2,
   TreePine,
   Truck,
@@ -44,6 +58,7 @@ import {
   Users,
   Wallet,
   Warehouse,
+  Wrench,
 } from "lucide-react";
 import type { Lang } from "@/i18n/translations";
 import mkCostDashboard from "@/assets/images/products/mk/cost-dashboard.webp";
@@ -57,6 +72,22 @@ import nxArAging from "@/assets/images/products/nexora/ar-aging.webp";
 import nxTax from "@/assets/images/products/nexora/faktur-pajak.webp";
 import nxStock from "@/assets/images/products/nexora/stock-balance.webp";
 import nxManufacturing from "@/assets/images/products/nexora/manufacturing.webp";
+import nhRecommendations from "@/assets/images/products/nexora-health/recommendations.webp";
+import nhSchedule from "@/assets/images/products/nexora-health/schedule.webp";
+import nhEncounter from "@/assets/images/products/nexora-health/encounter.webp";
+import nhCashier from "@/assets/images/products/nexora-health/cashier.webp";
+import nhLedger from "@/assets/images/products/nexora-health/ledger.webp";
+import nhAudit from "@/assets/images/products/nexora-health/audit.webp";
+import pvDaily from "@/assets/images/products/plts-monitoring/daily-production.webp";
+import pvMonthly from "@/assets/images/products/plts-monitoring/monthly-kpi.webp";
+import pvInverter from "@/assets/images/products/plts-monitoring/inverter.webp";
+import pvStrings from "@/assets/images/products/plts-monitoring/strings-alarms.webp";
+import pvReport from "@/assets/images/products/plts-monitoring/monthly-report.webp";
+import ntMinutes from "@/assets/images/products/notulindo/minutes.webp";
+import ntProposals from "@/assets/images/products/notulindo/proposals.webp";
+import ntFollowUps from "@/assets/images/products/notulindo/follow-ups.webp";
+import ntSchedule from "@/assets/images/products/notulindo/schedule-meeting.webp";
+import ntArchive from "@/assets/images/products/notulindo/archive.webp";
 import farmCommandCenter from "@/assets/images/products/ai-farm/command-center.webp";
 import farmFarms from "@/assets/images/products/ai-farm/farms.webp";
 import farmBrain from "@/assets/images/products/ai-farm/farm-brain.webp";
@@ -134,6 +165,8 @@ export interface Pricing {
   tiers: PricingTier[];
   compare: { group: Localized; rows: PricingRow[] }[];
   notes: Localized[];
+  /** Replaces the shared quote-only intro, which speaks of sites and devices, for software-only products. */
+  quoteDesc?: Localized;
 }
 
 /** Months charged for a year on yearly billing. */
@@ -1971,7 +2004,770 @@ const erp: Product = {
   },
 };
 
-export const products: Product[] = [mk, eptms, erp, blueCarbon, photogrammetry, aiFarm];
+const nexoraHealth: Product = {
+  slug: "nexora-health",
+  name: "Nexora Health",
+  shortName: "Nexora Health",
+  category: l("Manajemen klinik", "Clinic management"),
+  tagline: l(
+    "Booking, antrean, rekam medis, kasir, apotek, dan buku besar klinik dalam satu aplikasi.",
+    "Bookings, queues, medical records, billing, pharmacy and the clinic's ledger in one app.",
+  ),
+  accent: "13 148 136",
+  appHost: "app-health.aftech.co.id",
+  appUrl: "https://app-health.aftech.co.id/",
+  cover: nhRecommendations,
+  page: {
+    seoTitle: l(
+      "Nexora Health: Aplikasi Manajemen Klinik, Rekam Medis & Kasir",
+      "Nexora Health: Clinic Management, Medical Records & Billing Software",
+    ),
+    seoDescription: l(
+      "Nexora Health menyatukan booking online, antrean, rekam medis SOAP dan ICD-10, apotek, kasir, dan buku besar klinik, dengan antrean sinkron SATUSEHAT. Jadwalkan demo.",
+      "Nexora Health brings online booking, queues, SOAP and ICD-10 medical records, pharmacy, billing and the clinic ledger together, with a SATUSEHAT sync queue. Book a demo.",
+    ),
+    headline: l("Satu alur klinik, dari booking sampai tutup buku.", "One clinic flow, from booking to month-end close."),
+    intro: l(
+      "Nexora Health mencatat perjalanan pasien dari booking, antrean, dan ruang periksa sampai apotek dan kasir. Setiap langkah langsung memotong stok, membentuk tagihan, dan menjurnal ke buku besar, jadi angka pemilik klinik sama dengan yang terjadi di ruang periksa.",
+      "Nexora Health records the patient's path from booking, queue and consultation room through to the pharmacy and the cashier. Each step deducts stock, raises the bill and posts to the ledger, so the owner's numbers match what happened in the consultation room.",
+    ),
+    heroImage: nhRecommendations,
+    heroBadges: [
+      { value: l("Rencana hari ini", "Today's plan"), label: l("Rekomendasi per peran, diperbarui tiap 2 menit", "Recommendations per role, refreshed every 2 minutes") },
+      { value: l("SOAP · ICD-10", "SOAP · ICD-10"), label: l("Lembar periksa dengan tanda vital, tindakan, dan resep", "One exam sheet with vitals, procedures and prescriptions") },
+      { value: l("Hash chain", "Hash chain"), label: l("Setiap akses rekam medis tercatat", "Every medical record access is logged") },
+    ],
+    highlights: [
+      { value: l("Satu alur", "One flow"), label: l("Booking, periksa, kasir, dan jurnal", "Booking, exam, billing and journals") },
+      { value: l("Stok per batch", "Stock by batch"), label: l("Kedaluwarsa terdekat keluar lebih dulu", "Nearest expiry goes out first") },
+      { value: l("Jurnal otomatis", "Automatic journals"), label: l("Dari kasir, stok, dan jasa medis", "From billing, stock and practitioner fees") },
+      { value: l("SATUSEHAT", "SATUSEHAT"), label: l("Pemeriksaan selesai diantrekan untuk dikirim", "Finished encounters queued for sending") },
+    ],
+    compare: {
+      title: l(
+        "Dari buku janji, kertas resep, dan spreadsheet ke satu sistem",
+        "From appointment books, paper prescriptions and spreadsheets to one system",
+      ),
+      before: [
+        l("Booking masuk lewat chat dan dicatat manual, jadi jadwal dokter bisa bentrok.", "Bookings arrive by chat and are written down by hand, so doctors' schedules can clash."),
+        l("Stok obat dan BMHP dihitung terpisah, dan barang kedaluwarsa baru ketahuan saat opname.", "Medicine and consumable stock is counted separately, and expired items surface only at stocktake."),
+        l("Tagihan, DP, dan jasa dokter direkap manual di akhir bulan.", "Bills, deposits and doctors' fees are reconciled by hand at month end."),
+        l("Rekam medis tersebar di aplikasi lama dan kertas, dan tidak ada catatan siapa yang membukanya.", "Medical records are spread across an old app and paper, with no record of who opened them."),
+      ],
+      after: [
+        l("Booking online dan frontdesk masuk ke kalender per tenaga medis, sehingga slot dokter dan ruang terkunci.", "Online and front-desk bookings land on a calendar per practitioner, so the doctor's slot and the room are locked."),
+        l("Tindakan dan resep memotong stok per batch, dan apotek memilih batch dengan kedaluwarsa terdekat.", "Procedures and prescriptions deduct stock by batch, and the pharmacy picks the batch with the nearest expiry."),
+        l("Invoice terbentuk saat pemeriksaan selesai, DP dipotong otomatis, dan jasa medis dihitung saat invoice lunas.", "The invoice is raised when the exam ends, the deposit is deducted automatically and the practitioner fee is calculated once it is paid."),
+        l("Data aplikasi lama diimpor tanpa RM ganda, dan setiap akses rekam medis tercatat di jejak audit.", "Data from the old app is imported without duplicate record numbers, and every medical record access goes into the audit trail."),
+      ],
+    },
+    flow: {
+      title: l("Satu kunjungan pasien, dari booking sampai laporan", "One patient visit, from booking to report"),
+      description: l(
+        "Data yang dicatat di frontdesk dipakai lagi di ruang periksa, apotek, kasir, dan buku besar, jadi tidak ada input ulang.",
+        "What the front desk records is reused in the consultation room, the pharmacy, the cashier and the ledger, so nothing is typed twice.",
+      ),
+      steps: [
+        { name: l("Booking", "Booking"), detail: l("Online lewat halaman klinik atau di frontdesk, dengan DP bila perlu.", "Online through the clinic's page or at the front desk, with a deposit if needed."), icon: CalendarCheck },
+        { name: l("Antrean", "Queue"), detail: l("Nomor diberikan saat check-in dan dipanggil lewat layar TV.", "A number is issued at check-in and called on the waiting-room screen."), icon: ListOrdered },
+        { name: l("Pemeriksaan", "Exam"), detail: l("SOAP, tanda vital, ICD-10, tindakan, BMHP, dan resep.", "SOAP, vitals, ICD-10, procedures, consumables and prescriptions."), icon: Stethoscope },
+        { name: l("Apotek", "Pharmacy"), detail: l("Resep final ditebus dari batch dengan kedaluwarsa terdekat.", "Final prescriptions are dispensed from the batch nearest expiry."), icon: Pill },
+        { name: l("Kasir", "Cashier"), detail: l("Invoice terbentuk otomatis, DP dipotong, pembayaran per shift.", "Invoices are raised automatically, deposits deducted, payments taken per shift."), icon: Receipt },
+        { name: l("Buku besar", "Ledger"), detail: l("Kasir, stok, dan jasa medis menjurnal sendiri.", "Billing, stock and practitioner fees post their own journals."), icon: BookOpen },
+        { name: l("Laporan", "Reports"), detail: l("Margin per layanan, kas harian, no-show, dan SATUSEHAT.", "Margin per service, daily cash, no-shows and SATUSEHAT."), icon: ChartColumn },
+      ],
+    },
+    modulesTitle: l("Lihat isi aplikasinya", "Take a look inside"),
+    modules: [
+      {
+        name: l("Rekomendasi", "Recommendations"),
+        summary: l(
+          "Nexora membaca data klinik sesuai peran pengguna dan menandai yang perlu ditindak: mendesak, perlu perhatian, atau info. Rencana hari ini menyusunnya jadi urutan kerja, dengan alasan dalam angka dan menu yang perlu dibuka.",
+          "Nexora reads the clinic's data according to the user's role and flags what needs action: urgent, needs attention or info. Today's plan turns it into an order of work, with the reason in numbers and the screen to open.",
+        ),
+        points: [
+          l("Diperbarui setiap 2 menit", "Refreshed every 2 minutes"),
+          l("Tandai selesai, tunda sehari, atau abaikan", "Mark done, snooze a day or dismiss"),
+          l("Keputusan dan eksekusi tetap di tangan pengguna", "Decisions and actions stay with the user"),
+        ],
+        image: nhRecommendations,
+      },
+      {
+        name: l("Jadwal & booking", "Schedule & booking"),
+        summary: l(
+          "Kalender per tenaga medis dengan status janji dari terjadwal, menunggu DP, hadir, dilayani, sampai selesai. Pasien yang datang langsung juga dicatat lewat booking, jadi slot dokter dan ruang tidak bentrok.",
+          "A calendar per practitioner with each appointment's status, from scheduled and awaiting deposit to arrived, in service and done. Walk-ins are booked too, so the doctor's slot and the room never clash.",
+        ),
+        points: [
+          l("Halaman booking online untuk setiap klinik", "An online booking page for each clinic"),
+          l("Nomor antrean dan layar TV untuk ruang tunggu", "Queue numbers and a waiting-room TV screen"),
+          l("Laporan okupansi dan tingkat tidak datang", "Occupancy and no-show reports"),
+        ],
+        image: nhSchedule,
+      },
+      {
+        name: l("Pemeriksaan", "Exam sheet"),
+        summary: l(
+          "Lembar periksa berisi catatan SOAP, tanda vital, diagnosis ICD-10, tindakan dan BMHP, serta resep. Diagnosis utama wajib diisi sebelum pemeriksaan diselesaikan.",
+          "The exam sheet holds SOAP notes, vital signs, the ICD-10 diagnosis, procedures and consumables, and prescriptions. A primary diagnosis is required before the exam can be finished.",
+        ),
+        points: [
+          l("Catatan yang belum ditandatangani terkumpul di satu daftar", "Unsigned notes collected in one list"),
+          l("Resep final langsung masuk ke antrean apotek", "Final prescriptions go straight to the pharmacy queue"),
+          l("Wali, alergi, persetujuan tindakan, dan riwayat kunjungan di data pasien", "Guardians, allergies, consents and visit history on the patient record"),
+        ],
+        image: nhEncounter,
+      },
+      {
+        name: l("Kasir", "Cashier"),
+        summary: l(
+          "Tagihan terbentuk otomatis saat pemeriksaan selesai. Kasir menerima pembayaran per shift, memberi diskon, dan melayani penjualan retail obat atau barang.",
+          "The bill is raised automatically when the exam ends. The cashier takes payments per shift, applies discounts and handles retail sales of medicine or goods.",
+        ),
+        points: [
+          l("DP booking dipotong saat invoice terbit", "Booking deposits deducted when the invoice is issued"),
+          l("Pembayaran tunai dicatat setelah shift dibuka", "Cash is recorded only once a shift is open"),
+          l("Refund dan void membalik jasa medis yang belum dibayar", "Refunds and voids reverse unpaid practitioner fees"),
+        ],
+        image: nhCashier,
+      },
+      {
+        name: l("Buku besar", "Ledger"),
+        summary: l(
+          "Semua angka keuangan dihitung dari jurnal. Kasir, stok, dan jasa medis menjurnal otomatis, dan jurnal tidak bisa diubah: koreksi dibuat lewat jurnal balik.",
+          "Every financial figure is calculated from journals. Billing, stock and practitioner fees post automatically, and journals cannot be edited: corrections go through a reversing entry.",
+        ),
+        points: [
+          l("Kas & bank, hutang pemasok, dan laba rugi", "Cash & bank, supplier payables and profit and loss"),
+          l("Tutup buku per periode dengan checklist", "Period close with a checklist"),
+          l("Margin per layanan setelah BMHP dan jasa medis", "Margin per service after consumables and practitioner fees"),
+        ],
+        image: nhLedger,
+      },
+      {
+        name: l("Jejak audit", "Audit trail"),
+        summary: l(
+          "Log append-only dengan hash chain. Setiap akses ke rekam medis tercatat, termasuk akses darurat, dan sistem menunjukkan apakah ada entri yang diubah atau dihapus.",
+          "An append-only log with a hash chain. Every access to a medical record is logged, emergency access included, and the system shows whether any entry has been changed or removed.",
+        ),
+        points: [
+          l("Filter akses data klinis dan akses darurat", "Filters for clinical data access and emergency access"),
+          l("Siapa, kapan, dan data apa yang dibuka", "Who opened what, and when"),
+          l("Menu setiap peran dibatasi sesuai tugasnya", "Each role sees only the menus its job needs"),
+        ],
+        image: nhAudit,
+      },
+    ],
+    personasTitle: l("Dibuat untuk setiap meja di klinik", "Built for every desk in the clinic"),
+    personas: [
+      {
+        title: l("Pemilik & manajer klinik", "Clinic owners & managers"),
+        text: l(
+          "Lihat semua cabang, laba rugi, dan rekomendasi harian tanpa menunggu rekap dari staf.",
+          "See every branch, the profit and loss and the day's recommendations without waiting for staff to compile them.",
+        ),
+        icon: Building2,
+      },
+      {
+        title: l("Frontdesk & kasir", "Front desk & cashiers"),
+        text: l(
+          "Kelola booking, antrean, dan pembayaran dari satu layar, termasuk pasien yang datang langsung.",
+          "Handle bookings, the queue and payments from one screen, walk-ins included.",
+        ),
+        icon: Users,
+      },
+      {
+        title: l("Dokter & tenaga medis", "Doctors & practitioners"),
+        text: l(
+          "Isi SOAP, diagnosis ICD-10, tindakan, dan resep di satu lembar periksa, lalu resep langsung sampai ke apotek.",
+          "Write SOAP notes, the ICD-10 diagnosis, procedures and prescriptions on one exam sheet, and the prescription reaches the pharmacy straight away.",
+        ),
+        icon: Stethoscope,
+      },
+    ],
+    pricing: {
+      tiers: [
+        {
+          name: l("Implementasi", "Implementation"),
+          description: l(
+            "Disusun dari jumlah cabang, pengguna, dan layanan klinik, termasuk pemindahan data dari aplikasi lama.",
+            "Scoped on the number of branches, users and clinic services, including moving data over from the old app.",
+          ),
+          monthly: null,
+          customPrice: l("Hubungi sales", "Contact sales"),
+          customNote: l("Dihitung dari jumlah cabang, pengguna, dan migrasi data", "Quoted on branches, users and data migration"),
+          cta: l("Hubungi sales", "Contact sales"),
+          limits: [
+            { label: l("Cabang", "Branches"), value: l("Satu atau banyak", "One or many") },
+            { label: l("Peran", "Roles"), value: l("Owner, frontdesk, dokter, kasir, finance", "Owner, front desk, doctor, cashier, finance") },
+            { label: l("Migrasi", "Migration"), value: l("Impor CSV dari aplikasi lama", "CSV import from the old app") },
+          ],
+          includesFrom: l("Termasuk dalam implementasi:", "Included in the implementation:"),
+          features: [
+            l("Booking online, jadwal, dan antrean", "Online booking, scheduling and queues"),
+            l("Rekam medis SOAP, ICD-10, dan resep", "SOAP medical records, ICD-10 and prescriptions"),
+            l("Apotek dan stok per batch", "Pharmacy and stock by batch"),
+            l("Kasir, buku besar, dan jasa medis", "Cashier, ledger and practitioner fees"),
+            l("Layanan, BOM tindakan, dan jadwal praktik", "Services, procedure BOMs and practice schedules"),
+            l("Rekomendasi harian dan jejak audit", "Daily recommendations and the audit trail"),
+          ],
+        },
+      ],
+      compare: [],
+      notes: [
+        l("Konsultasi dan demo gratis", "Free consultation and demo"),
+        l("Penawaran disusun sesuai jumlah cabang dan pengguna", "Quotes are scoped to your branches and users"),
+      ],
+      quoteDesc: l(
+        "Setiap implementasi disesuaikan dengan jumlah cabang, pengguna, dan data lama klinik Anda. Hubungi tim kami untuk penawaran, diawali demo gratis.",
+        "Every implementation is scoped to your branches, your users and your clinic's existing data. Talk to our team for a quote, starting with a free demo.",
+      ),
+    },
+    faq: [
+      {
+        question: l("Bisakah data pasien dari aplikasi lama dipindahkan?", "Can patient data come over from our old app?"),
+        answer: l(
+          "Bisa. Ekspor pasien, wali, alergi, dan riwayat kunjungan dari aplikasi lama ke CSV, lalu unggah di menu Impor data lama. Judul kolom umum seperti No. RM, Nama Pasien, dan Tgl Lahir dikenali otomatis. File divalidasi dulu, pasien dicocokkan lewat NIK atau nama, tanggal lahir, dan nomor HP agar tidak ada RM ganda, dan data baru ditulis setelah Anda menyetujui hasilnya.",
+          "Yes. Export patients, guardians, allergies and visit history from the old app to CSV, then upload them under Import old data. Common column headings such as record number, patient name and date of birth are recognised automatically. Files are validated first, patients are matched on NIK or on name, date of birth and phone number so no record is duplicated, and nothing is written until you approve the result.",
+        ),
+      },
+      {
+        question: l("Apakah Nexora Health terhubung ke SATUSEHAT?", "Does Nexora Health connect to SATUSEHAT?"),
+        answer: l(
+          "Pemeriksaan yang sudah selesai diantrekan untuk dikirim ke SATUSEHAT dalam format FHIR R4. Pengiriman dimulai setelah ID organisasi dan lokasi SATUSEHAT diisi di pengaturan cabang, bersama kredensial integrasi klinik.",
+          "Finished encounters are queued for sending to SATUSEHAT in FHIR R4 format. Sending starts once the SATUSEHAT organisation and location IDs are filled in under branch settings, along with the clinic's integration credentials.",
+        ),
+      },
+      {
+        question: l("Siapa yang bisa membuka rekam medis?", "Who can open medical records?"),
+        answer: l(
+          "Menu dibatasi per peran. Frontdesk mengelola booking, antrean, pasien, dan kasir tanpa membuka lembar periksa, dan tim finance melihat kasir, stok, dan keuangan tanpa data klinis. Setiap akses ke rekam medis, termasuk akses darurat, tercatat di jejak audit.",
+          "Menus are limited by role. The front desk handles bookings, the queue, patients and billing without opening exam sheets, and finance sees billing, stock and the books without clinical data. Every access to a medical record, emergency access included, goes into the audit trail.",
+        ),
+      },
+      {
+        question: l("Bisakah dipakai untuk beberapa cabang?", "Does it work across several branches?"),
+        answer: l(
+          "Bisa. Setiap cabang punya layanan, tenaga medis, jadwal praktik, dan halaman booking sendiri, dan peran pengguna diatur per klinik. Owner dan finance bisa berpindah antar cabang dari menu yang sama.",
+          "Yes. Each branch has its own services, practitioners, practice hours and booking page, and user roles are set per clinic. Owners and finance can switch between branches from the same menu.",
+        ),
+      },
+      {
+        question: l("Apakah rekomendasi AI bisa mengubah data?", "Can the AI recommendations change data?"),
+        answer: l(
+          "Tidak. Rekomendasi hanya menunjukkan apa yang perlu ditindak, alasannya, dan menu yang perlu dibuka. Keputusan dan eksekusinya tetap dilakukan pengguna.",
+          "No. A recommendation only shows what needs doing, why, and which screen to open. The decision and the action stay with the user.",
+        ),
+      },
+      {
+        question: l("Seperti apa sesi demonya?", "What happens in the demo?"),
+        answer: l(
+          "Sekitar 60 menit, online atau tatap muka. Kami tunjukkan satu kunjungan pasien dari booking sampai buku besar, lalu membahas layanan, cabang, dan data lama klinik Anda.",
+          "About 60 minutes, online or in person. We follow one patient visit from booking to the ledger, then talk through your clinic's services, branches and existing data.",
+        ),
+      },
+    ],
+  },
+};
+
+const pltsMonitoring: Product = {
+  slug: "plts-monitoring",
+  name: "PLTS Monitoring",
+  shortName: "PLTS Monitoring",
+  category: l("Monitoring PLTS · Energi surya", "Solar PV monitoring · Energy"),
+  tagline: l(
+    "Produksi, performance ratio, alarm, dan tiket O&M semua inverter PLTS dalam satu dashboard.",
+    "Production, performance ratio, alarms and O&M tickets for every inverter of a solar plant in one dashboard.",
+  ),
+  accent: "242 181 10",
+  cover: pvDaily,
+  page: {
+    seoTitle: l(
+      "PLTS Monitoring: Aplikasi Monitoring Inverter & Kinerja PLTS",
+      "PLTS Monitoring: Solar Inverter & Plant Performance Monitoring",
+    ),
+    seoDescription: l(
+      "PLTS Monitoring mengambil data inverter GoodWe dan Solis setiap 5 menit, menghitung performance ratio dan specific yield, membuka alarm dan tiket O&M, dan menyusun laporan bulanan. Jadwalkan demo.",
+      "PLTS Monitoring pulls GoodWe and Solis inverter data every 5 minutes, calculates performance ratio and specific yield, raises alarms and O&M tickets, and builds the monthly report. Book a demo.",
+    ),
+    headline: l("Inverter yang tertinggal, ketahuan hari itu juga.", "Catch a lagging inverter the same day."),
+    intro: l(
+      "PLTS Monitoring mengambil data inverter dari portal vendor setiap 5 menit, membandingkan daya aktual dengan perkiraan dari irradiance, dan membuka alarm saat string, inverter, atau site berproduksi di bawah semestinya. Alarm kritis langsung menjadi tiket O&M, dan laporan bulanan siap dicetak untuk manajemen.",
+      "PLTS Monitoring pulls inverter data from the vendor portals every 5 minutes, compares actual power with what the irradiance says it should be, and raises an alarm when a string, inverter or site falls short. Critical alarms become O&M tickets, and the monthly report is ready to print for management.",
+    ),
+    heroImage: pvDaily,
+    heroBadges: [
+      { value: l("Aktual vs perkiraan", "Actual vs expected"), label: l("Daya dibandingkan dengan irradiance × kWp × PR target", "Power compared with irradiance × kWp × target PR") },
+      { value: l("Arus per string", "Current per string"), label: l("String di bawah 70% median ditandai", "Strings below 70% of the median are flagged") },
+      { value: l("Alarm → tiket", "Alarm → ticket"), label: l("Alarm kritis membuat tiket O&M otomatis", "Critical alarms open O&M tickets automatically") },
+    ],
+    highlights: [
+      { value: l("Data tiap 5 menit", "Data every 5 minutes"), label: l("Dari GoodWe SEMS dan SolisCloud", "From GoodWe SEMS and SolisCloud") },
+      { value: l("PR & specific yield", "PR & specific yield"), label: l("Site berbeda ukuran tetap bisa dibandingkan", "Sites of different sizes stay comparable") },
+      { value: l("Tiket O&M", "O&M tickets"), label: l("Diurutkan menurut tenggat SLA", "Sorted by SLA deadline") },
+      { value: l("Email & Telegram", "Email & Telegram"), label: l("Notifikasi sesuai tingkat alarm", "Notifications by alarm severity") },
+    ],
+    compare: {
+      title: l(
+        "Dari portal vendor yang dicek satu per satu ke satu dashboard",
+        "From checking each vendor portal to one dashboard",
+      ),
+      before: [
+        l("Data produksi dicek satu per satu di portal setiap merek inverter.", "Production is checked portal by portal, one for each inverter brand."),
+        l("Inverter atau string yang kurang produksi baru ketahuan saat rekap bulanan.", "An underperforming inverter or string shows up only in the monthly roll-up."),
+        l("Gangguan dilaporkan lewat chat, tanpa penanggung jawab dan tenggat yang jelas.", "Faults are reported over chat, with no clear owner or deadline."),
+        l("Laporan bulanan untuk manajemen dirakit manual dari ekspor portal vendor.", "The monthly management report is assembled by hand from vendor portal exports."),
+      ],
+      after: [
+        l("Inverter GoodWe dan Solis masuk ke satu dashboard yang diperbarui setiap 5 menit.", "GoodWe and Solis inverters feed one dashboard, refreshed every 5 minutes."),
+        l("Daya aktual dibandingkan dengan perkiraan dari irradiance, dan string di bawah 70% median langsung ditandai.", "Actual power is set against the irradiance-based forecast, and strings below 70% of the median are flagged right away."),
+        l("Setiap alarm punya tingkat dan status, dan alarm kritis menjadi tiket O&M dengan petugas dan tenggat SLA.", "Every alarm has a severity and a status, and critical alarms become O&M tickets with an assignee and an SLA deadline."),
+        l("Laporan bulanan per site berisi energi, PR, availability, penghematan, alarm, dan tiket, siap PDF dan Excel.", "The monthly site report covers energy, PR, availability, savings, alarms and tickets, ready as PDF and Excel."),
+      ],
+    },
+    flow: {
+      title: l("Dari data inverter sampai laporan manajemen", "From inverter data to the management report"),
+      description: l(
+        "Setiap 5 menit data baru masuk, dihitung menjadi KPI, dan diperiksa aturan alarm. Yang perlu ditangani berlanjut menjadi tiket sampai tercatat di laporan bulanan.",
+        "Every 5 minutes new data arrives, becomes KPIs and is checked against the alarm rules. Anything that needs work becomes a ticket and ends up in the monthly report.",
+      ),
+      steps: [
+        { name: l("Konektor vendor", "Vendor connectors"), detail: l("GoodWe SEMS dan SolisCloud, kredensial tersimpan terenkripsi.", "GoodWe SEMS and SolisCloud, with credentials stored encrypted."), icon: PlugZap },
+        { name: l("Data 5 menit", "5-minute data"), detail: l("Daya, energi, tegangan, arus, dan suhu setiap inverter.", "Power, energy, voltage, current and temperature for every inverter."), icon: Activity },
+        { name: l("Irradiance", "Irradiance"), detail: l("Irradiance bidang modul dari data satelit sampai sensor lokal terpasang.", "Plane-of-array irradiance from satellite data until a local sensor is fitted."), icon: Sun },
+        { name: l("KPI", "KPIs"), detail: l("Specific yield, performance ratio, availability, dan penghematan rupiah.", "Specific yield, performance ratio, availability and savings in rupiah."), icon: Gauge },
+        { name: l("Alarm", "Alarms"), detail: l("Aturan aplikasi dan alarm vendor, dari info sampai kritis.", "App rules and vendor alarms, from info to critical."), icon: BellRing },
+        { name: l("Tiket O&M", "O&M tickets"), detail: l("Petugas, prioritas, dan tenggat SLA untuk setiap pekerjaan.", "An assignee, a priority and an SLA deadline for every job."), icon: Wrench },
+        { name: l("Laporan", "Reports"), detail: l("Laporan bulanan PDF dan Excel, plus data mentah per inverter.", "Monthly PDF and Excel reports, plus raw data per inverter."), icon: FileSpreadsheet },
+      ],
+    },
+    modulesTitle: l("Lihat isi aplikasinya", "Take a look inside"),
+    modules: [
+      {
+        name: l("Produksi harian", "Daily production"),
+        summary: l(
+          "Energi, specific yield, performance ratio, availability, dan iradiasi bidang modul per hari. Grafik membandingkan daya aktual dengan perkiraan dari irradiance, jadi kehilangan produksi di siang cerah langsung terlihat.",
+          "Energy, specific yield, performance ratio, availability and plane-of-array irradiation for each day. The chart sets actual power against the irradiance forecast, so production lost on a clear afternoon is plain to see.",
+        ),
+        points: [
+          l("Pita siang per inverter dalam blok 5 menit", "A daylight strip per inverter in 5-minute blocks"),
+          l("Inverter di bawah 70% inverter lain (per kWp) ditandai", "Inverters below 70% of their peers (per kWp) are flagged"),
+          l("Pindah tanggal untuk melihat hari sebelumnya", "Step back through earlier days"),
+        ],
+        image: pvDaily,
+      },
+      {
+        name: l("Energi & KPI bulanan", "Monthly energy & KPIs"),
+        summary: l(
+          "Energi harian dan PR sebulan dalam satu grafik, ditambah rincian per inverter dan per hari. PR hanya dihitung untuk hari dengan iradiasi cukup dan data minimal 90% lengkap.",
+          "A month of daily energy and PR in one chart, with a breakdown per inverter and per day. PR is calculated only for days with enough irradiation and at least 90% complete data.",
+        ),
+        points: [
+          l("Penghematan dalam rupiah dari tarif listrik site", "Savings in rupiah from the site's electricity tariff"),
+          l("kWh/kWp per inverter untuk membandingkan kinerja", "kWh/kWp per inverter to compare performance"),
+          l("Jumlah hari dengan data ditampilkan apa adanya", "The number of days with data shown as it is"),
+        ],
+        image: pvMonthly,
+      },
+      {
+        name: l("Detail inverter", "Inverter detail"),
+        summary: l(
+          "Semua besaran listrik satu inverter: daya AC, energi, tegangan dan arus per fasa, frekuensi, power factor, suhu, resistansi isolasi, dan jam operasi.",
+          "Every electrical reading for one inverter: AC power, energy, voltage and current per phase, frequency, power factor, temperature, insulation resistance and operating hours.",
+        ),
+        points: [
+          l("Model, nomor seri, firmware, dan mode kerja", "Model, serial number, firmware and operating mode"),
+          l("Peringatan bila data terakhir sudah lama", "A warning when the latest data is stale"),
+          l("Buat tiket langsung dari halaman inverter", "Open a ticket straight from the inverter page"),
+        ],
+        image: pvInverter,
+      },
+      {
+        name: l("Arus string & alarm", "String current & alarms"),
+        summary: l(
+          "Arus setiap string dibandingkan dengan median string aktif. String di bawah 70% median atau nyaris nol diberi warna, dan riwayat alarm inverter ada di sebelahnya.",
+          "Each string's current is compared with the median of the active strings. Strings below 70% of the median or close to zero are coloured, with the inverter's alarm history alongside.",
+        ),
+        points: [
+          l("Tegangan, arus, dan daya DC per MPPT", "Voltage, current and DC power per MPPT"),
+          l("Status alarm: baru, diakui, pulih sendiri, ditutup", "Alarm status: new, acknowledged, self-cleared, closed"),
+          l("Jadwal pemeliharaan meredam notifikasi saat pekerjaan berjalan", "Maintenance windows mute notifications while work is under way"),
+        ],
+        image: pvStrings,
+      },
+      {
+        name: l("Laporan bulanan", "Monthly report"),
+        summary: l(
+          "Ringkasan per site untuk manajemen: energi, specific yield, PR, availability, penghematan, produksi tertinggi dan terendah, jumlah alarm, dan tiket yang melewati SLA.",
+          "A per-site summary for management: energy, specific yield, PR, availability, savings, best and worst days, alarm counts and tickets that missed their SLA.",
+        ),
+        points: [
+          l("Versi cetak PDF dan ekspor Excel", "A printable PDF and an Excel export"),
+          l("Data mentah per inverter dalam CSV", "Raw per-inverter data as CSV"),
+          l("CO₂ dihindari dari faktor emisi grid yang Anda tetapkan", "CO₂ avoided, using the grid emission factor you set"),
+        ],
+        image: pvReport,
+      },
+    ],
+    personasTitle: l("Dibuat untuk tim yang bertanggung jawab atas produksi PLTS", "Built for the people accountable for solar output"),
+    personas: [
+      {
+        title: l("Pemilik & pengelola aset", "Asset owners & managers"),
+        text: l(
+          "Lihat produksi, PR, dan penghematan semua site dalam satu ringkasan, dan bandingkan site berbeda ukuran lewat kWh/kWp.",
+          "See production, PR and savings for every site in one summary, and compare sites of different sizes through kWh/kWp.",
+        ),
+        icon: Building2,
+      },
+      {
+        title: l("Tim O&M", "O&M teams"),
+        text: l(
+          "Terima alarm lewat email atau Telegram, akui, lalu kerjakan tiket sesuai prioritas dan tenggat SLA.",
+          "Get alarms by email or Telegram, acknowledge them, then work through tickets by priority and SLA deadline.",
+        ),
+        icon: HardHat,
+      },
+      {
+        title: l("Manajemen & tim ESG", "Management & ESG teams"),
+        text: l(
+          "Unduh laporan bulanan PDF atau Excel, dan hitung CO₂ dihindari dengan faktor emisi grid yang resmi dipakai perusahaan.",
+          "Download the monthly report as PDF or Excel, and work out CO₂ avoided with the grid emission factor your company officially uses.",
+        ),
+        icon: ChartColumn,
+      },
+    ],
+    pricing: {
+      tiers: [
+        {
+          name: l("Implementasi", "Implementation"),
+          description: l(
+            "Disusun dari jumlah site dan inverter, merek inverter, dan kebutuhan integrasi data.",
+            "Scoped on the number of sites and inverters, the inverter brands and the data integration needed.",
+          ),
+          monthly: null,
+          customPrice: l("Hubungi sales", "Contact sales"),
+          customNote: l("Dihitung dari jumlah site, inverter, dan konektor vendor", "Quoted on sites, inverters and vendor connectors"),
+          cta: l("Hubungi sales", "Contact sales"),
+          limits: [
+            { label: l("Site", "Sites"), value: l("Satu atau banyak", "One or many") },
+            { label: l("Konektor", "Connectors"), value: l("GoodWe SEMS, SolisCloud", "GoodWe SEMS, SolisCloud") },
+            { label: l("Notifikasi", "Notifications"), value: l("Email & Telegram", "Email & Telegram") },
+          ],
+          includesFrom: l("Termasuk dalam implementasi:", "Included in the implementation:"),
+          features: [
+            l("Penyiapan konektor portal vendor", "Vendor portal connector setup"),
+            l("Data aset: kWp per inverter, string, dan garansi", "Asset data: kWp per inverter, strings and warranty"),
+            l("Aturan alarm dan tiket O&M", "Alarm rules and O&M tickets"),
+            l("Jadwal pemeliharaan", "Maintenance windows"),
+            l("Laporan bulanan PDF & Excel", "Monthly PDF & Excel reports"),
+            l("Pengguna, peran, dan log audit", "Users, roles and an audit log"),
+          ],
+        },
+      ],
+      compare: [],
+      notes: [
+        l("Konsultasi dan demo gratis", "Free consultation and demo"),
+        l("Penawaran disusun sesuai jumlah site dan inverter", "Quotes are scoped to your sites and inverters"),
+      ],
+    },
+    faq: [
+      {
+        question: l("Merek inverter apa yang didukung?", "Which inverter brands are supported?"),
+        answer: l(
+          "Saat ini tersedia konektor GoodWe SEMS dan SolisCloud, dan data diambil setiap 5 menit dari setiap konektor yang aktif. Untuk merek lain, tim kami mengecek ketersediaan API vendornya saat konsultasi.",
+          "Connectors for GoodWe SEMS and SolisCloud are available today, and data is pulled every 5 minutes from each active connector. For other brands, our team checks what the vendor's API offers during the consultation.",
+        ),
+      },
+      {
+        question: l("Apakah harus memasang sensor irradiance di lokasi?", "Do we need an irradiance sensor on site?"),
+        answer: l(
+          "Tidak wajib. Selama sensor lokal belum terpasang, PR dihitung dengan irradiance satelit dari Open-Meteo, dan angka PR diberi label \"satelit\" supaya sumbernya jelas.",
+          "No. Until a local sensor is installed, PR is calculated from Open-Meteo satellite irradiance, and the PR figure carries a \"satellite\" label so its source is clear.",
+        ),
+      },
+      {
+        question: l("Bagaimana CO₂ dihindari dihitung?", "How is CO₂ avoided calculated?"),
+        answer: l(
+          "Dari energi yang diproduksi dan faktor emisi grid yang Anda isi di Pengaturan. Estimasi manfaat lingkungan dari portal vendor tetap ditampilkan terpisah dan tidak dipakai untuk angka resmi.",
+          "From the energy produced and the grid emission factor you enter in Settings. The vendor portal's own environmental estimate is shown separately and is not used for the official figure.",
+        ),
+      },
+      {
+        question: l("Bagaimana saat modul sedang dibersihkan atau diperbaiki?", "What happens while modules are being cleaned or repaired?"),
+        answer: l(
+          "Buat jadwal pemeliharaan untuk seluruh site atau inverter tertentu. Selama periode itu alarm tetap tercatat, tetapi tidak mengirim notifikasi dan tidak membuat tiket otomatis.",
+          "Set a maintenance window for the whole site or for specific inverters. During that window alarms are still recorded, but they send no notifications and open no tickets.",
+        ),
+      },
+      {
+        question: l("Amankah kredensial portal vendor kami?", "Are our vendor portal credentials safe?"),
+        answer: l(
+          "Kredensial disimpan terenkripsi dan tidak pernah ditampilkan ulang setelah disimpan. Kami menyarankan akun portal khusus yang hanya bisa melihat data, bukan akun pemilik.",
+          "Credentials are stored encrypted and never shown again once saved. We recommend a dedicated view-only portal account rather than the owner's account.",
+        ),
+      },
+      {
+        question: l("Seperti apa sesi demonya?", "What happens in the demo?"),
+        answer: l(
+          "Sekitar 60 menit, online atau tatap muka. Kami tunjukkan alur dari data inverter sampai laporan bulanan, lalu membahas site, merek inverter, dan cara tim O&M Anda bekerja.",
+          "About 60 minutes, online or in person. We walk from inverter data through to the monthly report, then talk through your sites, inverter brands and how your O&M team works.",
+        ),
+      },
+    ],
+  },
+};
+
+const notulindo: Product = {
+  slug: "notulindo",
+  name: "Notulindo",
+  shortName: "Notulindo",
+  category: l("Notulen rapat · AI", "Meeting minutes · AI"),
+  tagline: l(
+    "Rekam rapat, dapatkan draf notulen resmi, lalu kawal tindak lanjutnya sampai selesai.",
+    "Record the meeting, get a draft of the official minutes, then see every action item through.",
+  ),
+  accent: "35 80 194",
+  appHost: "notulindo.aftech.co.id",
+  appUrl: "https://notulindo.aftech.co.id/",
+  cover: ntMinutes,
+  page: {
+    seoTitle: l(
+      "Notulindo: Aplikasi Notulen Rapat Otomatis & Tindak Lanjut",
+      "Notulindo: Automatic Meeting Minutes & Action Item Tracking",
+    ),
+    seoDescription: l(
+      "Notulindo merekam rapat online dan tatap muka, menyusun draf notulen resmi dari transkrip, mencatat usulan dan keputusan per pembicara, dan mengingatkan PIC sampai tugas selesai. Jadwalkan demo.",
+      "Notulindo records online and in-person meetings, drafts the official minutes from the transcript, logs proposals and decisions per speaker, and reminds owners until each task is done. Book a demo.",
+    ),
+    headline: l("Rapat selesai, draf notulennya sudah menunggu.", "The meeting ends, and the draft minutes are waiting."),
+    intro: l(
+      "Notulindo merekam rapat online maupun tatap muka, menyusun draf notulen resmi dari transkripnya, dan memisahkan usulan, pertanyaan, dan keputusan lengkap dengan menit rekamannya. Notulis memeriksa, pimpinan menyetujui, dan setiap tindak lanjut punya PIC serta tenggat.",
+      "Notulindo records online and in-person meetings, drafts the official minutes from the transcript, and separates proposals, questions and decisions, each with its minute in the recording. The note-taker reviews, the chair approves, and every action item has an owner and a deadline.",
+    ),
+    heroImage: ntMinutes,
+    heroBadges: [
+      { value: l("Draf → Final", "Draft → Final"), label: l("Notulis memeriksa, pimpinan menyetujui", "The note-taker reviews, the chair approves") },
+      { value: l("Menit rekaman", "Recording timestamps"), label: l("Setiap poin bisa diputar dari saat diucapkan", "Every point plays back from the moment it was said") },
+      { value: l("PDF & Word", "PDF & Word"), label: l("Notulen siap cetak atau disunting", "Minutes ready to print or edit") },
+    ],
+    highlights: [
+      { value: l("Online & tatap muka", "Online & in person"), label: l("Meet, Zoom, Teams, atau check-in QR", "Meet, Zoom, Teams or QR check-in") },
+      { value: l("Draf dari transkrip", "Drafted from the transcript"), label: l("Ringkasan, pembahasan, dan tindak lanjut", "Summary, discussion and action items") },
+      { value: l("Tanya arsip", "Ask the archive"), label: l("Jawaban dengan sumber rapatnya", "Answers that cite the meeting") },
+      { value: l("Retensi data", "Data retention"), label: l("Audio dan transkrip terhapus sesuai kebijakan", "Audio and transcripts deleted on schedule") },
+    ],
+    compare: {
+      title: l("Dari catatan tangan dan chat ke notulen yang bisa ditelusuri", "From handwritten notes and chat threads to minutes you can trace"),
+      before: [
+        l("Notulis mencatat sambil ikut rapat, dan notulen baru beredar beberapa hari kemudian.", "The note-taker writes while taking part, and the minutes go out days later."),
+        l("Siapa mengusulkan apa sulit dibuktikan tanpa memutar ulang seluruh rekaman.", "Who proposed what is hard to prove without replaying the whole recording."),
+        l("Tindak lanjut tercecer di chat tanpa PIC dan tenggat yang jelas.", "Action items scatter across chats with no clear owner or deadline."),
+        l("Mencari keputusan rapat lama berarti membuka banyak file satu per satu.", "Finding an old decision means opening file after file."),
+      ],
+      after: [
+        l("Draf notulen disusun dari transkrip setelah rapat, lalu diperiksa notulis dan disetujui pimpinan.", "Draft minutes are written from the transcript after the meeting, then reviewed by the note-taker and approved by the chair."),
+        l("Usulan, pertanyaan, keberatan, dan keputusan tercatat per pembicara, dengan menit yang memutar rekaman tepat saat poin diucapkan.", "Proposals, questions, objections and decisions are logged per speaker, with a timestamp that plays the recording from that point."),
+        l("Setiap tindak lanjut punya PIC dan tenggat, dan yang belum jelas ditandai untuk dikonfirmasi.", "Every action item has an owner and a deadline, and anything unclear is flagged for confirmation."),
+        l("Arsip mencari kata di semua transkrip dan notulen, dan bisa ditanya dengan bahasa biasa.", "The archive searches every transcript and set of minutes, and answers questions in plain language."),
+      ],
+    },
+    flow: {
+      title: l("Dari undangan sampai tugas selesai", "From invitation to task done"),
+      description: l(
+        "Data rapat mengisi kepala notulen, transkrip mengisi isinya, dan notulen yang disetujui menghasilkan tugas yang dipantau sampai selesai.",
+        "Meeting details fill the minutes' header, the transcript fills the body, and approved minutes produce tasks that are tracked until done.",
+      ),
+      steps: [
+        { name: l("Jadwalkan", "Schedule"), detail: l("Judul, waktu, tempat, pimpinan, notulis, peserta, dan agenda.", "Title, time, place, chair, note-taker, participants and agenda."), icon: CalendarPlus },
+        { name: l("Hadir", "Attend"), detail: l("Check-in QR untuk rapat tatap muka, keterlambatan tercatat.", "QR check-in for in-person meetings, with late arrivals recorded."), icon: QrCode },
+        { name: l("Rekam", "Record"), detail: l("Rekam dari aplikasi atau impor transkrip Zoom, Meet, Teams.", "Record in the app or import a Zoom, Meet or Teams transcript."), icon: Mic },
+        { name: l("Draf notulen", "Draft minutes"), detail: l("Ringkasan, pembahasan per agenda, usulan, dan keputusan.", "Summary, discussion per agenda item, proposals and decisions."), icon: FileText },
+        { name: l("Setujui", "Approve"), detail: l("Notulis menyunting, pimpinan menyetujui, notulen terkunci.", "The note-taker edits, the chair approves, the minutes are locked."), icon: FileCheck },
+        { name: l("Tindak lanjut", "Follow up"), detail: l("Tugas dengan PIC dan tenggat, plus pengingat.", "Tasks with an owner and a deadline, plus reminders."), icon: ListChecks },
+        { name: l("Arsip", "Archive"), detail: l("Cari kata atau tanya arsip dengan bahasa biasa.", "Search for a word or ask the archive in plain language."), icon: Search },
+      ],
+    },
+    modulesTitle: l("Lihat isi aplikasinya", "Take a look inside"),
+    modules: [
+      {
+        name: l("Notulen", "Minutes"),
+        summary: l(
+          "Notulen dengan kepala resmi: hari dan tanggal, waktu, tempat, pimpinan, notulis, peserta, dan agenda, diikuti ringkasan dan pembahasan per agenda. Statusnya berjalan dari draf, menunggu persetujuan, sampai final.",
+          "Minutes with an official header (date, time, place, chair, note-taker, participants and agenda) followed by a summary and the discussion per agenda item. Status runs from draft to awaiting approval to final.",
+        ),
+        points: [
+          l("Panel \"Perlu dicek\" menandai PIC, tenggat, atau pembicara yang belum jelas", "A \"Needs checking\" panel flags unclear owners, deadlines or speakers"),
+          l("Unduh PDF siap cetak atau Word yang bisa disunting", "Download a print-ready PDF or an editable Word file"),
+          l("Pemutar rekaman menempel di bawah notulen", "The recording player stays pinned beneath the minutes"),
+        ],
+        image: ntMinutes,
+      },
+      {
+        name: l("Usulan & keputusan", "Proposals & decisions"),
+        summary: l(
+          "Kontribusi peserta dipisah menjadi usulan, pertanyaan, keberatan, persetujuan, dan keputusan, masing-masing dengan pembicara, agenda, dan menit rekamannya.",
+          "Contributions are split into proposals, questions, objections, approvals and decisions, each with its speaker, agenda item and minute in the recording.",
+        ),
+        points: [
+          l("Tombol menit memutar rekaman tepat saat poin diucapkan", "The timestamp button plays the recording from that point"),
+          l("Status usulan dan komentar per poin", "A status and comments for every proposal"),
+          l("Label pembicara dipetakan ke nama peserta", "Speaker labels mapped to participants' names"),
+        ],
+        image: ntProposals,
+      },
+      {
+        name: l("Tindak lanjut", "Action items"),
+        summary: l(
+          "Tugas diambil dari notulen lengkap dengan PIC dan tenggat. Bila transkrip tidak menyebut keduanya dengan jelas, tugas ditandai untuk dikonfirmasi beserta alasannya.",
+          "Tasks are taken from the minutes with an owner and a deadline. When the transcript does not state either clearly, the task is flagged for confirmation with the reason.",
+        ),
+        points: [
+          l("Pengingat ke PIC sehari sebelum dan pada hari tenggat", "Reminders to the owner the day before and on the due date"),
+          l("Menit rekaman tempat tugas disebut", "The minute in the recording where the task was raised"),
+          l("Daftar tugas pribadi dan seluruh organisasi", "Personal and organisation-wide task lists"),
+        ],
+        image: ntFollowUps,
+      },
+      {
+        name: l("Jadwalkan rapat", "Schedule a meeting"),
+        summary: l(
+          "Data rapat langsung mengisi kepala notulen resmi. Pilih rapat online di Google Meet, Zoom, atau Teams, atau rapat tatap muka dengan check-in QR dan perekaman dari HP.",
+          "Meeting details fill the official minutes' header directly. Choose an online meeting on Google Meet, Zoom or Teams, or an in-person one with QR check-in and recording from a phone.",
+        ),
+        points: [
+          l("Peserta yang check-in lewat batas tercatat terlambat", "Participants who check in past the cut-off are marked late"),
+          l("Rapat yang sudah lewat tetap bisa dicatat", "Meetings that already happened can still be recorded"),
+          l("Peran pimpinan, notulis, dan peserta", "Chair, note-taker and participant roles"),
+        ],
+        image: ntSchedule,
+      },
+      {
+        name: l("Arsip rapat", "Meeting archive"),
+        summary: l(
+          "Cari kata di semua transkrip dan notulen, atau tanyakan dengan bahasa biasa. Jawaban hanya diambil dari rapat yang boleh Anda lihat, lengkap dengan sumbernya.",
+          "Search every transcript and set of minutes, or ask a question in plain language. Answers come only from meetings you are allowed to see, with their sources.",
+        ),
+        points: [
+          l("Hasil menunjuk ke rapat, pembicara, dan menit", "Results point to the meeting, the speaker and the minute"),
+          l("Contoh: \"Siapa yang pertama mengusulkan pindah vendor server?\"", "For example: \"Who first proposed switching server vendors?\""),
+          l("Masa simpan audio dan transkrip diatur organisasi", "Audio and transcript retention set by the organisation"),
+        ],
+        image: ntArchive,
+      },
+    ],
+    personasTitle: l("Dibuat untuk organisasi yang bekerja dengan notulen resmi", "Built for organisations that run on official minutes"),
+    personas: [
+      {
+        title: l("Sekretariat & notulis", "Secretariats & note-takers"),
+        text: l(
+          "Tidak perlu mengetik sambil rapat. Periksa draf, petakan pembicara, lalu kirim untuk disetujui.",
+          "No more typing through the meeting. Review the draft, map the speakers, then send it for approval.",
+        ),
+        icon: PenLine,
+      },
+      {
+        title: l("Pimpinan & direksi", "Chairs & directors"),
+        text: l(
+          "Setujui notulen dari draf yang sudah rapi, dan pantau tindak lanjut tanpa menanyakannya satu per satu.",
+          "Approve minutes from a tidy draft, and track action items without chasing each one.",
+        ),
+        icon: Briefcase,
+      },
+      {
+        title: l("Instansi & BUMN", "Agencies & state-owned enterprises"),
+        text: l(
+          "Kepala notulen resmi, daftar hadir, log audit, dan kebijakan retensi data untuk rapat yang harus dipertanggungjawabkan.",
+          "An official minutes header, attendance list, audit log and data retention policy for meetings that must be accounted for.",
+        ),
+        icon: Landmark,
+      },
+    ],
+    pricing: {
+      tiers: [
+        {
+          name: l("Implementasi", "Implementation"),
+          description: l(
+            "Disusun dari jumlah anggota, volume rapat per bulan, dan kebutuhan integrasi organisasi Anda.",
+            "Scoped on the number of members, meetings per month and the integrations your organisation needs.",
+          ),
+          monthly: null,
+          customPrice: l("Hubungi sales", "Contact sales"),
+          customNote: l("Dihitung dari jumlah anggota dan volume rapat", "Quoted on members and meeting volume"),
+          cta: l("Hubungi sales", "Contact sales"),
+          limits: [
+            { label: l("Rapat", "Meetings"), value: l("Online & tatap muka", "Online & in person") },
+            { label: l("Ekspor", "Export"), value: l("PDF & Word", "PDF & Word") },
+            { label: l("Organisasi", "Organisation"), value: l("Anggota, tim, dan peran", "Members, teams and roles") },
+          ],
+          includesFrom: l("Termasuk dalam implementasi:", "Included in the implementation:"),
+          features: [
+            l("Perekaman dan impor transkrip", "Recording and transcript import"),
+            l("Draf notulen dari transkrip", "Draft minutes from the transcript"),
+            l("Usulan, pertanyaan, dan keputusan per pembicara", "Proposals, questions and decisions per speaker"),
+            l("Tindak lanjut dengan PIC, tenggat, dan pengingat", "Action items with owners, deadlines and reminders"),
+            l("Arsip yang bisa dicari dan ditanya", "An archive you can search and question"),
+            l("Kebijakan retensi dan log audit", "Retention policy and audit log"),
+          ],
+        },
+      ],
+      compare: [],
+      notes: [
+        l("Konsultasi dan demo gratis", "Free consultation and demo"),
+        l("Penawaran disusun sesuai jumlah anggota dan rapat", "Quotes are scoped to your members and meetings"),
+      ],
+      quoteDesc: l(
+        "Setiap implementasi disesuaikan dengan jumlah anggota, volume rapat, dan integrasi yang organisasi Anda butuhkan. Hubungi tim kami untuk penawaran, diawali demo gratis.",
+        "Every implementation is scoped to your members, your meeting volume and the integrations your organisation needs. Talk to our team for a quote, starting with a free demo.",
+      ),
+    },
+    faq: [
+      {
+        question: l("Apakah rapat harus direkam lewat Notulindo?", "Do meetings have to be recorded in Notulindo?"),
+        answer: l(
+          "Tidak. Rapat bisa direkam dari aplikasi, termasuk dari HP untuk rapat tatap muka, atau Anda mengimpor file transkrip .vtt, .srt, atau .txt dari Zoom, Google Meet, atau Microsoft Teams.",
+          "No. Meetings can be recorded in the app, including from a phone for in-person meetings, or you can import a .vtt, .srt or .txt transcript from Zoom, Google Meet or Microsoft Teams.",
+        ),
+      },
+      {
+        question: l("Apakah notulen langsung jadi tanpa diperiksa?", "Are the minutes published without review?"),
+        answer: l(
+          "Tidak. Draf disusun AI dari transkrip, lalu notulis memeriksa dan menyuntingnya, dan pimpinan rapat menyetujuinya. Notulen baru terkunci setelah disetujui.",
+          "No. The AI drafts them from the transcript, the note-taker reviews and edits, and the chair approves. Minutes are locked only once approved.",
+        ),
+      },
+      {
+        question: l("Bagaimana kalau transkrip tidak menyebut PIC atau tenggat?", "What if the transcript names no owner or deadline?"),
+        answer: l(
+          "Tugas tetap dibuat, tetapi ditandai perlu dikonfirmasi beserta alasannya, misalnya penanggung jawab tidak disebut jelas. Notulis melengkapinya sebelum notulen disetujui.",
+          "The task is still created, but flagged for confirmation with the reason, for example that no owner was named clearly. The note-taker fills it in before the minutes are approved.",
+        ),
+      },
+      {
+        question: l("Berapa lama rekaman disimpan?", "How long are recordings kept?"),
+        answer: l(
+          "Sesuai kebijakan organisasi. Admin menentukan masa simpan audio dan transkrip, data yang lewat masa simpan dihapus otomatis setiap malam, dan notulen tetap tersimpan. Peserta juga bisa mengajukan permintaan hapus data suara dari halaman profil.",
+          "As your organisation decides. Admins set how long audio and transcripts are kept, anything past that is deleted automatically each night, and the minutes stay. Participants can also request deletion of their voice data from their profile.",
+        ),
+      },
+      {
+        question: l("Siapa yang bisa memutar atau mengunduh rekaman?", "Who can play or download recordings?"),
+        answer: l(
+          "Pemilik rapat, notulis, admin, dan auditor selalu bisa memutar rekaman. Organisasi menentukan apakah peserta juga boleh memutar, dan mengunduh audio hanya bisa dilakukan admin dan pemilik rapat.",
+          "The meeting owner, note-taker, admins and auditors can always play recordings. The organisation decides whether participants may too, and only admins and the meeting owner can download audio.",
+        ),
+      },
+      {
+        question: l("Seperti apa sesi demonya?", "What happens in the demo?"),
+        answer: l(
+          "Sekitar 60 menit, online atau tatap muka. Kami tunjukkan satu rapat dari undangan, rekaman, draf notulen, sampai tindak lanjut, lalu membahas cara rapat di organisasi Anda berjalan.",
+          "About 60 minutes, online or in person. We follow one meeting from invitation and recording to draft minutes and action items, then talk through how meetings run in your organisation.",
+        ),
+      },
+    ],
+  },
+};
+
+export const products: Product[] = [mk, eptms, erp, nexoraHealth, notulindo, pltsMonitoring, blueCarbon, photogrammetry, aiFarm];
 
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);

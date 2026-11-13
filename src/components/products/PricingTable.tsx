@@ -45,7 +45,7 @@ export default function PricingTable({
         <SectionHeading
           eyebrow={t("prod.pricing.eyebrow")}
           title={t(quoteOnly ? "prod.pricing.quoteTitle" : "prod.pricing.title")}
-          description={t(quoteOnly ? "prod.pricing.quoteDesc" : "prod.pricing.desc")}
+          description={quoteOnly ? (pricing.quoteDesc?.[lang] ?? t("prod.pricing.quoteDesc")) : t("prod.pricing.desc")}
           align="center"
         />
 
