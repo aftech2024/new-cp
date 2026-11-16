@@ -1,0 +1,69 @@
+{
+  "slug": "kabar-teknologi-2026-11-16",
+  "date": "2026-11-16",
+  "title": "Kabar Teknologi 16 November 2026: Alat Peretasan AI ARTEX, Pembobolan Cursor, 52 Celah PostgreSQL",
+  "description": "FBI soroti alat peretasan AI ARTEX, Cursor akui ekstensi Claude Code berbahaya, PostgreSQL tambal 52 celah, KEV CISA, dan serangan AMD SEV-SNP.",
+  "items": [
+    {
+      "category": "security",
+      "headline": "FBI: Alat peretasan berbasis AI ARTEX dipakai dalam serangan siber global",
+      "summary": "FBI merilis advisori FLASH bahwa berbagai pelaku ancaman memanfaatkan ARTEX, framework penetration testing open source berbasis agen AI, sejak Agustus 2026 untuk menyerang sektor keuangan, pemerintahan, kesehatan, dan lainnya. Sebagian intrusi mencapai akses istimewa dalam kurang dari tiga jam, termasuk serangan rantai pasok ConnectWise terhadap tenant Microsoft 365.",
+      "whyItMatters": "Periksa aplikasi yang terekspos ke internet, portal mitra, dan integrasi pihak ketiga; batasi akses antarmuka admin cloud, terapkan rate limit pada API sensitif, dan pantau lonjakan permintaan otomatis.",
+      "source": {
+        "name": "BleepingComputer",
+        "url": "https://www.bleepingcomputer.com/news/security/fbi-warns-artex-ai-hacking-tool-is-powering-global-cyberattacks",
+        "publishedAt": "2026-11-15T18:29:53.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "Cursor akui pembobolan berujung ekstensi Claude Code berbahaya di marketplace",
+      "summary": "Cursor mengonfirmasi peretas mencuri kunci akses yang tersimpan di Fireworks AI, lalu mengakses data internal berisi kredensial API. Dengan kredensial curian, mereka memasang salinan berbahaya ekstensi Claude Code (versi 2.1.312 dan 2.1.313) selama sekitar 11 jam pada 29 Oktober, berpotensi menjangkau hingga 5.000 pengembang dengan backdoor SSH.",
+      "whyItMatters": "Tim pengembang perlu memeriksa versi ekstensi yang terpasang, mengaudit kunci SSH tak dikenal, serta meninjau kredensial yang tersimpan di penyedia AI pihak ketiga dan log agen coding.",
+      "source": {
+        "name": "BleepingComputer",
+        "url": "https://www.bleepingcomputer.com/news/security/cursor-confirms-security-breach-led-to-malicious-claude-code-extension",
+        "publishedAt": "2026-11-14T17:27:25.000Z"
+      }
+    },
+    {
+      "category": "software",
+      "headline": "PostgreSQL tambal 52 celah, termasuk bug berusia 22 tahun yang memungkinkan RCE",
+      "summary": "Pembaruan PostgreSQL memperbaiki 52 celah keamanan, salah satunya CVE-2026-6460 (CVSS 8.8), yakni type confusion yang memungkinkan pengguna database dengan hak membuat objek menjalankan kode di server. Perlindungan penuh juga mensyaratkan kompilasi ulang ekstensi berbahasa C yang terpasang.",
+      "whyItMatters": "Jadwalkan pembaruan PostgreSQL, tinjau pengguna yang memiliki hak membuat objek, dan pastikan ekstensi C dibangun ulang setelah upgrade.",
+      "source": {
+        "name": "The Hacker News",
+        "url": "https://thehackernews.com/2026/11/postgresql-patches-52-flaws-including.html",
+        "publishedAt": "2026-11-13T16:53:08.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "CISA tambahkan celah UnrealIRCd dan Check Point ke katalog KEV",
+      "summary": "CISA memasukkan CVE-2026-114713 pada UnrealIRCd dan CVE-2026-123039 pada sejumlah produk Check Point ke katalog Known Exploited Vulnerabilities berdasarkan bukti eksploitasi aktif. CISA juga mendorong semua organisasi menerapkan manajemen kerentanan berbasis risiko.",
+      "whyItMatters": "Organisasi pengguna produk Check Point perlu segera memeriksa paparan dan menerapkan mitigasi, serta menjadikan katalog KEV acuan prioritas patch.",
+      "source": {
+        "name": "CISA",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/11/13/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+        "publishedAt": "2026-11-13T12:00:00.000Z"
+      }
+    },
+    {
+      "category": "cloud",
+      "headline": "Serangan Mior dan Skyfall tembus perlindungan VM AMD SEV-SNP dari sisi host",
+      "summary": "Peneliti mengungkap dua serangan yang memungkinkan host jahat membaca data di dalam VM yang dilindungi AMD SEV-SNP, teknologi untuk menjauhkan operator server dari isi VM. Mior juga dapat mengubah memori VM dan memalsukan laporan attestation. Keduanya memerlukan kendali atas hypervisor, sedangkan Mior juga butuh kendali BIOS.",
+      "whyItMatters": "Organisasi yang mengandalkan confidential computing di cloud perlu menimbang ulang asumsi kepercayaan terhadap penyedia infrastruktur dan memantau tanggapan resmi atas temuan ini.",
+      "source": {
+        "name": "The Hacker News",
+        "url": "https://thehackernews.com/2026/11/new-mior-and-skyfall-attacks-let-rogue.html",
+        "publishedAt": "2026-11-13T15:27:05.000Z"
+      }
+    }
+  ],
+  "aftechNote": null,
+  "meta": {
+    "model": "claude-opus-5-5",
+    "generatedAt": "2026-11-16T02:36:46.222Z",
+    "reviewed": false
+  }
+}
