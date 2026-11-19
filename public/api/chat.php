@@ -8,7 +8,8 @@
  * scripts/prerender.ts) and refuses everything else.
  *
  * If Anthropic fails (network error, rate limit, overload, no credit) or has no
- * key, the same conversation goes to an OpenAI-compatible fallback (9router).
+ * key, the same conversation goes to an OpenAI-compatible fallback (9router),
+ * trying its models in order until one answers.
  *
  * Questions the knowledge could not answer are appended to
  * aftech-chat-gaps.jsonl one level ABOVE public_html (question and answer only,
@@ -51,7 +52,11 @@ $SECRET_FILE = dirname(__DIR__, 2) . '/aftech-chat-secret.php';
 $UPSTREAM_TIMEOUT_SECONDS = 30; // per provider, so the fallback still answers in reasonable time
 // Fallback: any OpenAI-compatible /chat/completions endpoint.
 $FALLBACK_BASE_URL = 'https://9router.aftech.co.id/api/v1';
-$FALLBACK_MODEL = 'kr/claude-haiku-4.5';
+// Tried in order; the first non-empty reply wins. Claude via Kiro stays first so
+// it takes over again once the router supports Kiro. Llama 3.3 70B answers in a
+// few seconds with the whole knowledge file in context; slower reasoning models
+// do not fit $UPSTREAM_TIMEOUT_SECONDS or the $MAX_OUTPUT_TOKENS budget.
+$FALLBACK_MODELS = ['kr/claude-haiku-4.5', 'cf/@cf/meta/llama-3.3-70b-instruct-fp8-fast'];
 $FALLBACK_SECRET_FILE = dirname(__DIR__, 2) . '/aftech-chat-fallback-secret.php';
 $GAP_LOG_FILE = dirname(__DIR__, 2) . '/aftech-chat-gaps.jsonl';
 // -------------------------------------------------------------------------
@@ -346,17 +351,22 @@ if ($apiKey !== '') {
     $truncated = ($data['stop_reason'] ?? '') === 'max_tokens';
 }
 if (trim($reply) === '' && $fallbackKey !== '') {
-    $data = postJson('fallback', rtrim($FALLBACK_BASE_URL, '/') . '/chat/completions', [
-        'authorization: Bearer ' . $fallbackKey,
-    ], [
-        'model' => $FALLBACK_MODEL,
-        'max_tokens' => $MAX_OUTPUT_TOKENS,
-        'stream' => false,
-        'messages' => toOpenAiMessages($system, $messages),
-    ], $UPSTREAM_TIMEOUT_SECONDS);
-    $choice = $data['choices'][0] ?? [];
-    $reply = is_string($choice['message']['content'] ?? null) ? $choice['message']['content'] : '';
-    $truncated = ($choice['finish_reason'] ?? '') === 'length';
+    foreach ($FALLBACK_MODELS as $fallbackModel) {
+        $data = postJson("fallback $fallbackModel", rtrim($FALLBACK_BASE_URL, '/') . '/chat/completions', [
+            'authorization: Bearer ' . $fallbackKey,
+        ], [
+            'model' => $fallbackModel,
+            'max_tokens' => $MAX_OUTPUT_TOKENS,
+            'stream' => false,
+            'messages' => toOpenAiMessages($system, $messages),
+        ], $UPSTREAM_TIMEOUT_SECONDS);
+        $choice = $data['choices'][0] ?? [];
+        $reply = is_string($choice['message']['content'] ?? null) ? $choice['message']['content'] : '';
+        $truncated = ($choice['finish_reason'] ?? '') === 'length';
+        if (trim($reply) !== '') {
+            break;
+        }
+    }
 }
 $reply = trim($reply);
 

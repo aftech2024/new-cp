@@ -19,7 +19,16 @@ export const MODEL = "claude-opus-5-5";
 // Fallback: any OpenAI-compatible /chat/completions endpoint, used when the
 // Anthropic call fails and FALLBACK_API_KEY is set. Same router as the chat assistant.
 const FALLBACK_BASE_URL = "https://9router.aftech.co.id/api/v1";
-const FALLBACK_MODEL = "kr/claude-sonnet-4.5";
+// Tried in order: a model that errors, times out or keeps returning invalid JSON
+// hands over to the next. Claude via Kiro stays first so it takes over again as
+// soon as the router supports Kiro; the router's other providers retire models
+// often, so check this list against /models when a run reports all of them failing.
+const FALLBACK_MODELS = [
+  { model: "kr/claude-sonnet-4.5", maxTokens: 16000 },
+  { model: "aftechcombo", maxTokens: 16000 },
+  // About 24k tokens of context on Cloudflare, so it gets a smaller output budget.
+  { model: "cf/@cf/meta/llama-3.3-70b-instruct-fp8-fast", maxTokens: 4096 },
+];
 const FALLBACK_TIMEOUT_MS = 300_000;
 
 let client: Anthropic | null = null;
@@ -37,9 +46,7 @@ async function ask<T extends z.ZodType>(
     return await askClaude(label, schema, system, user, effort);
   } catch (error) {
     if (!process.env.FALLBACK_API_KEY) throw error;
-    console.log(
-      annotation("warning", `[${label}] Anthropic failed (${(error as Error).message}) — retrying on ${FALLBACK_MODEL}`),
-    );
+    console.log(annotation("warning", `[${label}] Anthropic failed (${(error as Error).message}); trying the 9router fallback`));
     return askFallback(label, schema, system, user);
   }
 }
@@ -74,15 +81,36 @@ async function askClaude<T extends z.ZodType>(
   return { data: response.parsed_output as z.infer<T>, model: response.model };
 }
 
-/**
- * The router ignores response_format, so the schema goes into the prompt and
- * the reply is validated here; one invalid reply gets a second chance.
- */
 async function askFallback<T extends z.ZodType>(
   label: string,
   schema: T,
   system: string,
   user: string,
+): Promise<{ data: z.infer<T>; model: string }> {
+  const failures: string[] = [];
+  for (const { model, maxTokens } of FALLBACK_MODELS) {
+    try {
+      return await askFallbackModel(label, schema, system, user, model, maxTokens);
+    } catch (error) {
+      const message = (error as Error).message.slice(0, 300);
+      failures.push(`${model}: ${message}`);
+      console.log(annotation("warning", `[${label}] fallback ${model} failed (${message})`));
+    }
+  }
+  throw new Error(`${label}: every fallback model failed. ${failures.join(" | ")}`);
+}
+
+/**
+ * The router ignores response_format, so the schema goes into the prompt and
+ * the reply is validated here; one invalid reply gets a second chance.
+ */
+async function askFallbackModel<T extends z.ZodType>(
+  label: string,
+  schema: T,
+  system: string,
+  user: string,
+  model: string,
+  maxTokens: number,
 ): Promise<{ data: z.infer<T>; model: string }> {
   const messages = [
     {
@@ -95,7 +123,7 @@ async function askFallback<T extends z.ZodType>(
     const response = await fetch(`${FALLBACK_BASE_URL}/chat/completions`, {
       method: "POST",
       headers: { authorization: `Bearer ${process.env.FALLBACK_API_KEY}`, "content-type": "application/json" },
-      body: JSON.stringify({ model: FALLBACK_MODEL, max_tokens: 16000, stream: false, messages }),
+      body: JSON.stringify({ model, max_tokens: maxTokens, stream: false, messages }),
       signal: AbortSignal.timeout(FALLBACK_TIMEOUT_MS),
     });
     if (!response.ok) throw new Error(`${label}: fallback HTTP ${response.status} ${(await response.text()).slice(0, 300)}`);
@@ -106,7 +134,7 @@ async function askFallback<T extends z.ZodType>(
     const choice = body.choices?.[0];
     const content = typeof choice?.message?.content === "string" ? choice.message.content : "";
     console.log(
-      `[${label}] ${FALLBACK_MODEL} · ${body.usage?.prompt_tokens ?? "?"} in / ${body.usage?.completion_tokens ?? "?"} out · ${choice?.finish_reason}`,
+      `[${label}] ${model} · ${body.usage?.prompt_tokens ?? "?"} in / ${body.usage?.completion_tokens ?? "?"} out · ${choice?.finish_reason}`,
     );
     if (choice?.finish_reason === "length") throw new Error(`${label}: fallback reply cut off at max_tokens`);
 
@@ -114,7 +142,7 @@ async function askFallback<T extends z.ZodType>(
     try {
       const json = content.slice(content.indexOf("{"), content.lastIndexOf("}") + 1);
       const parsed = schema.safeParse(JSON.parse(json));
-      if (parsed.success) return { data: parsed.data, model: FALLBACK_MODEL };
+      if (parsed.success) return { data: parsed.data, model };
       problem = parsed.error.message;
     } catch (error) {
       problem = (error as Error).message;
