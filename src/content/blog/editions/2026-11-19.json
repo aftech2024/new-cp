@@ -1,0 +1,69 @@
+{
+  "slug": "kabar-teknologi-2026-11-19",
+  "date": "2026-11-19",
+  "title": "Kabar Teknologi 19 November 2026: Celah Kritis Java dan NGINX, Paket PyPI Microsoft Disusupi",
+  "description": "Patch darurat celah Java dan NGINX HTTP/2, paket PyPI Microsoft Agent Framework disusupi, empat CVE baru di katalog KEV CISA, dan rilis keamanan PHP.",
+  "items": [
+    {
+      "category": "security",
+      "headline": "CISA desak patch segera untuk celah kritis Java “Java4Shell” (CVE-2026-114938)",
+      "summary": "CISA meminta organisasi segera menambal CVE-2026-114938, celah memory corruption pada dekoder Base64 di HotSpot JVM x86-64 yang merupakan bagian dari JDK. Input Base64 yang dirancang khusus dapat membuat JVM crash dan memungkinkan eksekusi kode jarak jauh tanpa autentikasi. Panduan patch tersedia di Critical Security Patch Update Oracle November 2026.",
+      "whyItMatters": "Inventarisasi JDK dan Java runtime, termasuk yang terbundel di aplikasi pihak ketiga, container image, dan appliance. Prioritaskan sistem yang terhubung ke internet; bila belum bisa patch, batasi dan validasi input Base64.",
+      "source": {
+        "name": "CISA",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/11/17/critical-java-vulnerability-requires-immediate-patching",
+        "publishedAt": "2026-11-17T12:00:00.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "Celah NGINX HTTP/2 berusia 10 tahun memungkinkan eksekusi kode tanpa login",
+      "summary": "Kerentanan CVE-2026-123007 (“nginx2root”) pada dukungan HTTP/2 NGINX memungkinkan penyerang tanpa autentikasi menjalankan kode di server yang mengaktifkan HTTP/2. Celah ini ada di kode open source NGINX sejak versi 1.9.5 yang dirilis 22 September 2015. Versi perbaikan 1.31.9 dan 1.30.7 telah dirilis.",
+      "whyItMatters": "Periksa web server, reverse proxy, dan load balancer berbasis NGINX yang mengaktifkan HTTP/2, lalu segera perbarui ke versi 1.31.9 atau 1.30.7.",
+      "source": {
+        "name": "The Hacker News",
+        "url": "https://thehackernews.com/2026/11/10-year-old-nginx-http2-flaw-lets.html",
+        "publishedAt": "2026-11-18T18:31:17.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "Paket PyPI Microsoft Agent Framework disusupi untuk mencuri kredensial cloud",
+      "summary": "Penyerang menerbitkan versi 1.26.1 dan 1.26.2 paket resmi Microsoft Agent Framework di PyPI pada 17 November 2026. Keduanya berisi pencuri kredensial yang berjalan otomatis saat Python dijalankan, menyasar rahasia Azure, AWS, GitHub, Docker, Hugging Face, dan OpenAI. PyPI telah mengkarantina keduanya; cara penyerang memperoleh akses belum diketahui.",
+      "whyItMatters": "Cek apakah lingkungan developer atau CI/CD memasang versi 1.26.1/1.26.2. Jika ya, isolasi, bangun ulang dari versi 1.26.0, rotasi semua kredensial yang terjangkau, dan periksa log egress ke webhook[.]site.",
+      "source": {
+        "name": "BleepingComputer",
+        "url": "https://www.bleepingcomputer.com/news/security/microsofts-agent-framework-pypi-package-compromised-to-steal-credentials",
+        "publishedAt": "2026-11-18T16:58:42.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "CISA tambahkan empat kerentanan yang aktif dieksploitasi ke katalog KEV",
+      "summary": "CISA memasukkan empat CVE ke katalog Known Exploited Vulnerabilities berdasarkan bukti eksploitasi aktif: Synology DSM (CVE-2024-10441), BerriAI LiteLLM (CVE-2026-40217), Apache Axis (CVE-2026-90436), dan REDCap dari Vanderbilt University (CVE-2026-90817). CISA mendorong semua organisasi memprioritaskan perbaikannya.",
+      "whyItMatters": "Periksa apakah NAS Synology, LiteLLM, layanan Apache Axis, atau REDCap digunakan di organisasi Anda, lalu prioritaskan patch, terutama pada aset yang terekspos ke publik.",
+      "source": {
+        "name": "CISA",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/11/18/cisa-adds-four-known-exploited-vulnerabilities-catalog",
+        "publishedAt": "2026-11-18T12:00:00.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "PHP umumkan rilis keamanan untuk celah kritis di semua versi yang didukung",
+      "summary": "Pengelola PHP mengumumkan rilis keamanan pada 19 November 2026 pukul 14.00–14.30 UTC untuk menambal celah kritis yang memengaruhi seluruh versi PHP yang masih didukung. Rilis ini merupakan bagian dari siklus rilis rutin empat mingguan PHP.",
+      "whyItMatters": "Siapkan jadwal pembaruan untuk server web dan aplikasi berbasis PHP, serta identifikasi sistem yang masih memakai versi PHP di luar dukungan.",
+      "source": {
+        "name": "The Hacker News",
+        "url": "https://thehackernews.com/2026/11/php-warns-of-critical-security-flaws.html",
+        "publishedAt": "2026-11-19T04:33:46.000Z"
+      }
+    }
+  ],
+  "aftechNote": null,
+  "meta": {
+    "model": "claude-opus-5-5",
+    "generatedAt": "2026-11-19T06:20:32.608Z",
+    "reviewed": false
+  }
+}
