@@ -1,0 +1,69 @@
+{
+  "slug": "kabar-teknologi-2026-11-23",
+  "date": "2026-11-23",
+  "title": "Kabar Teknologi 23 November 2026: Celah Kritis nginx, Kerentanan Aktif di KEV CISA, Kebocoran Entra Connect",
+  "description": "Celah nginx2root dan bug kernel Linux, empat celah aktif dieksploitasi di katalog CISA, kebocoran Microsoft Entra, Rackspace Spot dibobol, agen AI penyerang.",
+  "items": [
+    {
+      "category": "cloud",
+      "headline": "Lima celah nginx2root ancam server nginx, bug kernel Linux bisa beri akses root",
+      "summary": "Pada 18 November 2026, F5 dan nginx.org mengungkap sepuluh kerentanan nginx. Lima di antaranya (nginx2root) adalah bug memory corruption yang memungkinkan penyerang tanpa autentikasi menghentikan worker atau, menurut Xint, menjalankan perintah di server. Bug kernel Linux pada SCTP dapat menaikkan akses menjadi root dan per 18 November belum ada perbaikannya.",
+      "whyItMatters": "Inventarisasi server nginx, terutama yang mengaktifkan HTTP/2 atau HTTP/3, lalu segera pasang pembaruan. Pantau rilis patch kernel dan periksa apakah modul SCTP dapat dimuat pada host yang tidak membutuhkannya.",
+      "source": {
+        "name": "Cloudflare Blog",
+        "url": "https://blog.cloudflare.com/nginx2root",
+        "publishedAt": "2026-11-20T01:58:29.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "CISA tambahkan empat celah yang aktif dieksploitasi, termasuk SAP dan vCenter",
+      "summary": "CISA memasukkan empat kerentanan ke katalog Known Exploited Vulnerabilities (KEV) berdasarkan bukti eksploitasi aktif: SAP NetWeaver (CVE-2025-42884), Cisco Expressway (CVE-2026-76466), VMware vCenter (CVE-2026-123890), dan Apache Roller (CVE-2026-129448). CISA mendorong semua organisasi memprioritaskan perbaikan kerentanan dalam katalog ini.",
+      "whyItMatters": "Organisasi yang memakai SAP NetWeaver, Cisco Expressway, VMware vCenter, atau Apache Roller perlu memverifikasi status patch, terutama pada aset yang terekspos ke internet.",
+      "source": {
+        "name": "CISA",
+        "url": "https://www.cisa.gov/news-events/alerts/2026/11/20/cisa-adds-four-known-exploited-vulnerabilities-catalog",
+        "publishedAt": "2026-11-20T12:00:00.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "Celah Microsoft Entra Connect Health dieksploitasi, metadata tenant bocor",
+      "summary": "Microsoft memberi tahu pelanggan bahwa celah pada API Entra Connect Health, yang muncul sejak 23 Juli dan ditemukan 9 November 2026, dieksploitasi untuk membaca alamat email administrator serta metadata konfigurasi tenant. Perbaikan di sisi server dipasang 19 November; menurut Microsoft, kata sandi, token autentikasi, dan kunci kriptografi valid tidak terekspos.",
+      "whyItMatters": "Tidak ada patch yang perlu dipasang, tetapi waspadai phishing terarah ke admin, pastikan akun istimewa memakai MFA tahan phishing, dan tinjau log audit serta sign-in Entra.",
+      "source": {
+        "name": "BleepingComputer",
+        "url": "https://www.bleepingcomputer.com/news/security/microsoft-entra-connect-health-flaw-exploited-to-steal-tenant-data",
+        "publishedAt": "2026-11-21T18:01:58.000Z"
+      }
+    },
+    {
+      "category": "cloud",
+      "headline": "Rackspace Spot dibobol lewat kredensial bocor, Kubernetes Secrets pelanggan terekspos",
+      "summary": "Rackspace menyatakan pihak tak berwenang memakai kredensial bocor untuk mengakses platform Kubernetes Rackspace Spot pada 17 November 2026. Penyerang dapat membuat pod, membaca Kubernetes Secrets, serta mengakses token API Spot milik pengguna terdampak. Konsol administrasi sempat lumpuh dan layanan dinyatakan pulih penuh pada 21 November.",
+      "whyItMatters": "Pengguna Spot perlu menerbitkan ulang token, mengunduh kubeconfig baru, merotasi kredensial di Secrets, dan memeriksa log layanan terkait sejak 17 November untuk mendeteksi penyalahgunaan.",
+      "source": {
+        "name": "BleepingComputer",
+        "url": "https://www.bleepingcomputer.com/news/security/rackspace-spot-breach-let-hackers-access-customer-kubernetes-secrets",
+        "publishedAt": "2026-11-21T22:59:58.000Z"
+      }
+    },
+    {
+      "category": "security",
+      "headline": "Agen AI penyerang temukan zero-day di MONAI Label dan raih akses root",
+      "summary": "Amazon Threat Intelligence melaporkan peretas yang diduga terkait Tiongkok memakai agen AI otonom untuk menemukan celah zero-day di MONAI Label, server pencitraan medis open source, lalu memperoleh akses root di server sebuah universitas. Celah ini memungkinkan penyerang tanpa akun menulis file di luar folder penyimpanan pada versi 0.8.5 ke bawah dengan konfigurasi bawaan.",
+      "whyItMatters": "Rumah sakit, kampus, dan lembaga riset pengguna MONAI Label perlu mengecek versi dan membatasi akses jaringannya. Kasus ini juga menunjukkan AI sudah dipakai penyerang untuk mencari celah baru.",
+      "source": {
+        "name": "The Hacker News",
+        "url": "https://thehackernews.com/2026/11/attackers-ai-agents-found-zero-day-in.html",
+        "publishedAt": "2026-11-21T11:03:17.000Z"
+      }
+    }
+  ],
+  "aftechNote": null,
+  "meta": {
+    "model": "claude-opus-5-5",
+    "generatedAt": "2026-11-23T03:34:36.145Z",
+    "reviewed": false
+  }
+}
